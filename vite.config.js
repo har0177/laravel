@@ -1,7 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel, { refreshPaths } from 'laravel-vite-plugin';
-import { alias } from 'laravel-mix';
-
 export default defineConfig({
     plugins: [
         laravel({
@@ -14,10 +12,5 @@ export default defineConfig({
                 'app/Http/Livewire/**',
             ],
         }),
-    ],
-    resolve : {
-        alias:{
-            '@': '/respirces/js'
-        }
-    }
+    ]
 });
