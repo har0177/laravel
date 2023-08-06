@@ -55,4 +55,9 @@ class User extends Authenticatable
   protected $appends = [
     'profile_photo_url',
   ];
+  
+  public function scopeActive( $query )
+  {
+    return $query->whereNotNull( 'email_verified_at' );
+  }
 }
