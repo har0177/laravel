@@ -15,6 +15,7 @@ class UserList extends Component
   public $search;
   public $sortBy  = 'id';
   public $sortAsc = true;
+  public $create  = false;
   
   protected $queryString = [
     'active',
@@ -24,9 +25,11 @@ class UserList extends Component
   ];
   
   #[Rule( 'required|min:2|max:50' )]
-  public $name     = '';
+  public $first_name = '';
+  #[Rule( 'required|min:2|max:50' )]
+  public $last_name = '';
   #[Rule( 'required|email|unique:users' )]
-  public $email    = '';
+  public $email = '';
   #[Rule( 'required|min:5' )]
   public $password = '';
   
@@ -35,7 +38,8 @@ class UserList extends Component
     $query = User::query();
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
-        $qq->where( 'name', 'LIKE', '%' . $this->search . '%' )
+        $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
+           ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->when( $this->active, function( $q ) {
@@ -52,11 +56,24 @@ class UserList extends Component
     return $this->resetPage();
   }
   
-  public function create()
+  public function add()
   {
-    dd( 'asdasd' );
+    $this->create = true;
+  }
+  
+  public function store()
+  {
     $validate = $this->validate();
     User::create( $validate );
+    $this->create = false;
+    $this->resetForm();
+    session()->flash( 'success', 'User added successfully.' );
+    
+  }
+  
+  public function resetForm()
+  {
+    $this->reset( [ 'first_name', 'last_name', 'email', 'password' ] );
   }
   
   public function deleteUser( User $user )
