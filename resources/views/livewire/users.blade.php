@@ -35,6 +35,24 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
+				<div>
+					<label for="username" class="block text-sm font-medium text-gray-700 mb-1">UserName</label>
+					<input id="username" name="username" type="text" wire:model.live="username"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="joe123">
+					@error('username')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
+				<div>
+					<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+					<input id="phone" name="phone" type="text" wire:model.live="phone"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="xxxxxxxxxxx">
+					@error('phone')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 				<!-- Email field -->
 				<div>
 					<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -119,6 +137,18 @@
 					</th>
 					<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
+							Username
+							<x-sorting name="username"/>
+						</div>
+					</th>
+					<th scope="col" class="px-6 py-3">
+						<div class="flex items-center">
+							Phone
+							<x-sorting name="phone"/>
+						</div>
+					</th>
+					<th scope="col" class="px-6 py-3">
+						<div class="flex items-center">
 							Email
 							<x-sorting name="email"/>
 						</div>
@@ -132,6 +162,8 @@
 						<td class="border px-4 py-2">{{ $user->id }}</td>
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+						<td class="border px-4 py-2">{{ $user->username }}</td>
+						<td class="border px-4 py-2">{{ $user->phone }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>
 						<td class="border px-4 py-2 inline-flex ">
 							<x-button class="ml-3" wire:click="edit({{$user->id}})" wire:loading.attr="disabled">
