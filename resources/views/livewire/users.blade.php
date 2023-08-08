@@ -6,8 +6,9 @@
 	@if($create)
 
 	<!-- Card Header -->
-		<div class="bg-indigo-600 py-4 px-6">
-			<h1 class="text-xl text-white font-semibold">Register a New User</h2>
+		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+			<h1 class="text-xl text-white font-semibold">{{$editUser ? 'Update User' : 'Add User'}}</h1>
+
 		</div>
 
 		<!-- Card Body -->
@@ -45,16 +46,17 @@
 					@enderror
 				</div>
 				<!-- Password field -->
-				<div>
-					<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-					<input id="password" name="password" type="password" wire:model.live="password"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="********">
-					@error('password')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-				</div>
-
+				@if(!$editUser)
+					<div>
+						<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+						<input id="password" name="password" type="password" wire:model.live="password"
+						       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+						       placeholder="********">
+						@error('password')
+						<span class="text-red-600 text-sm">{{ $message }}</span>
+						@enderror
+					</div>
+				@endif
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"
@@ -62,7 +64,9 @@
 				<span wire:loading wire:target="store">Saving...</span>
 				<span wire:loading.remove wire:target="store">Submit</span>
 			</button>
-
+			<x-button type="button" wire:click="toggleSection">
+				Reset
+			</x-button>
 
 		</form>
 
@@ -129,8 +133,8 @@
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>
-						<td class="px-4 inline-flex space-x-2">
-							<x-button>
+						<td class="border px-4 py-2 inline-flex ">
+							<x-button class="ml-3" wire:click="edit({{$user->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>
 

@@ -13,25 +13,27 @@ class UserList extends Component
   
   public $active;
   public $search;
-  public $sortBy  = 'id';
-  public $sortAsc = true;
-  public $create  = false;
+  public $sortBy   = 'id';
+  public $sortAsc  = true;
+  public $create   = false;
+  public $editUser = null;
   
   protected $queryString = [
     'active',
     'search',
     'sortBy' => [ 'except' => 'id' ],
-    'sortAsc'
+    'sortAsc',
+    'editUser'
   ];
   
   #[Rule( 'required|min:2|max:50' )]
   public $first_name = '';
   #[Rule( 'required|min:2|max:50' )]
-  public $last_name = '';
+  public $last_name  = '';
   #[Rule( 'required|email|unique:users' )]
-  public $email = '';
+  public $email      = '';
   #[Rule( 'required|min:5' )]
-  public $password = '';
+  public $password   = '';
   
   public function render()
   {
@@ -63,12 +65,41 @@ class UserList extends Component
   
   public function store()
   {
+    
+    if( $this->editUser ) {
+      $validate = $this->validate( [
+        'first_name' => 'required|min:2|max:50',
+        'last_name'  => 'required|min:2|max:50',
+        'email'      => 'required|email|unique:users,email,' . $this->editUser,
+      ] );
+      
+      User::where( 'id', $this->editUser )->update( $validate );
+      $this->toggleSection();
+      session()->flash( 'success', 'User updated successfully.' );
+      return;
+    }
+    
     $validate = $this->validate();
     User::create( $validate );
-    $this->create = false;
-    $this->resetForm();
+    $this->toggleSection();
     session()->flash( 'success', 'User added successfully.' );
-    
+  }
+  
+  public function edit( $id )
+  {
+    $this->editUser = $id;
+    $user = User::findOrFail( $id );
+    $this->first_name = $user->first_name;
+    $this->last_name = $user->last_name;
+    $this->email = $user->email;
+    $this->create = true;
+  }
+  
+  public function toggleSection()
+  {
+    $this->create = false;
+    $this->editUser = null;
+    $this->resetForm();
   }
   
   public function resetForm()
