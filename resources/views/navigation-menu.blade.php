@@ -15,9 +15,9 @@
 					<x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
 						{{ __('Dashboard') }}
 					</x-nav-link>
-					<x-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users.index') }}">Manage Users</x-nav-link>
-					<x-nav-link wire:navigate :active="request()->routeIs('roles')" href="{{ route('roles.index') }}">Manage Role</x-nav-link>
-					<x-nav-link wire:navigate :active="request()->routeIs('products')" href="{{ route('products.index') }}">Manage Product
+					<x-nav-link wire:navigate :active="request()->routeIs('roles')" href="{{ route('roles.index') }}">Manage Role
+					</x-nav-link>
+					<x-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users.index') }}">Manage Users
 					</x-nav-link>
 				</div>
 			</div>

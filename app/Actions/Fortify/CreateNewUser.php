@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
       'first_name' => [ 'required', 'string', 'max:255' ],
       'last_name'  => [ 'required', 'string', 'max:255' ],
       'email'      => [ 'string', 'email', 'max:255', 'unique:users' ],
-      'phone'      => [ 'required', 'string', 'unique:users' ],
+      'phone'      => [ 'required', 'numeric', 'digits:11', 'unique:users' ],
       'username'   => [ 'required', 'string', 'max:255', 'unique:users' ],
       'password'   => $this->passwordRules(),
       'terms'      => Jetstream::hasTermsAndPrivacyPolicyFeature() ? [ 'accepted', 'required' ] : '',
@@ -33,7 +33,8 @@ class CreateNewUser implements CreatesNewUsers
       'last_name'  => $input[ 'last_name' ],
       'email'      => $input[ 'email' ],
       'username'   => $input[ 'username' ],
-      'phone'      => str_replace('-', '', $input[ 'phone' ]),
+      'phone'      => preg_replace( '/[^0-9]/', '', $input[ 'phone' ] ),
+      'role_id'    => User::ROLE_STUDENT,
       'password'   => Hash::make( $input[ 'password' ] ),
     ] );
   }

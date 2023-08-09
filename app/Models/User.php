@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasPermissions;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,7 +10,6 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -18,7 +18,7 @@ class User extends Authenticatable
   use HasProfilePhoto;
   use Notifiable;
   use TwoFactorAuthenticatable;
-  use HasRoles;
+  use HasPermissions;
   use SoftDeletes;
   
   /**
@@ -32,7 +32,11 @@ class User extends Authenticatable
     'email',
     'phone',
     'password',
+    'role_id'
   ];
+  
+  const ROLE_ADMIN   = 1;
+  const ROLE_STUDENT = 2;
   
   /**
    * The attributes that should be hidden for serialization.

@@ -165,19 +165,20 @@
 						<td class="border px-4 py-2">{{ $user->username }}</td>
 						<td class="border px-4 py-2">{{ $user->phone }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>
-						<td class="border px-4 py-2 inline-flex ">
+						<td class="border px-4 py-2 inline-flex w-full">
 							<x-button class="ml-3" wire:click="edit({{$user->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>
-
-							<x-danger-button class="ml-3" wire:click="deleteUser({{$user->id}})" wire:loading.attr="disabled">
-								<i class="fas fa-trash-alt"></i>
-							</x-danger-button>
+							@if(auth()->user()->id !== $user->id)
+								<x-danger-button class="ml-3" wire:click="deleteUser({{$user->id}})" wire:loading.attr="disabled">
+									<i class="fas fa-trash-alt"></i>
+								</x-danger-button>
+							@endif
 						</td>
 					</tr>
 				@empty
 					<tr>
-						<td class="border px-4 py-2" colspan="4">No user found.</td>
+						<td class="border px-4 py-2" colspan="7">No Record Found.</td>
 					</tr>
 				@endforelse
 				</tbody>
