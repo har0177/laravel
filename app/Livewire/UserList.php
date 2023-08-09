@@ -76,6 +76,8 @@ class UserList extends Component
       $validate = $this->validate( [
         'first_name' => 'required|min:2|max:50',
         'last_name'  => 'required|min:2|max:50',
+        'username'   => 'required|unique:users,username,' . $this->editUser,
+        'phone'      => 'required|unique:users,phone,' . $this->editUser,
         'email'      => 'required|email|unique:users,email,' . $this->editUser,
       ] );
       

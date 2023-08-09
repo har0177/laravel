@@ -6,53 +6,53 @@
 
 		<x-validation-errors class="mb-4"/>
 
-		<form method="POST" action="{{ route('register') }}">
+		<form  method="POST" action="{{ route('register') }}">
 			@csrf
-
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			<div>
-				<x-label for="first_name" value="{{ __('First Name') }}"/>
+				<x-label for="first_name"  value="{{ __('First Name') }}"/>
 				<x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')" required
 				         autofocus autocomplete="name"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="last_name" value="{{ __('Last Name') }}"/>
 				<x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required
 				         autofocus autocomplete="name"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="email" value="{{ __('Email') }}"/>
 				<x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
 				         autocomplete="username"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="username" value="{{ __('UserName') }}"/>
 				<x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required
 				         autocomplete="username"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="phone" value="{{ __('Phone Number') }}"/>
 				<x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required
 				         autocomplete="phone"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="password" value="{{ __('Password') }}"/>
 				<x-input id="password" class="block mt-1 w-full" type="password" name="password" required
 				         autocomplete="new-password"/>
 			</div>
 
-			<div class="mt-4">
+			<div >
 				<x-label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
 				<x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required
 				         autocomplete="new-password"/>
 			</div>
 
 			@if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
-				<div class="mt-4">
+				<div >
 					<x-label for="terms">
 						<div class="flex items-center">
 							<x-checkbox name="terms" id="terms" required/>
@@ -79,6 +79,7 @@
 					{{ __('Register') }}
 				</x-button>
 			</div>
+            </div>
 		</form>
 	</x-authentication-card>
 </x-guest-layout>
