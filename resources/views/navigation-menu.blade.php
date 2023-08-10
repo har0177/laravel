@@ -15,8 +15,10 @@
 					<x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
 						{{ __('Dashboard') }}
 					</x-nav-link>
-					<x-nav-link wire:navigate :active="request()->routeIs('roles')" href="{{ route('roles.index') }}">Manage Role
-					</x-nav-link>
+					@can('access roles')
+						<x-nav-link wire:navigate :active="request()->routeIs('roles')" href="{{ route('roles.index') }}">Manage Role
+						</x-nav-link>
+					@endcan
 					<x-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users.index') }}">Manage Users
 					</x-nav-link>
 				</div>
@@ -86,13 +88,13 @@
 								<button
 									class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
 									<img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
-									     alt="{{ Auth::user()->name }}"/>
+									     alt="{{ Auth::user()->full_name }}"/>
 								</button>
 							@else
 								<span class="inline-flex rounded-md">
                                     <button type="button"
                                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
+                                        {{ Auth::user()->full_name }} ({{ Auth::user()->role->name }})
 
                                         <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
                                              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">

@@ -65,8 +65,18 @@ class User extends Authenticatable
     'profile_photo_url',
   ];
   
+  public function role()
+  {
+    return $this->belongsTo( Role::class );
+  }
+  
   public function scopeActive( $query )
   {
     return $query->whereNotNull( 'email_verified_at' );
+  }
+  
+  public function getFullNameAttribute()
+  {
+    return $this->first_name . ' ' . $this->last_name;
   }
 }
