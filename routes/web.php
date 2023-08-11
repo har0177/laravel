@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
+Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::resource( 'roles', RoleController::class );
@@ -30,7 +31,7 @@ Route::middleware( [
   config( 'jetstream.auth_session' ),
   'verified'
 ] )->group( function() {
-  Route::get( '/dashboard', function() {
-    return view( 'dashboard' );
-  } )->name( 'dashboard' );
+  Route::get( '/dashboard', [ HomeController::class, 'dashboard' ] )->name( 'dashboard' );
+  Route::get( '/student-dashboard', [ HomeController::class, 'studentDashboard' ] )->name( 'student-dashboard' );
+  
 } );

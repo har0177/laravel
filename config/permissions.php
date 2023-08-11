@@ -3,6 +3,29 @@
 return [
   
   /*----------------------------------------
+  *   Roles Permissions
+  * ----------------------------------------
+  */
+  'Roles' => [
+    'title'       => 'Roles',
+    'description' => 'Manage Roles Permissions',
+    'abilities'   => [
+      
+      'manage roles' => [
+        'title' => 'Manage Roles Listing',
+      ],
+      
+      'add role' => [
+        'title' => 'Add Role',
+      ],
+      
+      'edit role' => [
+        'title' => 'Edit Role',
+      ],
+    ]
+  ],
+  
+  /*----------------------------------------
   *   Users Permissions
   * ----------------------------------------
   */

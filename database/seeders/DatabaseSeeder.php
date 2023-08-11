@@ -16,14 +16,27 @@ class DatabaseSeeder extends Seeder
   {
     // \App\Models\User::factory(10)->create();
     
+    $role = \App\Models\Role::create( [
+      'name'        => 'Admin',
+      'slug'        => 'admin',
+      'description' => 'Administration',
+      'permissions' => ['manage roles']
+    ] );
     \App\Models\User::create( [
       'first_name' => 'Haroon',
       'last_name'  => 'Yousaf',
       'email'      => 'admin@admin.com',
       'username'   => 'har0177',
       'phone'      => '03339471086',
-      'role_id'    => User::ROLE_ADMIN,
+      'role_id'    => $role->id,
       'password'   => Hash::make( 'admin' ),
     ] );
+     \App\Models\Role::create( [
+      'name'        => 'Student',
+      'slug'        => 'student',
+      'description' => 'Student',
+      'permissions' => []
+    ] );
+    
   }
 }

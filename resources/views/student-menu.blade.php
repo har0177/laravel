@@ -15,14 +15,8 @@
 					<x-nav-link wire:navigate href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
 						{{ __('Dashboard') }}
 					</x-nav-link>
-					@can('manage roles')
-						<x-nav-link wire:navigate :active="request()->routeIs('roles')" href="{{ route('roles.index') }}">Manage Role
+						<x-nav-link wire:navigate :active="request()->routeIs('profile')" href="{{ route('roles.index') }}">Manage Profile
 						</x-nav-link>
-					@endcan
-					@can('manage users')
-						<x-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users.index') }}">Manage Users
-						</x-nav-link>
-					@endcan
 				</div>
 			</div>
 

@@ -18,7 +18,6 @@ class RoleList extends Component
   public $editRole  = null;
   public $abilities = [];
   
-  
   protected $queryString = [
     'search',
     'sortBy' => [ 'except' => 'id' ],
@@ -27,11 +26,23 @@ class RoleList extends Component
   ];
   
   #[Rule( 'required|string|max:191|unique:roles|regex:/^[a-zA-Z\s]+$/' )]
-  public $name        = '';
+  public $name = '';
   #[Rule( 'required|min:5' )]
   public $description = '';
   #[Rule( 'required|array' )]
   public $permissions = [];
+  public $activeTab   = '';
+  
+  public function mount()
+  {
+    $this->abilities = config( 'permissions' );
+    $this->activeTab = 'Roles';
+  }
+  
+  public function switchTab( $tabTitle )
+  {
+    $this->activeTab = $tabTitle;
+  }
   
   public function render()
   {
@@ -48,11 +59,9 @@ class RoleList extends Component
     ] );
   }
   
-  
   public function add()
   {
     $this->create = true;
-    $this->abilities = config( 'permissions' );
   }
   
   public function store()

@@ -35,54 +35,72 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
-				<div class="flex">
-					<div class="w-1/4 border-r">
+				<div class="flex flex-col md:flex-row">
+					<div class="md:w-1/4 border-r">
 						<div class="flex flex-col p-4">
-							@foreach($abilities as $file => $data)
-								<a class="p-2 text-blue-500 hover:text-blue-700"
-								   href="#{{str_replace(' ', '-',$data['title'])}}-tab">{{$data['title']}}</a>
+							@foreach($abilities as $data)
+								<a
+									class="p-2 text-blue-500 hover:text-blue-700"
+									wire:click="switchTab('{{ $data['title'] }}')"
+									role="tab"
+									href="#tabs-{{ str_slug($data['title']) }}"
+									aria-controls="tabs-{{ str_slug($data['title']) }}"
+									aria-selected="{{ $activeTab === $data['title'] }}"
+								>
+									{{ $data['title'] }}
+								</a>
 							@endforeach
 						</div>
 					</div>
-					<div class="w-3/4 p-4">
+					<div class="md:w-3/4 p-4">
 						<div class="tab-content">
 							@error('permissions')
 							<span class="text-red-600 text-sm">{{ $message }}</span>
 							@enderror
-							@foreach($abilities as $model)
-								<div class="tab-pane" id="{{ str_replace(' ', '-', $model['title']) }}" role="tabpanel"
-								     aria-labelledby="{{ str_replace(' ', '-', $model['title']) }}-tab">
-									<div class="flex items-center mb-4">
-										<div class="w-1/2 pr-8">
-											<h3 class="text-xl font-bold">{{ $model['title'] }}</h3>
-											<p class="text-sm">{{ $model['description'] }}</p>
+							@foreach($abilities as $data)
+								<div
+									class="{{ $activeTab === $data['title'] ? '' : 'hidden' }} opacity-100 transition-opacity duration-150 ease-linear {{ $activeTab === $data['title'] ? 'block' : 'data-[te-tab-active]' }}"
+									id="tabs-{{ str_slug($data['title']) }}"
+									role="tabpanel"
+									aria-labelledby="tabs-{{ str_slug($data['title']) }}-tab"
+									{{ $activeTab === $data['title'] ? 'data-te-tab-active' : '' }}
+								>
+									<!-- Tab Content -->
+									<div class="flex flex-col md:flex-row items-center mb-4">
+										<div class="md:w-1/2 pr-8">
+											<h3 class="text-xl font-bold">{{ $data['title'] }}</h3>
+											<p class="text-sm">{{ $data['description'] }}</p>
 										</div>
 									</div>
 									<hr class="mb-4">
 									<div class="space-y-4">
-										@foreach($model['abilities'] as $ability => $perm)
+										@foreach($data['abilities'] as $ability => $perm)
 											<div class="flex items-center justify-between">
 												<h4 class="text-lg font-bold">{{ $perm['title'] }}</h4>
 												<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
-													<input type="checkbox"
-													       id="{{ str_slug($ability) }}"
-													       name="permissions[]"
-													       value="{{ $ability }}"
-													       wire:model="permissions"
-													       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
-													<label for="{{ str_slug($ability) }}"
-													       class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+													<input
+														type="checkbox"
+														id="{{ str_slug($ability) }}"
+														name="permissions[]"
+														value="{{ $ability }}"
+														wire:model="permissions"
+														class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+													>
+													<label
+														for="{{ str_slug($ability) }}"
+														class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+													></label>
 												</div>
 											</div>
 										@endforeach
 									</div>
-
 								</div>
 							@endforeach
-
 						</div>
 					</div>
 				</div>
+
+
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"
