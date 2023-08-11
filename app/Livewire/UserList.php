@@ -30,7 +30,7 @@ class UserList extends Component
   public $first_name = '';
   #[Rule( 'required|min:2|max:50' )]
   public $last_name = '';
-  #[Rule( 'required|email|unique:users' )]
+  #[Rule( 'required|email:rfc|unique:users' )]
   public $email = '';
   #[Rule( 'required|unique:users' )]
   public $phone = '';
@@ -78,7 +78,7 @@ class UserList extends Component
         'last_name'  => 'required|min:2|max:50',
         'username'   => 'required|unique:users,username,' . $this->editUser,
         'phone'      => 'required|unique:users,phone,' . $this->editUser,
-        'email'      => 'required|email|unique:users,email,' . $this->editUser,
+        'email'      => 'required|email:rfc|unique:users,email,' . $this->editUser,
       ] );
       
       User::where( 'id', $this->editUser )->update( $validate );
