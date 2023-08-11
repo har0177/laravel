@@ -26,7 +26,7 @@ class RoleList extends Component
   ];
   
   #[Rule( 'required|string|max:191|unique:roles|regex:/^[a-zA-Z\s]+$/' )]
-  public $name = '';
+  public $name        = '';
   #[Rule( 'required|min:5' )]
   public $description = '';
   #[Rule( 'required|array' )]
@@ -69,14 +69,13 @@ class RoleList extends Component
     if( $this->editRole ) {
       $validate = $this->validate( [
         'name'        => 'required|string|max:191|regex:/^[a-zA-Z\s]+$/|unique:roles,name,' . $this->editRole,
-        'description' => 'required',
-        'permissions' => 'required|array'
+        'description' => 'required'
       ] );
       
       Role::where( 'id', $this->editRole )->update( [
         'name'        => $validate[ 'name' ],
         'description' => $validate[ 'description' ],
-        'permissions' => $validate[ 'permissions' ]
+        'permissions' => $this->permissions
       ] );
       
       $this->toggleSection();

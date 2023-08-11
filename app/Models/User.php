@@ -10,13 +10,18 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Plank\Metable\Metable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
   use HasApiTokens;
   use HasFactory;
   use HasProfilePhoto;
   use Notifiable;
+  use InteractsWithMedia;
+  use Metable;
   use TwoFactorAuthenticatable;
   use HasPermissions;
   use SoftDeletes;
@@ -30,6 +35,7 @@ class User extends Authenticatable
     'first_name',
     'last_name',
     'email',
+    'cnic',
     'phone',
     'password',
     'role_id'
@@ -68,6 +74,21 @@ class User extends Authenticatable
   public function role()
   {
     return $this->belongsTo( Role::class );
+  }
+  
+  public function getAvatarAttribute() // notice that the attribute name is in CamelCase.
+  {
+    return $this->hasMedia( 'avatars' ) ? $this->getFirstMediaUrl( 'avatars' ) : asset( 'profile.png' );
+  }
+  
+  public function getRoleNameAttribute() // notice that the attribute name is in CamelCase.
+  {
+    return $this->role->name;
+  }
+  
+  public function userInfo()
+  {
+    return $this->hasOne( UserInfo::class );
   }
   
   public function scopeActive( $query )

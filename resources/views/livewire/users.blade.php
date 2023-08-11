@@ -135,12 +135,12 @@
 							<x-sorting name="last_name"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					{{--<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
 							Username
 							<x-sorting name="username"/>
 						</div>
-					</th>
+					</th>--}}
 					<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
 							Phone
@@ -149,8 +149,20 @@
 					</th>
 					<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
+							CNIC
+							<x-sorting name="cnic"/>
+						</div>
+					</th>
+
+					<th scope="col" class="px-6 py-3">
+						<div class="flex items-center">
 							Email
 							<x-sorting name="email"/>
+						</div>
+					</th>
+					<th scope="col" class="px-6 py-3">
+						<div class="flex items-center">
+							Role
 						</div>
 					</th>
 					<th class="border px-4 py-2" width="150px">Action</th>
@@ -162,9 +174,13 @@
 						<td class="border px-4 py-2">{{ $user->id }}</td>
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+{{--
 						<td class="border px-4 py-2">{{ $user->username }}</td>
+--}}
 						<td class="border px-4 py-2">{{ $user->phone }}</td>
+						<td class="border px-4 py-2">{{ $user->cnic }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>
+						<td class="border px-4 py-2">{{ $user->role->name }}</td>
 						<td class="border px-4 py-2 inline-flex w-full">
 							<x-button class="ml-3" wire:click="edit({{$user->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>

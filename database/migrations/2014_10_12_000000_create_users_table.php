@@ -15,13 +15,12 @@ return new class extends Migration {
       $table->string( 'username' )->unique();
       $table->string( 'first_name' );
       $table->string( 'last_name' );
+      $table->string( 'phone' )->unique();
+      $table->string( 'cnic' )->unique();
       $table->string( 'email' )->unique();
-      $table->bigInteger( 'phone' )->unique();
       $table->timestamp( 'email_verified_at' )->nullable();
       $table->string( 'password' );
       $table->rememberToken();
-      $table->foreignId( 'current_team_id' )->nullable();
-      $table->string( 'profile_photo_path', 2048 )->nullable();
       $table->unsignedBigInteger( 'role_id' );
       $table->timestamps();
       $table->softDeletes();
