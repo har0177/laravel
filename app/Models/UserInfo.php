@@ -11,25 +11,7 @@ class UserInfo extends Model
 {
   use Notifiable, SoftDeletes;
   
-  protected $fillable = [
-    'user_id',
-    'reg_no',
-    'class_no',
-    'cnic',
-    'father_name',
-    'father_nic',
-    'father_contact',
-    'phone',
-    'dob',
-    'blood_group_id',
-    'gender_id',
-    'address',
-    'district_id',
-    'diploma_id',
-    'session_id',
-    'status',
-    'card_status'
-  ];
+  protected $guarded;
   
   protected $casts = [
     'created_at'     => 'datetime:m-d-Y H:i:s',

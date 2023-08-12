@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Taxonomy;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -22,6 +23,10 @@ class StudentProfile extends Component
   public $cnic       = '';
   public $user       = '';
   public $avatar     = '';
+  #[Rule('required')]
+  public $gender_id  = '';
+  public $genderList = '';
+  public $errorMessage;
   
   public function mount()
   {
@@ -34,6 +39,8 @@ class StudentProfile extends Component
     $this->username = $user->username;
     $this->cnic = $user->cnic;
     $this->avatar = $user->avatar;
+    $this->gender_id = $user->userInfo->gender_id;
+    $this->genderList = Taxonomy::whereType( 'gender' )->get();
   }
   
   protected function rules()
@@ -44,8 +51,7 @@ class StudentProfile extends Component
       'username'   => 'required|max:8|unique:users,username,' . $this->userId,
       'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
       'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
-      'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId,
-    
+      'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
     ];
   }
   
@@ -61,7 +67,6 @@ class StudentProfile extends Component
   
   public function updateProfile()
   {
-    
     $validate = $this->validate();
     try {
       $user = User::where( 'id', $this->userId )->first();
@@ -70,14 +75,15 @@ class StudentProfile extends Component
         $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
       }
       $user->update( $validate );
+      $user->userInfo->update( [ 'gender_id' => $this->gender_id  ] );
       $this->image = '';
-      $this->avatar = $user->getFirstMediaUrl('avatars');
+      $this->avatar = $user->getFirstMediaUrl( 'avatars' );
       session()->flash( 'success', 'User updated successfully.' );
     } catch ( \Exception $e ) {
-      $this->addError( 'avatar', 'An error occurred: ' . $e->getMessage() );
+      session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
+      
     }
     
   }
-  
   
 }

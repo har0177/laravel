@@ -1,9 +1,15 @@
 <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
+
+<div class="mt-4 mb-4 text-center">
 	@if (session()->has('success'))
-		<span class="px-3 py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
+		<span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
+	@endif
+
+
+	@if (session()->has('error'))
+		<span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
 @endif
-
-
+</div>
 <!-- Card Header -->
 	<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 		<h1 class="text-xl text-white font-semibold">Update Profile</h1>
@@ -59,6 +65,24 @@
 				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 				       placeholder="xxxxxxxxxxxxx">
 				@error('cnic')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
+			<div>
+				<label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+				<div class="relative">
+					<select name="gender" id="gender" wire:model.live="gender_id"
+					        class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+						<option>Select Gender</option>
+						@foreach($genderList as $list)
+							<option value="{{$list->id}}" {{$this->gender_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
+						@endforeach
+					</select>
+
+				</div>
+
+				@error('gender_id')
 				<span class="text-red-600 text-sm">{{ $message }}</span>
 				@enderror
 			</div>
