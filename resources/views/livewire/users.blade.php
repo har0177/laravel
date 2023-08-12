@@ -53,6 +53,16 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
+
+				<div>
+					<label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
+					<input id="cnic" name="cnic" type="text" wire:model.live="cnic"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="xxxxxxxxxxxxx">
+					@error('cnic')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 				<!-- Email field -->
 				<div>
 					<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -174,9 +184,9 @@
 						<td class="border px-4 py-2">{{ $user->id }}</td>
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
-{{--
-						<td class="border px-4 py-2">{{ $user->username }}</td>
---}}
+						{{--
+												<td class="border px-4 py-2">{{ $user->username }}</td>
+						--}}
 						<td class="border px-4 py-2">{{ $user->phone }}</td>
 						<td class="border px-4 py-2">{{ $user->cnic }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>

@@ -68,7 +68,7 @@ class User extends Authenticatable implements HasMedia
    * @var array<int, string>
    */
   protected $appends = [
-    'profile_photo_url',
+    'avatar',
   ];
   
   public function role()

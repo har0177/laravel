@@ -11,7 +11,7 @@
 	</div>
 
 	<!-- Card Body -->
-	<form class="py-6 px-4 sm:px-6" wire:submit.prevent="updateProfile">
+	<form class="py-6 px-4 sm:px-6" wire:submit.prevent="updateProfile" enctype="multipart/form-data">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			<!-- Name field -->
 			<div>
@@ -52,6 +52,16 @@
 				<span class="text-red-600 text-sm">{{ $message }}</span>
 				@enderror
 			</div>
+
+			<div>
+				<label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
+				<input id="cnic" name="cnic" type="text" wire:model.live="cnic"
+				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				       placeholder="xxxxxxxxxxxxx">
+				@error('cnic')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
 			<!-- Email field -->
 			<div>
 				<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
@@ -63,18 +73,22 @@
 				@enderror
 			</div>
 			<div>
-				<input type="file" wire:model="photo" accept="image/png, image/jpg, image/jpeg" id="photo"
+
+				@if ($image)
+					<img class="rounded h-16 mt-5 block" src="{{ $image->temporaryUrl() }}">
+				@else
+					<img class="rounded h-16 mt-5 block" src="{{ $avatar }}">
+				@endif
+				<br>
+				<input wire:model="image" accept="image/png, image/jpg, image/jpeg" type="file" id="image"
 				       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
-				<div wire:loading wire:target="photo">
+				<div wire:loading wire:target="image">
 					<span class="text-green-500"> Uploading ... </span>
 				</div>
-				@error('photo')
+				@error('image')
 				<span class="text-red-600 text-sm">{{ $message }}</span>
 				@enderror
-				@if ($photo)
-					Photo Preview:
-					<img class="rounded h-16 mt-5 block" src="{{ $photo->temporaryUrl() }}">
-				@endif
+
 			</div>
 
 
@@ -82,7 +96,7 @@
 		<button type="submit"
 		        wire:loading.attr="disabled"
 		        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
-			<span wire:loading wire:target="store">Saving...</span>
+			<span wire:loading wire:target="updateProfile">Saving...</span>
 			<span wire:loading.remove wire:target="updateProfile">Update</span>
 		</button>
 

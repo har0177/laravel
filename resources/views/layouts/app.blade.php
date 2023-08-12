@@ -44,5 +44,6 @@
 </div>
 
 @livewireScripts
+
 </body>
 </html>

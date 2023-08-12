@@ -29,15 +29,17 @@ class UserList extends Component
   #[Rule( 'required|min:2|max:50' )]
   public $first_name = '';
   #[Rule( 'required|min:2|max:50' )]
-  public $last_name = '';
-  #[Rule( 'required|email:rfc|unique:users' )]
-  public $email = '';
+  public $last_name  = '';
+  #[Rule( 'required|email|max:255|unique:users' )]
+  public $email      = '';
+  #[Rule( 'required|numeric|digits:11|unique:users' )]
+  public $phone      = '';
+  #[Rule( 'required|numeric|digits:13|unique:users' )]
+  public $cnic       = '';
   #[Rule( 'required|unique:users' )]
-  public $phone = '';
-  #[Rule( 'required|unique:users' )]
-  public $username = '';
+  public $username   = '';
   #[Rule( 'required|min:5' )]
-  public $password = '';
+  public $password   = '';
   
   public function render()
   {
@@ -77,8 +79,9 @@ class UserList extends Component
         'first_name' => 'required|min:2|max:50',
         'last_name'  => 'required|min:2|max:50',
         'username'   => 'required|unique:users,username,' . $this->editUser,
-        'phone'      => 'required|unique:users,phone,' . $this->editUser,
-        'email'      => 'required|email:rfc|unique:users,email,' . $this->editUser,
+        'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->editUser,
+        'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->editUser,
+        'email'      => 'required|email|max:255|unique:users,email,' . $this->editUser,
       ] );
       
       User::where( 'id', $this->editUser )->update( $validate );
@@ -99,6 +102,7 @@ class UserList extends Component
     $user = User::findOrFail( $id );
     $this->first_name = $user->first_name;
     $this->last_name = $user->last_name;
+    $this->cnic = $user->cnic;
     $this->email = $user->email;
     $this->username = $user->username;
     $this->phone = $user->phone;
@@ -115,7 +119,7 @@ class UserList extends Component
   
   public function resetForm()
   {
-    $this->reset( [ 'first_name', 'last_name', 'email', 'password', 'username', 'password' ] );
+    $this->reset( [ 'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic' ] );
   }
   
   public function deleteUser( User $user )
