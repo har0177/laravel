@@ -53,13 +53,18 @@ class StudentProfile extends Component
       'email'      => 'required|email:rfc|unique:users,email,' . $this->userId,
       'photo'      => 'image|max:1024', // 1MB Max
     ] );
-    $user = User::where( 'id', $this->userId )->first();
-    if( $this->photo ) {
-      $user->addMedia( $this->photo )->toMediaCollection( 'avatar' );
+    try {
+      $user = User::where( 'id', $this->userId )->first();
+      if( $this->photo ) {
+        $user->addMedia( $this->photo )->toMediaCollection( 'avatar' );
+      }
+      $user->update( $validate );
+      session()->flash( 'success', 'User updated successfully.' );
+    } catch (\Exception $e) {
+      $this->addError('avatar', 'An error occurred: ' . $e->getMessage());
     }
-    $user->update( $validate );
-    session()->flash( 'success', 'User updated successfully.' );
     
+  
   }
   
   public function resetForm()
