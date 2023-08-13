@@ -62,61 +62,64 @@
 
                 <!-- Name field -->
                 <div>
-                    <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-                    <input id="first_name" name="first_name" type="text" wire:model.live="first_name"
+                    <label for="board" class="block text-sm font-medium text-gray-700 mb-1">Board</label>
+                    <input id="board" name="board" type="text" wire:model.live="board"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="John">
-                    @error('first_name')
+                           placeholder="BISE Peshawar">
+                    @error('board')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
 
                 </div>
                 <!-- Last Name field -->
                 <div>
-                    <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                    <input id="last_name" name="last_name" type="text" wire:model.live="last_name"
+                    <label for="total_marks" class="block text-sm font-medium text-gray-700 mb-1">Total Marks</label>
+                    <input id="total_marks" name="total_marks" type="number" min="0" wire:model.live="total_marks"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="Doe">
-                    @error('last_name')
+                           placeholder="1100">
+                    @error('total_marks')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
                 <div>
-                    <label for="Educationname"
-                           class="block text-sm font-medium text-gray-700 mb-1">EducationName</label>
-                    <input id="Educationname" name="Educationname" type="text" wire:model.live="Educationname"
+                    <label for="obtained_marks"
+                           class="block text-sm font-medium text-gray-700 mb-1">Obtained Marks</label>
+                    <input id="obtained_marks" name="obtained_marks" type="number" min="0"
+                           wire:model.live="obtained_marks"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="joe123">
-                    @error('Educationname')
+                           placeholder="900">
+                    @error('obtained_marks')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
                 <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                    <input id="phone" name="phone" type="text" wire:model.live="phone"
+                    <label for="percentage" class="block text-sm font-medium text-gray-700 mb-1">Percentage</label>
+                    <input id="percentage" name="percentage" type="text" wire:model.live="percentage"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="xxxxxxxxxxx">
-                    @error('phone')
+                    >
+                    @error('percentage')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
 
                 <div>
-                    <label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
-                    <input id="cnic" name="cnic" type="text" wire:model.live="cnic"
+                    <label for="grade" class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
+                    <input id="grade" name="grade" type="text" wire:model.live="grade"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="xxxxxxxxxxxxx">
-                    @error('cnic')
+                           placeholder="A+">
+                    @error('grade')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
                 <!-- Email field -->
                 <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                    <input id="email" name="email" type="email" wire:model.live="email"
+                    <label for="result_declaration_date" class="block text-sm font-medium text-gray-700 mb-1">Result
+                        Decleration Date</label>
+                    <input id="result_declaration_date" name="result_declaration_date" type="date"
+                           wire:model.live="result_declaration_date"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                           placeholder="john.doe@example.com">
-                    @error('email')
+                    >
+                    @error('result_declaration_date')
                     <span class="text-red-600 text-sm">{{ $message }}</span>
                     @enderror
                 </div>
