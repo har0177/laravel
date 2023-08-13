@@ -62,9 +62,9 @@ class StudentProfile extends Component
     $this->father_contact = $user->userInfo->father_contact;
     $this->father_nic = $user->userInfo->father_nic;
     $this->address = $user->userInfo->address;
-    $this->genderList = Taxonomy::whereType( 'gender' )->get();
-    $this->districtList = Taxonomy::whereType( 'district' )->get();
-    $this->bloodGroupList = Taxonomy::whereType( 'bloodGroup' )->get();
+    $this->genderList = Taxonomy::whereType( Taxonomy::GENDER )->get();
+    $this->districtList = Taxonomy::whereType( Taxonomy::DISTRICT )->get();
+    $this->bloodGroupList = Taxonomy::whereType( Taxonomy::BLOODGROUP )->get();
   }
   
   protected function rules()

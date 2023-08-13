@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
-use App\Models\User;
+use App\Models\Education;
+use App\Models\Taxonomy;
+use Carbon\Carbon;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -11,57 +13,63 @@ class StudentEducation extends Component
 {
   use WithPagination;
   
-  public $active;
   public $search;
-  public $sortBy   = 'id';
-  public $sortAsc  = true;
-  public $create   = false;
-  public $editUser = null;
+  public $sortBy        = 'id';
+  public $sortAsc       = true;
+  public $create        = false;
+  public $editEducation = null;
   
   protected $queryString = [
     'active',
     'search',
     'sortBy' => [ 'except' => 'id' ],
     'sortAsc',
-    'editUser'
+    'editEducation'
   ];
   
+  #[Rule( 'required' )]
+  public $degree_id = '';
   #[Rule( 'required|min:2|max:50' )]
-  public $first_name = '';
-  #[Rule( 'required|min:2|max:50' )]
-  public $last_name  = '';
-  #[Rule( 'required|email|unique:users' )]
-  public $email      = '';
-  #[Rule( 'required|unique:users' )]
-  public $phone      = '';
-  #[Rule( 'required|unique:users' )]
-  public $username   = '';
-  #[Rule( 'required|min:5' )]
-  public $password   = '';
+  public $board = '';
+  #[Rule( 'required|numeric' )]
+  public $obtained_marks = '';
+  #[Rule( 'required|numeric' )]
+  public $total_marks = '';
+  public $percentage  = '';
+  #[Rule( 'required' )]
+  public $result_declaration_date = '';
+  public $grade                   = '';
+  public $degreeList = [];
+  public $subDegreeList = [];
+  
+  
+  public function mount()
+  {
+    $this->degreeList = Taxonomy::whereType( Taxonomy::DEGREE )->get();
+    $this->subDegreeList = Taxonomy::whereType( Taxonomy::SUBDEGREE )->get();
+  }
   
   public function render()
   {
-    $query = User::query();
-    $query->when( $this->search, function( $q ) {
-      return $q->where( function( $qq ) {
-        $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
-      } );
-    } )->when( $this->active, function( $q ) {
-      return $q->active();
-    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $users = $query->paginate( 10 );
-    return view( 'livewire.users', [
-      'users' => $users
+    $educations = Education::where( 'user_id', auth()->user()->id )
+                      ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )->paginate( 10 );
+    return view( 'livewire.student.education', [
+      'educations' => $educations
     ] );
   }
   
-  public function updatingActive()
+  public function updateResultDeclarationDate( $value )
   {
-    return $this->resetPage();
+    $this->resultDateValidation( $value );
+    
+  }
+  
+  public function resultDateValidation( $value )
+  {
+    $resultDate = Carbon::parse( $value );
+    if( $resultDate->isBefore( Carbon::now() ) ) {
+      $this->addError( 'result_declaration_date', "Result Date must be in past." );
+    }
   }
   
   public function add()
@@ -71,57 +79,51 @@ class StudentEducation extends Component
   
   public function store()
   {
-    
-    if( $this->editUser ) {
-      $validate = $this->validate( [
-        'first_name' => 'required|min:2|max:50',
-        'last_name'  => 'required|min:2|max:50',
-        'username'   => 'required|unique:users,username,' . $this->editUser,
-        'phone'      => 'required|unique:users,phone,' . $this->editUser,
-        'email'      => 'required|email|unique:users,email,' . $this->editUser,
-      ] );
-      
-      User::where( 'id', $this->editUser )->update( $validate );
+    $validate = $this->validate();
+    $validate[ 'user_id' ] = auth()->user()->id;
+    if( $this->editEducation ) {
+      Education::where( 'id', $this->editEducation )->update( $validate );
       $this->toggleSection();
-      session()->flash( 'success', 'User updated successfully.' );
+      session()->flash( 'success', 'Education updated successfully.' );
       return;
     }
     
-    $validate = $this->validate();
-    User::create( $validate );
+    Education::create( $validate );
     $this->toggleSection();
-    session()->flash( 'success', 'User added successfully.' );
+    session()->flash( 'success', 'Education added successfully.' );
   }
   
   public function edit( $id )
   {
-    $this->editUser = $id;
-    $user = User::findOrFail( $id );
-    $this->first_name = $user->first_name;
-    $this->last_name = $user->last_name;
-    $this->email = $user->email;
-    $this->username = $user->username;
-    $this->phone = $user->phone;
+    $this->editEducation = $id;
+    $education = Education::findOrFail( $id );
+    $this->board = $education->board;
+    $this->degree_id = $education->degree_id;
+    $this->percentage = $education->percentage;
+    $this->obtained_marks = $education->obtained_marks;
+    $this->total_marks = $education->total_marks;
+    $this->result_declaration_date = $education->result_declaration_date;
+    $this->grade = $education->grade;
     $this->create = true;
   }
   
   public function toggleSection()
   {
     $this->create = false;
-    $this->editUser = null;
+    $this->editEducation = null;
     $this->resetForm();
     $this->resetPage();
   }
   
   public function resetForm()
   {
-    $this->reset( [ 'first_name', 'last_name', 'email', 'password', 'username', 'password' ] );
+    $this->reset();
   }
   
-  public function deleteUser( User $user )
+  public function deleteEducation( Education $education )
   {
-    $user->delete();
-    session()->flash( 'success', 'User Deleted Successfully.' );
+    $education->delete();
+    session()->flash( 'success', 'Education Deleted Successfully.' );
   }
   
   public function sortField( $field )
