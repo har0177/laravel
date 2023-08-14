@@ -22,12 +22,12 @@ Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'r
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::resource( 'roles', RoleController::class );
-  Route::get( 'users', [ UserController::class, 'index' ] )->name( 'users' );
-  Route::get( 'students', [ UserController::class, 'students' ] )->name( 'students' );
-  Route::get( 'profile', [ UserController::class, 'profile' ] )->name( 'profile' );
-  Route::get( 'education', [ UserController::class, 'education' ] )->name( 'education' );
-  Route::get( 'apply', [ UserController::class, 'apply' ] )->name( 'apply' );
-  Route::resource( 'products', ProductController::class );
+  Route::get( 'users', [ HomeController::class, 'users' ] )->name( 'users' );
+  Route::get( 'slides', [ HomeController::class, 'slides' ] )->name( 'slides' );
+  Route::get( 'students', [ HomeController::class, 'students' ] )->name( 'students' );
+  Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
+  Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
+  Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
 } );
 
 Route::middleware( [

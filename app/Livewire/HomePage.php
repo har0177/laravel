@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Slider;
+use App\Models\Slide;
 use Livewire\Component;
 
 class HomePage extends Component
@@ -30,7 +30,7 @@ class HomePage extends Component
       // Add more items as needed...
     ];
     
-    $carouselItemsData = Slider::whereStatus( 'show' )->get();
+    $carouselItemsData = Slide::whereStatus( 'show' )->get();
     
     $this->carouselItems = $carouselItemsData->map( function( $item ) {
       $url = $item->url;

@@ -10,7 +10,7 @@ return new class extends Migration {
    */
   public function up() : void
   {
-    Schema::create( 'sliders', function( Blueprint $table ) {
+    Schema::create( 'slides', function( Blueprint $table ) {
       $table->id();
       $table->enum( 'type', [ 'video', 'image' ] );
       $table->string( 'url' )->nullable();
@@ -24,6 +24,6 @@ return new class extends Migration {
    */
   public function down() : void
   {
-    Schema::dropIfExists( 'sliders' );
+    Schema::dropIfExists( 'slides' );
   }
 };
