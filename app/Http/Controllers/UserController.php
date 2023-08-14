@@ -9,6 +9,11 @@ class UserController extends Controller
     return view( 'admin.users' );
   }
   
+  public function students()
+  {
+    return view( 'admin.students' );
+  }
+  
   public function profile()
   {
     return view( 'student.profile' );

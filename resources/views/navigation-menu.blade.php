@@ -25,6 +25,10 @@
 						<x-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users') }}">Manage Users
 						</x-nav-link>
 					@endcan
+					@can('manage students')
+						<x-nav-link wire:navigate :active="request()->routeIs('students')" href="{{ route('students') }}">Manage Students
+						</x-nav-link>
+					@endcan
 					@if(auth()->user()->role_name === 'Student')
 						<x-nav-link wire:navigate :active="request()->routeIs('profile')" href="{{ route('profile') }}">Profile
 						</x-nav-link>

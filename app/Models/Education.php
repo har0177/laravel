@@ -23,7 +23,7 @@ class Education extends Model
   
   public function degree()
   {
-    return $this->belongsTo( Taxonomy::class, 'degree_id', 'id' )->whereType( Taxonomy::SUBDEGREE );
+    return $this->belongsTo( Taxonomy::class, 'degree_id', 'id' )->whereType( Taxonomy::DEGREE );
   }
   
 }

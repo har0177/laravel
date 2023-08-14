@@ -10,7 +10,7 @@
 		@endif
 	</div>
 
-	@if($create)
+@if($create)
 
 	<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
@@ -145,7 +145,7 @@
 				</div>
 			</div>
 			<table class="table-auto w-full border mt-5">
-				<thead>
+				<thead class="bg-gray-200">
 				<tr>
 					<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
@@ -169,8 +169,8 @@
 				</thead>
 				<tbody>
 				@forelse($roles as $role)
-					<tr>
-						<td class="border px-4 py-2">{{ $role->id }}</td>
+					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $role->name }}</td>
 						<td class="border px-4 py-2">{{ $role->description }}</td>
 						<td class="border px-4 py-2 inline-flex w-full">

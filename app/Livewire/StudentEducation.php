@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Education;
 use App\Models\Taxonomy;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -13,62 +14,60 @@ class StudentEducation extends Component
 {
   use WithPagination;
   
-  public $search;
-  public $sortBy        = 'id';
-  public $sortAsc       = true;
   public $create        = false;
   public $editEducation = null;
   
   protected $queryString = [
-    'active',
-    'search',
-    'sortBy' => [ 'except' => 'id' ],
-    'sortAsc',
     'editEducation'
   ];
   
   #[Rule( 'required' )]
-  public $degree_id = '';
+  public            $degree_id;
   #[Rule( 'required|min:2|max:50' )]
-  public $board = '';
+  public            $board;
   #[Rule( 'required|numeric' )]
-  public $obtained_marks = '';
+  public            $obtained_marks;
   #[Rule( 'required|numeric' )]
-  public $total_marks = '';
-  public $percentage  = '';
+  public            $total_marks;
+  public            $percentage;
   #[Rule( 'required' )]
-  public $result_declaration_date = '';
-  public $grade                   = '';
-  public $degreeList = [];
-  public $subDegreeList = [];
-  
+  public            $result_declaration_date;
+  #[Rule( 'required' )]
+  public            $grade;
+  public Collection $degreeList;
   
   public function mount()
   {
     $this->degreeList = Taxonomy::whereType( Taxonomy::DEGREE )->get();
-    $this->subDegreeList = Taxonomy::whereType( Taxonomy::SUBDEGREE )->get();
   }
   
   public function render()
   {
     $educations = Education::where( 'user_id', auth()->user()->id )
-                      ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )->paginate( 10 );
+                         ->paginate( 10 );
     return view( 'livewire.student.education', [
       'educations' => $educations
     ] );
   }
   
-  public function updateResultDeclarationDate( $value )
+  public function updateResultDeclarationDate()
   {
-    $this->resultDateValidation( $value );
-    
+    $this->resultDateValidation( $this->result_declaration_date );
   }
   
   public function resultDateValidation( $value )
   {
     $resultDate = Carbon::parse( $value );
-    if( $resultDate->isBefore( Carbon::now() ) ) {
+    if( $resultDate->isAfter( Carbon::now() ) ) {
       $this->addError( 'result_declaration_date', "Result Date must be in past." );
+    }
+  }
+  
+  public function updatedObtainedMarks( $value )
+  {
+    $totalMarks = (int) $this->total_marks;
+    if( $totalMarks > 0 ) {
+      $this->percentage = round( ( (int) $value / $totalMarks ) * 100, 2 );
     }
   }
   
@@ -80,17 +79,28 @@ class StudentEducation extends Component
   public function store()
   {
     $validate = $this->validate();
-    $validate[ 'user_id' ] = auth()->user()->id;
-    if( $this->editEducation ) {
-      Education::where( 'id', $this->editEducation )->update( $validate );
-      $this->toggleSection();
-      session()->flash( 'success', 'Education updated successfully.' );
-      return;
+    try {
+      $validate[ 'user_id' ] = auth()->user()->id;
+      $validate[ 'percentage' ] = $this->percentage;
+      if( $this->editEducation ) {
+        Education::where( 'id', $this->editEducation )->update( $validate );
+        $this->toggleSection();
+        session()->flash( 'success', 'Education updated successfully.' );
+        return;
+      }
+      $education = Education::where( 'degree_id', $validate[ 'degree_id' ] )->where( 'user_id',
+        auth()->user()->id )->first();
+      if( !$education ) {
+        Education::create( $validate );
+        $this->toggleSection();
+        session()->flash( 'success', 'Education added successfully.' );
+        return;
+      }
+      session()->flash( 'error', 'This education is already exist.' );
+    } catch ( \Exception $e ) {
+      session()->flash( 'error', 'An error occurred while saving the education details. Please try to fill the form again.' );
     }
     
-    Education::create( $validate );
-    $this->toggleSection();
-    session()->flash( 'success', 'Education added successfully.' );
   }
   
   public function edit( $id )
@@ -117,7 +127,25 @@ class StudentEducation extends Component
   
   public function resetForm()
   {
-    $this->reset();
+    $this->reset( [
+      'degree_id',
+      'board',
+      'obtained_marks',
+      'total_marks',
+      'percentage',
+      'result_declaration_date',
+      'grade',
+    ] );
+    $this->resetErrorBag( [
+      'degree_id',
+      'board',
+      'obtained_marks',
+      'total_marks',
+      'percentage',
+      'result_declaration_date',
+      'grade'
+    ] );
+    
   }
   
   public function deleteEducation( Education $education )

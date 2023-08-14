@@ -132,52 +132,52 @@
 				</div>
 			</div>
 			<table class="table-auto w-full border mt-5">
-				<thead>
+				<thead class="bg-gray-200">
 				<tr>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							No
 							<x-sorting name="id"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							First Name
 							<x-sorting name="first_name"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Last Name
 							<x-sorting name="last_name"/>
 						</div>
 					</th>
-					{{--<th scope="col" class="px-6 py-3">
+					{{--<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Username
 							<x-sorting name="username"/>
 						</div>
 					</th>--}}
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Phone
 							<x-sorting name="phone"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							CNIC
 							<x-sorting name="cnic"/>
 						</div>
 					</th>
 
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Email
 							<x-sorting name="email"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Role
 						</div>
@@ -187,8 +187,8 @@
 				</thead>
 				<tbody>
 				@forelse($users as $user)
-					<tr>
-						<td class="border px-4 py-2">{{ $user->id }}</td>
+					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
 						{{--

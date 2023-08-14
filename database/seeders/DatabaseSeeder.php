@@ -79,14 +79,9 @@ class DatabaseSeeder extends Seeder
     Taxonomy::create( [ 'name' => 'Female', 'type' => 'gender' ] );
     
     //Degree
-    Taxonomy::create( [ 'name' => 'SSC', 'type' => 'degree' ] );
-    Taxonomy::create( [ 'name' => 'HSSC', 'type' => 'degree' ] );
-    
-    //Degree
-    Taxonomy::create( [ 'name' => 'Science', 'type' => 'subDegree', 'parent_id' => 30 ] );
-    Taxonomy::create( [ 'name' => 'Arts', 'type' => 'subDegree', 'parent_id' => 30 ] );
-    Taxonomy::create( [ 'name' => 'Pre Engineering', 'type' => 'subDegree', 'parent_id' => 31 ] );
-    Taxonomy::create( [ 'name' => 'Pre Medical', 'type' => 'subDegree', 'parent_id' => 31 ] );
+    Taxonomy::create( [ 'name' => 'SSC Science', 'type' => 'degree' ] );
+    Taxonomy::create( [ 'name' => 'SSC Arts', 'type' => 'degree' ] );
+    Taxonomy::create( [ 'name' => 'SSC Computer Science', 'type' => 'degree' ] );
     
   }
 }

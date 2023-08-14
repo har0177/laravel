@@ -43,7 +43,7 @@ class UserList extends Component
   
   public function render()
   {
-    $query = User::query();
+    $query = User::query()->where( 'role_id', '!=', User::ROLE_STUDENT );
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
         $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
@@ -119,7 +119,12 @@ class UserList extends Component
   
   public function resetForm()
   {
-    $this->reset( [ 'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic' ] );
+    $this->reset( [
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+    ] );
+    $this->resetErrorBag( [
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+    ] );
   }
   
   public function deleteUser( User $user )

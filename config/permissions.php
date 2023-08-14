@@ -6,7 +6,7 @@ return [
   *   Roles Permissions
   * ----------------------------------------
   */
-  'Roles' => [
+  'Roles'    => [
     'title'       => 'Roles',
     'description' => 'Manage Roles Permissions',
     'abilities'   => [
@@ -29,7 +29,7 @@ return [
   *   Users Permissions
   * ----------------------------------------
   */
-  'Users' => [
+  'Users'    => [
     'title'       => 'Users',
     'description' => 'Manage Users Permissions',
     'abilities'   => [
@@ -52,6 +52,38 @@ return [
       
       'delete user' => [
         'title' => 'Delete User',
+      ],
+    
+    ],
+  ],
+  
+  /*----------------------------------------
+ *   Student Permissions
+ * ----------------------------------------
+ */
+  'Students' => [
+    'title'       => 'Students',
+    'description' => 'Manage Students Permissions',
+    'abilities'   => [
+      
+      'manage students' => [
+        'title' => 'Manage Students Listing',
+      ],
+      
+      'add student' => [
+        'title' => 'Add Student',
+      ],
+      
+      'view student' => [
+        'title' => 'View Student',
+      ],
+      
+      'edit student' => [
+        'title' => 'Edit Student',
+      ],
+      
+      'delete student' => [
+        'title' => 'Delete Student',
       ],
     
     ],

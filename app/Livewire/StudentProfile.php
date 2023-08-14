@@ -13,32 +13,34 @@ class StudentProfile extends Component
 {
   use WithFileUploads;
   
-  public $userId     = '';
-  public $first_name = '';
-  public $last_name  = '';
-  public $email      = '';
-  public $phone      = '';
-  public $username   = '';
+  public $userId         = '';
+  public $first_name     = '';
+  public $last_name      = '';
+  public $email          = '';
+  public $phone          = '';
+  public $username       = '';
   #[Rule( 'nullable|image|max:1024|mimes:png,jpg,jpeg' )]
-  public $image  = '';
-  public $cnic   = '';
-  public $user   = '';
-  public $avatar = '';
-  #[Rule('required')]
-  public $address = '';
-  #[Rule('required')]
-  public $father_nic = '';
-  #[Rule('required')]
+  public $image          = '';
+  public $cnic           = '';
+  public $user           = '';
+  public $avatar         = '';
+  #[Rule( 'required' )]
+  public $address        = '';
+  #[Rule( 'required' )]
+  public $father_nic     = '';
+  #[Rule( 'required' )]
+  public $father_name    = '';
+  #[Rule( 'required' )]
   public $father_contact = '';
-  #[Rule('required')]
-  public $dob = '';
-  #[Rule('required')]
-  public $gender_id  = '';
-  public $genderList = '';
-  #[Rule('required')]
-  public $district_id  = '';
-  public $districtList = '';
-  #[Rule('required')]
+  #[Rule( 'required' )]
+  public $dob            = '';
+  #[Rule( 'required' )]
+  public $gender_id      = '';
+  public $genderList     = '';
+ // #[Rule( 'required' )]
+  public $district_id    = '';
+  public $districtList   = '';
+  #[Rule( 'required' )]
   public $blood_group_id = '';
   public $bloodGroupList = '';
   
@@ -60,6 +62,7 @@ class StudentProfile extends Component
     $this->blood_group_id = $user->userInfo->blood_group_id;
     $this->dob = $user->userInfo->dob;
     $this->father_contact = $user->userInfo->father_contact;
+    $this->father_name = $user->userInfo->father_name;
     $this->father_nic = $user->userInfo->father_nic;
     $this->address = $user->userInfo->address;
     $this->genderList = Taxonomy::whereType( Taxonomy::GENDER )->get();
@@ -74,7 +77,7 @@ class StudentProfile extends Component
       'last_name'  => 'required|min:2|max:50',
       'username'   => 'required|max:8|unique:users,username,' . $this->userId,
       'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
-      'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
+      //'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
       'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
     ];
   }
@@ -89,15 +92,9 @@ class StudentProfile extends Component
     $this->validateOnly( $propertyName );
   }
   
-  public function updatedDob( $value )
+  public function birthValidation()
   {
-    $this->birthValidation( $value );
-    
-  }
-  
-  public function birthValidation( $value )
-  {
-    $dob = Carbon::parse( $value );
+    $dob = Carbon::parse( $this->dob );
     $minAge = 16;
     
     if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
@@ -109,7 +106,7 @@ class StudentProfile extends Component
   {
     $validate = $this->validate();
     $this->birthValidation( $this->dob );
-    
+    $validate[ 'email' ] = $this->email;
     try {
       $user = User::where( 'id', $this->userId )->first();
       if( $this->image ) {
@@ -117,7 +114,16 @@ class StudentProfile extends Component
         $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
       }
       $user->update( $validate );
-      $user->userInfo->update( [ 'gender_id' => $this->gender_id ] );
+      $user->userInfo->update( [
+        'gender_id'      => $this->gender_id,
+        'father_name'    => $this->father_name,
+        'father_nic'     => $this->father_nic,
+        'father_contact' => $this->father_contact,
+        'dob'            => $this->dob,
+        'blood_group_id' => $this->blood_group_id,
+        'address'        => $this->address,
+        'district_id'    => $this->district_id,
+      ] );
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );
       session()->flash( 'success', 'User updated successfully.' );

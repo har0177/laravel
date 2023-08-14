@@ -81,6 +81,16 @@
 
 
 			<div>
+				<label for="father_name" class="block text-sm font-medium text-gray-700 mb-1">Father Name</label>
+				<input id="father_name" name="father_name" type="text" wire:model.live="father_name"
+				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				       placeholder="Jhon">
+				@error('father_name')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
+			<div>
 				<label for="father_nic" class="block text-sm font-medium text-gray-700 mb-1">Father CNIC</label>
 				<input id="father_nic" name="father_nic" type="text" wire:model.live="father_nic"
 				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -102,7 +112,7 @@
 
 			<div>
 				<label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-				<input id="dob" name="dob" type="date" wire:model.live="dob" wire:keydown="validateDob"
+				<input id="dob" name="dob" type="date" wire:model.lazy="dob" wire:change="birthValidation"
 				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 				@error('dob')
 				<span class="text-red-600 text-sm">{{ $message }}</span>

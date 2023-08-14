@@ -14,7 +14,6 @@ class Taxonomy extends Model
   const SECTION    = 'section';
   const SESSION    = 'session';
   const DEGREE     = 'degree';
-  const SUBDEGREE  = 'subDegree';
   const BLOODGROUP = 'bloodGroup';
   const GENDER     = 'gender';
   const DISTRICT   = 'district';

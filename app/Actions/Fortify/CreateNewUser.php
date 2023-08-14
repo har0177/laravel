@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
       'first_name'  => [ 'required', 'string', 'max:255' ],
       'last_name'   => [ 'required', 'string', 'max:255' ],
       'father_name' => [ 'required', 'string', 'max:255' ],
-      'email'       => [ 'string', 'email', 'max:255', 'unique:users' ],
+      //'email'       => [ 'string', 'email', 'max:255', 'unique:users' ],
       'phone'       => [ 'required', 'numeric', 'digits:11', 'unique:users' ],
       'cnic'        => [ 'required', 'numeric', 'digits:13', 'unique:users' ],
       'username'    => [ 'required', 'string', 'max:255', 'unique:users' ],
@@ -37,7 +37,7 @@ class CreateNewUser implements CreatesNewUsers
     $user = User::create( [
       'first_name' => $input[ 'first_name' ],
       'last_name'  => $input[ 'last_name' ],
-      'email'      => $input[ 'email' ],
+      //'email'      => $input[ 'email' ],
       'cnic'       => $input[ 'cnic' ],
       'username'   => $input[ 'username' ],
       'phone'      => preg_replace( '/[^0-9]/', '', $input[ 'phone' ] ),
