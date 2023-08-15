@@ -21,7 +21,7 @@ Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
-  Route::resource( 'roles', RoleController::class );
+  Route::get( 'roles', [ HomeController::class, 'roles' ] )->name( 'roles' );
   Route::get( 'users', [ HomeController::class, 'users' ] )->name( 'users' );
   Route::get( 'slides', [ HomeController::class, 'slides' ] )->name( 'slides' );
   Route::get( 'students', [ HomeController::class, 'students' ] )->name( 'students' );

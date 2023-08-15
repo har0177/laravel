@@ -16,6 +16,8 @@ class StudentEducation extends Component
   
   public $create        = false;
   public $editEducation = null;
+  public $educationAdded = false;
+  
   
   protected $queryString = [
     'editEducation'
@@ -92,6 +94,8 @@ class StudentEducation extends Component
         auth()->user()->id )->first();
       if( !$education ) {
         Education::create( $validate );
+        $this->educationAdded = true;
+        session()->put('showApplyLink', true);
         $this->toggleSection();
         session()->flash( 'success', 'Education added successfully.' );
         return;

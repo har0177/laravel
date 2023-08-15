@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\Taxonomy;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -54,14 +55,15 @@ class StudentList extends Component
   #[Rule( 'required' )]
   public $dob            = '';
   #[Rule( 'required' )]
-  public $gender_id      = '';
+  public $gender_id      = null;
   public $genderList     = '';
   #[Rule( 'required' )]
   public $father_name    = '';
-  public $district_id    = '';
+  //#[Rule( 'required' )]
+  public $district_id    = null;
   public $districtList   = '';
   #[Rule( 'required' )]
-  public $blood_group_id = '';
+  public $blood_group_id = null;
   public $bloodGroupList = '';
   
   public $errorMessage;
@@ -75,7 +77,7 @@ class StudentList extends Component
   
   public function render()
   {
-    $query = User::query()->where( 'role_id', User::ROLE_STUDENT );
+    $query = User::with( 'userInfo' )->where( 'role_id', User::ROLE_STUDENT );
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
         $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
@@ -85,7 +87,7 @@ class StudentList extends Component
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->when( $this->active, function( $q ) {
-      return $q->active();
+      return $q->where( 'status', 'Active' );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $students = $query->paginate( 10 );
     return view( 'livewire.students', [
@@ -132,11 +134,14 @@ class StudentList extends Component
   
   public function updateProfile()
   {
-    $validate = $this->validate();
-    $validate[ 'email' ] = $this->email;
-    $this->birthValidation( $this->dob );
-    $validate[ 'role_id' ] = User::ROLE_STUDENT;
     try {
+      DB::beginTransaction();
+      
+      $validate = $this->validate();
+      $validate[ 'email' ] = $this->email;
+      $this->birthValidation( $this->dob );
+      $validate[ 'role_id' ] = User::ROLE_STUDENT;
+      
       if( $this->editStudent ) {
         $user = User::find( $this->editStudent );
         $user->userInfo()->update( [
@@ -150,36 +155,37 @@ class StudentList extends Component
           'district_id'    => $this->district_id,
         ] );
         $user->update( $validate );
-        $this->image = '';
-        $this->avatar = $user->getFirstMediaUrl( 'avatars' );
-        $this->toggleSection();
-        session()->flash( 'success', 'User updated successfully.' );
-        return;
+      } else {
+        $user = User::create( $validate );
+        $user->userInfo()->create( [
+          'gender_id'      => $this->gender_id,
+          'father_name'    => $this->father_name,
+          'father_nic'     => $this->father_nic,
+          'father_contact' => $this->father_contact,
+          'dob'            => $this->dob,
+          'blood_group_id' => $this->blood_group_id,
+          'address'        => $this->address,
+          'district_id'    => $this->district_id,
+        ] );
+        
+        if( $this->image ) {
+          $user->clearMediaCollection( 'avatars' );
+          $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
+        }
       }
-      $user = User::create( $validate );
-      $this->editStudent = $user->id;
-      $user->userInfo()->create( [
-        'gender_id'      => $this->gender_id,
-        'father_name'    => $this->father_name,
-        'father_nic'     => $this->father_nic,
-        'father_contact' => $this->father_contact,
-        'dob'            => $this->dob,
-        'blood_group_id' => $this->blood_group_id,
-        'address'        => $this->address,
-        'district_id'    => $this->district_id,
-      ] );
-      if( $this->image ) {
-        $user->clearMediaCollection( 'avatars' );
-        $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
-      }
+      
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );
+      $this->toggleSection();
+      
+      DB::commit();
+      
       session()->flash( 'success', 'User updated successfully.' );
     } catch ( \Exception $e ) {
-      session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
+      DB::rollback();
       
+      session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
     }
-    
   }
   
   public function edit( $id )

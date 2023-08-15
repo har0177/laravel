@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Project;
 use App\Models\Slide;
 use Livewire\Component;
 
@@ -10,9 +11,15 @@ class HomePage extends Component
   
   public $openModel     = false;
   public $carouselItems = [];
+  public $projects      = [];
   
   public function mount()
   {
+    
+    $this->projects = Project::where( 'expiry_date', '>', now() )->get();
+    if( count($this->projects) > 0 ) {
+      $this->openModel = true;
+    }
     // Simulating dynamic data for carousel items
     $this->carouselItems = [
       [

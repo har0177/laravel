@@ -91,6 +91,11 @@ class User extends Authenticatable implements HasMedia
     return $this->hasOne( UserInfo::class );
   }
   
+  public function education()
+  {
+    return $this->hasMany( Education::class );
+  }
+  
   public function scopeActive( $query )
   {
     return $query->whereNotNull( 'email_verified_at' );

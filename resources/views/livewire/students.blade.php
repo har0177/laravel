@@ -305,7 +305,7 @@
 					</th>
 					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
-							Role
+							Status
 						</div>
 					</th>
 					<th class="border px-4 py-2" width="150px">Action</th>
@@ -317,13 +317,10 @@
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $student->first_name }}</td>
 						<td class="border px-4 py-2">{{ $student->last_name }}</td>
-						{{--
-												<td class="border px-4 py-2">{{ $student->studentname }}</td>
-						--}}
 						<td class="border px-4 py-2">{{ $student->phone }}</td>
 						<td class="border px-4 py-2">{{ $student->cnic }}</td>
 						<td class="border px-4 py-2">{{ $student->email }}</td>
-						<td class="border px-4 py-2">{{ $student->role->name }}</td>
+						<td class="border px-4 py-2">{{ $student->userInfo?->status }}</td>
 						<td class="border px-4 py-2 inline-flex w-full">
 							<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>

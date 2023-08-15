@@ -35,6 +35,12 @@ class HomeController extends Controller
     return view( 'student-dashboard' );
   }
   
+  public function roles()
+  {
+    
+    return view( 'admin.roles' );
+  }
+  
   public function users()
   {
     return view( 'admin.users' );
