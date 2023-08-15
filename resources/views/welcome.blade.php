@@ -148,46 +148,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://kit.fontawesome.com/2ab307e440.js" crossorigin="anonymous"></script>
 <script>
-
-
-	$('.owl-carousel').owlCarousel({
+	$(document).ready(function () {
+	 $('#eventModel').modal('show')
+ })
+	var owl = $('.owl-carousel')
+	owl.owlCarousel({
 		loop: true,
 		margin: 10,
 		dots: false,
-		navText: [' ', ' '],
+		navText: ['', ''],
 		autoplay: true,
 		autoplayTimeout: 3000,
 		autoplayHoverPause: true,
 		responsiveClass: true,
 		responsive: {
-			0: {
-				items: 1,
-				nav: true
-			},
-			600: {
-				items: 2,
-			},
-			1000: {
-				items: 3,
-				nav: true,
-			},
-			1600: {
-				items: 4,
-				nav: true,
-			},
-			2000: {
-				items: 5,
-				nav: true,
-			},
-			2600: {
-				items: 6,
-				nav: true,
-			},
-			3000: {
-				items: 7,
-				nav: true,
-				loop: true
-			}
+			0: { items: 1, nav: true },
+			600: { items: 2 },
+			1000: { items: 3, nav: true },
+			1600: { items: 4, nav: true },
+			2000: { items: 5, nav: true },
+			2600: { items: 6, nav: true },
+			3000: { items: 7, nav: true, loop: true }
 		}
 	})
 </script>

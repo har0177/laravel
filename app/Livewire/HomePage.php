@@ -9,7 +9,6 @@ use Livewire\Component;
 class HomePage extends Component
 {
   
-  public $openModel     = false;
   public $carouselItems = [];
   public $projects      = [];
   
@@ -17,9 +16,6 @@ class HomePage extends Component
   {
     
     $this->projects = Project::where( 'expiry_date', '>', now() )->get();
-    if( count($this->projects) > 0 ) {
-      $this->openModel = true;
-    }
     // Simulating dynamic data for carousel items
     $this->carouselItems = [
       [
@@ -52,12 +48,7 @@ class HomePage extends Component
       }
     } )->toArray();
   }
-  
-  public function dismissModel()
-  {
-    $this->openModel = false;
-  }
-  
+
   public function render()
   {
     return view( 'livewire.home-page' );

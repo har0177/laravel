@@ -1,22 +1,25 @@
 <div>
+
+@if(count($projects) > 0)
 	<!-- Button trigger modal -->
-	<div class="modal fade {{$openModel ? 'show' : ''}}" style="display: {{$openModel ? 'block' : 'none'}}"
-	     id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	<div class="modal fade"
+	     id="eventModel" tabindex="-1" role="dialog" aria-labelledby="eventModelLabel"
 	     aria-hidden="true">
 		<div class="modal-dialog modal-md mt-4 modal-dialog-centered modal-dialog-scrollable" role="document">
 			<div class="modal-content border-0">
 				<div class="modal-header bg-gray">
 					<h5 class="modal-title"><i class="fas fa-newspaper"></i> News & Events</h5>
-					<button type="button" wire:click="dismissModel" class="btn-close" data-bs-dismiss="modal"
+					<button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
 					        aria-label="Close"></button>
 				</div>
 				<div class="modal-body bg-white">
 					<div class="list-group">
 						@foreach($projects as $project)
-							<a href="{{ route('login') }}" class="list-group-item list-group-item-action">
+							<a href="{{ route('apply') }}" class="list-group-item list-group-item-action">
 								<div class="d-flex justify-content-between align-items-center">
 									<h6 class="mb-1"><b>Apply for {{$project->diploma->name}}</b></h6>
-									<small style="color: red">Expiry date: {{\Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y')}}</small>
+									<small style="color: red">Expiry
+										date: {{\Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y')}}</small>
 								</div>
 								<p class="mb-1">{{ substr($project->description, 0, 100) }}...</p>
 							</a>
@@ -26,8 +29,7 @@
 			</div>
 		</div>
 	</div>
-
-
+@endif
 
 @if(count($carouselItems) > 0)
 	<!-- Slide -->
@@ -71,102 +73,20 @@
 		<hr>
 		<div class="row">
 			<div class="owl-carousel owl-theme">
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
+				@foreach($projects as $project)
+					<div class="item">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Apply for {{$project->diploma->name}}</h5>
+								<h6 class="card-subtitle mb-2 text-muted" style="color: red">Expiry
+									date: {{\Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y')}}</h6>
+								<p class="mb-1">{{ substr($project->description, 0, 100) }}...</p>
+								<a href="{{ route('apply') }}" class="btn btn-primary button">Apply Now</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
-				<div class="item">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="card-title">Notice</h5>
-							<h6 class="card-subtitle mb-2 text-muted">09/08/2023</h6>
-							<p class="card-text">4th (final) Installment of PEEF scholarship for Master's Level students
-								Session 2021-22.</p>
-							<a href="#" class="btn btn-primary button">Learn More <i
-									class="fa fa-chevron-right"></i></a>
-						</div>
-					</div>
-				</div>
+				@endforeach
+
 			</div>
 		</div>
 	</div>
