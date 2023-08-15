@@ -37,7 +37,6 @@ class HomeController extends Controller
   
   public function roles()
   {
-    
     return view( 'admin.roles' );
   }
   
@@ -69,6 +68,10 @@ class HomeController extends Controller
   public function apply()
   {
     return view( 'student.apply' );
+  }
+  public function projects()
+  {
+    return view( 'admin.projects' );
   }
   
 }

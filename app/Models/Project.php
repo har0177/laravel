@@ -9,9 +9,11 @@ class Project extends Model
 {
   use HasFactory;
   
+  protected $guarded = [];
+  
   public function diploma()
   {
-    return $this->belongsTo( Taxonomy::class, 'degree_id', 'id' )->whereType( Taxonomy::DIPLOMA );
+    return $this->belongsTo( Taxonomy::class, 'diploma_id', 'id' )->whereType( Taxonomy::DIPLOMA );
   }
   
 }

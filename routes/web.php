@@ -28,6 +28,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
   Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
   Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
+  Route::get( 'projects', [ HomeController::class, 'projects' ] )->name( 'projects' );
 } );
 
 Route::middleware( [

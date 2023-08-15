@@ -1,0 +1,187 @@
+<div class="bg-white border border-gray-200 rounded-lg shadow-lg">
+    <div class="mt-4 mb-4 text-center">
+        @if (session()->has('success'))
+            <span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
+        @endif
+
+
+        @if (session()->has('error'))
+            <span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
+        @endif
+    </div>
+
+@if($create)
+
+    <!-- Card Header -->
+        <div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+            <h1 class="text-xl text-white font-semibold">{{$editProject ? 'Update Project' : 'Add Project'}}</h1>
+
+        </div>
+
+        <!-- Card Body -->
+        <form class="py-6 px-4 sm:px-6" wire:submit.prevent="store">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Name field -->
+                <div>
+                    <label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Select Diploma</label>
+                    <div class="relative">
+                        <select name="type" id="diploma_id" wire:model.live="diploma_id"
+                                class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option>Select Diploma</option>
+                            @foreach($diplomaList as $diploma)
+                                <option value="{{$diploma->id}}"
+                                        @selected($diploma->id === $diploma_id)>{{$diploma->name}}</option>
+                            @endforeach
+                        </select>
+
+                    </div>
+                    @error('diploma_id')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+                <div>
+                    <label for="fee" class="block text-sm font-medium text-gray-700 mb-1">Fee</label>
+                    <input id="fee" name="fee" type="number" min="0" wire:model.live="fee"
+                           class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="1000">
+                    @error('fee')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+                <div>
+                    <label for="quota" class="block text-sm font-medium text-gray-700 mb-1">Quota</label>
+                    <input id="quota" name="quota" type="text" wire:model.live="quota"
+                           class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="1000">
+                    @error('quota')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+                <div>
+                    <label for="expiry_date" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
+                    <input id="expiry_date" name="expiry_date" type="date" wire:model.live="expiry_date"
+                           class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                           placeholder="1000">
+                    @error('expiry_date')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                    <textarea row="5" id="description" name="description" wire:model.live="description"
+                              class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    ></textarea>
+                    @error('description')
+                    <span class="text-red-600 text-sm">{{ $message }}</span>
+                    @enderror
+
+                </div>
+
+
+            </div>
+            <button type="submit"
+                    wire:loading.attr="disabled"
+                    class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
+                <span wire:loading wire:target="store">Saving...</span>
+                <span wire:loading.remove wire:target="store">Submit</span>
+            </button>
+            <x-button type="button" wire:click="toggleSection">
+                Reset
+            </x-button>
+
+        </form>
+
+
+
+    @else
+
+
+        <div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+            <h1 class="text-xl text-white font-semibold">Projects Management</h1>
+            <div>
+                <x-button wire:click="add">
+                    Create Project
+                </x-button>
+            </div>
+        </div>
+
+
+        <!-- Card Body -->
+        <div class="mt-5 px-8">
+            <table class="table-auto w-full border mt-5">
+                <thead class="bg-gray-200">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            No
+                            <x-sorting name="id"/>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Diploma
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                           Fee
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Expiry Date
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Quota
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Description
+                        </div>
+                    </th>
+                    <th class="border px-4 py-2" width="150px">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                @forelse($projects as $project)
+                    <tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+                        <td class="border px-4 py-2">{{ $project->index + 1  }}</td>
+                        <td class="border px-4 py-2">{{ $project->diploma->name }}</td>
+                        <td class="border px-4 py-2">{{ $project->fee }}</td>
+                        <td class="border px-4 py-2">{{ $project->quota }}</td>
+                        <td class="border px-4 py-2">{{ $project->expiry_date }}</td>
+                        <td class="border px-4 py-2">{{ $project->description }}</td>
+                        <td class="border px-4 py-2">
+                            <x-danger-button wire:click="deleteProject({{$project->id}})" wire:loading.attr="disabled">
+                                <i class="fas fa-trash-alt"></i>
+                            </x-danger-button>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td class="border px-4 py-2" colspan="7">No Record Found.</td>
+                    </tr>
+                @endforelse
+                </tbody>
+            </table>
+
+        </div>
+        <!-- Card Footer -->
+        <div class="py-4 px-8">
+            {{ $projects->links() }}
+        </div>
+
+    @endif
+
+</div>
