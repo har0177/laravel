@@ -29,7 +29,7 @@
                             <iframe width="100%" height="485" src="{{ $item['url'] }}"
                                     title="YouTube video player" frameborder="0" allowfullscreen=""></iframe>
                         @elseif ($item['type'] === 'image')
-                            <img src="{{ $item['url'] }}" class="d-block w-100" alt="...">
+                            <img src="{{ $item['url'] }}" width="100%" height="485" alt="...">
                         @endif
                     </div>
                 @endforeach

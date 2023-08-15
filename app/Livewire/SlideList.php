@@ -3,14 +3,14 @@
 namespace App\Livewire;
 
 use App\Models\Slide;
-use App\Models\Slide;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class SlideList extends Component
 {
-  use WithPagination;
+  use WithPagination, WithFileUploads;
   
   public $sortBy  = 'id';
   public $sortAsc = true;
@@ -22,11 +22,10 @@ class SlideList extends Component
   ];
   
   #[Rule( 'required' )]
-  public $url = '';
-  #[Rule( 'required' )]
-  public $type      = '';
-  public $status    = 'Show';
-  public $activeTab = '';
+  public $type   = '';
+  public $url    = '';
+  public $status = 'Show';
+  public $image  = '';
   
   public function render()
   {
@@ -44,11 +43,31 @@ class SlideList extends Component
     $this->create = true;
   }
   
+  public function updateStatus( Slide $slide )
+  {
+    $status = $slide->status === 'Show' ? 'Hide' : 'Show';
+    $slide->status = $status;
+    $slide->save();
+    session()->flash( 'success', 'Slide Status changed Successfully.' );
+  }
+  
   public function store()
   {
     $validate = $this->validate();
-    
-    Slide::create( $validate );
+    if( $validate[ 'type' ] === 'image' ) {
+      $this->validate( [ 'image' => 'required' ] );
+    }
+    if( $validate[ 'type' ] === 'video' ) {
+      $this->validate( [ 'url' => 'required' ] );
+    }
+    $slide = Slide::create( [
+      'type' => $this->type,
+      'url'  => $this->url
+    ] );
+    if( $this->image ) {
+      $slide->clearMediaCollection( 'slides' );
+      $slide->addMedia( $this->image )->toMediaCollection( 'slides' );
+    }
     $this->toggleSection();
     session()->flash( 'success', 'Slide added successfully.' );
   }
@@ -62,7 +81,7 @@ class SlideList extends Component
   
   public function resetForm()
   {
-    $this->reset( [ 'url', 'type', 'status' ] );
+    $this->reset( [ 'url', 'type', 'status', 'image' ] );
   }
   
   public function deleteSlide( Slide $slide )

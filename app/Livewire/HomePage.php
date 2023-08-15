@@ -35,7 +35,7 @@ class HomePage extends Component
     $this->carouselItems = $carouselItemsData->map( function( $item ) {
       $url = $item->url;
       if( $item->type === 'image' ) {
-        $url = $item->hasMedia( 'slider' ) ? $item->getFirstMediaUrl( 'slider' ) : '';
+        $url = $item->hasMedia( 'slides' ) ? $item->getFirstMediaUrl( 'slides' ) : '';
       }
       if( !empty( $url ) ) {
         return [
