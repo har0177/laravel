@@ -56,7 +56,7 @@
 					<label for="quota" class="block text-sm font-medium text-gray-700 mb-1">Quota</label>
 					<select name="quota[]" id="quota" wire:model.live="quota" multiple
 					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option >Select Quota</option>
+						<option>Select Quota</option>
 						@foreach($quotaList as $list)
 							<option value="{{$list->id}}"
 							        @selected(in_array($list->id, $quota))>{{$list->name}}</option>
@@ -199,5 +199,6 @@
 	@endif
 
 </div>
+
 
 

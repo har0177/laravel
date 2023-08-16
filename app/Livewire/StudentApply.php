@@ -2,16 +2,15 @@
 
 namespace App\Livewire;
 
-use App\Models\User;
-use Livewire\Attributes\Rule;
+use App\Models\Project;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class StudentApply extends Component
 {
   public function render()
   {
-   return view( 'livewire.student.apply' );
+    $projects = Project::where( 'expiry_date', '>', now() )->get();
+    return view( 'livewire.student.apply', [ 'projects' => $projects ] );
   }
   
 }
