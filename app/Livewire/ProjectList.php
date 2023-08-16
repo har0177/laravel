@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use App\Models\Project;
 use App\Models\Taxonomy;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Rule;
 
 class ProjectList extends Component
 {
@@ -29,9 +29,10 @@ class ProjectList extends Component
   public $diploma_id  = null;
   public $diplomaList = [];
   #[Rule( 'required' )]
-  public $fee = '';
-  #[Rule( 'required' )]
-  public $quota = '';
+  public $fee         = '';
+  #[Rule( 'required|array' )]
+  public $quota       = [];
+  public $quotaList   = '';
   #[Rule( 'required' )]
   public $expiry_date = '';
   #[Rule( 'required' )]
@@ -40,6 +41,7 @@ class ProjectList extends Component
   public function mount()
   {
     $this->diplomaList = Taxonomy::whereType( Taxonomy::DIPLOMA )->get();
+    $this->quotaList = Taxonomy::whereType( Taxonomy::QUOTA )->get();
   }
   
   public function render()
@@ -60,6 +62,7 @@ class ProjectList extends Component
   
   public function store()
   {
+    
     $validate = $this->validate();
     if( $this->editProject ) {
       Project::where( 'id', $this->editProject )->update( $validate );
@@ -99,6 +102,10 @@ class ProjectList extends Component
   
   public function deleteProject( Project $project )
   {
+    if( $project->applications->count() > 0 ) {
+      session()->flash( 'error', 'Project has applications submitted, so can not be deleted.' );
+      return true;
+    }
     $project->delete();
     session()->flash( 'success', 'Project Deleted Successfully.' );
   }

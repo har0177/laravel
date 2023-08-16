@@ -17,6 +17,7 @@ class Taxonomy extends Model
   const BLOODGROUP = 'bloodGroup';
   const GENDER     = 'gender';
   const DISTRICT   = 'district';
+  const QUOTA      = 'quota';
   
   protected $fillable = [ 'type', 'name', 'parent_id' ];
   

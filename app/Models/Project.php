@@ -11,9 +11,27 @@ class Project extends Model
   
   protected $guarded = [];
   
+  protected $casts = [
+    'quota' => 'json'
+  ];
+  
   public function diploma()
   {
     return $this->belongsTo( Taxonomy::class, 'diploma_id', 'id' )->whereType( Taxonomy::DIPLOMA );
+  }
+  
+  public function applications()
+  {
+    return $this->hasMany( Application::class );
+  }
+  
+  public function getquotaNameAttribute()
+  {
+    $list = [];
+    foreach( $this->quota as $quota ) {
+      $list[] = Taxonomy::find( (int) $quota )?->name;
+    }
+    return $list;
   }
   
 }
