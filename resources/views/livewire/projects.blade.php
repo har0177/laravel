@@ -51,22 +51,6 @@
 					@enderror
 
 				</div>
-
-				<div>
-					<label for="quota" class="block text-sm font-medium text-gray-700 mb-1">Quota</label>
-					<select name="quota[]" id="quota" wire:model.live="quota" multiple
-					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option>Select Quota</option>
-						@foreach($quotaList as $list)
-							<option value="{{$list->id}}"
-							        @selected(in_array($list->id, $quota))>{{$list->name}}</option>
-						@endforeach
-					</select>
-					@error('quota')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
 				<div>
 					<label for="expiry_date" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
 					<input id="expiry_date" name="expiry_date" type="date" wire:model.live="expiry_date"
@@ -90,7 +74,25 @@
 
 				</div>
 
-
+				<div class="mb-4">
+					<label for="toggleQuota" class="block text-sm font-medium text-gray-700 mb-1">Select Quota</label>
+					<div class="space-y-2">
+						@foreach($quotaList as $list)
+							<label class="relative flex items-center">
+								<input type="checkbox"
+								       id="{{ str_slug($list->name) }}"
+								       name="quota[]"
+								       value="{{$list->id}}"
+								       wire:model="quota"
+								       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+								<span class="ml-8">{{$list->name}}</span>
+							</label>
+						@endforeach
+					</div>
+					@error('quota')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"

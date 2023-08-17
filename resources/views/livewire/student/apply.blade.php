@@ -1,23 +1,22 @@
 <div class="bg-white border border-gray-300 rounded-lg shadow-lg">
 
 
-    <div class="mt-4 mb-4 mx-6 text-center">
-        @if (session()->has('success'))
-            <div class="py-2 bg-green-500 text-white rounded">{{ session('success') }}</div>
-        @endif
+	<div class="mt-4 mb-4 mx-6 text-center">
+		@if (session()->has('success'))
+			<div class="py-2 bg-green-500 text-white rounded">{{ session('success') }}</div>
+		@endif
 
-        @if (session()->has('error'))
-            <div class="py-2 bg-red-500 text-white rounded">{{ session('error') }}</div>
-        @endif
-    </div>
-
+		@if (session()->has('error'))
+			<div class="py-2 bg-red-500 text-white rounded">{{ session('error') }}</div>
+		@endif
+	</div>
 
 
 	@if($applyPanel)
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between rounded-t-lg">
 			<h1 class="text-xl text-white font-semibold">Apply for {{$diplomaName}}</h1>
 			<div class="text-white">
-				Challan #: {{$challan_number}} &nbsp; &nbsp; Status: {{$status}}
+				Application #: {{$application_number}} &nbsp; &nbsp; Status: {{$status}}
 			</div>
 		</div>
 		<!-- Card Body -->
@@ -25,20 +24,26 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<!-- Name field -->
 
-				<div>
-					<label for="quota" class="block text-sm font-medium text-gray-700 mb-1">Select Quota to Apply</label>
-					<select name="quota[]" id="quota" wire:model.live="quota" multiple
-					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option>Select Quota</option>
+				<div class="mb-4">
+					<label for="toggleQuota" class="block text-sm font-medium text-gray-700 mb-1">Select Quota to Apply</label>
+					<div class="space-y-2">
 						@foreach($quotaList as $list)
-							<option value="{{$list->id}}">{{$list->name}}</option>
+							<label class="relative flex items-center">
+								<input type="checkbox"
+								       id="{{ str_slug($list->name) }}"
+								       name="quota[]"
+								       value="{{$list->id}}"
+								       wire:model="quota"
+								       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+								<span class="ml-8">{{$list->name}}</span>
+							</label>
 						@endforeach
-					</select>
+					</div>
 					@error('quota')
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
-
 				</div>
+
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"
@@ -69,12 +74,16 @@
 					<div class="flex justify-between items-center bg-gray-100 p-3">
 						<small class="text-red-600">{{ \Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y') }}</small>
 						<div>
-							<x-button class="ml-3" wire:click="applyNow({{$project->id}})" wire:loading.attr="disabled">
-								Apply Now
-							</x-button>
-							<a href="{{ route('apply') }}"
-							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">View
-								Form</a>
+							@if(!in_array($project->id, $applications))
+								<x-button class="ml-3" wire:click="applyNow({{$project->id}})" wire:loading.attr="disabled">
+									Apply Now
+								</x-button>
+							@else
+								<span class="px-2 py-1 text-sm font-semibold rounded-lg   bg-green-500 text-white">Applied</span>
+								<a target="_blank" href="{{ route('apply') }}"
+								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">View
+									Form</a>
+							@endif
 						</div>
 					</div>
 				</div>

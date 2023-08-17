@@ -15,6 +15,7 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'user_id' );
       $table->unsignedBigInteger( 'project_id' );
       $table->text( 'challan_number' )->nullable();
+      $table->text( 'application_number' );
       $table->enum( 'status', [ 'Pending Payment', 'Applied' ] )->default( 'Pending Payment' );
       $table->json( 'quota' );
       $table->timestamps();

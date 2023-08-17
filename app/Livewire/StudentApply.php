@@ -2,22 +2,24 @@
 
 namespace App\Livewire;
 
+use App\Models\Application;
 use App\Models\Project;
 use App\Models\Taxonomy;
+use http\Client\Curl\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class StudentApply extends Component
 {
   
-  public $applyPanel     = false;
-  public $project_id     = '';
-  public $challan_number = '';
-  public $diplomaName    = '';
+  public $applyPanel         = false;
+  public $project_id         = '';
+  public $application_number = '';
+  public $diplomaName        = '';
   #[Rule( 'required|array|min:1|max:2' )]
-  public $quota          = [];
-  public $quotaList      = '';
-  public $status         = '';
+  public $quota              = [];
+  public $quotaList          = '';
+  public $status             = '';
   
   public function mount()
   {
@@ -34,7 +36,8 @@ class StudentApply extends Component
   public function render()
   {
     $projects = Project::where( 'expiry_date', '>', now() )->get();
-    return view( 'livewire.student.apply', [ 'projects' => $projects ] );
+    $applications = Application::where('user_id', auth()->user()->id)->pluck('project_id')->toArray();
+    return view( 'livewire.student.apply', [ 'projects' => $projects, 'applications'=>$applications ] );
   }
   
   public function getFirstLetter( $value )
@@ -51,6 +54,32 @@ class StudentApply extends Component
   public function storeApplication()
   {
     $validate = $this->validate();
+    try {
+      $validate[ 'user_id' ] = auth()->user()->id;
+      $validate[ 'project_id' ] = $this->project_id;
+      $validate[ 'status' ] = $this->status;
+      $validate[ 'application_number' ] = $this->application_number;
+      $selectedQuotas = $validate[ 'quota' ];
+      $userGender = auth()->user()->userInfo->gender->name;
+      
+      foreach( $selectedQuotas as $selectedQuota ) {
+        $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
+        if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
+          
+          session()->flash( 'error', 'You cannot apply for Female Quota' );
+          return;
+        }
+      }
+      Application::create( $validate );
+  
+      session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
+      $this->applyPanel = false;
+      $this->toggleSection();
+      return;
+    } catch ( \Exception $e ) {
+      session()->flash( 'error',
+        'An error occurred while saving the education details. Please try to fill the form again.' );
+    }
   }
   
   public function applyNow( Project $project )
@@ -59,9 +88,10 @@ class StudentApply extends Component
     $this->project_id = $project->id;
     $this->diplomaName = $project->diploma->name;
     $this->status = 'Pending Payment';
-    $this->challan_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
+    $this->application_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
         1000 );
   }
+  
   
   public function toggleSection()
   {
@@ -76,14 +106,14 @@ class StudentApply extends Component
       'status',
       'diplomaName',
       'project_id',
-      'challan_number',
+      'application_number',
     ] );
     $this->resetErrorBag( [
       'quota',
       'status',
       'diplomaName',
       'project_id',
-      'challan_number',
+      'application_number',
     ] );
     
   }

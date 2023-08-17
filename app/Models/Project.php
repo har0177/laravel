@@ -29,7 +29,7 @@ class Project extends Model
   {
     $list = [];
     foreach( $this->quota as $quota ) {
-      $list[] = Taxonomy::find( (int) $quota ) ?->name;
+      $list[] = Taxonomy::where( 'id', (int) $quota )?->name;
     }
     return $list;
   }
