@@ -29,6 +29,7 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'session_id' )->nullable();
       $table->enum( 'status', [ 'Active', 'DeActive', 'Pending' ] )->default( 'Pending' );
       $table->boolean( 'card_status' )->default( 0 );
+      $table->boolean( 'profile_status' )->default( 0 );
       $table->timestamps();
       $table->softDeletes();
     } );

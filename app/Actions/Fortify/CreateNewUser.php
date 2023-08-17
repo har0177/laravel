@@ -37,7 +37,7 @@ class CreateNewUser implements CreatesNewUsers
     $user = User::create( [
       'first_name' => $input[ 'first_name' ],
       'last_name'  => $input[ 'last_name' ],
-      //'email'      => $input[ 'email' ],
+      'email'      => $input[ 'email' ],
       'cnic'       => $input[ 'cnic' ],
       'username'   => $input[ 'username' ],
       'phone'      => preg_replace( '/[^0-9]/', '', $input[ 'phone' ] ),

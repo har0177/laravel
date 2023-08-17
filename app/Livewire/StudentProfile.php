@@ -37,7 +37,7 @@ class StudentProfile extends Component
   #[Rule( 'required' )]
   public $gender_id      = '';
   public $genderList     = '';
- // #[Rule( 'required' )]
+  // #[Rule( 'required' )]
   public $district_id    = '';
   public $districtList   = '';
   #[Rule( 'required' )]
@@ -123,6 +123,7 @@ class StudentProfile extends Component
         'blood_group_id' => $this->blood_group_id,
         'address'        => $this->address,
         'district_id'    => $this->district_id,
+        'profile_status' => 1,
       ] );
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );

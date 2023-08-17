@@ -166,6 +166,7 @@ class StudentList extends Component
           'blood_group_id' => $this->blood_group_id,
           'address'        => $this->address,
           'district_id'    => $this->district_id,
+          'profile_status' => 1,
         ] );
         
         if( $this->image ) {

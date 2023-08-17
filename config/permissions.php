@@ -87,6 +87,38 @@ return [
       ],
     
     ],
+  ],
+  
+  /*----------------------------------------
+ *   Projects Permissions
+ * ----------------------------------------
+ */
+  'Projects' => [
+    'title'       => 'Projects',
+    'description' => 'Manage Projects Permissions',
+    'abilities'   => [
+      
+      'manage projects' => [
+        'title' => 'Manage Projects Listing',
+      ],
+      
+      'add project' => [
+        'title' => 'Add Project',
+      ],
+      
+      'view project' => [
+        'title' => 'View Project',
+      ],
+      
+      'edit project' => [
+        'title' => 'Edit Project',
+      ],
+      
+      'delete project' => [
+        'title' => 'Delete Project',
+      ],
+    
+    ],
   ]
 
 ];

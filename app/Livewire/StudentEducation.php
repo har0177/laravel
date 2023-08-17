@@ -40,6 +40,12 @@ class StudentEducation extends Component
   
   public function mount()
   {
+    $profileStatus = auth()->user()->userInfo?->profile_status;
+    if(!$profileStatus){
+      session()->flash( 'error', 'Please Update Profile First.' );
+  
+      return $this->redirect('/profile', navigate: true);
+    }
     $this->degreeList = Taxonomy::whereType( Taxonomy::DEGREE )->get();
   }
   

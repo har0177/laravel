@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Project;
 use App\Models\Taxonomy;
+use Carbon\Carbon;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -53,6 +54,19 @@ class ProjectList extends Component
     return view( 'livewire.projects', [
       'projects' => $projects
     ] );
+  }
+  
+  public function updateExpiryDate()
+  {
+    $this->expiryDateValidation( $this->expiry_date );
+  }
+  
+  public function expiryDateValidation( $value )
+  {
+    $expiryDate = Carbon::parse( $value );
+    if( $expiryDate->isBefore( Carbon::now() ) ) {
+      $this->addError( 'expiry_date', "Expiry Date must be in future." );
+    }
   }
   
   public function add()
