@@ -17,9 +17,9 @@ class StudentApply extends Component
   public $application_number = '';
   public $diplomaName        = '';
   #[Rule( 'required|array|min:1|max:2' )]
-  public $quota              = [];
-  public $quotaList          = '';
-  public $status             = '';
+  public $quota     = [];
+  public $quotaList = '';
+  public $status    = '';
   
   public function mount()
   {
@@ -36,8 +36,8 @@ class StudentApply extends Component
   public function render()
   {
     $projects = Project::where( 'expiry_date', '>', now() )->get();
-    $applications = Application::where('user_id', auth()->user()->id)->pluck('project_id')->toArray();
-    return view( 'livewire.student.apply', [ 'projects' => $projects, 'applications'=>$applications ] );
+    $applications = Application::where( 'user_id', auth()->user()->id )->pluck( 'project_id' )->toArray();
+    return view( 'livewire.student.apply', [ 'projects' => $projects, 'applications' => $applications ] );
   }
   
   public function getFirstLetter( $value )
@@ -49,6 +49,19 @@ class StudentApply extends Component
       $acronym .= mb_substr( $w, 0, 1 );
     }
     return $acronym;
+  }
+  
+  public function checkQuota()
+  {
+    $userGender = auth()->user()->userInfo->gender->name;
+    
+    foreach( $this->quota as $selectedQuota ) {
+      $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
+      if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
+        $this->addError( 'quota', 'You cannot apply for Female Quota' );
+        return;
+      }
+    }
   }
   
   public function storeApplication()
@@ -66,12 +79,12 @@ class StudentApply extends Component
         $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
         if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
           
-          session()->flash( 'error', 'You cannot apply for Female Quota' );
+          $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
       }
       Application::create( $validate );
-  
+      
       session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
       $this->applyPanel = false;
       $this->toggleSection();
@@ -91,7 +104,6 @@ class StudentApply extends Component
     $this->application_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
         1000 );
   }
-  
   
   public function toggleSection()
   {

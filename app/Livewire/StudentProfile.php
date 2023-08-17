@@ -13,33 +13,33 @@ class StudentProfile extends Component
 {
   use WithFileUploads;
   
-  public $userId         = '';
-  public $first_name     = '';
-  public $last_name      = '';
-  public $email          = '';
-  public $phone          = '';
-  public $username       = '';
+  public $userId     = '';
+  public $first_name = '';
+  public $last_name  = '';
+  public $email      = '';
+  public $phone      = '';
+  public $username   = '';
   #[Rule( 'nullable|image|max:1024|mimes:png,jpg,jpeg' )]
-  public $image          = '';
-  public $cnic           = '';
-  public $user           = '';
-  public $avatar         = '';
+  public $image  = '';
+  public $cnic   = '';
+  public $user   = '';
+  public $avatar = '';
   #[Rule( 'required' )]
-  public $address        = '';
+  public $address = '';
   #[Rule( 'required' )]
-  public $father_nic     = '';
+  public $father_nic = '';
   #[Rule( 'required' )]
-  public $father_name    = '';
+  public $father_name = '';
   #[Rule( 'required' )]
   public $father_contact = '';
   #[Rule( 'required' )]
-  public $dob            = '';
+  public $dob = '';
   #[Rule( 'required' )]
-  public $gender_id      = '';
-  public $genderList     = '';
+  public $gender_id  = '';
+  public $genderList = '';
   // #[Rule( 'required' )]
-  public $district_id    = '';
-  public $districtList   = '';
+  public $district_id  = '';
+  public $districtList = '';
   #[Rule( 'required' )]
   public $blood_group_id = '';
   public $bloodGroupList = '';
@@ -57,14 +57,14 @@ class StudentProfile extends Component
     $this->username = $user->username;
     $this->cnic = $user->cnic;
     $this->avatar = $user->avatar;
-    $this->gender_id = $user->userInfo->gender_id;
-    $this->district_id = $user->userInfo->district_id;
-    $this->blood_group_id = $user->userInfo->blood_group_id;
-    $this->dob = $user->userInfo->dob;
-    $this->father_contact = $user->userInfo->father_contact;
-    $this->father_name = $user->userInfo->father_name;
-    $this->father_nic = $user->userInfo->father_nic;
-    $this->address = $user->userInfo->address;
+    $this->gender_id = $user->userInfo ?->gender_id;
+    $this->district_id = $user->userInfo ?->district_id;
+    $this->blood_group_id = $user->userInfo ?->blood_group_id;
+    $this->dob = $user->userInfo ?->dob;
+    $this->father_contact = $user->userInfo ?->father_contact;
+    $this->father_name = $user->userInfo ?->father_name;
+    $this->father_nic = $user->userInfo ?->father_nic;
+    $this->address = $user->userInfo ?->address;
     $this->genderList = Taxonomy::whereType( Taxonomy::GENDER )->get();
     $this->districtList = Taxonomy::whereType( Taxonomy::DISTRICT )->get();
     $this->bloodGroupList = Taxonomy::whereType( Taxonomy::BLOODGROUP )->get();
@@ -105,7 +105,12 @@ class StudentProfile extends Component
   public function updateProfile()
   {
     $validate = $this->validate();
-    $this->birthValidation( $this->dob );
+    $dob = Carbon::parse( $this->dob );
+    $minAge = 16;
+    if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
+      $this->addError( 'dob', "You must be at least $minAge years old." );
+      return;
+    }
     $validate[ 'email' ] = $this->email;
     try {
       $user = User::where( 'id', $this->userId )->first();

@@ -53,6 +53,10 @@
                                     href="{{ route('projects') }}">
                             Projects
                         </x-nav-link>
+	                        <x-nav-link wire:navigate :active="request()->routeIs('applications')"
+	                                    href="{{ route('applications') }}">
+		                        Applications
+	                        </x-nav-link>
                     @endif
                 </div>
             </div>

@@ -34,6 +34,7 @@
 								       name="quota[]"
 								       value="{{$list->id}}"
 								       wire:model="quota"
+								       wire:click="checkQuota"
 								       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
 								<span class="ml-8">{{$list->name}}</span>
 							</label>

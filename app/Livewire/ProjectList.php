@@ -30,10 +30,10 @@ class ProjectList extends Component
   public $diploma_id  = null;
   public $diplomaList = [];
   #[Rule( 'required' )]
-  public $fee         = '';
+  public $fee = '';
   #[Rule( 'required|array' )]
-  public $quota       = [];
-  public $quotaList   = '';
+  public $quota     = [];
+  public $quotaList = '';
   #[Rule( 'required' )]
   public $expiry_date = '';
   #[Rule( 'required' )]
@@ -78,6 +78,11 @@ class ProjectList extends Component
   {
     
     $validate = $this->validate();
+    $expiryDate = Carbon::parse( $this->expiry_date );
+    if( $expiryDate->isBefore( Carbon::now() ) ) {
+      $this->addError( 'expiry_date', "Expiry Date must be in future." );
+      return;
+    }
     if( $this->editProject ) {
       Project::where( 'id', $this->editProject )->update( $validate );
       $this->toggleSection();

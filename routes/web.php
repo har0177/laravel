@@ -29,6 +29,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
   Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
   Route::get( 'projects', [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware('can:manage projects');
+  Route::get( 'applications', [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware('can:manage projects');
 } );
 
 Route::middleware( [

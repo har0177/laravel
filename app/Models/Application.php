@@ -23,4 +23,13 @@ class Application extends Model
   {
     return $this->belongsTo( User::class );
   }
+  
+  public function getquotaNameAttribute()
+  {
+    $list = [];
+    foreach( $this->quota as $quota ) {
+      $list[] = Taxonomy::where( 'id', (int) $quota )->first()?->name;
+    }
+    return $list;
+  }
 }

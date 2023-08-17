@@ -87,6 +87,11 @@ class StudentEducation extends Component
   public function store()
   {
     $validate = $this->validate();
+    $resultDate = Carbon::parse( $this->result_declaration_date );
+    if( $resultDate->isAfter( Carbon::now() ) ) {
+      $this->addError( 'result_declaration_date', "Result Date must be in past." );
+      return;
+    }
     try {
       $validate[ 'user_id' ] = auth()->user()->id;
       $validate[ 'percentage' ] = $this->percentage;

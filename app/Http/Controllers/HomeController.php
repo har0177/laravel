@@ -73,5 +73,9 @@ class HomeController extends Controller
   {
     return view( 'admin.projects' );
   }
+  public function applications()
+  {
+    return view( 'admin.applications' );
+  }
   
 }
