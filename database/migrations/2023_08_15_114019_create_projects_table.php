@@ -14,7 +14,7 @@ return new class extends Migration {
       $table->id();
       $table->unsignedBigInteger( 'diploma_id' );
       $table->double( 'fee' );
-      $table->text( 'quota' );
+      $table->json( 'quota' );
       $table->date( 'expiry_date' );
       $table->longText( 'description' );
       $table->timestamps();

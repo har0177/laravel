@@ -1,15 +1,17 @@
 <div class="bg-white border border-gray-300 rounded-lg shadow-lg">
 
 
-	<div class="mt-4 mb-4 mx-6 text-center">
-		@if (session()->has('success'))
-			<div class="py-2 bg-green-500 text-white rounded">{{ session('success') }}</div>
-		@endif
+    <div class="mt-4 mb-4 mx-6 text-center">
+        @if (session()->has('success'))
+            <div class="py-2 bg-green-500 text-white rounded">{{ session('success') }}</div>
+        @endif
 
-		@if (session()->has('error'))
-			<div class="py-2 bg-red-500 text-white rounded">{{ session('error') }}</div>
-		@endif
-	</div>
+        @if (session()->has('error'))
+            <div class="py-2 bg-red-500 text-white rounded">{{ session('error') }}</div>
+        @endif
+    </div>
+
+
 
 	@if($applyPanel)
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between rounded-t-lg">
@@ -83,4 +85,5 @@
 			@endforelse
 		</div>
 	@endif
+
 </div>
