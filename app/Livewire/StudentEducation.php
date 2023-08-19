@@ -14,16 +14,15 @@ class StudentEducation extends Component
 {
   use WithPagination;
   
-  public $create        = false;
-  public $editEducation = null;
+  public $create         = false;
+  public $editEducation  = null;
   public $educationAdded = false;
-  
   
   protected $queryString = [
     'editEducation'
   ];
   
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please Select Degree' )]
   public            $degree_id;
   #[Rule( 'required|min:2|max:50' )]
   public            $board;
@@ -41,10 +40,10 @@ class StudentEducation extends Component
   public function mount()
   {
     $profileStatus = auth()->user()->userInfo?->profile_status;
-    if(!$profileStatus){
+    if( !$profileStatus ) {
       session()->flash( 'error', 'Please Update Profile First.' );
-  
-      return $this->redirect('/profile', navigate: true);
+      
+      return $this->redirect( '/profile', navigate: true );
     }
     $this->degreeList = Taxonomy::whereType( Taxonomy::DEGREE )->get();
   }
@@ -52,7 +51,7 @@ class StudentEducation extends Component
   public function render()
   {
     $educations = Education::where( 'user_id', auth()->user()->id )
-                         ->paginate( 10 );
+                           ->paginate( 10 );
     return view( 'livewire.student.education', [
       'educations' => $educations
     ] );
@@ -92,28 +91,37 @@ class StudentEducation extends Component
       $this->addError( 'result_declaration_date', "Result Date must be in past." );
       return;
     }
+    $education = Education::where( 'degree_id', $this->degree_id )
+                          ->where( 'user_id',
+                            auth()->user()->id );
     try {
       $validate[ 'user_id' ] = auth()->user()->id;
       $validate[ 'percentage' ] = $this->percentage;
+      
       if( $this->editEducation ) {
-        Education::where( 'id', $this->editEducation )->update( $validate );
-        $this->toggleSection();
-        session()->flash( 'success', 'Education updated successfully.' );
+        $education = $education->where( 'id', '!=', $this->editEducation )->first();
+        if( !$education ) {
+          Education::where( 'id', $this->editEducation )->update( $validate );
+          $this->toggleSection();
+          session()->flash( 'success', 'Education updated successfully.' );
+          return;
+        }
+        session()->flash( 'error', 'This education is already exist.' );
         return;
       }
-      $education = Education::where( 'degree_id', $validate[ 'degree_id' ] )->where( 'user_id',
-        auth()->user()->id )->first();
+      $education = $education->first();
       if( !$education ) {
         Education::create( $validate );
         $this->educationAdded = true;
-        session()->put('showApplyLink', true);
+        session()->put( 'showApplyLink', true );
         $this->toggleSection();
         session()->flash( 'success', 'Education added successfully.' );
         return;
       }
       session()->flash( 'error', 'This education is already exist.' );
     } catch ( \Exception $e ) {
-      session()->flash( 'error', 'An error occurred while saving the education details. Please try to fill the form again.' );
+      session()->flash( 'error',
+        'An error occurred while saving the education details, do not use autocomplete. Please try again to fill the form.' );
     }
     
   }

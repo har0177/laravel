@@ -84,7 +84,6 @@ class StudentApply extends Component
         }
       }
       Application::create( $validate );
-      
       session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
       $this->applyPanel = false;
       $this->toggleSection();

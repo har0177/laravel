@@ -1,14 +1,10 @@
 <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
-	<div class="mt-4 mb-4 text-center">
-		@if (session()->has('success'))
-			<span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
-		@endif
-
-
-		@if (session()->has('error'))
-			<span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
-		@endif
-	</div>
+	@if (session()->has('success'))
+		<x-flash-success-message message="{{ session('success') }}"/>
+	@endif
+	@if (session()->has('error'))
+		<x-flash-error-message message="{{ session('error') }}"/>
+	@endif
 
 @if($create)
 
@@ -123,6 +119,15 @@
 
 		<!-- Card Body -->
 		<div class="mt-5 px-8">
+			<div class="flex justify-between">
+				<div class="p-4">
+					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+				</div>
+				<div class="mr-2 mt-8">
+					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="active"/> Active Only ?
+				</div>
+			</div>
 			<table class="table-auto w-full border mt-5">
 				<thead class="bg-gray-200">
 				<tr>

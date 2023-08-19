@@ -1,15 +1,11 @@
 <div class="bg-white border border-gray-300 rounded-lg shadow-lg">
 
-
-	<div class="mt-4 mb-4 mx-6 text-center">
-		@if (session()->has('success'))
-			<div class="py-2 bg-green-500 text-white rounded">{{ session('success') }}</div>
-		@endif
-
-		@if (session()->has('error'))
-			<div class="py-2 bg-red-500 text-white rounded">{{ session('error') }}</div>
-		@endif
-	</div>
+	@if (session()->has('success'))
+		<x-flash-success-message message="{{ session('success') }}"/>
+	@endif
+	@if (session()->has('error'))
+		<x-flash-error-message message="{{ session('error') }}"/>
+	@endif
 
 
 	@if($applyPanel)

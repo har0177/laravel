@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Slide;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;

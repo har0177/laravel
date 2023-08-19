@@ -13,6 +13,8 @@ class ProjectList extends Component
 {
   use WithPagination;
   
+  public $active;
+  public $search;
   public $sortBy      = 'id';
   public $sortAsc     = true;
   public $create      = false;
@@ -30,10 +32,10 @@ class ProjectList extends Component
   public $diploma_id  = null;
   public $diplomaList = [];
   #[Rule( 'required' )]
-  public $fee = '';
+  public $fee         = '';
   #[Rule( 'required|array' )]
-  public $quota     = [];
-  public $quotaList = '';
+  public $quota       = [];
+  public $quotaList   = '';
   #[Rule( 'required' )]
   public $expiry_date = '';
   #[Rule( 'required' )]
@@ -48,7 +50,15 @@ class ProjectList extends Component
   public function render()
   {
     $query = Project::query();
-    $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+    $query->when( $this->search, function( $q ) {
+      return $q->where( function( $qq ) {
+        $qq->whereHas( 'diploma', function( $qqq ) {
+          $qqq->where( 'name', 'LIKE', '%' . $this->search . '%' );
+        } );
+      } );
+    } )->when( $this->active, function( $q ) {
+      return $q->where( 'expiry_date', '>=', now() );
+    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $projects = $query->paginate( 10 );
     
     return view( 'livewire.projects', [

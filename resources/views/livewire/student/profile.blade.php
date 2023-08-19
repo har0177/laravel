@@ -1,15 +1,11 @@
 <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
 
-	<div class="mt-4 mb-4 text-center">
-		@if (session()->has('success'))
-			<span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
-		@endif
-
-
-		@if (session()->has('error'))
-			<span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
-		@endif
-	</div>
+	@if (session()->has('success'))
+		<x-flash-success-message message="{{ session('success') }}"/>
+	@endif
+	@if (session()->has('error'))
+		<x-flash-error-message message="{{ session('error') }}"/>
+@endif
 	<!-- Card Header -->
 	<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 		<h1 class="text-xl text-white font-semibold">Update Profile</h1>
@@ -18,7 +14,7 @@
 
 	<!-- Card Body -->
 	<form class="py-6 px-4 sm:px-6" wire:submit.prevent="updateProfile" enctype="multipart/form-data">
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 			<!-- Name field -->
 			<div>
 				<label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
@@ -135,7 +131,7 @@
 				<div class="relative">
 					<select name="district_id" id="district_id" wire:model.live="district_id"
 					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option>Select District</option>
+						<option value="">Select District</option>
 						@foreach($districtList as $list)
 							<option value="{{$list->id}}" {{$this->district_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
 						@endforeach
@@ -153,7 +149,7 @@
 				<div class="relative">
 					<select name="blood_group_id" id="blood_group_id" wire:model.live="blood_group_id"
 					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option>Select Blood Group</option>
+						<option value="">Select Blood Group</option>
 						@foreach($bloodGroupList as $list)
 							<option value="{{$list->id}}" {{$this->blood_group_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
 						@endforeach
@@ -172,7 +168,7 @@
 				<div class="relative">
 					<select name="gender" id="gender" wire:model.live="gender_id"
 					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-						<option>Select Gender</option>
+						<option value="">Select Gender</option>
 						@foreach($genderList as $list)
 							<option value="{{$list->id}}" {{$this->gender_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
 						@endforeach

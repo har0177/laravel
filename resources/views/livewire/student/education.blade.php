@@ -1,16 +1,12 @@
 <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
-	<div class="mt-4 mb-4 text-center">
-		@if (session()->has('success'))
-			<span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
-		@endif
+	@if (session()->has('success'))
+		<x-flash-success-message message="{{ session('success') }}"/>
+	@endif
+	@if (session()->has('error'))
+		<x-flash-error-message message="{{ session('error') }}"/>
+	@endif
 
-
-		@if (session()->has('error'))
-			<span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
-		@endif
-	</div>
-
-@if($create)
+	@if($create)
 
 	<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
@@ -26,7 +22,7 @@
 					<div class="relative">
 						<select name="degree_id" id="degree_id" wire:model.live="degree_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-							<option>Select Degree</option>
+							<option value="">Select Degree</option>
 							@foreach($degreeList as $list)
 								<option
 									value="{{$list->id}}" {{$this->degree_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
@@ -162,7 +158,8 @@
 							<td class="border px-4 py-2">{{ $education->total_marks }}</td>
 							<td class="border px-4 py-2">{{ $education->percentage }}</td>
 							<td class="border px-4 py-2">{{ $education->grade }}</td>
-							<td class="border px-4 py-2">{{ \Carbon\Carbon::parse($education->result_declaration_date)->format('d-m-Y') }}</td>
+							<td
+								class="border px-4 py-2">{{ \Carbon\Carbon::parse($education->result_declaration_date)->format('d-m-Y') }}</td>
 							<td class="border px-4 py-2">
 								<x-button class="ml-3" wire:click="edit({{ $education->id }})" wire:loading.attr="disabled">
 									<i class="fas fa-edit"></i>

@@ -3,9 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Application;
-use App\Models\Taxonomy;
 use Carbon\Carbon;
-use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -28,21 +26,15 @@ class ApplicationList extends Component
   
   public function render()
   {
-    $query = Application::query();
-    $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $applications = $query->paginate( 10 );
     
     $query = Application::query();
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
-        $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
+        $qq->where( 'challan_number', 'LIKE', '%' . $this->search . '%' )
+           ->orWhere( 'application_number', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->when( $this->paid, function( $q ) {
-      return $q->where( 'status', 'Applied' );
+      return $q->where( 'status', 'Paid' );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $applications = $query->paginate( 10 );
     
@@ -54,6 +46,14 @@ class ApplicationList extends Component
   public function updateExpiryDate()
   {
     $this->expiryDateValidation( $this->expiry_date );
+  }
+  
+  public function paymentStatus( Application $application )
+  {
+    $application->status = 'Paid';
+    $application->save();
+    session()->flash( 'success', 'Payment status changed to Paid Successfully.' );
+    
   }
   
   public function expiryDateValidation( $value )

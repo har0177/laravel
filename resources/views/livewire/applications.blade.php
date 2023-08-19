@@ -1,14 +1,10 @@
 <div class="bg-white border border-gray-200 rounded-lg shadow-lg">
-	<div class="mt-4 mb-4 text-center">
-		@if (session()->has('success'))
-			<span class="px-3  py-1 bg-green-600 text-white rounded">{{ session('success') }}</span>
-		@endif
-
-
-		@if (session()->has('error'))
-			<span class="px-3 mt-4 mb-4 text-center py-1 bg-red-600 text-white rounded">{{ session('error') }}</span>
-		@endif
-	</div>
+	@if (session()->has('success'))
+		<x-flash-success-message message="{{ session('success') }}"/>
+	@endif
+	@if (session()->has('error'))
+		<x-flash-error-message message="{{ session('error') }}"/>
+	@endif
 
 
 	<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
@@ -67,6 +63,11 @@
 						Payment Status
 					</div>
 				</th>
+				<th scope="col" class="px-6 py-3">
+					<div class="flex items-center">
+						Action
+					</div>
+				</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -86,7 +87,12 @@
 						</ul>
 					</td>
 					<td class="border px-4 py-2">{{ $application->status}}</td>
-
+					<td class="border px-4 py-2">
+						@if($application->status !== 'Paid')
+							<x-button class="ml-3" wire:click="paymentStatus({{$application->id}})" wire:loading.attr="disabled">
+								<i class="fa-solid fa-dollar-sign"></i>							</x-button>
+						@endif
+					</td>
 				</tr>
 			@empty
 				<tr>
