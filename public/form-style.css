@@ -1,0 +1,295 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+
+.a4-page {
+    width: 21cm;
+    height: 29.7cm;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.col-20 {
+    flex: 20%;
+    max-width: 20%;
+}
+
+.col-60 {
+    flex: 60%;
+    max-width: 60%;
+}
+
+.col-50 {
+    flex: 50%;
+    max-width: 50%;
+}
+
+.col-40 {
+    flex: 40%;
+    max-width: 40%;
+}
+
+.col-10 {
+    flex: 10%;
+    max-width: 10%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+
+}
+
+.heading {
+    writing-mode: vertical-lr;
+    transform: rotate(180deg); /* Correct orientation */
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+    margin: 10px 0px;
+    padding: 0 10px;
+}
+
+.item-1 {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    flex: 75%;
+    max-width: 75%;
+}
+
+.item-2 {
+    grid-column-start: 3;
+    grid-column-end: 5;
+}
+
+.grid-item {
+    width: 120px !important;
+    margin-right: 25px;
+    font-size: 15px;
+}
+
+.underline{
+    width: 200px !important;
+}
+
+.grid-style {
+    padding: 10px 0px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 2px solid lightgrey;
+    margin: 10px;
+}
+
+th,
+td {
+    border: 2px solid lightgrey;
+    text-align: left;
+}
+
+p {
+    padding: 0 10px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.underline {
+    display: inline-block;
+    border-bottom: 1px solid black;
+}
+
+.heading {
+    background-color: gray;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 5px;
+    margin: 0 10px;
+}
+
+.img {
+    float: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.tick-mark::before {
+    content: "\2713"; /* Unicode checkmark character */
+    padding: 10px;
+}
+
+.border {
+    border: 1px solid black;
+    height: 100px;
+}
+
+
+
+.slip {
+    box-sizing: border-box;
+    width: calc(33.33% - 20px);
+    height: 100%;
+    padding: 10px;
+    background-color: #fff;
+}
+
+.row {
+    margin-top: 2px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.column {
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.col-50 {
+    flex: 50%;
+    max-width: 50%;
+}
+
+.col-25 {
+    flex: 25%;
+    max-width: 25%;
+}
+
+.col-100 {
+    flex: 100%;
+    max-width: 100%;
+}
+
+table {
+    text-align: left;
+    border-spacing: 0;
+}
+
+td {
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.bg-color {
+    background-color: #000;
+    color: #fff;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+#educations {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 12px;
+}
+
+#educations td, #educations th {
+    border: 1px solid #000000;
+    padding: 8px;
+}
+
+
+
+#educations th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #000000;
+    color: white;
+}
+
+
+.document-list {
+    display: flex;
+    font-size: 14px;
+}
+
+.column {
+    flex: 1;
+    padding: 0 10px;
+}
+
+.document-list ol,
+.document-list ul {
+    list-style: none;
+    padding: 2px;
+}
+
+.document-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2px;
+    counter-increment: my-counter;
+}
+
+.document-list .checkbox {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.document-list .checkbox.checked {
+    background-color: #00cc00;
+    border-color: #00cc00;
+}
+
+.document-list .checkbox.checked::before {
+    content: "\2713"; /* Unicode checkmark character */
+    color: white;
+}
+
+
+
+.grid-container-office {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 15px;
+    margin: 10px 0px;
+    padding: 0 10px;
+}
+
+
+
+
+.border {
+    border: 1px solid black;
+    height: 100px;
+}
+
+.item-3 {
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+

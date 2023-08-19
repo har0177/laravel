@@ -104,7 +104,7 @@
 									Apply Now
 								</x-button>
 							@else
-								<a target="_blank" href="{{ route('apply') }}"
+								<a target="_blank" href="{{ route('print-form', ['application' => $project->applications[0]]) }}"
 								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">View
 									Form</a>
 							@endif

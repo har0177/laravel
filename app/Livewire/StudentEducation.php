@@ -35,6 +35,8 @@ class StudentEducation extends Component
   public            $result_declaration_date;
   #[Rule( 'required' )]
   public            $grade;
+  #[Rule( 'required' )]
+  public            $roll_number;
   public Collection $degreeList;
   
   public function mount()
@@ -137,6 +139,7 @@ class StudentEducation extends Component
     $this->total_marks = $education->total_marks;
     $this->result_declaration_date = $education->result_declaration_date;
     $this->grade = $education->grade;
+    $this->roll_number = $education->roll_number;
     $this->create = true;
   }
   
@@ -158,6 +161,7 @@ class StudentEducation extends Component
       'percentage',
       'result_declaration_date',
       'grade',
+      'roll_number',
     ] );
     $this->resetErrorBag( [
       'degree_id',
@@ -166,7 +170,8 @@ class StudentEducation extends Component
       'total_marks',
       'percentage',
       'result_declaration_date',
-      'grade'
+      'grade',
+      'roll_number'
     ] );
     
   }

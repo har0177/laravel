@@ -19,6 +19,7 @@ return new class extends Migration {
       $table->double( 'percentage' );
       $table->date( 'result_declaration_date' );
       $table->text( 'grade' );
+      $table->text( 'roll_number' );
       $table->unsignedBigInteger( 'user_id' );
       $table->timestamps();
     } );

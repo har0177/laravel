@@ -125,6 +125,16 @@
 				@enderror
 			</div>
 
+			<div>
+				<label for="postal_address" class="block text-sm font-medium text-gray-700 mb-1">Postal Address</label>
+				<input id="postal_address" name="postal_address" type="text" wire:model.live="postal_address"
+				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				       placeholder="i.e. Peshawar City">
+				@error('postal_address')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
 
 			<div>
 				<label for="district_id" class="block text-sm font-medium text-gray-700 mb-1">District</label>

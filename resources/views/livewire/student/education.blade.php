@@ -89,6 +89,16 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
+
+				<div>
+					<label for="roll_number" class="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
+					<input id="roll_number" name="roll_number" type="text" wire:model.live="roll_number"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="124586">
+					@error('roll_number')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 				<!-- Email field -->
 				<div>
 					<label for="result_declaration_date" class="block text-sm font-medium text-gray-700 mb-1">Result
@@ -144,6 +154,7 @@
 						<th scope="col" class="border px-6 py-3">Total Marks</th>
 						<th scope="col" class="border px-6 py-3">Percentage</th>
 						<th scope="col" class="border px-6 py-3">Grade</th>
+						<th scope="col" class="border px-6 py-3">Roll #</th>
 						<th scope="col" class="border px-6 py-3">Result Date</th>
 						<th class="border px-4 py-2" width="150px">Action</th>
 					</tr>
@@ -158,6 +169,7 @@
 							<td class="border px-4 py-2">{{ $education->total_marks }}</td>
 							<td class="border px-4 py-2">{{ $education->percentage }}</td>
 							<td class="border px-4 py-2">{{ $education->grade }}</td>
+							<td class="border px-4 py-2">{{ $education->roll_number }}</td>
 							<td
 								class="border px-4 py-2">{{ \Carbon\Carbon::parse($education->result_declaration_date)->format('d-m-Y') }}</td>
 							<td class="border px-4 py-2">

@@ -18,6 +18,7 @@ class Education extends Model
     'percentage',
     'result_declaration_date',
     'grade',
+    'roll_number',
     'user_id'
   ];
   

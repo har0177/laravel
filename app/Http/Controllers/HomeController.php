@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -69,13 +70,24 @@ class HomeController extends Controller
   {
     return view( 'student.apply' );
   }
+  
   public function projects()
   {
     return view( 'admin.projects' );
   }
+  
   public function applications()
   {
     return view( 'admin.applications' );
+  }
+  
+  public function printForm( Application $application )
+  {
+    $user = auth()->user();
+    if($application->user_id !== $user->id){
+      return redirect()->back();
+    }
+    return view( 'print-form', compact( 'user', 'application' ) );
   }
   
 }

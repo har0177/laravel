@@ -23,6 +23,7 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'blood_group_id' )->nullable();
       $table->unsignedBigInteger( 'gender_id' )->nullable();
       $table->text( 'address' )->nullable();
+      $table->text( 'postal_address' )->nullable();
       $table->unsignedBigInteger( 'district_id' )->nullable();
       $table->timestamp( 'admission_date' )->useCurrent();
       $table->unsignedBigInteger( 'diploma_id' )->nullable();

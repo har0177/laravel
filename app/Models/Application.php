@@ -14,6 +14,8 @@ class Application extends Model
     'quota' => 'json'
   ];
   
+  protected $with = [ 'project' ];
+  
   public function project()
   {
     return $this->belongsTo( Project::class );

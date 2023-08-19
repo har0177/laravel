@@ -26,6 +26,7 @@ class StudentProfile extends Component
   public $avatar         = '';
   #[Rule( 'required', message: 'Please provide your full address' )]
   public $address        = '';
+  public $postal_address        = '';
   #[Rule( 'required', message: 'Please provide father CNIC #' )]
   public $father_nic     = '';
   #[Rule( 'required', message: 'Please provide father Name' )]
@@ -131,6 +132,7 @@ class StudentProfile extends Component
         'dob'            => $this->dob,
         'blood_group_id' => $this->blood_group_id,
         'address'        => $this->address,
+        'postal_address'        => $this->postal_address,
         'district_id'    => $this->district_id,
         'profile_status' => 1,
       ] );

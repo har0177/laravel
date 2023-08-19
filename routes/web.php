@@ -30,6 +30,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
   Route::get( 'projects', [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware('can:manage projects');
   Route::get( 'applications', [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware('can:manage projects');
+  Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
 } );
 
 Route::middleware( [
