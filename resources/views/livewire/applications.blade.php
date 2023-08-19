@@ -55,6 +55,12 @@
 				</th>
 				<th scope="col" class="px-6 py-3">
 					<div class="flex items-center">
+						Hostel Required
+						<x-sorting name="hostel"/>
+					</div>
+				</th>
+				<th scope="col" class="px-6 py-3">
+					<div class="flex items-center">
 						Quota Applied
 					</div>
 				</th>
@@ -78,6 +84,7 @@
 					<td class="border px-4 py-2">{{ $application->application_number }}</td>
 					<td class="border px-4 py-2">{{ $application->user->full_name }}</td>
 					<td class="border px-4 py-2">{{ $application->project->diploma->name}}</td>
+					<td class="border px-4 py-2">{{ $application->hostel ? 'Yes' : 'No'}}</td>
 					<td class="border px-4 py-2">
 						<ul class="list-disc list-inside">
 
@@ -88,9 +95,9 @@
 					</td>
 					<td class="border px-4 py-2">{{ $application->status}}</td>
 					<td class="border px-4 py-2">
-						@if($application->status !== 'Paid')
+						@if($application->status !== 'Paid' && $application->challan_number)
 							<x-button class="ml-3" wire:click="paymentStatus({{$application->id}})" wire:loading.attr="disabled">
-								<i class="fa-solid fa-dollar-sign"></i>							</x-button>
+								<i class="fa-solid fa-dollar-sign"></i></x-button>
 						@endif
 					</td>
 				</tr>

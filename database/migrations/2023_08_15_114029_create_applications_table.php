@@ -16,7 +16,8 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'project_id' );
       $table->text( 'challan_number' )->nullable();
       $table->text( 'application_number' );
-      $table->enum( 'status', [ 'Pending Payment', 'Paid' ] )->default( 'Pending Payment' );
+      $table->boolean( 'hostel' )->default( 0 );
+      $table->enum( 'status', [ 'Pending', 'Paid' ] )->default( 'Pending' );
       $table->json( 'quota' );
       $table->timestamps();
     } );

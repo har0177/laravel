@@ -137,7 +137,7 @@
 							<x-sorting name="id"/>
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="px-16 py-3">
 						<div class="flex items-center">
 							Diploma
 						</div>
@@ -147,13 +147,13 @@
 							Fee
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
+					<th scope="col" class="px-10 py-3">
 						<div class="flex items-center">
 							Expiry Date
 						</div>
 					</th>
-					<th scope="col" class="px-6 py-3">
-						<div class="flex items-center">
+					<th scope="col" class="px-24 py-3">
+						<div class="flex items-center" >
 							Quota
 						</div>
 					</th>
@@ -180,7 +180,7 @@
 								@endforeach
 							</ul>
 						</td>
-						<td class="border px-4 py-2">{{ $project->description }}</td>
+						<td class="border px-4 py-2">{{ substr($project->description, 0, 200) }}...</td>
 						<td class="border px-4 py-2">
 							<x-button class="ml-3" wire:click="edit({{$project->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>

@@ -35,8 +35,8 @@ class CreateNewUser implements CreatesNewUsers
     ] )->validate();
     
     $user = User::create( [
-      'first_name' => $input[ 'first_name' ],
-      'last_name'  => $input[ 'last_name' ],
+      'first_name' => ucfirst($input[ 'first_name' ]),
+      'last_name'  => ucfirst($input[ 'last_name' ]),
       'email'      => $input[ 'email' ],
       'cnic'       => $input[ 'cnic' ],
       'username'   => $input[ 'username' ],
@@ -47,7 +47,7 @@ class CreateNewUser implements CreatesNewUsers
     
     UserInfo::create( [
       'user_id'     => $user->id,
-      'father_name' => $input[ 'father_name' ]
+      'father_name' => ucfirst($input[ 'father_name' ])
     ] );
     return $user;
   }

@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
       'name'        => 'Admin',
       'slug'        => 'admin',
       'description' => 'Administration',
-      'permissions' => [ 'manage roles' ]
+      'permissions' => [ 'manage roles', 'manage users', 'manage students', 'manage projects', 'manage slides', 'manage events' ]
     ] );
     \App\Models\User::create( [
       'first_name' => 'Super',

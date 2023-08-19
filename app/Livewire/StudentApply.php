@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Application;
 use App\Models\Project;
 use App\Models\Taxonomy;
-use http\Client\Curl\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 
@@ -15,11 +14,14 @@ class StudentApply extends Component
   public $applyPanel         = false;
   public $project_id         = '';
   public $application_number = '';
+  public $challan_number = '';
   public $diplomaName        = '';
+  #[Rule( 'required' )]
+  public $hostel             = 0;
   #[Rule( 'required|array|min:1|max:2' )]
-  public $quota     = [];
-  public $quotaList = '';
-  public $status    = '';
+  public $quota              = [];
+  public $quotaList          = '';
+  public $status             = 'Pending';
   
   public function mount()
   {
@@ -35,9 +37,16 @@ class StudentApply extends Component
   
   public function render()
   {
-    $projects = Project::where( 'expiry_date', '>', now() )->get();
-    $applications = Application::where( 'user_id', auth()->user()->id )->pluck( 'project_id' )->toArray();
-    return view( 'livewire.student.apply', [ 'projects' => $projects, 'applications' => $applications ] );
+    $userId = auth()->user()->id;
+    
+    $projects = Project::with( [
+      'applications' => function( $query ) use ( $userId ) {
+        $query->where( 'user_id', $userId );
+      }
+    ] )
+                       ->where( 'expiry_date', '>', now() )
+                       ->get();
+    return view( 'livewire.student.apply', [ 'projects' => $projects ] );
   }
   
   public function getFirstLetter( $value )
@@ -72,13 +81,12 @@ class StudentApply extends Component
       $validate[ 'project_id' ] = $this->project_id;
       $validate[ 'status' ] = $this->status;
       $validate[ 'application_number' ] = $this->application_number;
+      $validate[ 'hostel' ] = $this->hostel;
       $selectedQuotas = $validate[ 'quota' ];
       $userGender = auth()->user()->userInfo->gender->name;
-      
       foreach( $selectedQuotas as $selectedQuota ) {
         $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
         if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
-          
           $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
@@ -99,7 +107,6 @@ class StudentApply extends Component
     $this->applyPanel = true;
     $this->project_id = $project->id;
     $this->diplomaName = $project->diploma->name;
-    $this->status = 'Pending Payment';
     $this->application_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
         1000 );
   }
@@ -127,6 +134,19 @@ class StudentApply extends Component
       'application_number',
     ] );
     
+  }
+  
+  public function saveChallan( Application $application )
+  {
+    $this->validate( [
+      'challan_number' => 'required',
+    ] );
+    
+    $application->challan_number = $this->challan_number;
+    $application->save();
+    
+    // Add any success message if needed
+    session()->flash( 'success', 'Challan Number submitted successfully.' );
   }
   
 }

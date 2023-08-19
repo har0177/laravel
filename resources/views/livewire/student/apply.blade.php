@@ -41,6 +41,34 @@
 					@enderror
 				</div>
 
+				<div class="mb-4">
+					<label for="hostel" class="block text-sm font-medium text-gray-700 mb-1">Hostel Required</label>
+					<div class="space-y-2">
+						<label class="relative flex items-center">
+							<input type="radio"
+							       id="hostel"
+							       name="hostel"
+							       value="1"
+							       wire:model="hostel"
+							       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+							<span class="ml-8">Yes</span>
+						</label>
+						<label class="relative flex items-center">
+							<input type="radio"
+							       id="hostel"
+							       value="0"
+							       name="hostel"
+							       wire:model="hostel"
+							       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+							<span class="ml-8">No</span>
+						</label>
+
+					</div>
+					@error('hostel')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
+
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"
@@ -71,18 +99,44 @@
 					<div class="flex justify-between items-center bg-gray-100 p-3">
 						<small class="text-red-600">{{ \Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y') }}</small>
 						<div>
-							@if(!in_array($project->id, $applications))
+							@if(!$project->applications)
 								<x-button class="ml-3" wire:click="applyNow({{$project->id}})" wire:loading.attr="disabled">
 									Apply Now
 								</x-button>
 							@else
-								<span class="px-2 py-1 text-sm font-semibold rounded-lg   bg-green-500 text-white">Applied</span>
 								<a target="_blank" href="{{ route('apply') }}"
 								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">View
 									Form</a>
 							@endif
 						</div>
 					</div>
+
+					@if($project->applications && empty($project->applications[0]->challan_number))
+						<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- by downloading the challan form and then submit challan number
+							here.</p>
+						<div class="flex justify-between items-center bg-gray-100 p-3">
+
+							<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
+								<input wire:model="challan_number" nam="challan_number" type="text" placeholder="Enter Challan Number"
+								       class="px-2 py-1 border rounded-md focus:outline-none focus:border-blue-500">
+
+								<button type="submit"
+								        class="ml-2 px-3 py-1 bg-indigo-500 text-white rounded-md hover:bg-indigo-700 transition duration-300">
+									Submit
+								</button>
+
+							</form>
+							@error('challan_number')
+							<span class="text-red-600 text-sm">{{ $message }}</span>
+							@enderror
+						</div>
+					@else
+						<div class="py-2 px-4 text-center text-white rounded-t-lg">
+										<span
+											class="px-2 py-1 text-sm font-semibold rounded-lg bg-green-500 text-white">Paid Challan #: {{$project->applications[0]->challan_number}}</span>
+
+						</div>
+					@endif
 				</div>
 			@empty
 				<div class="bg-white shadow-md rounded-lg overflow-hidden border border-gray-300 p-6">

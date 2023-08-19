@@ -24,23 +24,23 @@ class StudentProfile extends Component
   public $cnic           = '';
   public $user           = '';
   public $avatar         = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please provide your full address' )]
   public $address        = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please provide father CNIC #' )]
   public $father_nic     = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please provide father Name' )]
   public $father_name    = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please provide father phone #' )]
   public $father_contact = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please provide date of birth' )]
   public $dob            = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please select your gender' )]
   public $gender_id      = '';
   public $genderList     = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please select your district' )]
   public $district_id    = '';
   public $districtList   = '';
-  #[Rule( 'required' )]
+  #[Rule( 'required', message: 'Please select your blood group.' )]
   public $blood_group_id = '';
   public $bloodGroupList = '';
   
@@ -114,6 +114,10 @@ class StudentProfile extends Component
     $validate[ 'email' ] = $this->email;
     try {
       $user = User::where( 'id', $this->userId )->first();
+      if( !$user->hasMedia( 'avatars' ) && empty($this->image)) {
+        $this->addError( 'image', "Please upload your image." );
+        return;
+      }
       if( $this->image ) {
         $user->clearMediaCollection( 'avatars' );
         $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
