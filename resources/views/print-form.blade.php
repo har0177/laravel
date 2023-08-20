@@ -37,10 +37,12 @@
 	<div class="container">
 		<h3 class="heading">Domicile</h3>
 		<div class="grid-container">
-			<div class="grid-item">Province:</div>
-			<div class="grid-item underline">{{$user->userInfo->province->name}}</div>
 			<div class="grid-item">District/Domicile:</div>
 			<div class="grid-item underline">{{$user->userInfo->district->name}}</div>
+			<div class="grid-item">Province:</div>
+			<div class="grid-item underline">{{$user->userInfo->province->name}}</div>
+			<div class="grid-item"></div>
+			<div class="grid-item"></div>
 			<div class="grid-item">Nationality:</div>
 			<div class="grid-item underline">Pakistan</div>
 		</div>
@@ -206,96 +208,301 @@
 	</div>
 </div>
 
+<div class="landscape">
+	<div class="slip-container">
+		<div class="slip">
+			<table style="font-size: 12px">
+				<tr>
+					<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
+					<td colspan="2" style="text-align: center">
+						<h3>Agriculture Services Academy, Peshawar<br><br>
+							<span class="bg-color" style="padding: 3px">BANK COPY</span>
+						</h3>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
+				</tr>
+				<tr>
+					<td colspan="2">Branch Code:</td>
+					<td>Date:</td>
+				</tr>
+				<tr>
+					<td colspan="3">Branch Name:</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						Remote Branch: <b>University Campus Branch, Peshawar</b><br>
+						A/C Title: <b>Principal Agriculture Training Institute</b><br>
+						A/C No: <b>PK59NBPA0388003048617735</b><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Application Ref. No:</td>
+					<td colspan="2">{{$application->application_number}}</td>
+				</tr>
+				<tr>
+					<td>CNIC/Form B NO:</td>
+					<td colspan="2">{{$user->cnic}}</td>
+				</tr>
+				<tr>
+					<td>Applicant's Name</td>
+					<td colspan="2">{{$user->full_name}}</td>
+				</tr>
+				<tr>
+					<td>Father's Name:</td>
+					<td colspan="2">{{$user->userInfo->father_name}}</td>
+				</tr>
+				<tr>
+					<td>Mobile No:</td>
+					<td colspan="2">{{$user->phone}}</td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td colspan="2">{{$user->userInfo->address}}</td>
+				</tr>
+				<tr>
+					<td>Training Program Please (&#x2713;)</td>
+					<td class="text-center"><strong>DVS</strong>
+						@if(str_contains($application->project->diploma->name, 'Vet') )
+							&#x2713;
+						@endif</td>
+					<td class="text-center"><strong>DAS</strong>
+						@if(str_contains($application->project->diploma->name, 'Agr') )
+							&#x2713;
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Amount in (Rs.):</td>
+					<td colspan="2">{{$application->project->fee}}/-</td>
+				</tr>
+				<tr>
+					<td>Amount in Words:</td>
+					<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
+				</tr>
+			</table>
+			<small>* No Bank Charges to be paid by student.</small>
 
-{{--<div class="slip">
-	<table>
-		<tr class="text-center">
-			<td>
-				<img src="images/logo.png" alt="logo">
-			</td>
-			<td colspan="2">
-				<h3>
-					Karachi Institute of Power
-					Engineering (KINPOE) <br>
-					<span class="bg-color">BANK COPY</span>
-				</h3>
-			</td>
-		</tr>
-		<tr class="text-center">
-			<td colspan="3"><strong>ONLINE DEPOSIT SLIP</strong></td>
-		</tr>
-		<tr>
-			<td colspan="2">Branch Code:</td>
-			<td>Date:</td>
-		</tr>
-		<tr>
-			<td colspan="3">Branch Name:</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				Remote Branch: <br>
-				A/C Title: <br>
-				A/C No: <br>
-			</td>
-		</tr>
-		<tr>
-		<tr>
-			<td>Application Ref. No:</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr>
-			<td>CNIC/Form B NO:</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr>
-			<td>Applicant's Name</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr>
-			<td>Father's Name:</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr>
-			<td>Mobile No:</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr height="20px">
-			<td rowspan="2">Address:</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr height="20px">
-			<td colspan="2"></td>
-		</tr>
-		</tr>
-		<tr>
-			<td>Training Program Please (&#x2713;)</td>
-			<td class="text-center"><strong>PGTP</strong></td>
-			<td class="text-center"><strong>PDTP</strong> &#x2713;</td>
-		</tr>
-		<tr>
-		<tr>
-			<td>Amount in (Rs.):</td>
-			<td colspan="2"></td>
-		</tr>
-		<tr>
-			<td>Amount in Words:</td>
-			<td colspan="2"></td>
-		</tr>
-		</tr>
-	</table>
-	<small>* No Bank Charges to be paid by student.</small>
-	<div class="row">
-		<div class="column col-50">
-			<span class="text-overline">Applicant's Signature</span>
+			<div class="row">
+				<div class="column col-50">
+					<br>
+					<br>
+
+					<span class="decorated-text">Applicant's Signature</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Cashier</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Officer</span>
+				</div>
+			</div>
+
 		</div>
-		<div class="column col-25">
-			<span class="text-overline">Cashier</span>
+		<div class="slip">
+			<table style="font-size: 12px">
+				<tr>
+					<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
+					<td colspan="2" style="text-align: center">
+						<h3>Agriculture Services Academy, Peshawar<br><br>
+							<span class="bg-color" style="padding: 3px">STUDENT COPY</span>
+						</h3>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
+				</tr>
+				<tr>
+					<td colspan="2">Branch Code:</td>
+					<td>Date:</td>
+				</tr>
+				<tr>
+					<td colspan="3">Branch Name:</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						Remote Branch: <b>University Campus Branch, Peshawar</b><br>
+						A/C Title: <b>Principal Agriculture Training Institute</b><br>
+						A/C No: <b>PK59NBPA0388003048617735</b><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Application Ref. No:</td>
+					<td colspan="2">{{$application->application_number}}</td>
+				</tr>
+				<tr>
+					<td>CNIC/Form B NO:</td>
+					<td colspan="2">{{$user->cnic}}</td>
+				</tr>
+				<tr>
+					<td>Applicant's Name</td>
+					<td colspan="2">{{$user->full_name}}</td>
+				</tr>
+				<tr>
+					<td>Father's Name:</td>
+					<td colspan="2">{{$user->userInfo->father_name}}</td>
+				</tr>
+				<tr>
+					<td>Mobile No:</td>
+					<td colspan="2">{{$user->phone}}</td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td colspan="2">{{$user->userInfo->address}}</td>
+				</tr>
+				<tr>
+					<td>Training Program Please (&#x2713;)</td>
+					<td class="text-center"><strong>DVS</strong>
+						@if(str_contains($application->project->diploma->name, 'Vet') )
+							&#x2713;
+						@endif</td>
+					<td class="text-center"><strong>DAS</strong>
+						@if(str_contains($application->project->diploma->name, 'Agr') )
+							&#x2713;
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Amount in (Rs.):</td>
+					<td colspan="2">{{$application->project->fee}}/-</td>
+				</tr>
+				<tr>
+					<td>Amount in Words:</td>
+					<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
+				</tr>
+			</table>
+			<small>* No Bank Charges to be paid by student.</small>
+
+			<div class="row">
+				<div class="column col-50">
+					<br>
+					<br>
+
+					<span class="decorated-text">Applicant's Signature</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Cashier</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Officer</span>
+				</div>
+			</div>
+
 		</div>
-		<div class="column col-25">
-			<span class="text-overline">Officer</span>
+		<div class="slip">
+			<table style="font-size: 12px">
+				<tr>
+					<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
+					<td colspan="2" style="text-align: center">
+						<h3>Agriculture Services Academy, Peshawar<br><br>
+							<span class="bg-color" style="padding: 3px">ACCOUNT COPY</span>
+						</h3>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
+				</tr>
+				<tr>
+					<td colspan="2">Branch Code:</td>
+					<td>Date:</td>
+				</tr>
+				<tr>
+					<td colspan="3">Branch Name:</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+						Remote Branch: <b>University Campus Branch, Peshawar</b><br>
+						A/C Title: <b>Principal Agriculture Training Institute</b><br>
+						A/C No: <b>PK59NBPA0388003048617735</b><br>
+					</td>
+				</tr>
+				<tr>
+					<td>Application Ref. No:</td>
+					<td colspan="2">{{$application->application_number}}</td>
+				</tr>
+				<tr>
+					<td>CNIC/Form B NO:</td>
+					<td colspan="2">{{$user->cnic}}</td>
+				</tr>
+				<tr>
+					<td>Applicant's Name</td>
+					<td colspan="2">{{$user->full_name}}</td>
+				</tr>
+				<tr>
+					<td>Father's Name:</td>
+					<td colspan="2">{{$user->userInfo->father_name}}</td>
+				</tr>
+				<tr>
+					<td>Mobile No:</td>
+					<td colspan="2">{{$user->phone}}</td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td colspan="2">{{$user->userInfo->address}}</td>
+				</tr>
+				<tr>
+					<td>Training Program Please (&#x2713;)</td>
+					<td class="text-center"><strong>DVS</strong>
+						@if(str_contains($application->project->diploma->name, 'Vet') )
+							&#x2713;
+						@endif</td>
+					<td class="text-center"><strong>DAS</strong>
+						@if(str_contains($application->project->diploma->name, 'Agr') )
+							&#x2713;
+						@endif
+					</td>
+				</tr>
+				<tr>
+					<td>Amount in (Rs.):</td>
+					<td colspan="2">{{$application->project->fee}}/-</td>
+				</tr>
+				<tr>
+					<td>Amount in Words:</td>
+					<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
+				</tr>
+			</table>
+			<small>* No Bank Charges to be paid by student.</small>
+
+			<div class="row">
+				<div class="column col-50">
+					<br>
+					<br>
+
+					<span class="decorated-text">Applicant's Signature</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Cashier</span>
+				</div>
+				<div class="column col-25">
+					<br>
+					<br>
+
+					<span class="decorated-text">Officer</span>
+				</div>
+			</div>
+
 		</div>
+
+		<!-- Repeat the above .slip structure for the other two slips -->
+		<!-- ... (content for the second and third slips) -->
 	</div>
-</div>--}}
+</div>
 
 
 </body>

@@ -40,8 +40,8 @@ class DatabaseSeeder extends Seeder
     ] );
     
     // Diplomas
-    Taxonomy::create( [ 'name' => 'Veterinary Sciences', 'type' => 'diploma' ] );
-    Taxonomy::create( [ 'name' => 'Agriculture Sciences', 'type' => 'diploma' ] );
+    Taxonomy::create( [ 'name' => 'Diploma In Veterinary Sciences', 'type' => 'diploma' ] );
+    Taxonomy::create( [ 'name' => 'Diploma In Agriculture Sciences', 'type' => 'diploma' ] );
     
     // Sections
     Taxonomy::create( [ 'name' => 'DVS - I', 'type' => 'section', 'parent_id' => 1 ] );
