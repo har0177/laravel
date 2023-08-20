@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\TaxonomyTypeEnum;
 use App\Models\Education;
 use App\Models\Taxonomy;
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class StudentEducation extends Component
       
       return $this->redirect( '/profile', navigate: true );
     }
-    $this->degreeList = Taxonomy::whereType( Taxonomy::DEGREE )->get();
+    $this->degreeList = Taxonomy::whereType( TaxonomyTypeEnum::DEGREE )->get();
   }
   
   public function render()

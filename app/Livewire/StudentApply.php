@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Enums\TaxonomyTypeEnum;
 use App\Models\Application;
 use App\Models\Project;
 use App\Models\Taxonomy;
@@ -12,14 +13,13 @@ class StudentApply extends Component
 {
   
   public $applyPanel         = false;
+  public $editApplication    = null;
   public $project_id         = '';
   public $application_number = '';
-  public $challan_number = '';
+  public $challan_number     = '';
   public $diplomaName        = '';
-  #[Rule( 'required' )]
-  public $hostel             = 0;
-  #[Rule( 'required|array|min:1|max:2' )]
-  public $quota              = [];
+  #[Rule( 'required|array|min:1' )]
+  public $quota              = [ '33' ];
   public $quotaList          = '';
   public $status             = 'Pending';
   
@@ -31,7 +31,7 @@ class StudentApply extends Component
       
       return $this->redirect( '/education', navigate: true );
     }
-    $this->quotaList = Taxonomy::whereType( Taxonomy::QUOTA )->get();
+    $this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )->get();
     
   }
   
@@ -49,6 +49,17 @@ class StudentApply extends Component
     return view( 'livewire.student.apply', [ 'projects' => $projects ] );
   }
   
+  public function edit( Application $application )
+  {
+    $this->editApplication = $application->id;
+    $this->quota = $application->quota;
+    $this->application_number = $application->application_number;
+    $this->challan_number = $application->challan_number;
+    $this->status = $application->status;
+    $this->project_id = $application->project_id;
+    $this->applyPanel = true;
+  }
+  
   public function getFirstLetter( $value )
   {
     $words = explode( " ", $value );
@@ -62,12 +73,24 @@ class StudentApply extends Component
   
   public function checkQuota()
   {
-    $userGender = auth()->user()->userInfo->gender->name;
+    $user = auth()->user()->userInfo;
     
     foreach( $this->quota as $selectedQuota ) {
       $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
-      if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
+      if( str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Male' ) {
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
+        return;
+      }
+      if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
+        $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
+        return;
+      }
+      if( str_contains( $quotaName, 'Fata' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+        $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
+        return;
+      }
+      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
+        $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
         return;
       }
     }
@@ -81,24 +104,44 @@ class StudentApply extends Component
       $validate[ 'project_id' ] = $this->project_id;
       $validate[ 'status' ] = $this->status;
       $validate[ 'application_number' ] = $this->application_number;
-      $validate[ 'hostel' ] = $this->hostel;
       $selectedQuotas = $validate[ 'quota' ];
-      $userGender = auth()->user()->userInfo->gender->name;
+      $user = auth()->user()->userInfo;
       foreach( $selectedQuotas as $selectedQuota ) {
         $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
-        if( str_contains( $quotaName, 'Female' ) && $userGender === 'Male' ) {
+        if( str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Male' ) {
           $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
+        
+        if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
+          $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
+          return;
+        }
+        if( str_contains( $quotaName, 'Fata' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+          $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
+          return;
+        }
+  
+        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
+          $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
+          return;
+        }
+        
       }
-      Application::create( $validate );
-      session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
+      if( $this->editApplication ) {
+        $application = Application::findOrFail( $this->editApplication );
+        $application->update( $validate );
+        session()->flash( 'success', 'Application for ' . $this->diplomaName . ' has been updated.' );
+      } else {
+        Application::create( $validate );
+        session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
+      }
       $this->applyPanel = false;
       $this->toggleSection();
       return;
     } catch ( \Exception $e ) {
       session()->flash( 'error',
-        'An error occurred while saving the education details. Please try to fill the form again.' );
+        'An error occurred while saving the application. Please try again.' );
     }
   }
   

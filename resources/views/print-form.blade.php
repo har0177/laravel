@@ -11,25 +11,35 @@
 <body>
 <div class="a4-page">
 	<div class="row">
-		<img src="{{asset('banner.jpg')}}" style="width: 100%" alt="logo"/>
+		<img src="{{asset('banner.jpg')}}" style="width: 100%; margin: 0px 10px" alt="logo"/>
 		<div class="column col-80">
-			<h4 class="text-center">Admission Sought in: {{$application->project->diploma->name}}</h4>
-			<b>Quota Applied For:</b>
-			<ul class="list-disc list-inside" style="margin: 0px">
-				@foreach ($application->quotaName as $quotaName)
-					<li class="tick-mark">{{ $quotaName }}</li>
-				@endforeach
-			</ul>
+			<ol>
+				<li>Admission Sought in: <b>{{ $application->project->diploma->name }}</b></li>
+				<li>Open Merit: <span class="tick-mark"></span></li>
+				<li><b>Quota Applied For:</b>
+					<ol class="list-disc list-inside" style="margin: 0px">
+						@foreach ($application->quotaName as $quotaName)
+							@unless(str_contains($quotaName, 'Open'))
+								<li>{{ $quotaName }} <span class="tick-mark"></span></li>
+							@endunless
+						@endforeach
+					</ol>
+				</li>
+			</ol>
+
+
 		</div>
 		<div class="column col-20">
-			<img src="{{$user->avatar}}" style="width: 80px" alt="{{$user->full_name}}"/>
+			<img src="{{$user->avatar}}" style="width: 70px" alt="{{$user->full_name}}"/>
 		</div>
 	</div>
 	<hr/>
 	<div class="container">
 		<h3 class="heading">Domicile</h3>
 		<div class="grid-container">
-			<div class="grid-item">District:</div>
+			<div class="grid-item">Province:</div>
+			<div class="grid-item underline">{{$user->userInfo->province->name}}</div>
+			<div class="grid-item">District/Domicile:</div>
 			<div class="grid-item underline">{{$user->userInfo->district->name}}</div>
 			<div class="grid-item">Nationality:</div>
 			<div class="grid-item underline">Pakistan</div>
@@ -50,17 +60,23 @@
 			<div class="grid-item underline">{{$user->email}}</div>
 			<div class="grid-item">Contact No:</div>
 			<div class="grid-item underline">{{$user->phone}}</div>
+			<div class="grid-item">Religion:</div>
+			<div class="grid-item underline">{{$user->userInfo->religion}}</div>
+			<div class="grid-item">Hostel Required:</div>
+			<div class="grid-item underline">{{$user->userInfo->hostel?'Yes':'No'}}</div>
+			<div class="grid-item">Emergency #:</div>
+			<div class="grid-item underline">{{$user->userInfo->emegency_contact}}</div>
 		</div>
 	</div>
 
 	<div class="container">
 		<h3 class="heading">Father</h3>
 		<div class="grid-container">
-			<div class="grid-item">Father's Name:</div>
+			<div class="grid-item">Father's / Guardian Name:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_name}}</div>
-			<div class="grid-item">Father's CNIC:</div>
+			<div class="grid-item">Father's / Guardian CNIC:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_nic}}</div>
-			<div class="grid-item">Father's Phone:</div>
+			<div class="grid-item">Father's / Guardian Phone:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_contact}}</div>
 		</div>
 	</div>
@@ -71,10 +87,10 @@
 			<div class="grid-item">Address:</div>
 			<div class="grid-item underline item-1" style="width: 100% !important;">{{$user->userInfo->address}}</div>
 			<div class="grid-item">Postal Address:</div>
-			<div class="grid-item underline item-1" style="width: 100% !important;">{{$user->userInfo->postal_address ?? $user->userInfo->address}}</div>
+			<div class="grid-item underline item-1"
+			     style="width: 100% !important;">{{$user->userInfo->postal_address ?? $user->userInfo->address}}</div>
 		</div>
 	</div>
-
 
 
 	<div class="row" style="margin-top: 3px !important;">

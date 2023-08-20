@@ -6,7 +6,7 @@
 	@if (session()->has('error'))
 		<x-flash-error-message message="{{ session('error') }}"/>
 @endif
-	<!-- Card Header -->
+<!-- Card Header -->
 	<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 		<h1 class="text-xl text-white font-semibold">Update Profile</h1>
 
@@ -107,6 +107,16 @@
 			</div>
 
 			<div>
+				<label for="emergency_contact" class="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
+				<input id="emergency_contact" name="emergency_contact" type="text" wire:model.live="emergency_contact"
+				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				       placeholder="xxxxxxxxxxx">
+				@error('emergency_contact')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
+			<div>
 				<label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
 				<input id="dob" name="dob" type="date" wire:model.lazy="dob" wire:change="birthValidation"
 				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -135,12 +145,30 @@
 				@enderror
 			</div>
 
+			<div>
+				<label for="province_id" class="block text-sm font-medium text-gray-700 mb-1">Province</label>
+				<div class="relative">
+					<select name="province_id" id="province_id" wire:model.live="province_id"
+					        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+						<option value="">Select Province</option>
+						@foreach($provinceList as $list)
+							<option value="{{$list->id}}" {{$this->province_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
+						@endforeach
+					</select>
+
+				</div>
+
+				@error('province_id')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
 
 			<div>
 				<label for="district_id" class="block text-sm font-medium text-gray-700 mb-1">District</label>
 				<div class="relative">
 					<select name="district_id" id="district_id" wire:model.live="district_id"
-					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+					        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 						<option value="">Select District</option>
 						@foreach($districtList as $list)
 							<option value="{{$list->id}}" {{$this->district_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
@@ -158,7 +186,7 @@
 				<label for="blood_group_id" class="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
 				<div class="relative">
 					<select name="blood_group_id" id="blood_group_id" wire:model.live="blood_group_id"
-					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+					        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 						<option value="">Select Blood Group</option>
 						@foreach($bloodGroupList as $list)
 							<option value="{{$list->id}}" {{$this->blood_group_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
@@ -177,7 +205,7 @@
 				<label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
 				<div class="relative">
 					<select name="gender" id="gender" wire:model.live="gender_id"
-					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+					        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 						<option value="">Select Gender</option>
 						@foreach($genderList as $list)
 							<option value="{{$list->id}}" {{$this->gender_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
@@ -187,6 +215,53 @@
 				</div>
 
 				@error('gender_id')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+			<div>
+				<label for="religion" class="block text-sm font-medium text-gray-700 mb-1">Religion</label>
+				<div class="relative">
+					<select name="religion" id="religion" wire:model.live="religion"
+					        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+						<option value="">Select Religion</option>
+
+						@foreach($religionList as $religion)
+							<option value="{{ $religion->name }}" {{ $this->religion === $religion->value ? 'selected' : '' }}>
+								{{ $religion->value }}
+							</option>
+						@endforeach
+					</select>
+
+				</div>
+
+				@error('religion')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+			<div class="mb-4">
+				<label for="hostel" class="block text-sm font-medium text-gray-700 mb-1">Hostel Required</label>
+				<div class="space-y-2">
+					<label class="relative flex items-center">
+						<input type="radio"
+						       id="hostel"
+						       name="hostel"
+						       value="1"
+						       wire:model="hostel"
+						       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+						<span class="ml-8">Yes</span>
+					</label>
+					<label class="relative flex items-center">
+						<input type="radio"
+						       id="hostel"
+						       value="0"
+						       name="hostel"
+						       wire:model="hostel"
+						       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+						<span class="ml-8">No</span>
+					</label>
+
+				</div>
+				@error('hostel')
 				<span class="text-red-600 text-sm">{{ $message }}</span>
 				@enderror
 			</div>
@@ -223,3 +298,4 @@
 
 
 </div>
+

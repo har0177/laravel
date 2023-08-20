@@ -10,20 +10,20 @@
 			@csrf
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div>
-					<x-label for="first_name" value="{{ __('First Name') }}"/>
+					<x-label for="first_name" value="{{ __('First Name') }}" required />
 					<x-input id="first_name" class="block mt-1 w-full" type="text" name="first_name" :value="old('first_name')"
 					         required
 					         autofocus autocomplete="first_name"/>
 				</div>
 
 				<div>
-					<x-label for="last_name" value="{{ __('Last Name') }}"/>
+					<x-label for="last_name" value="{{ __('Last Name') }}" required/>
 					<x-input id="last_name" class="block mt-1 w-full" type="text" name="last_name" :value="old('last_name')" required
 					         autofocus autocomplete="last_name"/>
 				</div>
 
 				<div>
-					<x-label for="father_name" value="{{ __('Father Name') }}"/>
+					<x-label for="father_name" value="{{ __('Father Name') }}" required/>
 					<x-input id="father_name" class="block mt-1 w-full" type="text" name="father_name" :value="old('father_name')" required
 					         autofocus autocomplete="father_name"/>
 				</div>
@@ -35,31 +35,31 @@
 				</div>
 
 				<div>
-					<x-label for="username" value="{{ __('UserName') }}"/>
+					<x-label for="username" value="{{ __('UserName') }}" required/>
 					<x-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required
 					         autocomplete="username"/>
 				</div>
 
 				<div>
-					<x-label for="cnic" value="{{ __('CNIC/FormB') }}"/>
+					<x-label for="cnic" value="{{ __('CNIC/FormB') }}" required/>
 					<x-input id="cnic" class="block mt-1 w-full" type="text" name="cnic" :value="old('cnic')" required
 					         autocomplete="cnic"/>
 				</div>
 
 				<div>
-					<x-label for="phone" value="{{ __('Phone Number') }}"/>
+					<x-label for="phone" value="{{ __('Phone Number') }}" required/>
 					<x-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" required
 					         autocomplete="phone"/>
 				</div>
 
 				<div>
-					<x-label for="password" value="{{ __('Password') }}"/>
+					<x-label for="password" value="{{ __('Password') }}" required/>
 					<x-input id="password" class="block mt-1 w-full" type="password" name="password" required
 					         autocomplete="new-password"/>
 				</div>
 
 				<div>
-					<x-label for="password_confirmation" value="{{ __('Confirm Password') }}"/>
+					<x-label for="password_confirmation" value="{{ __('Confirm Password') }}" required/>
 					<x-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required
 					         autocomplete="new-password"/>
 				</div>

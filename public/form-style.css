@@ -64,8 +64,7 @@ html {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(3, auto);
-    margin: 10px 0px;
-    padding: 0 10px;
+
 }
 
 .item-1 {
@@ -81,13 +80,13 @@ html {
 }
 
 .grid-item {
-    width: 120px !important;
+    width: 140px !important;
     margin-right: 25px;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .underline{
-    width: 200px !important;
+    width: 180px !important;
 }
 
 .grid-style {

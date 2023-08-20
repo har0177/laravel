@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Enums\ReligionEnum;
+use App\Enums\TaxonomyTypeEnum;
 use App\Models\Taxonomy;
 use App\Models\User;
 use Carbon\Carbon;
@@ -13,37 +15,45 @@ class StudentProfile extends Component
 {
   use WithFileUploads;
   
-  public $userId         = '';
-  public $first_name     = '';
-  public $last_name      = '';
-  public $email          = '';
-  public $phone          = '';
-  public $username       = '';
+  public $userId            = '';
+  public $first_name        = '';
+  public $last_name         = '';
+  public $email             = '';
+  public $phone             = '';
+  public $username          = '';
   #[Rule( 'nullable|image|max:1024|mimes:png,jpg,jpeg' )]
-  public $image          = '';
-  public $cnic           = '';
-  public $user           = '';
-  public $avatar         = '';
+  public $image             = '';
+  public $cnic              = '';
+  public $user              = '';
+  public $avatar            = '';
   #[Rule( 'required', message: 'Please provide your full address' )]
-  public $address        = '';
-  public $postal_address        = '';
+  public $address           = '';
+  public $postal_address    = '';
   #[Rule( 'required', message: 'Please provide father CNIC #' )]
-  public $father_nic     = '';
+  public $father_nic        = '';
   #[Rule( 'required', message: 'Please provide father Name' )]
-  public $father_name    = '';
+  public $father_name       = '';
   #[Rule( 'required', message: 'Please provide father phone #' )]
-  public $father_contact = '';
+  public $father_contact    = '';
   #[Rule( 'required', message: 'Please provide date of birth' )]
-  public $dob            = '';
+  public $dob               = '';
   #[Rule( 'required', message: 'Please select your gender' )]
-  public $gender_id      = '';
-  public $genderList     = '';
+  public $gender_id         = '';
+  public $genderList        = [];
   #[Rule( 'required', message: 'Please select your district' )]
-  public $district_id    = '';
-  public $districtList   = '';
+  public $district_id       = '';
+  public $districtList      = [];
   #[Rule( 'required', message: 'Please select your blood group.' )]
-  public $blood_group_id = '';
-  public $bloodGroupList = '';
+  public $blood_group_id    = '';
+  public $bloodGroupList    = [];
+  #[Rule( 'required', message: 'Please select your province.' )]
+  public $province_id       = '';
+  public $provinceList      = [];
+  public $emergency_contact = '';
+  #[Rule( 'required', message: 'Please select your religion.' )]
+  public $religion          = '';
+  public $religionList      = [];
+  public $hostel            = 0;
   
   public $errorMessage;
   
@@ -66,9 +76,17 @@ class StudentProfile extends Component
     $this->father_name = $user->userInfo?->father_name;
     $this->father_nic = $user->userInfo?->father_nic;
     $this->address = $user->userInfo?->address;
-    $this->genderList = Taxonomy::whereType( Taxonomy::GENDER )->get();
-    $this->districtList = Taxonomy::whereType( Taxonomy::DISTRICT )->get();
-    $this->bloodGroupList = Taxonomy::whereType( Taxonomy::BLOODGROUP )->get();
+    $this->postal_address = $user->userInfo?->postal_address;
+    $this->emergency_contact = $user->userInfo?->emergency_contact;
+    $this->religion = $user->userInfo?->religion;
+    $this->province_id = $user->userInfo?->province_id;
+    $this->hostel = $user->userInfo?->hostel;
+    $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
+    $this->provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
+    $this->districtList = Taxonomy::where( 'parent_id',
+      $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
+    $this->bloodGroupList = Taxonomy::whereType( TaxonomyTypeEnum::BLOODGROUP )->get();
+    $this->religionList = ReligionEnum::cases();
   }
   
   protected function rules()
@@ -90,6 +108,13 @@ class StudentProfile extends Component
   
   public function updated( $propertyName )
   {
+    if( $propertyName === 'province_id' ) {
+      $this->districtList = Taxonomy::where( 'parent_id',
+        $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
+    }
+    if( $propertyName === 'phone' ) {
+      $this->phone = preg_replace( '/[^0-9]/', '', $this->phone );
+    }
     $this->validateOnly( $propertyName );
   }
   
@@ -115,7 +140,7 @@ class StudentProfile extends Component
     $validate[ 'email' ] = $this->email;
     try {
       $user = User::where( 'id', $this->userId )->first();
-      if( !$user->hasMedia( 'avatars' ) && empty($this->image)) {
+      if( !$user->hasMedia( 'avatars' ) && empty( $this->image ) ) {
         $this->addError( 'image', "Please upload your image." );
         return;
       }
@@ -125,16 +150,20 @@ class StudentProfile extends Component
       }
       $user->update( $validate );
       $user->userInfo->update( [
-        'gender_id'      => $this->gender_id,
-        'father_name'    => $this->father_name,
-        'father_nic'     => $this->father_nic,
-        'father_contact' => $this->father_contact,
-        'dob'            => $this->dob,
-        'blood_group_id' => $this->blood_group_id,
-        'address'        => $this->address,
-        'postal_address'        => $this->postal_address,
-        'district_id'    => $this->district_id,
-        'profile_status' => 1,
+        'gender_id'         => $this->gender_id,
+        'father_name'       => $this->father_name,
+        'father_nic'        => $this->father_nic,
+        'father_contact'    => $this->father_contact,
+        'dob'               => $this->dob,
+        'blood_group_id'    => $this->blood_group_id,
+        'address'           => $this->address,
+        'postal_address'    => $this->postal_address,
+        'district_id'       => $this->district_id,
+        'province_id'       => $this->province_id,
+        'emergency_contact' => $this->emergency_contact,
+        'religion'          => $this->religion,
+        'hostel'            => $this->hostel,
+        'profile_status'    => 1,
       ] );
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );

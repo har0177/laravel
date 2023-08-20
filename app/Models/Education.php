@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TaxonomyTypeEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,7 @@ class Education extends Model
   
   public function degree()
   {
-    return $this->belongsTo( Taxonomy::class, 'degree_id', 'id' )->whereType( Taxonomy::DEGREE );
+    return $this->belongsTo( Taxonomy::class, 'degree_id', 'id' )->whereType( TaxonomyTypeEnum::DEGREE );
   }
   
 }

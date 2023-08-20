@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\TaxonomyTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class Project extends Model
   
   public function diploma()
   {
-    return $this->belongsTo( Taxonomy::class, 'diploma_id', 'id' )->whereType( Taxonomy::DIPLOMA );
+    return $this->belongsTo( Taxonomy::class, 'diploma_id', 'id' )->whereType( TaxonomyTypeEnum::DIPLOMA );
   }
   
   public function applications()

@@ -2,11 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Enums\ReligionEnum;
+use App\Enums\TaxonomyTypeEnum;
 use App\Models\Taxonomy;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Livewire\Attributes\Rule;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -32,47 +34,51 @@ class StudentList extends Component
   
   use WithFileUploads;
   
-  public $first_name = '';
-  public $last_name  = '';
-  public $email      = '';
-  public $phone      = '';
-  public $cnic       = '';
-  public $username   = '';
-  #[Rule( 'required|min:5' )]
-  public $password   = '';
-  
-  public $userId         = '';
-  #[Rule( 'required|image|max:1024|mimes:png,jpg,jpeg' )]
-  public $image          = '';
-  public $user           = '';
-  public $avatar         = '';
-  #[Rule( 'required' )]
-  public $address        = '';
-  #[Rule( 'required' )]
-  public $father_nic     = '';
-  #[Rule( 'required' )]
-  public $father_contact = '';
-  #[Rule( 'required' )]
-  public $dob            = '';
-  #[Rule( 'required' )]
-  public $gender_id      = null;
-  public $genderList     = '';
-  #[Rule( 'required' )]
-  public $father_name    = '';
-  //#[Rule( 'required' )]
-  public $district_id    = null;
-  public $districtList   = '';
-  #[Rule( 'required' )]
-  public $blood_group_id = null;
-  public $bloodGroupList = '';
+  public $first_name        = '';
+  public $last_name         = '';
+  public $email             = '';
+  public $phone             = '';
+  public $cnic              = '';
+  public $username          = '';
+  public $password          = '';
+  public $userId            = '';
+  public $image             = '';
+  public $user              = '';
+  public $avatar            = '';
+  public $address           = '';
+  public $father_nic        = '';
+  public $father_contact    = '';
+  public $dob               = '';
+  public $gender_id         = null;
+  public $genderList        = '';
+  public $father_name       = '';
+  public $district_id       = null;
+  public $districtList      = '';
+  public $blood_group_id    = null;
+  public $bloodGroupList    = '';
+  public $postal_address    = '';
+  public $province_id       = '';
+  public $provinceList      = [];
+  public $emergency_contact = '';
+  public $religion          = '';
+  public $religionList      = [];
+  public $hostel            = 0;
   
   public $errorMessage;
   
   public function mount()
   {
-    $this->genderList = Taxonomy::whereType( Taxonomy::GENDER )->get();
-    $this->districtList = Taxonomy::whereType( Taxonomy::DISTRICT )->get();
-    $this->bloodGroupList = Taxonomy::whereType( Taxonomy::BLOODGROUP )->get();
+    $this->loadTaxonomies();
+  }
+  
+  private function loadTaxonomies()
+  {
+    $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
+    $this->provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
+    $this->bloodGroupList = Taxonomy::whereType( TaxonomyTypeEnum::BLOODGROUP )->get();
+    $this->districtList = Taxonomy::where( 'parent_id',
+      $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
+    $this->religionList = ReligionEnum::cases();
   }
   
   public function render()
@@ -107,6 +113,14 @@ class StudentList extends Component
   
   public function updated( $propertyName )
   {
+    if( $propertyName === 'province_id' ) {
+      $this->districtList = Taxonomy::where( 'parent_id',
+        $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
+    }
+    
+    if( $propertyName === 'phone' ) {
+      $this->phone = preg_replace( '/[^0-9]/', '', $this->phone );
+    }
     $this->validateOnly( $propertyName );
   }
   
@@ -120,61 +134,63 @@ class StudentList extends Component
     }
   }
   
-  protected function rules()
-  {
-    return [
-      'first_name' => 'required|min:2|max:50',
-      'last_name'  => 'required|min:2|max:50',
-      'username'   => 'required|max:8|unique:users,username,' . $this->editStudent,
-      'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->editStudent,
-      //'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
-      'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->editStudent
-    ];
-  }
-  
   public function updateProfile()
   {
+    $validateRules = [
+      'first_name'        => 'required|min:2|max:50',
+      'last_name'         => 'required|min:2|max:50',
+      'username'          => 'required|max:8|unique:users,username,' . $this->editStudent,
+      'phone'             => 'required|numeric|digits:11|unique:users,phone,' . $this->editStudent,
+      'cnic'              => 'required|numeric|digits:13|unique:users,cnic,' . $this->editStudent,
+      'address'           => 'required',
+      'father_name'       => 'required',
+      'father_contact'    => 'required',
+      'father_nic'        => 'required',
+      'gender_id'         => 'required',
+      'district_id'       => 'required',
+      'province_id'       => 'required',
+      'blood_group_id'    => 'required',
+      'religion'          => 'required',
+      'emergency_contact' => 'required',
+    
+    ];
+    
+    if( !$this->editStudent ) {
+      $validateRules[ 'password' ] = 'required|min:5';
+    }
+    $validate = $this->validate( $validateRules );
     try {
       DB::beginTransaction();
-      
-      $validate = $this->validate();
-      $validate[ 'email' ] = $this->email;
       $this->birthValidation( $this->dob );
-      $validate[ 'role_id' ] = User::ROLE_STUDENT;
-      
-      if( $this->editStudent ) {
-        $user = User::find( $this->editStudent );
-        $user->userInfo()->update( [
-          'gender_id'      => $this->gender_id,
-          'father_name'    => $this->father_name,
-          'father_nic'     => $this->father_nic,
-          'father_contact' => $this->father_contact,
-          'dob'            => $this->dob,
-          'blood_group_id' => $this->blood_group_id,
-          'address'        => $this->address,
-          'district_id'    => $this->district_id,
-        ] );
-        $user->update( $validate );
-      } else {
-        $user = User::create( $validate );
-        $user->userInfo()->create( [
-          'gender_id'      => $this->gender_id,
-          'father_name'    => $this->father_name,
-          'father_nic'     => $this->father_nic,
-          'father_contact' => $this->father_contact,
-          'dob'            => $this->dob,
-          'blood_group_id' => $this->blood_group_id,
-          'address'        => $this->address,
-          'district_id'    => $this->district_id,
-          'profile_status' => 1,
-        ] );
-        
-        if( $this->image ) {
-          $user->clearMediaCollection( 'avatars' );
-          $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
-        }
+      $user = User::findOrNew( $this->editStudent );
+      $user->fill( $validate );
+      if( !$this->editStudent ) {
+        $user->email = $this->email;
+        $user->password = Hash::make( $this->password );
+        $user->role_id = User::ROLE_STUDENT;
       }
-      
+      $user->save();
+      $userInfoData = [
+        'gender_id'         => $this->gender_id,
+        'father_name'       => $this->father_name,
+        'father_nic'        => $this->father_nic,
+        'father_contact'    => $this->father_contact,
+        'dob'               => $this->dob,
+        'blood_group_id'    => $this->blood_group_id,
+        'address'           => $this->address,
+        'postal_address'    => $this->postal_address,
+        'district_id'       => $this->district_id,
+        'province_id'       => $this->province_id,
+        'emergency_contact' => $this->emergency_contact,
+        'religion'          => $this->religion,
+        'hostel'            => $this->hostel,
+        'profile_status'    => 1,
+      ];
+      $user->userInfo()->updateOrCreate( [], $userInfoData );
+      if( $this->image ) {
+        $user->clearMediaCollection( 'avatars' );
+        $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
+      }
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );
       $this->toggleSection();
@@ -184,15 +200,15 @@ class StudentList extends Component
       session()->flash( 'success', 'User updated successfully.' );
     } catch ( \Exception $e ) {
       DB::rollback();
-      
       session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
     }
   }
   
   public function edit( $id )
   {
+    $student = User::with( 'userInfo' )->findOrFail( $id );
     $this->editStudent = $id;
-    $student = User::findOrFail( $id );
+    $this->userId = $student->id;
     $this->first_name = $student->first_name;
     $this->last_name = $student->last_name;
     $this->email = $student->email;
@@ -200,14 +216,24 @@ class StudentList extends Component
     $this->username = $student->username;
     $this->cnic = $student->cnic;
     $this->avatar = $student->avatar;
-    $this->gender_id = $student->userInfo->gender_id;
-    $this->district_id = $student->userInfo->district_id;
-    $this->father_name = $student->userInfo->father_name;
-    $this->blood_group_id = $student->userInfo->blood_group_id;
-    $this->dob = $student->userInfo->dob;
-    $this->father_contact = $student->userInfo->father_contact;
-    $this->father_nic = $student->userInfo->father_nic;
-    $this->address = $student->userInfo->address;
+    
+    if( $student->userInfo ) {
+      $this->gender_id = $student->userInfo->gender_id;
+      $this->district_id = $student->userInfo->district_id;
+      $this->blood_group_id = $student->userInfo->blood_group_id;
+      $this->dob = $student->userInfo->dob;
+      $this->father_contact = $student->userInfo->father_contact;
+      $this->father_name = $student->userInfo->father_name;
+      $this->father_nic = $student->userInfo->father_nic;
+      $this->address = $student->userInfo->address;
+      $this->postal_address = $student->userInfo->postal_address;
+      $this->emergency_contact = $student->userInfo->emergency_contact;
+      $this->religion = $student->userInfo->religion;
+      $this->province_id = $student->userInfo->province_id;
+      $this->hostel = $student->userInfo->hostel;
+    }
+    
+    $this->loadTaxonomies();
     $this->create = true;
   }
   
