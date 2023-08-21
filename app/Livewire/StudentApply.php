@@ -31,8 +31,9 @@ class StudentApply extends Component
       
       return $this->redirect( '/education', navigate: true );
     }
-    $this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )->get();
-    
+    $this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )
+                               ->where( 'id', '!=', 33 )
+                               ->get();
   }
   
   public function render()
@@ -57,6 +58,13 @@ class StudentApply extends Component
     $this->challan_number = $application->challan_number;
     $this->status = $application->status;
     $this->project_id = $application->project_id;
+    $this->quotaList = $this->quotaList
+      ->filter( function( $taxonomy ) use ( $application ) {
+        return in_array( $taxonomy->id, $application->project->quota );
+      } )
+      ->map( function( $taxonomy ) {
+        return $taxonomy;
+      } );
     $this->applyPanel = true;
   }
   
@@ -121,7 +129,7 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
           return;
         }
-  
+        
         if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
           $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
           return;
@@ -152,6 +160,13 @@ class StudentApply extends Component
     $this->diplomaName = $project->diploma->name;
     $this->application_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
         1000 );
+    $this->quotaList = $this->quotaList
+      ->filter( function( $taxonomy ) use ( $project ) {
+        return in_array( $taxonomy->id, $project->quota );
+      } )
+      ->map( function( $taxonomy ) {
+        return $taxonomy;
+      } );
   }
   
   public function toggleSection()

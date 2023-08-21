@@ -1,9 +1,6 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +29,15 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
   Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
   Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
-  Route::get( 'projects', [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware('can:manage projects');
-  Route::get( 'applications', [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware('can:manage projects');
+  Route::get( 'projects',
+    [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware( 'can:manage projects' );
+  Route::get( 'applications',
+    [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware( 'can:manage projects' );
   Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
+} );
+
+\Livewire\Livewire::setUpdateRoute( function( $handle ) {
+  return Route::match( [ 'GET', 'POST' ], 'livewire/update', $handle );
 } );
 
 Route::middleware( [
