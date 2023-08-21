@@ -29,11 +29,11 @@ class StudentProfile extends Component
   #[Rule( 'required', message: 'Please provide your full address' )]
   public $address           = '';
   public $postal_address    = '';
-  #[Rule( 'required', message: 'Please provide father CNIC #' )]
+  #[Rule( 'required|numeric|digits:13' )]
   public $father_nic        = '';
   #[Rule( 'required', message: 'Please provide father Name' )]
   public $father_name       = '';
-  #[Rule( 'required', message: 'Please provide father phone #' )]
+  #[Rule( 'required|numeric|digits:11' )]
   public $father_contact    = '';
   #[Rule( 'required', message: 'Please provide date of birth' )]
   public $dob               = '';
