@@ -1,7 +1,12 @@
 <x-guest-layout>
 	<x-authentication-card>
 		<x-slot name="logo">
-			<x-authentication-card-logo/>
+			<div class="text-center mb-3">
+				<h4 style="color: darkgreen;font-weight: 700;font-size: x-large;"  class="mr-2">
+					Agriculture Services Academy, Peshawar </h4>
+
+			</div>
+
 		</x-slot>
 
 		<x-validation-errors class="mb-4"/>

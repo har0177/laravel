@@ -26,6 +26,26 @@ class HomeController extends Controller
     return view( 'welcome' );
   }
   
+  public function about()
+  {
+    return view( 'about' );
+  }
+  
+  public function contact()
+  {
+    return view( 'contact' );
+  }
+  
+  public function dvs()
+  {
+    return view( 'dvs' );
+  }
+  
+  public function das()
+  {
+    return view( 'das' );
+  }
+  
   public function dashboard()
   {
     return view( 'dashboard' );
@@ -84,7 +104,11 @@ class HomeController extends Controller
   public function printForm( Application $application )
   {
     $user = auth()->user();
-    if($application->user_id !== $user->id){
+    if( $user->role_id === User::ROLE_ADMIN ) {
+      $user = User::find( $application->user_id );
+    }
+    
+    if( $application->user_id !== $user->id ) {
       return redirect()->back();
     }
     return view( 'print-form', compact( 'user', 'application' ) );

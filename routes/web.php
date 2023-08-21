@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
+Route::get( '/about', [ HomeController::class, 'about' ] )->name( 'about' );
+Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' );
+Route::get( '/dvs', [ HomeController::class, 'dvs' ] )->name( 'dvs' );
+Route::get( '/das', [ HomeController::class, 'das' ] )->name( 'das' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {

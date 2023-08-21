@@ -99,6 +99,10 @@
 							<x-button class="ml-3" wire:click="paymentStatus({{$application->id}})" wire:loading.attr="disabled">
 								<i class="fa-solid fa-dollar-sign"></i></x-button>
 						@endif
+							<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
+							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+								<i class="fas fa-eye"></i>
+							</a>
 					</td>
 				</tr>
 			@empty

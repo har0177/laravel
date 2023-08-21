@@ -1,98 +1,58 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-
 * {
-    font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
 }
 
-.page-header {
-    margin: 0px;
-    height: 117px;
-    background-color: #148C48;
-    background-image: linear-gradient(315deg, #2c4134 0%, #219e57 74%);
-
-}
-
-.page-header .logo {
-    float: left;
-    margin-left: 1.5%;
-    margin-top: 25px;
-}
-
-.page-header .logo a {
-    background-image: url(images/logo-title.png);
-    background-repeat: no-repeat;
-    background-position: left center;
-    min-width: 855px;
-    min-height: 67px;
-    display: block;
-    text-indent: -1000px;
-}
-
-.header-building {
-    background-image: url(images/header-building.png);
-    height: 117px;
-    min-width: 376px;
-    background-repeat: no-repeat;
-    background-position: right bottom;
-    background-size: contain;
+.text-center h1 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
 }
 
 .bg-color {
-    background-color: #148C48;
+    background-color: #539165;
 }
 
 .row {
-    padding-right: 0px;
-    margin-right: 0px;
+    margin: 0;
+}
+
+.col {
+    margin: 0;
+}
+
+.navbar .nav-item .nav-link {
+    color: #fff;
+}
+
+.navbar .nav-item:hover {
+    background-color: #3c6648;
+}
+
+.navbar .dropdown .dropdown-menu .dropdown-item {
+    color: #fff;
 }
 
 .navbar .dropdown .dropdown-menu {
-    background-color: #148C48;
-    border-radius: 5px;
+    border: none;
+    border-radius: 0;
 }
 
-.navbar .nav-link:hover {
-    background-color: #0C592E;
-    border-radius: 5px;
-}
-
-.dropdown-item:hover {
-    background-color: #0C592E;
-    border-radius: 5px;
-}
-
-.navbar button:hover {
-    background-color: #0C592E;
-    border-color: #0C592E;
-}
-
-.carousel-control-prev-icon {
-    background-image: url(images/prev-next.png);
-    transform: scaleX(-1);
-}
-
-.carousel-control-next-icon {
-    background-image: url(images/prev-next.png);
+.navbar .dropdown .dropdown-menu .dropdown-item:hover {
+    background-color: #3c6648;
 }
 
 .bg-gray {
-    background-color: #E2E2E2 !important;
+    background-color: lightgrey;
 }
 
-.text-main {
-    color: #148C48;
+.img {
+    width: 50%;
+    height: auto;
 }
 
-.button {
-    background-color: #148C48;
-    color: #ffffff;
-    border: none;
-}
-
-.button:hover {
-    background-color: #0C592E;
+.justify {
+    text-align: justify;
+    text-justify: inter-word;
 }
 
 .icon-section i {
@@ -119,7 +79,7 @@
 }
 
 .section-detail a:hover {
-    color: #0C592E;
+    color: #3c6648;
 
 }
 
@@ -189,7 +149,7 @@ h2 {
 .bold-hdd::after,
 .main-content h2::after,
 h2::after {
-    border-color: #0C592E !important;
+    border-color: #3c6648 !important;
 }
 
 
@@ -261,16 +221,5 @@ footer a {
 }
 
 footer a:hover {
-    color: #0C592E;
+    color: #3c6648;
 }
-
-.justify {
-    text-justify: inter-word;
-}
-
-.img {
-    width: 50%;
-    height: auto;
-}
-
-
