@@ -16,6 +16,7 @@ use Livewire\WithPagination;
 class StudentList extends Component
 {
   use WithPagination;
+  use WithFileUploads;
   
   public $active;
   public $search;
@@ -32,7 +33,7 @@ class StudentList extends Component
     'editStudent'
   ];
   
-  use WithFileUploads;
+
   
   public $first_name        = '';
   public $last_name         = '';
@@ -65,6 +66,18 @@ class StudentList extends Component
   public $hostel            = 0;
   
   public $errorMessage;
+  
+  protected function rules()
+  {
+    return [
+      'first_name' => 'required|min:2|max:50',
+      'last_name'  => 'required|min:2|max:50',
+      'username'   => 'required|max:8|unique:users,username,' . $this->userId,
+      'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
+      //'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
+      'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
+    ];
+  }
   
   public function mount()
   {
