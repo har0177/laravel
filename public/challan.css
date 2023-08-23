@@ -1,0 +1,76 @@
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    -webkit-print-color-adjust: exact;
+    -moz-print-color-adjust: exact;
+    -ms-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.a4-page {
+
+    size: A4 landscape !important;
+}
+
+
+
+@media print {
+    @page {
+        size: A4 landscape;
+        margin: 10px;
+        padding: 0;
+    }
+}
+
+.content {
+    display: flex;
+    gap: 20px;
+}
+
+.table-container {
+    flex-basis: calc(33.33% - 20px);
+    padding: 10px;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: none;
+    padding: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.table td {
+    border: 1px solid lightgray;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.bg-styling {
+    background-color: grey;
+    color: #ffffff;
+    padding: 5px;
+}
+
+.signature {
+    padding-top: 30px;
+    text-decoration: overline;
+}
+
+.underline {
+    text-decoration: underline;
+}

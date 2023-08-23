@@ -34,19 +34,23 @@
 			         style="BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #fff 1px solid; HEIGHT: 290px;"
 			         onmouseout="this.start();" scrollamount="1" scrolldelay="60" direction="up">
 				<div>
-					@foreach($projects as $project)
-						<div style="display: inline-flex">
-							<img src="images/newicon.gif" alt="...">
-							<a href="{{ route('apply') }}" class="list-group-item list-group-item-action">
-								<div class="d-flex justify-content-between align-items-center">
-									<h6 class="mb-1"><b>Apply for {{$project->diploma->name}}</b></h6>
-									<small style="color: red">Expiry
-										date: {{\Carbon\Carbon::parse($project->expiry_date)->format('d-M-Y')}}</small>
-								</div>
-							</a>
+					@forelse($events as $event)
+						<div class="flex items-center mb-4">
+							<div style="display: flex">
+								<img src="{{ asset('images/newicon.gif') }}" alt="Event Icon" style="width: 10%">
+								<a href="{{ route('event.show', ['event' => $event->slug]) }}" class="text-blue-500 hover:underline">
+									{{ $event->title }}
+								</a>
+							</div>
+							<div style="text-align: right; color: red; font-size: 12px">
+								({{ $event->expiry_date }})
+							</div>
 						</div>
+					@empty
+						<p>No events available</p>
+					@endforelse
 
-					@endforeach
+
 				</div>
 			</marquee>
 		</div>

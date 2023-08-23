@@ -33,8 +33,11 @@
 
 		</div>
 		<div class="column col-20">
-			<img src="{{$user->avatar}}" style="width: 135px;margin-top: -40px;border: 1px solid;border-radius: 10px;"
+			<img src="{{$user->avatar}}" style="width: 135px;margin-top: -30px;border: 1px solid;border-radius: 10px;"
 			     alt="{{$user->full_name}}"/>
+			<br>
+			<span style="font-size: 12px">	Application # {{{$application->application_number}}}<br>
+			Challan # {{{$application->challan_number}}}</span>
 		</div>
 	</div>
 	<hr/>
@@ -70,6 +73,8 @@
 			<div class="grid-item underline">{{$user->userInfo->religion}}</div>
 			<div class="grid-item">Hostel Required:</div>
 			<div class="grid-item underline">{{$user->userInfo->hostel?'Yes':'No'}}</div>
+			<div class="grid-item">Hafiz Quran:</div>
+			<div class="grid-item underline">{{$user->userInfo->hafiz_quran?'Yes':'No'}}</div>
 			<div class="grid-item">Emergency #:</div>
 			<div class="grid-item underline">{{$user->userInfo->emegency_contact}}</div>
 		</div>
@@ -78,11 +83,9 @@
 	<div class="container">
 		<h3 class="heading">Father</h3>
 		<div class="grid-container">
-			<div class="grid-item">Father's / Guardian Name:</div>
+			<div class="grid-item" style="font-size: 12px">Father's / Guardian Name:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_name}}</div>
-			<div class="grid-item">Father's / Guardian CNIC:</div>
-			<div class="grid-item underline">{{$user->userInfo->father_nic}}</div>
-			<div class="grid-item">Father's / Guardian Phone:</div>
+			<div class="grid-item" style="font-size: 12px">Father's / Guardian Phone:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_contact}}</div>
 		</div>
 	</div>
@@ -138,27 +141,11 @@
 			<div class="column">
 				<ol>
 					<li>
-						1. &nbsp; SSC Provisional Certificate (1 copy)
+						1. &nbsp;Documents (2 copy)
 						<div class="checkbox"></div>
 					</li>
 					<li>
-						2. &nbsp; Detail Marks Certificate (D.M.C) (1 copy)
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						3. &nbsp; Recent Photographs of Students (3 No.)
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						4. &nbsp; Domicile Certificate (1 copy)
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						5. &nbsp; CNIC/Form-B of Student (1 copy)
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						6. &nbsp; Father's CNIC (2 copies)
+						2. &nbsp; Recent Picture of Student (4 No.)
 						<div class="checkbox"></div>
 					</li>
 
@@ -167,24 +154,11 @@
 			<div class="column">
 				<ol>
 					<li>
-						7. &nbsp;CNIC of the Guardian (1 copy)
+						3. &nbsp; Domicile Certificate (2 copy)
 						<div class="checkbox"></div>
 					</li>
 					<li>
-						8. &nbsp; Affidavit on Stamp Paper of Rs. 100/- for selected candidates only
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						9. &nbsp; Agreement on Stamp Paper of Rs. 100/- for selected candidates only
-						<div class="checkbox"></div>
-					</li>
-					<li>
-
-						10. &nbsp; Character Certificate from the last attended Institute (1 copy)
-						<div class="checkbox"></div>
-					</li>
-					<li>
-						11. &nbsp; Migration Certificate Original (in case of other Board) along with one photocopy
+						4. &nbsp; CNIC/Form-B of Student (2 copy)
 						<div class="checkbox"></div>
 					</li>
 				</ol>
@@ -211,280 +185,34 @@
 		<div class="text-center">Principal's Signature</div>
 	</div>
 </div>
-<div class="landscape">
-<div class="slip-container">
-	<div class="slip">
-		<table style="font-size: 12px">
-			<tr>
-				<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
-				<td colspan="2" style="text-align: center">
-					<h3>Agriculture Services Academy, Peshawar<br><br>
-						<span class="bg-color" style="padding: 3px">BANK COPY</span>
-					</h3>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
-			</tr>
-			<tr>
-				<td colspan="2">Branch Code:</td>
-				<td>Date:</td>
-			</tr>
-			<tr>
-				<td colspan="3">Branch Name:</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Remote Branch: <b>University Campus Branch, Peshawar</b><br>
-					A/C Title: <b>Principal Agriculture Training Institute</b><br>
-					A/C No: <b>PK59NBPA0388003048617735</b><br>
-				</td>
-			</tr>
-			<tr>
-				<td>Application Ref. No:</td>
-				<td colspan="2">{{$application->application_number}}</td>
-			</tr>
-			<tr>
-				<td>CNIC/Form B NO:</td>
-				<td colspan="2">{{$user->cnic}}</td>
-			</tr>
-			<tr>
-				<td>Applicant's Name</td>
-				<td colspan="2">{{$user->full_name}}</td>
-			</tr>
-			<tr>
-				<td>Father's Name:</td>
-				<td colspan="2">{{$user->userInfo->father_name}}</td>
-			</tr>
-			<tr>
-				<td>Mobile No:</td>
-				<td colspan="2">{{$user->phone}}</td>
-			</tr>
-			<tr>
-				<td>Address:</td>
-				<td colspan="2">{{$user->userInfo->address}}</td>
-			</tr>
-			<tr>
-				<td> Applied For</td>
-				<td class="text-center" colspan="2"><strong>     {{	$application->project->diploma->name}}</strong>
-				</td>
-			</tr>
-			<tr>
-				<td>Amount in (Rs.):</td>
-				<td colspan="2">{{$application->project->fee}}/-</td>
-			</tr>
-			<tr>
-				<td>Amount in Words:</td>
-				<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
-			</tr>
-		</table>
-		<small>* No Bank Charges to be paid by student.</small>
-
-		<div class="row">
-			<div class="column col-50">
-				<br>
-				<br>
-
-				<span class="decorated-text">Applicant's Signature</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Cashier</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Officer</span>
-			</div>
-		</div>
-
-	</div>
-	<div class="slip">
-		<table style="font-size: 12px">
-			<tr>
-				<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
-				<td colspan="2" style="text-align: center">
-					<h3>Agriculture Services Academy, Peshawar<br><br>
-						<span class="bg-color" style="padding: 3px">STUDENT COPY</span>
-					</h3>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
-			</tr>
-			<tr>
-				<td colspan="2">Branch Code:</td>
-				<td>Date:</td>
-			</tr>
-			<tr>
-				<td colspan="3">Branch Name:</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Remote Branch: <b>University Campus Branch, Peshawar</b><br>
-					A/C Title: <b>Principal Agriculture Training Institute</b><br>
-					A/C No: <b>PK59NBPA0388003048617735</b><br>
-				</td>
-			</tr>
-			<tr>
-				<td>Application Ref. No:</td>
-				<td colspan="2">{{$application->application_number}}</td>
-			</tr>
-			<tr>
-				<td>CNIC/Form B NO:</td>
-				<td colspan="2">{{$user->cnic}}</td>
-			</tr>
-			<tr>
-				<td>Applicant's Name</td>
-				<td colspan="2">{{$user->full_name}}</td>
-			</tr>
-			<tr>
-				<td>Father's Name:</td>
-				<td colspan="2">{{$user->userInfo->father_name}}</td>
-			</tr>
-			<tr>
-				<td>Mobile No:</td>
-				<td colspan="2">{{$user->phone}}</td>
-			</tr>
-			<tr>
-				<td>Address:</td>
-				<td colspan="2">{{$user->userInfo->address}}</td>
-			</tr>
-			<tr>
-				<td> Applied For</td>
-				<td class="text-center"><strong>     {{	$application->project->diploma->name}}</strong>
-				</td>
-			</tr>
-			<tr>
-				<td>Amount in (Rs.):</td>
-				<td colspan="2">{{$application->project->fee}}/-</td>
-			</tr>
-			<tr>
-				<td>Amount in Words:</td>
-				<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
-			</tr>
-		</table>
-		<small>* No Bank Charges to be paid by student.</small>
-
-		<div class="row">
-			<div class="column col-50">
-				<br>
-				<br>
-
-				<span class="decorated-text">Applicant's Signature</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Cashier</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Officer</span>
-			</div>
-		</div>
-
-	</div>
-	<div class="slip">
-		<table style="font-size: 12px">
-			<tr>
-				<td><img src="{{asset('images/logo.jpg')}}" style="width: 120px" alt="logo"></td>
-				<td colspan="2" style="text-align: center">
-					<h3>Agriculture Services Academy, Peshawar<br><br>
-						<span class="bg-color" style="padding: 3px">ACCOUNT COPY</span>
-					</h3>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3" style="text-align: center"><strong>ONLINE DEPOSIT SLIP</strong></td>
-			</tr>
-			<tr>
-				<td colspan="2">Branch Code:</td>
-				<td>Date:</td>
-			</tr>
-			<tr>
-				<td colspan="3">Branch Name:</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					Remote Branch: <b>University Campus Branch, Peshawar</b><br>
-					A/C Title: <b>Principal Agriculture Training Institute</b><br>
-					A/C No: <b>PK59NBPA0388003048617735</b><br>
-				</td>
-			</tr>
-			<tr>
-				<td>Application Ref. No:</td>
-				<td colspan="2">{{$application->application_number}}</td>
-			</tr>
-			<tr>
-				<td>CNIC/Form B NO:</td>
-				<td colspan="2">{{$user->cnic}}</td>
-			</tr>
-			<tr>
-				<td>Applicant's Name</td>
-				<td colspan="2">{{$user->full_name}}</td>
-			</tr>
-			<tr>
-				<td>Father's Name:</td>
-				<td colspan="2">{{$user->userInfo->father_name}}</td>
-			</tr>
-			<tr>
-				<td>Mobile No:</td>
-				<td colspan="2">{{$user->phone}}</td>
-			</tr>
-			<tr>
-				<td>Address:</td>
-				<td colspan="2">{{$user->userInfo->address}}</td>
-			</tr>
-			<tr>
-				<td> Applied For</td>
-				<td class="text-center" colspan="2"><strong>     {{	$application->project->diploma->name}}</strong>
-				</td>
-			</tr>
-			<tr>
-				<td>Amount in (Rs.):</td>
-				<td colspan="2">{{$application->project->fee}}/-</td>
-			</tr>
-			<tr>
-				<td>Amount in Words:</td>
-				<td colspan="2">{{\App\Helper\Common::amountToWords($application->project->fee)}}</td>
-			</tr>
-		</table>
-		<small>* No Bank Charges to be paid by student.</small>
-
-		<div class="row">
-			<div class="column col-50">
-				<br>
-				<br>
-
-				<span class="decorated-text">Applicant's Signature</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Cashier</span>
-			</div>
-			<div class="column col-25">
-				<br>
-				<br>
-
-				<span class="decorated-text">Officer</span>
-			</div>
-		</div>
-
-	</div>
-
-	<!-- Repeat the above .slip structure for the other two slips -->
-	<!-- ... (content for the second and third slips) -->
-</div>
-</div>
-
 </body>
+<script type="text/javascript">
+	//--kiosk-printing
+	'use strict'
+
+	window.print()
+	var beforePrint = function () {
+		console.log('Functionality to run before printing.')
+	}
+
+	var afterPrint = function () {
+		console.log('Functionality to run after printing')
+	}
+
+	if (window.matchMedia) {
+		var mediaQueryList = window.matchMedia('print')
+		mediaQueryList.addListener(function (mql) {
+			if (mql.matches) {
+				beforePrint()
+			} else {
+				afterPrint()
+			}
+		})
+	}
+
+	window.onbeforeprint = beforePrint
+	window.onafterprint = afterPrint
+
+
+</script>
 </html>

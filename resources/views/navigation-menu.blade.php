@@ -46,6 +46,9 @@
                                         href="{{ route('students') }}"> Students
                             </x-nav-link>
                         @endcan
+	                        <x-nav-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
+		                        Events
+	                        </x-nav-link>
                         <x-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
                             Slides
                         </x-nav-link>

@@ -20,6 +20,7 @@ Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' 
 Route::get( '/dvs', [ HomeController::class, 'dvs' ] )->name( 'dvs' );
 Route::get( '/das', [ HomeController::class, 'das' ] )->name( 'das' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
+Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'roles', [ HomeController::class, 'roles' ] )->name( 'roles' );
@@ -29,15 +30,13 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
   Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
   Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
+  Route::get( 'events', [ HomeController::class, 'events' ] )->name( 'events' );
   Route::get( 'projects',
     [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware( 'can:manage projects' );
   Route::get( 'applications',
     [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware( 'can:manage projects' );
   Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
-} );
-
-\Livewire\Livewire::setUpdateRoute( function( $handle ) {
-  return Route::match( [ 'GET', 'POST' ], 'livewire/update', $handle );
+  Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );
 
 Route::middleware( [

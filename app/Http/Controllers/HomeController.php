@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\NewsEvents;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -91,6 +92,16 @@ class HomeController extends Controller
     return view( 'student.apply' );
   }
   
+  public function showEvent( NewsEvents $event )
+  {
+    return view( 'showEvent', compact( 'event' ) );
+  }
+  
+  public function events()
+  {
+    return view( 'admin.events' );
+  }
+  
   public function projects()
   {
     return view( 'admin.projects' );
@@ -112,6 +123,12 @@ class HomeController extends Controller
       return redirect()->back();
     }
     return view( 'print-form', compact( 'user', 'application' ) );
+  }
+  
+  public function printChallan( Application $application )
+  {
+    $user = User::find( $application->user_id );
+    return view( 'print-challan', compact( 'user', 'application' ) );
   }
   
 }

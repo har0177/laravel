@@ -92,28 +92,9 @@
 				</div>
 
 
-				<div>
-					<label for="father_name" class="block text-sm font-medium text-gray-700 mb-1">Father Name</label>
-					<input id="father_name" name="father_name" type="text" wire:model.live="father_name"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="Jhon">
-					@error('father_name')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-				</div>
 
 				<div>
-					<label for="father_nic" class="block text-sm font-medium text-gray-700 mb-1">Father CNIC</label>
-					<input id="father_nic" name="father_nic" type="text" wire:model.live="father_nic"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="xxxxxxxxxxxxx">
-					@error('father_nic')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-				</div>
-
-				<div>
-					<label for="father_contact" class="block text-sm font-medium text-gray-700 mb-1">Father Contact #</label>
+					<label for="father_contact" class="block text-sm font-medium text-gray-700 mb-1">Father / Guardian Contact #</label>
 					<input id="father_contact" name="father_contact" type="text" wire:model.live="father_contact"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxx">
@@ -254,6 +235,23 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
+
+				<div>
+					@if ($image)
+						<img class="rounded h-16 mt-5 block" src="{{ $image->temporaryUrl() }}">
+					@else
+						<img class="rounded h-16 mt-5 block" src="{{ $avatar }}">
+					@endif
+					<input wire:model="image" accept="image/png, image/jpg, image/jpeg" type="file" id="image"
+					       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
+					<div wire:loading wire:target="image">
+						<span class="text-green-500"> Uploading ... </span>
+					</div>
+					@error('image')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+
+				</div>
 				<div class="mb-4">
 					<label for="hostel" class="block text-sm font-medium text-gray-700 mb-1">Hostel Required</label>
 					<div class="space-y-2">
@@ -281,25 +279,36 @@
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 				</div>
-				<!-- Email field -->
 
-				<div>
-					@if ($image)
-						<img class="rounded h-16 mt-5 block" src="{{ $image->temporaryUrl() }}">
-					@else
-						<img class="rounded h-16 mt-5 block" src="{{ $avatar }}">
-					@endif
-					<br>
-					<input wire:model="image" accept="image/png, image/jpg, image/jpeg" type="file" id="image"
-					       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
-					<div wire:loading wire:target="image">
-						<span class="text-green-500"> Uploading ... </span>
+				<div class="mb-4">
+					<label for="hafiz_quran" class="block text-sm font-medium text-gray-700 mb-1">Hafiz Quran</label>
+					<div class="space-y-2">
+						<label class="relative flex items-center">
+							<input type="radio"
+							       id="hafiz_quran"
+							       name="hafiz_quran"
+							       value="1"
+							       wire:model="hafiz_quran"
+							       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+							<span class="ml-8">Yes</span>
+						</label>
+						<label class="relative flex items-center">
+							<input type="radio"
+							       id="hafiz_quran"
+							       value="0"
+							       name="hafiz_quran"
+							       wire:model="hafiz_quran"
+							       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+							<span class="ml-8">No</span>
+						</label>
+
 					</div>
-					@error('image')
+					@error('hafiz_quran')
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
-
 				</div>
+				<!-- Email field -->
+
 
 
 			</div>

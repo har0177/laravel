@@ -47,7 +47,7 @@ class StudentList extends Component
   public $user              = '';
   public $avatar            = '';
   public $address           = '';
-  public $father_nic        = '';
+  public $hafiz_quran        = 0;
   public $father_contact    = '';
   public $dob               = '';
   public $gender_id         = null;
@@ -158,7 +158,6 @@ class StudentList extends Component
       'address'           => 'required',
       'father_name'       => 'required',
       'father_contact'    => 'required',
-      'father_nic'        => 'required',
       'gender_id'         => 'required',
       'district_id'       => 'required',
       'province_id'       => 'required',
@@ -186,7 +185,6 @@ class StudentList extends Component
       $userInfoData = [
         'gender_id'         => $this->gender_id,
         'father_name'       => $this->father_name,
-        'father_nic'        => $this->father_nic,
         'father_contact'    => $this->father_contact,
         'dob'               => $this->dob,
         'blood_group_id'    => $this->blood_group_id,
@@ -197,6 +195,7 @@ class StudentList extends Component
         'emergency_contact' => $this->emergency_contact,
         'religion'          => $this->religion,
         'hostel'            => $this->hostel,
+        'hafiz_quran'            => $this->hafiz_quran,
         'profile_status'    => 1,
       ];
       $user->userInfo()->updateOrCreate( [], $userInfoData );
@@ -237,13 +236,13 @@ class StudentList extends Component
       $this->dob = $student->userInfo->dob;
       $this->father_contact = $student->userInfo->father_contact;
       $this->father_name = $student->userInfo->father_name;
-      $this->father_nic = $student->userInfo->father_nic;
       $this->address = $student->userInfo->address;
       $this->postal_address = $student->userInfo->postal_address;
       $this->emergency_contact = $student->userInfo->emergency_contact;
       $this->religion = $student->userInfo->religion;
       $this->province_id = $student->userInfo->province_id;
       $this->hostel = $student->userInfo->hostel;
+      $this->hafiz_quran = $student->userInfo->hafiz_quran;
     }
     
     $this->loadTaxonomies();

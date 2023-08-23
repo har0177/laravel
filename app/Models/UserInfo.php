@@ -20,7 +20,6 @@ class UserInfo extends Model
     'updated_at'     => 'datetime:m-d-Y H:i:s',
     'admission_date' => 'datetime:Y-m-d\TH:i',
     'religion'       => ReligionEnum::class
-  
   ];
   
   public function user()

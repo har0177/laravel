@@ -73,16 +73,16 @@
 						<div>
 							@if(count($project->applications) > 0)
 								@if(empty($project->applications[0]->challan_number))
-									<x-button class="ml-3" wire:click="edit({{ $project->applications[0]->id}})"
+									<x-button class="ml-3 mb-3" wire:click="edit({{ $project->applications[0]->id}})"
 									          wire:loading.attr="disabled">
-										<i class="fas fa-edit"></i>
+										Edit Application
 									</x-button>
+								<br>
+									<a target="_blank" href="{{ route('print-challan', ['application' => $project->applications[0]]) }}"
+									   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+										Print Challan
+									</a>
 								@endif
-								<a target="_blank" href="{{ route('print-form', ['application' => $project->applications[0]]) }}"
-								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-									<i class="fas fa-eye"></i>
-								</a>
-
 							@else
 								<x-button class="ml-3" wire:click="applyNow({{$project->id}})" wire:loading.attr="disabled">
 									Apply Now
@@ -116,7 +116,10 @@
 							<div class="py-2 px-4 text-center text-white rounded-t-lg">
 										<span
 											class="px-2 py-1 text-sm font-semibold rounded-lg bg-green-500 text-white">Paid Challan #: {{$project->applications[0]->challan_number}}</span>
-
+								<a target="_blank" href="{{ route('print-form', ['application' => $project->applications[0]]) }}"
+								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+									Download Form
+								</a>
 							</div>
 						@endif
 					@endif
@@ -130,3 +133,5 @@
 	@endif
 
 </div>
+
+

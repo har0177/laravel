@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use App\Models\Project;
+use App\Models\NewsEvents;
 use App\Models\Slide;
 use Livewire\Component;
 
@@ -10,12 +10,12 @@ class HomePage extends Component
 {
   
   public $carouselItems = [];
-  public $projects      = [];
+  public $events        = [];
   
   public function mount()
   {
     
-    $this->projects = Project::where( 'expiry_date', '>', now() )->get();
+    $this->events = NewsEvents::where( 'expiry_date', '>', now() )->limit( 10 )->get();
     // Simulating dynamic data for carousel items
     $this->carouselItems = [
       [
@@ -48,7 +48,7 @@ class HomePage extends Component
       }
     } )->toArray();
   }
-
+  
   public function render()
   {
     return view( 'livewire.home-page' );

@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Slide;
-use Livewire\Attributes\On;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -87,6 +86,9 @@ class SlideList extends Component
   
   public function deleteSlide( Slide $slide )
   {
+    if( $slide->hasMedia( 'slides' ) ) {
+      $slide->clearMediaCollection( 'slides' );
+    }
     $slide->delete();
     session()->flash( 'success', 'Slide Deleted Successfully.' );
   }

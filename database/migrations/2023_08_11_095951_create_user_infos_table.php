@@ -16,7 +16,6 @@ return new class extends Migration {
       $table->string( 'reg_no' )->unique()->nullable();
       $table->integer( 'class_no' )->nullable();
       $table->string( 'father_name' )->nullable();
-      $table->string( 'father_nic' )->nullable();
       $table->string( 'father_contact' )->nullable();
       $table->date( 'dob' )->nullable();
       $table->unsignedBigInteger( 'blood_group_id' )->nullable();
@@ -30,6 +29,7 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'diploma_id' )->nullable();
       $table->unsignedBigInteger( 'session_id' )->nullable();
       $table->boolean( 'hostel' )->default( 0 );
+      $table->boolean( 'hafiz_quran' )->default( 0 );
   
       $table->enum( 'status', [ 'Active', 'DeActive', 'Pending' ] )->default( 'Pending' );
       $table->text( 'religion' )->nullable();

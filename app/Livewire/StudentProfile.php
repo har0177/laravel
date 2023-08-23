@@ -29,8 +29,6 @@ class StudentProfile extends Component
   #[Rule( 'required', message: 'Please provide your full address' )]
   public $address           = '';
   public $postal_address    = '';
-  #[Rule( 'required|numeric|digits:13' )]
-  public $father_nic        = '';
   #[Rule( 'required', message: 'Please provide father Name' )]
   public $father_name       = '';
   #[Rule( 'required|numeric|digits:11' )]
@@ -54,6 +52,7 @@ class StudentProfile extends Component
   public $religion          = '';
   public $religionList      = [];
   public $hostel            = 0;
+  public $hafiz_quran       = 0;
   
   public $errorMessage;
   
@@ -74,13 +73,13 @@ class StudentProfile extends Component
     $this->dob = $user->userInfo?->dob;
     $this->father_contact = $user->userInfo?->father_contact;
     $this->father_name = $user->userInfo?->father_name;
-    $this->father_nic = $user->userInfo?->father_nic;
     $this->address = $user->userInfo?->address;
     $this->postal_address = $user->userInfo?->postal_address;
     $this->emergency_contact = $user->userInfo?->emergency_contact;
     $this->religion = $user->userInfo?->religion;
     $this->province_id = $user->userInfo?->province_id;
     $this->hostel = $user->userInfo?->hostel;
+    $this->hafiz_quran = $user->userInfo?->hafiz_quran;
     $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
     $this->provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
     $this->districtList = Taxonomy::where( 'parent_id',
@@ -152,7 +151,6 @@ class StudentProfile extends Component
       $user->userInfo->update( [
         'gender_id'         => $this->gender_id,
         'father_name'       => $this->father_name,
-        'father_nic'        => $this->father_nic,
         'father_contact'    => $this->father_contact,
         'dob'               => $this->dob,
         'blood_group_id'    => $this->blood_group_id,
@@ -163,6 +161,7 @@ class StudentProfile extends Component
         'emergency_contact' => $this->emergency_contact,
         'religion'          => $this->religion,
         'hostel'            => $this->hostel,
+        'hafiz_quran'       => $this->hafiz_quran,
         'profile_status'    => 1,
       ] );
       $this->image = '';
