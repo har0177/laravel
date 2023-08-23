@@ -16,7 +16,8 @@
 				@if (Route::has('login'))
 					@auth
 						<li class="nav-item">
-							<a class="nav-link d-lg-none" href="{{ url('/dashboard') }}">Dashboard</a>
+							<a class="nav-link d-lg-none"
+							   href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard')  : route('student-dashboard')}}">Dashboard</a>
 						</li>
 					@else
 						<li class="nav-item">
@@ -54,7 +55,7 @@
 
 				@if (Route::has('login'))
 					@auth
-						<a class="btn btn-sm btn-dark btn-style" href="{{ url('/dashboard') }}">Dashboard</a>
+						<a class="btn btn-sm btn-dark btn-style" href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard')  : route('student-dashboard')}}">Dashboard</a>
 					@else
 						<a class="btn btn-sm btn-dark btn-style" href="{{ route('login') }}">Login</a>
 						@if (Route::has('register'))

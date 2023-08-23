@@ -9,7 +9,6 @@
                         <x-application-mark class="block h-9 w-auto"/>
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link wire:navigate
@@ -132,6 +131,7 @@
         </div>
     </div>
 
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -172,3 +172,5 @@
         </div>
     </div>
 </nav>
+
+
