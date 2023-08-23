@@ -6,7 +6,7 @@
 	@if($event->type === 'Text')
 		<p style="text-align: justify">{{$event->description}}</p>
 	@else
-		<img src="{{$event->getFirstMediaUrl('events')}}"/>
+		<img src="{{$event->getFirstMediaUrl('events')}}" width="100%"/>
 	@endif
 </div>
 @include('footer')
