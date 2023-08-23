@@ -51,6 +51,9 @@
                         <x-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
                             Slides
                         </x-nav-link>
+	                        <x-nav-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
+		                        Gallery
+	                        </x-nav-link>
                         <x-nav-link wire:navigate :active="request()->routeIs('projects')"
                                     href="{{ route('projects') }}">
                             Projects

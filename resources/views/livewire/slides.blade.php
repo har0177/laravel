@@ -49,16 +49,26 @@
 
 				@if($type === 'image')
 					<div>
+
 						@if ($image)
-							<img class="rounded h-16 mt-5 block" src="{{ $image->temporaryUrl() }}">
+							<div class="flex flex-wrap">
+								@foreach ($image as $img)
+									<div class="w-1/3 p-2">
+										<img class="rounded h-16 block" src="{{ $img->temporaryUrl() }}">
+									</div>
+								@endforeach
+							</div>
 						@endif
+
 						<br>
-						<input wire:model="image" accept="image/png, image/jpg, image/jpeg, image/gif" type="file" id="image"
+						<input wire:model="image"
+						       multiple accept="image/png, image/jpg, image/jpeg, image/gif"
+						       type="file" id="image"
 						       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
 						<div wire:loading wire:target="image">
 							<span class="text-green-500"> Uploading ... </span>
 						</div>
-						@error('image')
+							@error('image.*')
 						<span class="text-red-600 text-sm">{{ $message }}</span>
 						@enderror
 
@@ -126,7 +136,7 @@
 				<tbody>
 				@forelse($slides as $slide)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $slide->index + 1  }}</td>
+						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $slide->type }}</td>
 						<td class="border px-4 py-2 items-center">
 							@if($slide->type === 'image')

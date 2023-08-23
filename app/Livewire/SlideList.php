@@ -25,7 +25,7 @@ class SlideList extends Component
   public $type   = '';
   public $url    = '';
   public $status = 'Show';
-  public $image  = '';
+  public $image  = [];
   
   public function render()
   {
@@ -56,18 +56,24 @@ class SlideList extends Component
     $validate = $this->validate();
     if( $validate[ 'type' ] === 'image' ) {
       $this->validate( [ 'image' => 'required' ] );
+      foreach( $this->image as $key => $image ) {
+        $slide = Slide::create( [
+          'type' => $this->type,
+        ] );
+        $slide->clearMediaCollection( 'slides' );
+        $slide->addMedia( $this->image[ $key ] )->toMediaCollection( 'slides' );
+      }
     }
+    
     if( $validate[ 'type' ] === 'video' ) {
       $this->validate( [ 'url' => 'required' ] );
+      
+      Slide::create( [
+        'type' => $this->type,
+        'url'  => $this->url
+      ] );
     }
-    $slide = Slide::create( [
-      'type' => $this->type,
-      'url'  => $this->url
-    ] );
-    if( $this->image ) {
-      $slide->clearMediaCollection( 'slides' );
-      $slide->addMedia( $this->image )->toMediaCollection( 'slides' );
-    }
+    
     $this->toggleSection();
     session()->flash( 'success', 'Slide added successfully.' );
   }

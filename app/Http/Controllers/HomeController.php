@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Gallery;
 use App\Models\NewsEvents;
 use App\Models\User;
 
@@ -35,6 +36,12 @@ class HomeController extends Controller
   public function contact()
   {
     return view( 'contact' );
+  }
+  
+  public function frontGallery()
+  {
+    $images = Gallery::where( 'status', 'Show' )->paginate( 10 );
+    return view( 'frontGallery', compact( 'images' ) );
   }
   
   public function dvs()
@@ -70,6 +77,11 @@ class HomeController extends Controller
   public function slides()
   {
     return view( 'admin.slides' );
+  }
+  
+  public function gallery()
+  {
+    return view( 'admin.gallery' );
   }
   
   public function students()

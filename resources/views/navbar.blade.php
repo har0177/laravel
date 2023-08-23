@@ -47,6 +47,9 @@
 						<li><a class="dropdown-item" href="{{route('dvs')}}">Diploma in Veterinary Science</a></li>
 					</ul>
 				</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{route('front-gallery')}}">Gallery</a>
+					</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('contact')}}">Contact Us</a>
 				</li>

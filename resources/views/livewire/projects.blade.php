@@ -168,7 +168,7 @@
 				<tbody>
 				@forelse($projects as $project)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $project->index + 1  }}</td>
+						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $project->diploma->name }}</td>
 						<td class="border px-4 py-2">{{ $project->fee }}</td>
 						<td class="border px-4 py-2">{{ \Carbon\Carbon::parse($project->expiry_date )->format('d-M-Y')}}</td>

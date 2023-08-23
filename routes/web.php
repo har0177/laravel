@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
 Route::get( '/about', [ HomeController::class, 'about' ] )->name( 'about' );
 Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' );
+Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
 Route::get( '/dvs', [ HomeController::class, 'dvs' ] )->name( 'dvs' );
 Route::get( '/das', [ HomeController::class, 'das' ] )->name( 'das' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
@@ -26,6 +27,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'roles', [ HomeController::class, 'roles' ] )->name( 'roles' );
   Route::get( 'users', [ HomeController::class, 'users' ] )->name( 'users' );
   Route::get( 'slides', [ HomeController::class, 'slides' ] )->name( 'slides' );
+  Route::get( 'gallery', [ HomeController::class, 'gallery' ] )->name( 'gallery' );
   Route::get( 'students', [ HomeController::class, 'students' ] )->name( 'students' );
   Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
   Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );

@@ -148,7 +148,7 @@
 				<tbody>
 				@forelse($events as $event)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $event->index + 1  }}</td>
+						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $event->title }}</td>
 						<td class="border px-4 py-2">{{ $event->type }}</td>
 						<td class="border px-4 py-2 items-center">

@@ -79,7 +79,7 @@
 			<tbody>
 			@forelse($applications as $application)
 				<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-					<td class="border px-4 py-2">{{ $application->index + 1  }}</td>
+					<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 					<td class="border px-4 py-2">{{ $application->challan_number }}</td>
 					<td class="border px-4 py-2">{{ $application->application_number }}</td>
 					<td class="border px-4 py-2">{{ $application->user->full_name }}</td>
