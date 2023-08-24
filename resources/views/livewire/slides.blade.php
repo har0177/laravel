@@ -21,7 +21,7 @@
 				<div>
 					<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
 					<div class="relative">
-						<select name="type" id="type" wire:model="type"
+						<select name="type" id="type" wire:model.live="type"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Type</option>
 							<option value="image">Image</option>

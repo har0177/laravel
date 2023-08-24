@@ -21,7 +21,7 @@
 				<div>
 					<label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Select Diploma</label>
 					<div class="relative">
-						<select name="type" id="diploma_id" wire:model="diploma_id"
+						<select name="type" id="diploma_id" wire:model.live="diploma_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Diploma</option>
 							@foreach($diplomaList as $diploma)
