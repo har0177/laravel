@@ -68,7 +68,7 @@
 	<div class="gallery">
 		@foreach ($images as $image)
 			<div class="image-container">
-				<img  class="rounded shadow-md" src="{{ $image->getFirstMediaUrl('gallery') }}" alt="Image">
+				<img  class="rounded shadow-md" data-fancybox="gallery" src="{{ $image->getFirstMediaUrl('gallery') }}" alt="Image">
 			</div>
 		@endforeach
 	</div>

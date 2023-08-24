@@ -1,7 +1,7 @@
 <div>
 
 	<!-- Carousel and Marquee -->
-	<div class="row py-2">
+	<div class="row py-2 px-3">
 		<div class="col-md-12 col-lg-8">
 			<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
@@ -28,7 +28,7 @@
 				</button>
 			</div>
 		</div>
-		<div class="d-none d-lg-block col-lg-4 bg-gray">
+		<div class="col-md-12 col-lg-4 bg-gray">
 			<h3 class="p-2" style="text-decoration: underline">News and Events</h3>
 			<marquee onmouseover="this.stop();"
 			         style="BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #fff 1px solid; HEIGHT: 290px;"
@@ -56,13 +56,12 @@
 		</div>
 	</div>
 	<div class="container-fluid">
-		<h3 class="p-2">Principal's Message</h3>
 		<div class="row">
-			<div class="col-lg-2">
-				<img src="{{asset('principal.jpg')}}" alt="Principal" width="150px">
-			</div>
-			<div class="col-lg-10">
-				<p class="justify">
+			<div class="col-lg-6">
+				<h3 class="p-2 underline">Principal's Message</h3>
+				<div class="message-container">
+					<img src="{{asset('principal.jpg')}}" alt="Principal" width="120px">
+					<p class=" justify">
 					Agriculture is the first profession necessarily adopted by human and its extension taught by the
 					Almighty to Noah the apostle of God before Deluge.
 					The profession that has the responsibility of food production not only for mankind but for the
@@ -70,19 +69,48 @@
 					The people involved in this auspicious profession are fighters; fighters against the hunger and
 					poverty which are mother of all evils.
 					Each Extension Worker have massive responsibility to adopt the four paradigms to cope with the
-					global challenge of food insecurity. <br>
+					global challenge of food insecurity.
 				<ul>
 					<li>Technology Transfer (persuasive + paternalistic).</li>
 					<li>Advisory work (persuasive + participatory).</li>
 					<li>Human resource development (educational + paternalistic).</li>
 					<li>Facilitation for empowerment (educational + participatory).</li>
 				</ul>
-				<br>
 				Khyber Pakhtunkhwa is blessed with favourable environment for all crops so be matched with the blessings
 				of Almighty, develop strong linkages with producers i.e. main stake holder and the agricultural
 				scientists and pave the agricultural extension on a revolutionary gate way which leads to fetch highest
 				economical yield.
 				</p>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<h3 class="p-2 underline">Secretary Message</h3>
+				<div class="message-container">
+					<img src="{{asset('secretary.jpeg')}}" alt="Secretary" width="120px">
+					<p class="justify">
+					Indeed it is a great honor and privileged for me to share few words.
+					Agriculture employing above 40 percent of the labour force and contributing
+					more than 20 percent to provincial GDP, is one of the key drivers of growth
+					and an excellent opportunity to practice the diversification into areas with
+					comparative advantages of climate. <br>
+					The role of Agriculture Department is to
+					ensure food security, poverty alleviation and to generate employment
+					opportunities through achieving higher growth rate in this vital sector of the
+					economy. The Department is striving for achieving the future vision i.e. to
+					meet the challenges of 21st century and to develop a vibrant agriculture
+					sector that promotes value addition and helps taps international market for
+					agriculture produce.
+					<br>
+					The line departments of Agriculture include Agriculture
+					Extension, Agriculture Research System, Livestock and Dairy Development,
+					Livestock Research and Development Department, Veterinary Research
+					Institute, On-Farm Water Management, Soil Conservation, Agricultural
+					Engineering, Cooperatives, Crop Reporting Services and Fisheries
+					Department. The line departments are all mandated for ensuring effective
+					service delivery at the farmers doorsteps and provide all out support for the
+					promotion of agriculture sector in the province.
+				</p>
+				</div>
 			</div>
 		</div>
 	</div>

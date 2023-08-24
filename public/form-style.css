@@ -325,49 +325,30 @@ td {
     color: white;
 }
 
-
 .document-list {
     display: flex;
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: -20px;
 }
 
 .column {
     flex: 1;
-    padding: 0 10px;
 }
 
-.document-list ol,
-.document-list ul {
-    list-style: none;
-    padding: 2px;
+.column ol {
+    list-style-type: none;
+    padding-left: 0;
 }
 
-.document-list li {
+.column li {
+    margin-bottom: 10px;
+    position: relative;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
-    counter-increment: my-counter;
 }
 
-.document-list .checkbox {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.document-list .checkbox.checked {
-    background-color: #00cc00;
-    border-color: #00cc00;
-}
-
-.document-list .checkbox.checked::before {
-    content: "\2713"; /* Unicode checkmark character */
-    color: white;
+.column input[type="checkbox"] {
+    margin-right: 10px;
 }
 
 

@@ -223,3 +223,23 @@ footer a {
 footer a:hover {
     color: #3c6648;
 }
+
+
+.message-container  {
+    overflow: hidden;
+}
+
+.message-container img {
+    float: left;
+    border: 1px solid;border-radius: 10px;
+    margin-right: 10px; /* Adjust as needed */
+}
+
+.message-container p {
+    overflow: hidden;
+}
+
+
+.underline{
+    text-decoration: underline;
+}

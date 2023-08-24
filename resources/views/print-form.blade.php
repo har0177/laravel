@@ -94,7 +94,8 @@
 		<h3 class="heading">Address</h3>
 		<div class="grid-container">
 			<div class="grid-item">Address:</div>
-			<div class="grid-item underline item-1" style="width: 100% !important;">{{strtoupper($user->userInfo->address)}}</div>
+			<div class="grid-item underline item-1"
+			     style="width: 100% !important;">{{strtoupper($user->userInfo->address)}}</div>
 			<div class="grid-item">Postal Address:</div>
 			<div class="grid-item underline item-1"
 			     style="width: 100% !important;">{{strtoupper($user->userInfo->postal_address ?? $user->userInfo->address)}}</div>
@@ -134,42 +135,47 @@
 
 		<p style="font-size: 12px">
 			<b>Note:-</b> Form must be accompanied with following attested documents in
-			required documents.Incomplete form will not be considered. (&#10003;
+			number.Incomplete form will not be considered. (&#10003;
 			the box)
 		</p>
-		<div class="document-list" style="margin-top: -20px">
+		<div class="document-list">
 			<div class="column">
 				<ol>
 					<li>
-						1. &nbsp;Documents (2 copy)
-
+						<input type="checkbox">
+						SSC provisional Certificate / DMC (2 copies)
 					</li>
 					<li>
-						2. &nbsp; Recent Picture of Student (4 No.)
-
+						<input type="checkbox">
+						Recent Picture of Student (3 No.)
 					</li>
 					<li>
-						3. &nbsp; Domicile Certificate (2 copy)
-
+						<input type="checkbox">
+						Domicile Certificate (2 copies)
+					</li>
+					<li>
+						<input type="checkbox">
+						Agreement on Stamp paper of Rs. 200/- for selected candidates only.
 					</li>
 				</ol>
 			</div>
 			<div class="column">
 				<ol>
-
 					<li>
-						4. &nbsp; CNIC/Form-B of Student (2 copy)
-
+						<input type="checkbox">
+						CNIC/Form-B of Student (1 copy)
 					</li>
 					<li>
-						5. &nbsp; Agreement Only not Affidavit
-
+						<input type="checkbox">
+						Affidavit on Stamp paper of Rs. 200/- for selected candidate only.
 					</li>
 					<li>
-
-						6. &nbsp; Selected Candidates submit migrations with original certificate within one month period from the date of
-						admission.
-
+						<input type="checkbox">
+						Hafiz e Quran Certificate (1 Copy). Additional 20 Marks will be added.
+					</li>
+					<li>
+						<input type="checkbox">
+						Migration Certificate Original for selected candidate within 1 Month after admission.
 					</li>
 				</ol>
 			</div>
