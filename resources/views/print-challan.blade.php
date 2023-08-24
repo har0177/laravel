@@ -116,7 +116,7 @@
 								On Account Of
 							</td>
 							<td>
-								<em>Admission Fee
+								<em>Application Fee
 								</em>
 							</td>
 						</tr>
@@ -261,7 +261,7 @@
 								On Account Of
 							</td>
 							<td>
-								<em>Admission Fee
+								<em>Application Fee
 								</em>
 							</td>
 						</tr>
@@ -406,7 +406,7 @@
 								On Account Of
 							</td>
 							<td>
-								<em>Admission Fee
+								<em>Application Fee
 								</em>
 							</td>
 						</tr>

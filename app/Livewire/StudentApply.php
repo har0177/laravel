@@ -70,11 +70,14 @@ class StudentApply extends Component
   
   public function getFirstLetter( $value )
   {
+    $excludedWords = array("In", "The", "Of", 'in', 'the', 'of');
     $words = explode( " ", $value );
     $acronym = "";
     
     foreach( $words as $w ) {
-      $acronym .= mb_substr( $w, 0, 1 );
+      if (!in_array($w, $excludedWords)) {
+        $acronym .= mb_substr($w, 0, 1);
+      }
     }
     return $acronym;
   }

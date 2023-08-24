@@ -13,17 +13,17 @@
 <body>
 <div class="a4-page">
 	<div class="row">
-		<img src="{{asset('banner.png')}}" style="width: 100%;" alt="logo"/>
-		<div class="column col-80" style="margin-top: -30px;margin-right: -139px;">
+		<img src="{{asset('banner.jpg')}}" style="width: 98%;" alt="logo"/>
+		<div class="column col-80" style="margin-top: -95px;margin-right: -139px;">
 			<h1 style="text-align: center">ADMISSION FORM {{date('Y')}}</h1>
 			<ol>
 				<li>Admission Sought in: <b>{{ $application->project->diploma->name }}</b></li>
 				<li>Open Merit: <span class="tick-mark"></span></li>
 				<li><b>Quota Applied For:</b>
-					<ol class="list-disc list-inside" style="margin: 0px">
-						@foreach ($application->quotaName as $quotaName)
+					<ol class="list-disc list-inside"
+					    style="margin: 0px; display: flex; flex-wrap: wrap;">      @foreach ($application->quotaName as $quotaName)
 							@unless(str_contains($quotaName, 'Open'))
-								<li>{{ $quotaName }} <span class="tick-mark"></span></li>
+								<li style="flex-basis: 40%; padding-right: 20px;">{{ $quotaName }} <span class="tick-mark"></span></li>
 							@endunless
 						@endforeach
 					</ol>
@@ -33,11 +33,11 @@
 
 		</div>
 		<div class="column col-20">
-			<img src="{{$user->avatar}}" style="width: 135px;margin-top: -30px;border: 1px solid;border-radius: 10px;"
+			<img src="{{$user->avatar}}" style="width: 135px;margin-top: -159px;border: 1px solid;border-radius: 10px;"
 			     alt="{{$user->full_name}}"/>
 			<br>
-			<span style="font-size: 12px">	Application # {{{$application->application_number}}}<br>
-			Challan # {{{$application->challan_number}}}</span>
+			<span style="font-size: 12px">	Application # {{{strtoupper($application->application_number)}}}<br>
+			Challan # {{{strtoupper($application->challan_number)}}}</span>
 		</div>
 	</div>
 	<hr/>
@@ -45,36 +45,36 @@
 		<h3 class="heading">Domicile</h3>
 		<div class="grid-container">
 			<div class="grid-item">District/Domicile:</div>
-			<div class="grid-item underline">{{$user->userInfo->district->name}}</div>
+			<div class="grid-item underline">{{strtoupper($user->userInfo->district->name)}}</div>
 			<div class="grid-item">Province:</div>
-			<div class="grid-item underline">{{$user->userInfo->province->name}}</div>
+			<div class="grid-item underline">{{strtoupper($user->userInfo->province->name)}}</div>
 			<div class="grid-item"></div>
 			<div class="grid-item"></div>
 			<div class="grid-item">Nationality:</div>
-			<div class="grid-item underline">Pakistan</div>
+			<div class="grid-item underline">PAKISTAN</div>
 		</div>
 	</div>
 	<div class="container">
 		<h3 class="heading">Student</h3>
 		<div class="grid-container">
 			<div class="grid-item">Name:</div>
-			<div class="grid-item underline">{{$user->full_name}}</div>
+			<div class="grid-item underline">{{strtoupper($user->full_name)}}</div>
 			<div class="grid-item">Gender:</div>
-			<div class="grid-item underline">{{$user->userInfo->gender->name}}</div>
+			<div class="grid-item underline">{{strtoupper($user->userInfo->gender->name)}}</div>
 			<div class="grid-item">CNIC:</div>
 			<div class="grid-item underline">{{$user->cnic}}</div>
 			<div class="grid-item">Date Of Birth:</div>
 			<div class="grid-item underline inline-date">{{\Carbon\Carbon::parse($user->userInfo->dob)->format('d-m-Y')}}</div>
 			<div class="grid-item">Email:</div>
-			<div class="grid-item underline">{{$user->email}}</div>
+			<div class="grid-item underline">{{strtoupper($user->email)}}</div>
 			<div class="grid-item">Contact No:</div>
 			<div class="grid-item underline">{{$user->phone}}</div>
 			<div class="grid-item">Religion:</div>
 			<div class="grid-item underline">{{$user->userInfo->religion}}</div>
 			<div class="grid-item">Hostel Required:</div>
-			<div class="grid-item underline">{{$user->userInfo->hostel?'Yes':'No'}}</div>
+			<div class="grid-item underline">{{$user->userInfo->hostel?'YES':'NO'}}</div>
 			<div class="grid-item">Hafiz Quran:</div>
-			<div class="grid-item underline">{{$user->userInfo->hafiz_quran?'Yes':'No'}}</div>
+			<div class="grid-item underline">{{$user->userInfo->hafiz_quran?'YES':'NO'}}</div>
 			<div class="grid-item">Emergency #:</div>
 			<div class="grid-item underline">{{$user->userInfo->emegency_contact}}</div>
 		</div>
@@ -84,7 +84,7 @@
 		<h3 class="heading">Father</h3>
 		<div class="grid-container">
 			<div class="grid-item" style="font-size: 12px">Father's / Guardian Name:</div>
-			<div class="grid-item underline">{{$user->userInfo->father_name}}</div>
+			<div class="grid-item underline">{{strtoupper($user->userInfo->father_name)}}</div>
 			<div class="grid-item" style="font-size: 12px">Father's / Guardian Phone:</div>
 			<div class="grid-item underline">{{$user->userInfo->father_contact}}</div>
 		</div>
@@ -94,10 +94,10 @@
 		<h3 class="heading">Address</h3>
 		<div class="grid-container">
 			<div class="grid-item">Address:</div>
-			<div class="grid-item underline item-1" style="width: 100% !important;">{{$user->userInfo->address}}</div>
+			<div class="grid-item underline item-1" style="width: 100% !important;">{{strtoupper($user->userInfo->address)}}</div>
 			<div class="grid-item">Postal Address:</div>
 			<div class="grid-item underline item-1"
-			     style="width: 100% !important;">{{$user->userInfo->postal_address ?? $user->userInfo->address}}</div>
+			     style="width: 100% !important;">{{strtoupper($user->userInfo->postal_address ?? $user->userInfo->address)}}</div>
 		</div>
 	</div>
 
@@ -142,24 +142,34 @@
 				<ol>
 					<li>
 						1. &nbsp;Documents (2 copy)
-						<div class="checkbox"></div>
+
 					</li>
 					<li>
 						2. &nbsp; Recent Picture of Student (4 No.)
-						<div class="checkbox"></div>
-					</li>
 
+					</li>
+					<li>
+						3. &nbsp; Domicile Certificate (2 copy)
+
+					</li>
 				</ol>
 			</div>
 			<div class="column">
 				<ol>
-					<li>
-						3. &nbsp; Domicile Certificate (2 copy)
-						<div class="checkbox"></div>
-					</li>
+
 					<li>
 						4. &nbsp; CNIC/Form-B of Student (2 copy)
-						<div class="checkbox"></div>
+
+					</li>
+					<li>
+						5. &nbsp; Agreement Only not Affidavit
+
+					</li>
+					<li>
+
+						6. &nbsp; Selected Candidates submit migrations with original certificate within one month period from the date of
+						admission.
+
 					</li>
 				</ol>
 			</div>
