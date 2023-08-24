@@ -23,7 +23,7 @@ class StudentEducation extends Component
     'editEducation'
   ];
   
-  #[Rule( 'required', message: 'Please Select Degree' )]
+  #[Rule( 'required' )]
   public            $degree_id;
   #[Rule( 'required|min:2|max:50' )]
   public            $board;
@@ -73,11 +73,11 @@ class StudentEducation extends Component
     }
   }
   
-  public function updatedObtainedMarks( $value )
+  public function updatePercentage( )
   {
     $totalMarks = (int) $this->total_marks;
     if( $totalMarks > 0 ) {
-      $this->percentage = round( ( (int) $value / $totalMarks ) * 100, 2 );
+      $this->percentage = round( ( (int) $this->obtained_marks / $totalMarks ) * 100, 2 );
     }
   }
   

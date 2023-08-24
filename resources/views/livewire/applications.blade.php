@@ -16,11 +16,11 @@
 	<div class="mt-5 px-8">
 		<div class="flex justify-between">
 			<div class="p-4">
-				<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+				<input type="search" wire:model.debounce.500ms="search" placeholder="Search"
 				       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 			</div>
 			<div class="mr-2 mt-8">
-				<input type="checkbox" class="mr-2 leading-tight" wire:model.live="paid"/> Payment Paid Only ?
+				<input type="checkbox" class="mr-2 leading-tight" wire:model="paid"/> Payment Paid Only ?
 			</div>
 		</div>
 		<table class="table-auto w-full border mt-5">

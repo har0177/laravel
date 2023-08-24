@@ -21,7 +21,7 @@
 				<div>
 					<label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Select Diploma</label>
 					<div class="relative">
-						<select name="type" id="diploma_id" wire:model.live="diploma_id"
+						<select name="type" id="diploma_id" wire:model="diploma_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Diploma</option>
 							@foreach($diplomaList as $diploma)
@@ -39,7 +39,7 @@
 
 				<div>
 					<label for="fee" class="block text-sm font-medium text-gray-700 mb-1">Fee</label>
-					<input id="fee" name="fee" type="number" min="0" wire:model.live="fee"
+					<input id="fee" name="fee" type="number" min="0" wire:model="fee"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="1000">
 					@error('fee')
@@ -49,7 +49,7 @@
 				</div>
 				<div>
 					<label for="expiry_date" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-					<input id="expiry_date" name="expiry_date" type="date" wire:model.live="expiry_date"
+					<input id="expiry_date" name="expiry_date" type="date" wire:model="expiry_date"
 					       wire:change="updateExpiryDate"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="1000">
@@ -61,7 +61,7 @@
 
 				<div>
 					<label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-					<textarea row="5" id="description" name="description" wire:model.live="description"
+					<textarea row="5" id="description" name="description" wire:model="description"
 					          class="editor appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					></textarea>
 					@error('description')
@@ -121,11 +121,11 @@
 		<div class="mt-5 px-8">
 			<div class="flex justify-between">
 				<div class="p-4">
-					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					<input type="search" wire:model.debounce.500ms="search" placeholder="Search"
 					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
 				<div class="mr-2 mt-8">
-					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="active"/> Active Only ?
+					<input type="checkbox" class="mr-2 leading-tight" wire:model="active"/> Active Only ?
 				</div>
 			</div>
 			<table class="table-auto w-full border mt-5">

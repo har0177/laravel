@@ -26,29 +26,29 @@ class StudentProfile extends Component
   public $cnic              = '';
   public $user              = '';
   public $avatar            = '';
-  #[Rule( 'required', message: 'Please provide your full address' )]
+  #[Rule( 'required' )]
   public $address           = '';
   public $postal_address    = '';
-  #[Rule( 'required', message: 'Please provide father Name' )]
+  #[Rule( 'required' )]
   public $father_name       = '';
   #[Rule( 'required|numeric|digits:11' )]
   public $father_contact    = '';
-  #[Rule( 'required', message: 'Please provide date of birth' )]
+  #[Rule( 'required' )]
   public $dob               = '';
-  #[Rule( 'required', message: 'Please select your gender' )]
+  #[Rule( 'required' )]
   public $gender_id         = '';
   public $genderList        = [];
-  #[Rule( 'required', message: 'Please select your district' )]
+  #[Rule( 'required' )]
   public $district_id       = '';
   public $districtList      = [];
-  #[Rule( 'required', message: 'Please select your blood group.' )]
+  #[Rule( 'required' )]
   public $blood_group_id    = '';
   public $bloodGroupList    = [];
-  #[Rule( 'required', message: 'Please select your province.' )]
+  #[Rule( 'required' )]
   public $province_id       = '';
   public $provinceList      = [];
   public $emergency_contact = '';
-  #[Rule( 'required', message: 'Please select your religion.' )]
+  #[Rule( 'required' )]
   public $religion          = '';
   public $religionList      = [];
   public $hostel            = 0;
@@ -105,17 +105,12 @@ class StudentProfile extends Component
     return view( 'livewire.student.profile' );
   }
   
-  public function updated( $propertyName )
+  public function updateDistrict( )
   {
-    if( $propertyName === 'province_id' ) {
-      $this->districtList = Taxonomy::where( 'parent_id',
-        $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
-    }
-    if( $propertyName === 'phone' ) {
-      $this->phone = preg_replace( '/[^0-9]/', '', $this->phone );
-    }
-    $this->validateOnly( $propertyName );
+    $this->districtList = Taxonomy::where( 'parent_id',
+      $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
   }
+  
   
   public function birthValidation()
   {
@@ -167,6 +162,7 @@ class StudentProfile extends Component
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );
       session()->flash( 'success', 'User updated successfully.' );
+      return $this->redirect( '/education', navigate: true );
     } catch ( \Exception $e ) {
       session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
       

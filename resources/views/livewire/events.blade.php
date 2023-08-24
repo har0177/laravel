@@ -22,7 +22,7 @@
 
 				<div>
 					<label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-					<input id="title" name="title" type="text" wire:model.live="title"
+					<input id="title" name="title" type="text" wire:model="title"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="e.g. Title of an Event">
 					@error('title')
@@ -33,7 +33,7 @@
 
 				<div>
 					<label for="expiry_date" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date</label>
-					<input id="expiry_date" name="expiry_date" type="date" wire:model.live="expiry_date"
+					<input id="expiry_date" name="expiry_date" type="date" wire:model="expiry_date"
 					       wire:change="updateExpiryDate"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					>
@@ -46,7 +46,7 @@
 				<div>
 					<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
 					<div class="relative">
-						<select name="type" id="type" wire:model.live="type"
+						<select name="type" id="type" wire:model="type"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Type</option>
 							<option value="Text">Text</option>
@@ -64,7 +64,7 @@
 				@if($type === 'Text')
 					<div>
 						<label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-						<textarea id="description" name="description" type="text" wire:model.live="description"
+						<textarea id="description" name="description" type="text" wire:model="description"
 						          class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
 						</textarea>
 						@error('description')

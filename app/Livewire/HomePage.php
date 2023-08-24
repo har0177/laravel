@@ -16,22 +16,6 @@ class HomePage extends Component
   {
     
     $this->events = NewsEvents::where( 'expiry_date', '>', now() )->limit( 10 )->get();
-    // Simulating dynamic data for carousel items
-    $this->carouselItems = [
-      [
-        'type' => 'video',
-        'url'  => 'https://www.youtube.com/embed/B-Nt6ohJDqY?rel=0',
-      ],
-      [
-        'type' => 'image',
-        'url'  => 'images/1.webp',
-      ],
-      [
-        'type' => 'image',
-        'url'  => 'images/1 (1).webp',
-      ],
-      // Add more items as needed...
-    ];
     
     $carouselItemsData = Slide::whereStatus( 'show' )->get();
     

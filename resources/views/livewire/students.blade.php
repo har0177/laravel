@@ -6,7 +6,7 @@
 		<x-flash-error-message message="{{ session('error') }}"/>
 	@endif
 
-@if($create)
+	@if($create)
 
 	<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
@@ -20,7 +20,7 @@
 				<!-- Name field -->
 				<div>
 					<label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-					<input id="first_name" name="first_name" type="text" wire:model.live="first_name"
+					<input id="first_name" name="first_name" type="text" wire:model="first_name"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="John">
 					@error('first_name')
@@ -31,7 +31,7 @@
 				<!-- Last Name field -->
 				<div>
 					<label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-					<input id="last_name" name="last_name" type="text" wire:model.live="last_name"
+					<input id="last_name" name="last_name" type="text" wire:model="last_name"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="Doe">
 					@error('last_name')
@@ -40,7 +40,7 @@
 				</div>
 				<div>
 					<label for="username" class="block text-sm font-medium text-gray-700 mb-1">UserName</label>
-					<input id="username" name="username" type="text" wire:model.live="username"
+					<input id="username" name="username" type="text" wire:model="username"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="joe123">
 					@error('username')
@@ -52,7 +52,7 @@
 				@if(!$editStudent)
 					<div>
 						<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-						<input id="password" name="password" type="password" wire:model.live="password"
+						<input id="password" name="password" type="password" wire:model="password"
 						       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 						       placeholder="********">
 						@error('password')
@@ -63,7 +63,7 @@
 
 				<div>
 					<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-					<input id="phone" name="phone" type="text" wire:model.live="phone"
+					<input id="phone" name="phone" type="text" wire:model="phone"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxx">
 					@error('phone')
@@ -73,7 +73,7 @@
 
 				<div>
 					<label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
-					<input id="cnic" name="cnic" type="text" wire:model.live="cnic"
+					<input id="cnic" name="cnic" type="text" wire:model="cnic"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxxxx">
 					@error('cnic')
@@ -83,7 +83,7 @@
 
 				<div>
 					<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-					<input id="email" name="email" type="email" wire:model.live="email"
+					<input id="email" name="email" type="email" wire:model="email"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="john.doe@example.com">
 					@error('email')
@@ -92,10 +92,10 @@
 				</div>
 
 
-
 				<div>
-					<label for="father_contact" class="block text-sm font-medium text-gray-700 mb-1">Father / Guardian Contact #</label>
-					<input id="father_contact" name="father_contact" type="text" wire:model.live="father_contact"
+					<label for="father_contact" class="block text-sm font-medium text-gray-700 mb-1">Father / Guardian Contact
+						#</label>
+					<input id="father_contact" name="father_contact" type="text" wire:model="father_contact"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxx">
 					@error('father_contact')
@@ -105,7 +105,7 @@
 
 				<div>
 					<label for="emergency_contact" class="block text-sm font-medium text-gray-700 mb-1">Emergency Contact</label>
-					<input id="emergency_contact" name="emergency_contact" type="text" wire:model.live="emergency_contact"
+					<input id="emergency_contact" name="emergency_contact" type="text" wire:model="emergency_contact"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxx">
 					@error('emergency_contact')
@@ -124,7 +124,7 @@
 
 				<div>
 					<label for="address" class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-					<input id="address" name="father_contact" type="text" wire:model.live="address"
+					<input id="address" name="father_contact" type="text" wire:model="address"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="i.e. Peshawar City">
 					@error('address')
@@ -134,7 +134,7 @@
 
 				<div>
 					<label for="postal_address" class="block text-sm font-medium text-gray-700 mb-1">Postal Address</label>
-					<input id="postal_address" name="postal_address" type="text" wire:model.live="postal_address"
+					<input id="postal_address" name="postal_address" type="text" wire:model="postal_address"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="i.e. Peshawar City">
 					@error('postal_address')
@@ -145,7 +145,8 @@
 				<div>
 					<label for="province_id" class="block text-sm font-medium text-gray-700 mb-1">Province</label>
 					<div class="relative">
-						<select name="province_id" id="province_id" wire:model.live="province_id"
+						<select name="province_id" id="province_id" wire:model="province_id"
+						        wire:change="updateDistrict"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Province</option>
 							@foreach($provinceList as $list)
@@ -164,7 +165,7 @@
 				<div>
 					<label for="district_id" class="block text-sm font-medium text-gray-700 mb-1">District</label>
 					<div class="relative">
-						<select name="district_id" id="district_id" wire:model.live="district_id"
+						<select name="district_id" id="district_id" wire:model="district_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select District</option>
 							@foreach($districtList as $list)
@@ -182,7 +183,7 @@
 				<div>
 					<label for="blood_group_id" class="block text-sm font-medium text-gray-700 mb-1">Blood Group</label>
 					<div class="relative">
-						<select name="blood_group_id" id="blood_group_id" wire:model.live="blood_group_id"
+						<select name="blood_group_id" id="blood_group_id" wire:model="blood_group_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Blood Group</option>
 							@foreach($bloodGroupList as $list)
@@ -201,7 +202,7 @@
 				<div>
 					<label for="gender" class="block text-sm font-medium text-gray-700 mb-1">Gender</label>
 					<div class="relative">
-						<select name="gender" id="gender" wire:model.live="gender_id"
+						<select name="gender" id="gender" wire:model="gender_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Gender</option>
 							@foreach($genderList as $list)
@@ -218,7 +219,7 @@
 				<div>
 					<label for="religion" class="block text-sm font-medium text-gray-700 mb-1">Religion</label>
 					<div class="relative">
-						<select name="religion" id="religion" wire:model.live="religion"
+						<select name="religion" id="religion" wire:model="religion"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Religion</option>
 
@@ -310,7 +311,6 @@
 				<!-- Email field -->
 
 
-
 			</div>
 			<button type="submit"
 			        wire:loading.attr="disabled"
@@ -340,11 +340,11 @@
 		<div class="mt-5 px-8">
 			<div class="flex justify-between">
 				<div class="p-4">
-					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					<input type="search" wire:model.debounce.500ms="search" placeholder="Search"
 					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
 				<div class="mr-2 mt-8">
-					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="active"/> Active Only ?
+					<input type="checkbox" class="mr-2 leading-tight" wire:model="active"/> Active Only ?
 				</div>
 			</div>
 			<table class="table-auto w-full border mt-5">

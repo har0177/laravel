@@ -20,7 +20,7 @@
 				<!-- Name field -->
 				<div>
 					<label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
-					<input id="first_name" name="first_name" type="text" wire:model.live="first_name"
+					<input id="first_name" name="first_name" type="text" wire:model="first_name"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="John">
 					@error('first_name')
@@ -31,7 +31,7 @@
 				<!-- Last Name field -->
 				<div>
 					<label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-					<input id="last_name" name="last_name" type="text" wire:model.live="last_name"
+					<input id="last_name" name="last_name" type="text" wire:model="last_name"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="Doe">
 					@error('last_name')
@@ -40,7 +40,7 @@
 				</div>
 				<div>
 					<label for="username" class="block text-sm font-medium text-gray-700 mb-1">UserName</label>
-					<input id="username" name="username" type="text" wire:model.live="username"
+					<input id="username" name="username" type="text" wire:model="username"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="joe123">
 					@error('username')
@@ -49,7 +49,7 @@
 				</div>
 				<div>
 					<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-					<input id="phone" name="phone" type="text" wire:model.live="phone"
+					<input id="phone" name="phone" type="text" wire:model="phone"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxx">
 					@error('phone')
@@ -59,7 +59,7 @@
 
 				<div>
 					<label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
-					<input id="cnic" name="cnic" type="text" wire:model.live="cnic"
+					<input id="cnic" name="cnic" type="text" wire:model="cnic"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="xxxxxxxxxxxxx">
 					@error('cnic')
@@ -69,7 +69,7 @@
 				<!-- Email field -->
 				<div>
 					<label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-					<input id="email" name="email" type="email" wire:model.live="email"
+					<input id="email" name="email" type="email" wire:model="email"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="john.doe@example.com">
 					@error('email')
@@ -80,7 +80,7 @@
 				@if(!$editUser)
 					<div>
 						<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-						<input id="password" name="password" type="password" wire:model.live="password"
+						<input id="password" name="password" type="password" wire:model="password"
 						       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 						       placeholder="********">
 						@error('password')
@@ -120,11 +120,11 @@
 		<div class="mt-5 px-8">
 			<div class="flex justify-between">
 				<div class="p-4">
-					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					<input type="search" wire:model.debounce.500ms="search" placeholder="Search"
 					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
 				<div class="mr-2 mt-8">
-					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="active"/> Active Only ?
+					<input type="checkbox" class="mr-2 leading-tight" wire:model="active"/> Active Only ?
 				</div>
 			</div>
 			<table class="table-auto w-full border mt-5">

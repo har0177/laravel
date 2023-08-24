@@ -25,7 +25,7 @@
 						</li>
 						@if (Route::has('register'))
 							<li class="nav-item">
-								<a class="nav-link d-lg-none" href="{{ route('register') }}">Register</a>
+								<a class="nav-link d-lg-none" href="{{ route('register') }}">Online Admission</a>
 							</li>
 						@endif
 					@endauth
@@ -62,7 +62,7 @@
 					@else
 						<a class="btn btn-sm btn-dark btn-style" href="{{ route('login') }}">Login</a>
 						@if (Route::has('register'))
-							<a class="btn btn-sm btn-dark btn-style" href="{{ route('register') }}">Register</a>
+							<a class="btn btn-sm btn-dark btn-style" href="{{ route('register') }}">Online Admission</a>
 						@endif
 					@endauth
 

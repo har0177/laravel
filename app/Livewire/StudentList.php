@@ -124,18 +124,12 @@ class StudentList extends Component
     $this->create = true;
   }
   
-  public function updated( $propertyName )
+  public function updateDistrict( )
   {
-    if( $propertyName === 'province_id' ) {
-      $this->districtList = Taxonomy::where( 'parent_id',
-        $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
-    }
-    
-    if( $propertyName === 'phone' ) {
-      $this->phone = preg_replace( '/[^0-9]/', '', $this->phone );
-    }
-    $this->validateOnly( $propertyName );
+    $this->districtList = Taxonomy::where( 'parent_id',
+      $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
   }
+  
   
   public function birthValidation()
   {

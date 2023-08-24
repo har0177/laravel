@@ -20,7 +20,7 @@
 				<div>
 					<label for="degree_id" class="block text-sm font-medium text-gray-700 mb-1">Degree</label>
 					<div class="relative">
-						<select name="degree_id" id="degree_id" wire:model.live="degree_id"
+						<select name="degree_id" id="degree_id" wire:model="degree_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Degree</option>
 							@foreach($degreeList as $list)
@@ -40,7 +40,7 @@
 				<!-- Name field -->
 				<div>
 					<label for="board" class="block text-sm font-medium text-gray-700 mb-1">Board</label>
-					<input id="board" name="board" type="text" wire:model.live="board"
+					<input id="board" name="board" type="text" wire:model="board"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="BISE Peshawar">
 					@error('board')
@@ -51,7 +51,7 @@
 				<!-- Last Name field -->
 				<div>
 					<label for="total_marks" class="block text-sm font-medium text-gray-700 mb-1">Total Marks</label>
-					<input id="total_marks" name="total_marks" type="number" min="0" wire:model.live="total_marks"
+					<input id="total_marks" name="total_marks" type="number" min="0" wire:model="total_marks"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="1100">
 					@error('total_marks')
@@ -62,7 +62,8 @@
 					<label for="obtained_marks"
 					       class="block text-sm font-medium text-gray-700 mb-1">Obtained Marks</label>
 					<input id="obtained_marks" name="obtained_marks" type="number" min="0"
-					       wire:model.live="obtained_marks"
+					       wire:model="obtained_marks"
+					       wire:change="updatePercentage"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="900">
 					@error('obtained_marks')
@@ -72,7 +73,7 @@
 				{{--				<div>
 									<label for="percentage" class="block text-sm font-medium text-gray-700 mb-1">Percentage</label>
 									<input id="percentage" name="percentage" type="number"
-																wire:model.live="percentage"
+																wire:model="percentage"
 																class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 									>
 									@error('percentage')
@@ -82,7 +83,7 @@
 
 				<div>
 					<label for="grade" class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
-					<input id="grade" name="grade" type="text" wire:model.live="grade"
+					<input id="grade" name="grade" type="text" wire:model="grade"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="A+">
 					@error('grade')
@@ -92,7 +93,7 @@
 
 				<div>
 					<label for="roll_number" class="block text-sm font-medium text-gray-700 mb-1">Roll Number</label>
-					<input id="roll_number" name="roll_number" type="text" wire:model.live="roll_number"
+					<input id="roll_number" name="roll_number" type="text" wire:model="roll_number"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="124586">
 					@error('roll_number')
@@ -104,7 +105,7 @@
 					<label for="result_declaration_date" class="block text-sm font-medium text-gray-700 mb-1">Result
 						Decleration Date</label>
 					<input id="result_declaration_date" name="result_declaration_date" type="date"
-					       wire:model.live="result_declaration_date"
+					       wire:model="result_declaration_date"
 					       wire:change="updateResultDeclarationDate"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					>
