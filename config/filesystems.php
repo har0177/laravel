@@ -32,9 +32,9 @@ return [
     
     'media' => [
       'driver'     => 'local',
-      'root'       => public_path( 'media' ),
-      'url'        => env( 'APP_URL' ) . '/media',
-      'visibility' => 'public'
+      'root'       => storage_path( 'app/public/media' ), // Set the root to 'storage/app/public/media'
+      'url'        => env( 'APP_URL' ) . '/storage/media', // URL for accessing media files
+      'visibility' => 'public',
     ],
     
     'temp' => [
