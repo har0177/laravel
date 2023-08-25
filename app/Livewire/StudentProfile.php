@@ -47,6 +47,7 @@ class StudentProfile extends Component
   #[Rule( 'required' )]
   public $province_id       = '';
   public $provinceList      = [];
+  #[Rule( 'numeric|digits:11' )]
   public $emergency_contact = '';
   #[Rule( 'required' )]
   public $religion          = '';

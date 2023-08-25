@@ -19,7 +19,20 @@
 		<form class="py-6 px-4 sm:px-6" wire:submit.prevent="storeApplication">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<!-- Name field -->
-				<span class="tick-mark">Open Merit</span>
+
+				<span>
+						<label class="relative flex items-center">
+					<input type="checkbox"
+					       id="open-merit"
+					       name="quota[]"
+					       value="33"
+					       wire:model="quota"
+					       wire:click="checkQuota"
+					       class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+					<span class="ml-8">Open Merit</span>
+				</label>
+	</span>
+
 				<div class="mb-4">
 					<label for="toggleQuota" class="block text-sm font-medium text-gray-700 mb-1">Select Quota to Apply</label>
 					<div class="space-y-2">
@@ -77,7 +90,7 @@
 									          wire:loading.attr="disabled">
 										Edit Application
 									</x-button>
-								<br>
+									<br>
 									<a target="_blank" href="{{ route('print-challan', ['application' => $project->applications[0]]) }}"
 									   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 										Print Challan

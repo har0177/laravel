@@ -63,7 +63,6 @@
 					       class="block text-sm font-medium text-gray-700 mb-1">Obtained Marks</label>
 					<input id="obtained_marks" name="obtained_marks" type="number" min="0"
 					       wire:model="obtained_marks"
-					       wire:change="updatePercentage"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="900">
 					@error('obtained_marks')
@@ -83,9 +82,15 @@
 
 				<div>
 					<label for="grade" class="block text-sm font-medium text-gray-700 mb-1">Grade</label>
-					<input id="grade" name="grade" type="text" wire:model="grade"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="A+">
+					<select name="grade" id="grade" wire:model="grade"
+					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+						<option value="">Select Grade</option>
+						<option value="A1">A1</option>
+						<option value="A">A</option>
+						<option value="B">B</option>
+						<option value="C">C</option>
+						<option value="D">D</option>
+					</select>
 					@error('grade')
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror

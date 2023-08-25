@@ -19,9 +19,10 @@ class StudentApply extends Component
   public $challan_number     = '';
   public $diplomaName        = '';
   #[Rule( 'required|array|min:1' )]
-  public $quota              = [ '33' ];
-  public $quotaList          = '';
-  public $status             = 'Pending';
+  public $quota     = [ '33' ];
+  public $quotaList = '';
+  public $user      = '';
+  public $status    = 'Pending';
   
   public function mount()
   {
@@ -70,13 +71,13 @@ class StudentApply extends Component
   
   public function getFirstLetter( $value )
   {
-    $excludedWords = array("In", "The", "Of", 'in', 'the', 'of');
+    $excludedWords = [ "In", "The", "Of", 'in', 'the', 'of' ];
     $words = explode( " ", $value );
     $acronym = "";
     
     foreach( $words as $w ) {
-      if (!in_array($w, $excludedWords)) {
-        $acronym .= mb_substr($w, 0, 1);
+      if( !in_array( $w, $excludedWords ) ) {
+        $acronym .= mb_substr( $w, 0, 1 );
       }
     }
     return $acronym;
@@ -124,6 +125,21 @@ class StudentApply extends Component
           return;
         }
         
+        if( str_contains( $quotaName, 'Open' ) && $user->gender->name === 'Female' ) {
+          $this->addError( 'quota', 'Female can only apply to Female Quota.' );
+          return;
+        }
+        
+        if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id, [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          $this->addError( 'quota', 'FATA Candidates only apply to Erstwhile Fata Quota.' );
+          return;
+        }
+        
+        if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+          $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
+          return;
+        }
+        
         if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
           return;
@@ -163,6 +179,7 @@ class StudentApply extends Component
     $this->diplomaName = $project->diploma->name;
     $this->application_number = $this->getFirstLetter( $project->diploma->name ) . '-' . $project->id . '-' . rand( 1,
         1000 );
+    $this->user = auth()->user();
     $this->quotaList = $this->quotaList
       ->filter( function( $taxonomy ) use ( $project ) {
         return in_array( $taxonomy->id, $project->quota );

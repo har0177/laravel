@@ -24,28 +24,28 @@ class StudentEducation extends Component
   ];
   
   #[Rule( 'required' )]
-  public            $degree_id;
+  public $degree_id;
   #[Rule( 'required|min:2|max:50' )]
-  public            $board;
+  public $board;
   #[Rule( 'required|numeric' )]
-  public            $obtained_marks;
+  public $obtained_marks;
   #[Rule( 'required|numeric' )]
-  public            $total_marks;
-  public            $percentage;
+  public $total_marks;
+  public $percentage;
   #[Rule( 'required' )]
-  public            $result_declaration_date;
+  public $result_declaration_date;
   #[Rule( 'required' )]
-  public            $grade;
+  public $grade;
   #[Rule( 'required' )]
-  public            $roll_number;
-  public Collection $degreeList;
+  public $roll_number;
+  public $degreeList = [];
   
   public function mount()
   {
-    $profileStatus = auth()->user()->userInfo?->profile_status;
+    $profileStatus = auth()->user()->userInfo ?->profile_status;
     if( !$profileStatus ) {
       session()->flash( 'error', 'Please Update Profile First.' );
-      
+  
       return $this->redirect( '/profile', navigate: true );
     }
     $this->degreeList = Taxonomy::whereType( TaxonomyTypeEnum::DEGREE )->get();
@@ -73,14 +73,6 @@ class StudentEducation extends Component
     }
   }
   
-  public function updatePercentage( )
-  {
-    $totalMarks = (int) $this->total_marks;
-    if( $totalMarks > 0 ) {
-      $this->percentage = round( ( (int) $this->obtained_marks / $totalMarks ) * 100, 2 );
-    }
-  }
-  
   public function add()
   {
     $this->create = true;
@@ -94,12 +86,23 @@ class StudentEducation extends Component
       $this->addError( 'result_declaration_date', "Result Date must be in past." );
       return;
     }
+    if( !preg_match( '/^[\pL\s]+$/u', $this->board ) ) {
+      $this->addError( 'board', "Board Name must use Alphabets and spaces." );
+      return;
+    }
     $education = Education::where( 'degree_id', $this->degree_id )
                           ->where( 'user_id',
                             auth()->user()->id );
+    
+    $totalMarks = (int) $this->total_marks;
+    if( $totalMarks > 0 ) {
+      $validate[ 'percentage' ] = round( ( (int) $this->obtained_marks / $totalMarks ) * 100, 2 );
+    } else {
+      $this->addError( 'total_marks', "Total Marks should be greater than 0." );
+      return;
+    }
     try {
       $validate[ 'user_id' ] = auth()->user()->id;
-      $validate[ 'percentage' ] = $this->percentage;
       
       if( $this->editEducation ) {
         $education = $education->where( 'id', '!=', $this->editEducation )->first();
