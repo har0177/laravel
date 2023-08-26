@@ -20,6 +20,7 @@ Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' 
 Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
 Route::get( '/veterinary-science', [ HomeController::class, 'veterinaryScience' ] )->name( 'veterinary-science' );
 Route::get( '/agriculture-science', [ HomeController::class, 'agricultureScience' ] )->name( 'agriculture-science' );
+Route::get( '/fee-structure', [ HomeController::class, 'feeStructure' ] )->name( 'fee-structure' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );

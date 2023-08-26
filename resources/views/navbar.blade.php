@@ -48,6 +48,9 @@
 					</ul>
 				</li>
 					<li class="nav-item">
+						<a class="nav-link" href="{{route('fee-structure')}}">Fee Structure</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="{{route('front-gallery')}}">Gallery</a>
 					</li>
 				<li class="nav-item">

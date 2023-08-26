@@ -173,7 +173,7 @@
 							<td class="border px-4 py-2">{{ $education->board }}</td>
 							<td class="border px-4 py-2">{{ $education->obtained_marks }}</td>
 							<td class="border px-4 py-2">{{ $education->total_marks }}</td>
-							<td class="border px-4 py-2">{{ $education->percentage }}</td>
+							<td class="border px-4 py-2">{{ $education->percentage }}%</td>
 							<td class="border px-4 py-2">{{ $education->grade }}</td>
 							<td class="border px-4 py-2">{{ $education->roll_number }}</td>
 							<td

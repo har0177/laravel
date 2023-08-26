@@ -55,6 +55,9 @@ class HomeController extends Controller
   public function agricultureScience()
   {
     return view( 'agriculture-science' );
+  } public function feeStructure()
+  {
+    return view( 'fee-structure' );
   }
   
   public function dashboard()

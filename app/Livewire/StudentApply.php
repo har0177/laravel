@@ -19,10 +19,10 @@ class StudentApply extends Component
   public $challan_number     = '';
   public $diplomaName        = '';
   #[Rule( 'required|array|min:1' )]
-  public $quota     = [ '33' ];
-  public $quotaList = '';
-  public $user      = '';
-  public $status    = 'Pending';
+  public $quota              = [ '33' ];
+  public $quotaList          = '';
+  public $user               = '';
+  public $status             = 'Pending';
   
   public function mount()
   {
@@ -93,6 +93,19 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
         return;
       }
+      if( str_contains( $quotaName, 'Open' ) && $user->gender->name === 'Female' ) {
+        $this->addError( 'quota', 'Female can only apply to Female Quota.' );
+        return;
+      }
+      if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
+          [ 70, 71, 72, 73, 74, 75, 76 ], true ) ) {
+        $this->addError( 'quota', 'FATA Candidates only apply to Erstwhile Fata Quota.' );
+        return;
+      }
+      if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+        $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
+        return;
+      }
       if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
         return;
@@ -101,7 +114,7 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
         return;
       }
-      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
+      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
         $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
         return;
       }
@@ -124,22 +137,19 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
-        
         if( str_contains( $quotaName, 'Open' ) && $user->gender->name === 'Female' ) {
           $this->addError( 'quota', 'Female can only apply to Female Quota.' );
           return;
         }
-        
-        if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id, [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+        if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
+            [ 70, 71, 72, 73, 74, 75, 76 ], true ) ) {
           $this->addError( 'quota', 'FATA Candidates only apply to Erstwhile Fata Quota.' );
           return;
         }
-        
         if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
           return;
         }
-        
         if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
           return;
@@ -148,8 +158,7 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
           return;
         }
-        
-        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
+        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
           $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
           return;
         }

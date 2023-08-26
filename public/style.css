@@ -50,6 +50,7 @@ h3 {
 
 .navbar .dropdown .dropdown-menu .dropdown-item {
     color: #fff;
+    font-size: 12px;
 }
 
 .navbar .dropdown .dropdown-menu {
@@ -265,9 +266,9 @@ footer a:hover {
 }
 
 .btn-style {
-    background-color: darkgreen;
-    color: #fff;
-    border: none;
+    background-color: white;
+    color: green;
+    border: 1px solid green;
     font-weight: 700;
     border-radius: 10px;
 }

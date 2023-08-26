@@ -6,7 +6,6 @@ use App\Enums\TaxonomyTypeEnum;
 use App\Models\Education;
 use App\Models\Taxonomy;
 use Carbon\Carbon;
-use Illuminate\Support\Collection;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -27,9 +26,9 @@ class StudentEducation extends Component
   public $degree_id;
   #[Rule( 'required|min:2|max:50' )]
   public $board;
-  #[Rule( 'required|numeric' )]
+  #[Rule( 'required|numeric|min_digits:1|max_digits:4' )]
   public $obtained_marks;
-  #[Rule( 'required|numeric' )]
+  #[Rule( 'required|numeric|min_digits:1|max_digits:4' )]
   public $total_marks;
   public $percentage;
   #[Rule( 'required' )]
@@ -42,10 +41,10 @@ class StudentEducation extends Component
   
   public function mount()
   {
-    $profileStatus = auth()->user()->userInfo ?->profile_status;
+    $profileStatus = auth()->user()->userInfo?->profile_status;
     if( !$profileStatus ) {
       session()->flash( 'error', 'Please Update Profile First.' );
-  
+      
       return $this->redirect( '/profile', navigate: true );
     }
     $this->degreeList = Taxonomy::whereType( TaxonomyTypeEnum::DEGREE )->get();
@@ -90,6 +89,7 @@ class StudentEducation extends Component
       $this->addError( 'board', "Board Name must use Alphabets and spaces." );
       return;
     }
+    
     $education = Education::where( 'degree_id', $this->degree_id )
                           ->where( 'user_id',
                             auth()->user()->id );
@@ -99,6 +99,10 @@ class StudentEducation extends Component
       $validate[ 'percentage' ] = round( ( (int) $this->obtained_marks / $totalMarks ) * 100, 2 );
     } else {
       $this->addError( 'total_marks', "Total Marks should be greater than 0." );
+      return;
+    }
+    if( $this->obtained_marks > $totalMarks ) {
+      $this->addError( 'obtained_marks', "Obtained Marks should be equal or less than Total Marks." );
       return;
     }
     try {
