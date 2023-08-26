@@ -18,10 +18,11 @@ Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
 Route::get( '/about', [ HomeController::class, 'about' ] )->name( 'about' );
 Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' );
 Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
-Route::get( '/dvs', [ HomeController::class, 'dvs' ] )->name( 'dvs' );
-Route::get( '/das', [ HomeController::class, 'das' ] )->name( 'das' );
+Route::get( '/veterinary-science', [ HomeController::class, 'veterinaryScience' ] )->name( 'veterinary-science' );
+Route::get( '/agriculture-science', [ HomeController::class, 'agricultureScience' ] )->name( 'agriculture-science' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
+Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
 
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::get( 'roles', [ HomeController::class, 'roles' ] )->name( 'roles' );

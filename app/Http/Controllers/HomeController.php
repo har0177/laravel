@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactFormMail;
 use App\Models\Application;
 use App\Models\Gallery;
 use App\Models\NewsEvents;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -44,14 +47,14 @@ class HomeController extends Controller
     return view( 'frontGallery', compact( 'images' ) );
   }
   
-  public function dvs()
+  public function veterinaryScience()
   {
-    return view( 'dvs' );
+    return view( 'veterinary-science' );
   }
   
-  public function das()
+  public function agricultureScience()
   {
-    return view( 'das' );
+    return view( 'agriculture-science' );
   }
   
   public function dashboard()
@@ -107,6 +110,27 @@ class HomeController extends Controller
   public function showEvent( NewsEvents $event )
   {
     return view( 'showEvent', compact( 'event' ) );
+  }
+  
+  public function submitForm( Request $request )
+  {
+    
+    $request->validate( [
+      'name'    => 'required|min:3|max:30',
+      'email'   => 'required|email',
+      'subject' => 'required|min:3|max:50',
+      'message' => 'required',
+    ] );
+    
+    Mail::to( 'admission@asap.edu.pk' )->send( new ContactFormMail(
+      $request->message,
+      $request->email,
+      $request->subject,
+      $request->name ) );
+    
+    // Process the form data and send emails, save to database, etc.
+    
+    return response()->json( [ 'message' => 'Message Send successfully. We will inform you through your email.' ] );
   }
   
   public function events()

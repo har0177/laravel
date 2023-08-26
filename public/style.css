@@ -1,11 +1,31 @@
-* {
-    margin: 0;
-    padding: 0;
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body {
+    color: #666;
+    font-family: 'Poppins', sans-serif;
+    font-size: 12px;
+    line-height: 24px;
+    text-align: left;
+    font-weight: 300;
 }
 
 .text-center h1 {
     font-family: 'Times New Roman', Times, serif;
     font-weight: bold;
+}
+
+h3 {
+    border-bottom: 2px solid #3c6648;
+    bottom: -1px;
+    display: inline-block;
+    font-size: 20px;
+    line-height: 17px;
+    padding-bottom: 13px;
+    position: relative;
+}
+
+.alert {
+    padding: 5px !important;
 }
 
 .bg-color {
@@ -225,19 +245,39 @@ footer a:hover {
 }
 
 
-.message-container  {
+.message-container {
     overflow: hidden;
 }
 
 .message-container img {
     float: left;
-    border: 1px solid;border-radius: 10px;
+    border: 1px solid;
+    border-radius: 10px;
     margin-right: 10px; /* Adjust as needed */
 }
 
+.contact-icon {
+    color: #539165;
+    float: left;
+    font-size: 14px;
+    margin-right: 12px;
+    width: 15px;
+}
+
+.btn-style {
+    background-color: darkgreen;
+    color: #fff;
+    border: none;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.btn-style:hover {
+    background-color: darkcyan;
+    color: #fff;
+}
 
 
-
-.underline{
+.underline {
     text-decoration: underline;
 }

@@ -43,8 +43,8 @@
 						Diplomas
 					</a>
 					<ul class="dropdown-menu bg-color" aria-labelledby="navbarScrollingDropdown">
-						<li><a class="dropdown-item" href="{{route('das')}}">Diploma in Agriculture Services</a></li>
-						<li><a class="dropdown-item" href="{{route('dvs')}}">Diploma in Veterinary Science</a></li>
+						<li><a class="dropdown-item" href="{{route('agriculture-science')}}">Diploma in Agriculture Services</a></li>
+						<li><a class="dropdown-item" href="{{route('veterinary-science')}}">Diploma in Veterinary Science</a></li>
 					</ul>
 				</li>
 					<li class="nav-item">
