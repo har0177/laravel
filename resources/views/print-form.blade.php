@@ -18,16 +18,19 @@
 			<h1 style="text-align: center">ADMISSION FORM {{date('Y')}}</h1>
 			<ol>
 				<li>Admission Sought in: <b>{{ $application->project->diploma->name }}</b></li>
-				<li>Open Merit: <span class="tick-mark"></span></li>
+				@if(in_array('Open Merit', $application->quotaName))
+					<li>Open Merit: <span class="tick-mark"></span></li>
+				@endif
 				<li><b>Quota Applied For:</b>
 					<ol class="list-disc list-inside"
 					    style="margin: 0px; display: flex; flex-wrap: wrap;">      @foreach ($application->quotaName as $quotaName)
 							@unless(str_contains($quotaName, 'Open'))
-								<li style="flex-basis: 40%; padding-right: 20px;">{{ $quotaName }} <span class="tick-mark"></span></li>
+								<li>{{ $quotaName }} <span class="tick-mark"></span></li>
 							@endunless
 						@endforeach
 					</ol>
 				</li>
+
 			</ol>
 
 

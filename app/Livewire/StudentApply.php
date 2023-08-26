@@ -93,25 +93,31 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
         return;
       }
-      if( str_contains( $quotaName, 'Open' ) && $user->gender->name === 'Female' ) {
+      if( !str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Female' ) {
         $this->addError( 'quota', 'Female can only apply to Female Quota.' );
         return;
       }
       if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
-          [ 70, 71, 72, 73, 74, 75, 76 ], true ) ) {
-        $this->addError( 'quota', 'FATA Candidates only apply to Erstwhile Fata Quota.' );
+          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+        $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
+        return;
+      }
+      if( str_contains( $quotaName, 'FATA' ) && ! in_array( $user->district_id,
+          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+        $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
         return;
       }
       if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
         return;
       }
+      
       if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
         return;
       }
-      if( str_contains( $quotaName, 'Fata' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
-        $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
+      if( str_contains( $quotaName, 'FATA' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+        $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
         return;
       }
       if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
@@ -137,25 +143,32 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
-        if( str_contains( $quotaName, 'Open' ) && $user->gender->name === 'Female' ) {
+        if( !str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Female' ) {
           $this->addError( 'quota', 'Female can only apply to Female Quota.' );
           return;
         }
+        
         if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
-            [ 70, 71, 72, 73, 74, 75, 76 ], true ) ) {
-          $this->addError( 'quota', 'FATA Candidates only apply to Erstwhile Fata Quota.' );
+            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
           return;
         }
+        
         if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
+          return;
+        }
+        if( str_contains( $quotaName, 'FATA' ) && ! in_array( $user->district_id,
+            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
           return;
         }
         if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
           return;
         }
-        if( str_contains( $quotaName, 'Fata' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
-          $this->addError( 'quota', 'You cannot apply for Erstwhile Fata Quota' );
+        if( str_contains( $quotaName, 'FATA' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+          $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
           return;
         }
         if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
