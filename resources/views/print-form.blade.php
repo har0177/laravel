@@ -21,16 +21,21 @@
 				@if(in_array('Open Merit', $application->quotaName))
 					<li>Open Merit: <span class="tick-mark"></span></li>
 				@endif
-				<li><b>Quota Applied For:</b>
-					<ol class="list-disc list-inside"
-					    style="margin: 0px; display: flex; flex-wrap: wrap;">      @foreach ($application->quotaName as $quotaName)
-							@unless(str_contains($quotaName, 'Open'))
+				@php
+					$otherQuotas = array_filter($application->quotaName, function($quotaName) {
+									return $quotaName !== 'Open Merit';
+					});
+				@endphp
+				@if(count($otherQuotas) > 0)
+					<li><b>Quota Applied For:</b>
+						<ol class="list-disc list-inside"
+						    style="margin: 0px; display: flex; flex-wrap: wrap;">
+							@foreach ($otherQuotas as $quotaName)
 								<li>{{ $quotaName }} <span class="tick-mark"></span></li>
-							@endunless
-						@endforeach
-					</ol>
-				</li>
-
+							@endforeach
+						</ol>
+					</li>
+				@endif
 			</ol>
 
 
