@@ -152,7 +152,7 @@
 								<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
 									<input
 										type="checkbox"
-										id="{{ $slide->index + 1 }}"
+										id="{{ $loop->index + 1 }}"
 										name="status"
 										{{ $slide->status === 'Show' ? 'checked' : '' }}
 										value="{{ $slide->status}}"
@@ -161,7 +161,7 @@
 										class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
 									>
 									<label
-										for="{{ $slide->index + 1 }}"
+										id="{{ $loop->index + 1 }}"
 										class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
 									></label>
 								</div>

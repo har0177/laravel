@@ -21,7 +21,7 @@ class StudentProfile extends Component
   public $email             = '';
   public $phone             = '';
   public $username          = '';
-  #[Rule( 'nullable|image|max:1024|mimes:png,jpg,jpeg' )]
+  #[Rule( 'nullable|image|max:1024|mimes:png,jpg,jpeg|dimensions:width=120,height=175' )]
   public $image             = '';
   public $cnic              = '';
   public $user              = '';

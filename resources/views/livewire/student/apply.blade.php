@@ -106,9 +106,8 @@
 
 					@if(count($project->applications) > 0)
 						@if(empty($project->applications[0]->challan_number))
-							<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- by downloading the challan
-								form and then submit challan number
-								here.</p>
+							<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- in any NBP Bank by printing the challan
+								form and then submit bank computerized challan number here.</p>
 							<div class="flex justify-between items-center bg-gray-100 p-3">
 
 								<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
@@ -128,7 +127,7 @@
 						@else
 							<div class="py-2 px-4 text-center text-white rounded-t-lg">
 										<span
-											class="px-2 py-1 text-sm font-semibold rounded-lg bg-green-500 text-white">Paid Challan #: {{$project->applications[0]->challan_number}}</span>
+											class="px-2 py-1 text-sm font-semibold rounded-lg text-{{$project->applications[0]->status === 'Pending' ? 'red' : 'green'}}-600">Payment Status: {{$project->applications[0]->status}}</span>
 								<a target="_blank" href="{{ route('print-form', ['application' => $project->applications[0]]) }}"
 								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 									Download Form

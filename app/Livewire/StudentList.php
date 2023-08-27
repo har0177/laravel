@@ -33,8 +33,6 @@ class StudentList extends Component
     'editStudent'
   ];
   
-
-  
   public $first_name        = '';
   public $last_name         = '';
   public $email             = '';
@@ -47,7 +45,7 @@ class StudentList extends Component
   public $user              = '';
   public $avatar            = '';
   public $address           = '';
-  public $hafiz_quran        = 0;
+  public $hafiz_quran       = 0;
   public $father_contact    = '';
   public $dob               = '';
   public $gender_id         = null;
@@ -106,7 +104,9 @@ class StudentList extends Component
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->when( $this->active, function( $q ) {
-      return $q->where( 'status', 'Active' );
+      return $q->whereHas( 'userInfo', function( $qq ) {
+        $qq->where( 'status', 'Active' );
+      } );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $students = $query->paginate( 10 );
     return view( 'livewire.students', [
@@ -124,12 +124,11 @@ class StudentList extends Component
     $this->create = true;
   }
   
-  public function updateDistrict( )
+  public function updateDistrict()
   {
     $this->districtList = Taxonomy::where( 'parent_id',
       $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
   }
-  
   
   public function birthValidation()
   {
@@ -189,7 +188,7 @@ class StudentList extends Component
         'emergency_contact' => $this->emergency_contact,
         'religion'          => $this->religion,
         'hostel'            => $this->hostel,
-        'hafiz_quran'            => $this->hafiz_quran,
+        'hafiz_quran'       => $this->hafiz_quran,
         'profile_status'    => 1,
       ];
       $user->userInfo()->updateOrCreate( [], $userInfoData );

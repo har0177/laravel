@@ -292,7 +292,8 @@
 					<img class="rounded h-16 mt-5 block" src="{{ $avatar }}">
 				@endif
 				<br>
-				<input wire:model="image" accept="image/png, image/jpg, image/jpeg" type="file" id="image"
+					<label for="image" class="block text-sm font-medium text-gray-700 mb-1">Picture (Dimension in 120 width & 175 height)</label>
+					<input wire:model="image" accept="image/png, image/jpg, image/jpeg" type="file" id="image"
 				       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
 				<div wire:loading wire:target="image">
 					<span class="text-green-500"> Uploading ... </span>

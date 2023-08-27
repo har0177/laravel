@@ -80,6 +80,7 @@
 							<ul class="list-disc ml-6">
 								<li>Click "Profile."</li>
 								<li>Fill in your profile information and then click on update.</li>
+								<li>You can use Paint to resize the picture in dimension 120 x 175.</li>
 							</ul>
 						</li>
 						<li class="mb-2">

@@ -97,18 +97,23 @@ class StudentApply extends Component
         $this->addError( 'quota', 'Female can only apply to Female Quota.' );
         return;
       }
-      if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
+      if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
         $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
         return;
       }
-      if( str_contains( $quotaName, 'FATA' ) && ! in_array( $user->district_id,
+      if( str_contains( $quotaName, 'FATA' ) && !in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
         $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
         return;
       }
       if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
+        return;
+      }
+  
+      if( str_contains( $quotaName, 'Agriculture' ) && str_contains( $user->province->name, 'ASA' ) ) {
+        $this->addError( 'quota', 'You can only apply to one from Agriculture & Livestock OR ASA Employees Son' );
         return;
       }
       
@@ -147,22 +152,26 @@ class StudentApply extends Component
           $this->addError( 'quota', 'Female can only apply to Female Quota.' );
           return;
         }
-        
-        if( str_contains( $quotaName, 'Open' ) && in_array( $user->district_id,
+        if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
             [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
           $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
           return;
         }
-        
-        if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
-          $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
-          return;
-        }
-        if( str_contains( $quotaName, 'FATA' ) && ! in_array( $user->district_id,
+        if( str_contains( $quotaName, 'FATA' ) && !in_array( $user->district_id,
             [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
           $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
           return;
         }
+        if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
+          $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
+          return;
+        }
+        
+        if( str_contains( $quotaName, 'Agriculture' ) && str_contains( $user->province->name, 'ASA' ) ) {
+          $this->addError( 'quota', 'You can only apply to one from Agriculture & Livestock OR ASA Employees Son' );
+          return;
+        }
+        
         if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
           $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
           return;
