@@ -8,13 +8,14 @@
 	<div class="py-12">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
+
 			<div class="p-6 lg:p-8 bg-white border-b border-gray-200">
 				Online Apply Instructions
 			</div>
-			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg flex">
+			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg flex flex-wrap">
+				<div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-6 lg:p-8 bg-white border-b border-gray-200">
 
-				<div class="p-6 lg:p-8 bg-white border-b border-gray-200 flex-1">
-					<div class="space-y-2">
+				<div class="space-y-2">
 						<ol class="list-decimal list-inside">
 							<li class="mb-2">Interested candidates may first apply for their desired discipline.</li>
 							<li class="mb-2">All candidates must apply for the disciplines online through ASA Website. Manual submission of
@@ -68,12 +69,12 @@
 								      d="M19.3,16c-0.4-0.8-0.7-0.8-1.1-0.8c-0.3,0-0.6,0-0.9,0	s-0.8,0.1-1.3,0.6c-0.4,0.5-1.7,1.6-1.7,4s1.7,4.6,1.9,4.9s3.3,5.3,8.1,7.2c4,1.6,4.8,1.3,5.7,1.2c0.9-0.1,2.8-1.1,3.2-2.3	c0.4-1.1,0.4-2.1,0.3-2.3c-0.1-0.2-0.4-0.3-0.9-0.6s-2.8-1.4-3.2-1.5c-0.4-0.2-0.8-0.2-1.1,0.2c-0.3,0.5-1.2,1.5-1.5,1.9	c-0.3,0.3-0.6,0.4-1,0.1c-0.5-0.2-2-0.7-3.8-2.4c-1.4-1.3-2.4-2.8-2.6-3.3c-0.3-0.5,0-0.7,0.2-1c0.2-0.2,0.5-0.6,0.7-0.8	c0.2-0.3,0.3-0.5,0.5-0.8c0.2-0.3,0.1-0.6,0-0.8C20.6,19.3,19.7,17,19.3,16z"
 								      clip-rule="evenodd"/>
 							</svg>
-							<a target="_blank" href="http://wa.me/923339471086">923339471086</a></div>
+							<a target="_blank" href="http://wa.me/923339327742">923339327742</a></div>
 
 					</div>
 				</div>
 
-				<div class="bg-gray-200 bg-opacity-25 p-6 lg:p-8 w-96">
+				<div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 bg-gray-200 bg-opacity-25 p-6 lg:p-8">
 					<ol class="list-decimal ml-6 space-y-2">
 						<li class="mb-2">
 							<p class="font-medium">Complete Your Profile:</p>
