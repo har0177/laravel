@@ -111,12 +111,14 @@ class StudentApply extends Component
         $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
         return;
       }
-  
-      if( str_contains( $quotaName, 'Agriculture' ) && str_contains( $user->province->name, 'ASA' ) ) {
-        $this->addError( 'quota', 'You can only apply to one from Agriculture & Livestock OR ASA Employees Son' );
+      if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2) {
+        $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
         return;
       }
-      
+      if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2) {
+        $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
+        return;
+      }
       if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
         return;
@@ -125,8 +127,8 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
         return;
       }
-      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
-        $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
+      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2) {
+        $this->addError( 'quota', 'Disabled can only apply to disabled quota & Open Merit' );
         return;
       }
     }
@@ -166,9 +168,13 @@ class StudentApply extends Component
           $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
           return;
         }
-        
-        if( str_contains( $quotaName, 'Agriculture' ) && str_contains( $user->province->name, 'ASA' ) ) {
-          $this->addError( 'quota', 'You can only apply to one from Agriculture & Livestock OR ASA Employees Son' );
+  
+        if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2) {
+          $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
+          return;
+        }
+        if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2) {
+          $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
           return;
         }
         
@@ -180,8 +186,8 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
           return;
         }
-        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) >= 2 ) {
-          $this->addError( 'quota', 'Disabled can only apply to disabled quota' );
+        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
+          $this->addError( 'quota', 'Disabled can only apply to disabled quota & Open Merit' );
           return;
         }
         
