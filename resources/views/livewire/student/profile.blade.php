@@ -305,6 +305,11 @@
 
 			</div>
 
+			<div>
+				<img class="img img-responsive" src="{{asset('passport-size.png')}}" title="Passport Size" style="width: 40%">
+				<small style="color:red">Upload fresh passport size picture with Blue / White Background.</p>
+			</div>
+
 
 		</div>
 		<button type="submit"

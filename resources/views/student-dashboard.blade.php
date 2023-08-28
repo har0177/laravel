@@ -1,7 +1,7 @@
 <x-app-layout>
 	<x-slot name="header">
 		<h2 class="font-semibold text-xl text-gray-800 leading-tight">
-			{{ __('Dashboard') }}
+			{{ __('Student Dashboard') }}
 		</h2>
 	</x-slot>
 
@@ -15,7 +15,7 @@
 			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg flex flex-wrap">
 				<div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 p-6 lg:p-8 bg-white border-b border-gray-200">
 
-				<div class="space-y-2">
+					<div class="space-y-2">
 						<ol class="list-decimal list-inside">
 							<li class="mb-2">Interested candidates may first apply for their desired discipline.</li>
 							<li class="mb-2">All candidates must apply for the disciplines online through ASA Website. Manual submission of
@@ -92,8 +92,10 @@
 							</ul>
 						</li>
 						<li class="mb-2">
-							<p class="font-medium">Apply for Diploma:</p>
-							<p>Once your profile and education are updated, click "Online Apply" to submit your applications.</p>
+							<p class="font-medium">Print Challan & Submit Fee:</p>
+
+							<p>Once you have to print challan and submit fee in NBP Bank and then after that you have to submit the printed challan number from bank to the Enter Challan Number field and submit and the download Form and send the document along with original slip to the mentioned address.</p>
+
 						</li>
 					</ol>
 					<img src="{{asset('instruction.png')}}" alt="Instruction Image">
