@@ -158,11 +158,6 @@
 					<td class="border px-4 py-2">{{ $application->status}}</td>
 					<td class="border px-4 py-2">
 						<div class="flex h-full items-center">
-							@if($application->status !== 'Paid' && $application->challan_number)
-								<x-button class="ml-3" wire:click="paymentStatus({{$application->id}})" wire:loading.attr="disabled">
-									<i class="fa-solid fa-dollar-sign"></i>
-								</x-button>
-							@endif
 							<x-button class="ml-3" wire:click="edit({{ $application->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-pencil"></i>
 							</x-button>
@@ -170,6 +165,11 @@
 							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 								<i class="fas fa-eye"></i>
 							</a>
+							@if($application->status !== 'Paid' && $application->challan_number)
+								<x-button class="ml-3" wire:click="paymentStatus({{$application->id}})" wire:loading.attr="disabled">
+									<i class="fa-solid fa-dollar-sign"></i>
+								</x-button>
+							@endif
 						</div>
 					</td>
 
