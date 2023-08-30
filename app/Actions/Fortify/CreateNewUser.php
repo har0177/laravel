@@ -22,7 +22,7 @@ class CreateNewUser implements CreatesNewUsers
       'first_name'  => [ 'required', 'string', 'max:255' ],
       'last_name'   => [ 'required', 'string', 'max:255' ],
       'father_name' => [ 'required', 'string', 'max:255' ],
-      //'email'       => [ 'string', 'email', 'max:255', 'unique:users' ],
+      'email'       => [ 'string', 'email', 'max:255', 'unique:users' ],
       'phone'       => [ 'required', 'numeric', 'digits:11', 'unique:users' ],
       'cnic'        => [ 'required', 'numeric', 'digits:13', 'unique:users' ],
       'username'    => [ 'required', 'string', 'max:255', 'unique:users' ],
