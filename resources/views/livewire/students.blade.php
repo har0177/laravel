@@ -49,7 +49,7 @@
 				</div>
 
 				<!-- Password field -->
-				@if(!$editStudent)
+
 					<div>
 						<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
 						<input id="password" name="password" type="password" wire:model="password"
@@ -59,7 +59,7 @@
 						<span class="text-red-600 text-sm">{{ $message }}</span>
 						@enderror
 					</div>
-				@endif
+
 
 				<div>
 					<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone</label>

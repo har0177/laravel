@@ -111,7 +111,7 @@
 							<div class="flex justify-between items-center bg-gray-100 p-3">
 
 								<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
-									<input wire:model="challan_number" nam="challan_number" type="text" placeholder="Enter Challan Number"
+									<input wire:model="challan_number" name="challan_number" type="text" placeholder="Enter Challan Number"
 									       class="px-2 py-1 border rounded-md focus:outline-none focus:border-blue-500">
 
 									<button type="submit"

@@ -133,7 +133,7 @@ class StudentList extends Component
   public function birthValidation()
   {
     $dob = Carbon::parse( $this->dob );
-    $minAge = 16;
+    $minAge = 15;
     
     if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
       $this->addError( 'dob', "You must be at least $minAge years old." );
@@ -171,8 +171,10 @@ class StudentList extends Component
       $user->fill( $validate );
       if( !$this->editStudent ) {
         $user->email = $this->email;
-        $user->password = Hash::make( $this->password );
         $user->role_id = User::ROLE_STUDENT;
+      }
+      if( !empty( $this->password ) ) {
+        $user->password = Hash::make( $this->password );
       }
       $user->save();
       $userInfoData = [

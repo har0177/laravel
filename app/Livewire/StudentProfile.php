@@ -116,7 +116,7 @@ class StudentProfile extends Component
   public function birthValidation()
   {
     $dob = Carbon::parse( $this->dob );
-    $minAge = 16;
+    $minAge = 15;
     
     if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
       $this->addError( 'dob', "You must be at least $minAge years old." );
@@ -127,7 +127,7 @@ class StudentProfile extends Component
   {
     $validate = $this->validate();
     $dob = Carbon::parse( $this->dob );
-    $minAge = 16;
+    $minAge = 15;
     if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
       $this->addError( 'dob', "You must be at least $minAge years old." );
       return;

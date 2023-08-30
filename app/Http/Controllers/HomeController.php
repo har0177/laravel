@@ -62,7 +62,10 @@ class HomeController extends Controller
   
   public function dashboard()
   {
-    return view( 'dashboard' );
+    $students = User::where('role_id', User::ROLE_STUDENT)->count();
+    $applications = Application::count();
+    
+    return view( 'dashboard', compact('students', 'applications') );
   }
   
   public function studentDashboard()

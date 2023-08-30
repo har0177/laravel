@@ -92,9 +92,21 @@
 							</ul>
 						</li>
 						<li class="mb-2">
-							<p class="font-medium">Print Challan & Submit Fee:</p>
+							<p class="font-medium">Submission of Application Fee:</p>
+							<ul class="list-disc ml-6">
+								<li>Print Challan</li>
+								<li>Submit Fee in any NBP Branch</li>
+								<li>Enter Challan Numbers</li>
+								<li>In case of fake numbers application will be rejected</li>
+							</ul>
 
-							<p>Once you have to print challan and submit fee in NBP Bank and then after that you have to submit the printed challan number from bank to the Enter Challan Number field and submit and the download Form and send the document along with original slip to the mentioned address.</p>
+						</li>
+						<li class="mb-2">
+							<p class="font-medium">Apply for Diploma:</p>
+							<ul class="list-disc ml-6">
+								<li>Once you enter challan number online</li>
+								<li>Download form, attached documents along with original bank receipt and send to mention address.</li>
+							</ul>
 
 						</li>
 					</ol>
