@@ -94,9 +94,9 @@ class StudentProfile extends Component
     return [
       'first_name' => 'required|min:2|max:50',
       'last_name'  => 'required|min:2|max:50',
-      'username'   => 'required|max:8|unique:users,username,' . $this->userId,
+      'username'   => 'required|min:3|max:8|unique:users,username,' . $this->userId,
       'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
-      //'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
+      'email'      => 'email|max:255|unique:users,email,' . $this->userId,
       'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
     ];
   }
@@ -106,12 +106,11 @@ class StudentProfile extends Component
     return view( 'livewire.student.profile' );
   }
   
-  public function updateDistrict( )
+  public function updateDistrict()
   {
     $this->districtList = Taxonomy::where( 'parent_id',
       $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
   }
-  
   
   public function birthValidation()
   {

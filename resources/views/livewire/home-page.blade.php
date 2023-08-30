@@ -28,12 +28,17 @@
 				</button>
 			</div>
 		</div>
-		<div class="col-md-12 col-lg-4 bg-gray">
-			<h3 class="p-2" style="text-decoration: underline">News and Events</h3>
+		<div class="col-md-12 col-lg-4">
+			<div class="card">
+				<div class="card-header">
+					<h4 class="card-title">News and Events</h4>
+				</div>
+				<div class="card-body">
+
 			<marquee onmouseover="this.stop();"
 			         style="BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #fff 1px solid; HEIGHT: 290px;"
 			         onmouseout="this.start();" scrollamount="1" scrolldelay="60" direction="up">
-				<div>
+
 					@forelse($events as $event)
 						<div class="flex items-center mb-2">
 							<div style="display: flex">
@@ -59,8 +64,10 @@
 					@endforelse
 
 
-				</div>
+
 			</marquee>
+		</div>
+	</div>
 		</div>
 	</div>
 	<div class="container-fluid">

@@ -25,7 +25,7 @@ class CreateNewUser implements CreatesNewUsers
       'email'       => [ 'string', 'email', 'max:255', 'unique:users' ],
       'phone'       => [ 'required', 'numeric', 'digits:11', 'unique:users' ],
       'cnic'        => [ 'required', 'numeric', 'digits:13', 'unique:users' ],
-      'username'    => [ 'required', 'string', 'max:255', 'unique:users' ],
+      'username'    => [ 'required', 'string', 'min:3', 'max:8', 'unique:users' ],
       'password'    => $this->passwordRules(),
     ], [
       'cnic.required' => 'The CNIC / FormB field is required',
@@ -35,8 +35,8 @@ class CreateNewUser implements CreatesNewUsers
     ] )->validate();
     
     $user = User::create( [
-      'first_name' => ucfirst($input[ 'first_name' ]),
-      'last_name'  => ucfirst($input[ 'last_name' ]),
+      'first_name' => ucfirst( $input[ 'first_name' ] ),
+      'last_name'  => ucfirst( $input[ 'last_name' ] ),
       'email'      => $input[ 'email' ],
       'cnic'       => $input[ 'cnic' ],
       'username'   => $input[ 'username' ],
@@ -47,7 +47,7 @@ class CreateNewUser implements CreatesNewUsers
     
     UserInfo::create( [
       'user_id'     => $user->id,
-      'father_name' => ucfirst($input[ 'father_name' ])
+      'father_name' => ucfirst( $input[ 'father_name' ] )
     ] );
     return $user;
   }

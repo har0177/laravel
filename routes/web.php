@@ -14,31 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get( '/', [ HomeController::class, 'index' ] )->name( 'home' );
-Route::get( '/about', [ HomeController::class, 'about' ] )->name( 'about' );
-Route::get( '/contact', [ HomeController::class, 'contact' ] )->name( 'contact' );
+Route::view( '/', 'welcome' )->name( 'home' );
+Route::view( '/about', 'about' )->name( 'about' );
+Route::view( '/contact', 'contact' )->name( 'contact' );
+Route::view( '/veterinary-science', 'veterinary-science' )->name( 'veterinary-science' );
+Route::view( '/agriculture-science', 'agriculture-science' )->name( 'agriculture-science' );
+Route::view( '/fee-structure', 'fee-structure' )->name( 'fee-structure' );
+
 Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
-Route::get( '/veterinary-science', [ HomeController::class, 'veterinaryScience' ] )->name( 'veterinary-science' );
-Route::get( '/agriculture-science', [ HomeController::class, 'agricultureScience' ] )->name( 'agriculture-science' );
-Route::get( '/fee-structure', [ HomeController::class, 'feeStructure' ] )->name( 'fee-structure' );
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
-
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
-  Route::get( 'roles', [ HomeController::class, 'roles' ] )->name( 'roles' );
-  Route::get( 'users', [ HomeController::class, 'users' ] )->name( 'users' );
-  Route::get( 'slides', [ HomeController::class, 'slides' ] )->name( 'slides' );
-  Route::get( 'gallery', [ HomeController::class, 'gallery' ] )->name( 'gallery' );
-  Route::get( 'students', [ HomeController::class, 'students' ] )->name( 'students' );
-  Route::get( 'profile', [ HomeController::class, 'profile' ] )->name( 'profile' );
-  Route::get( 'education', [ HomeController::class, 'education' ] )->name( 'education' );
-  Route::get( 'apply', [ HomeController::class, 'apply' ] )->name( 'apply' );
-  Route::get( 'events', [ HomeController::class, 'events' ] )->name( 'events' );
-  Route::get( 'projects',
-    [ HomeController::class, 'projects' ] )->name( 'projects' )->middleware( 'can:manage projects' );
-  Route::get( 'applications',
-    [ HomeController::class, 'applications' ] )->name( 'applications' )->middleware( 'can:manage projects' );
+  Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
+  Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );
+  Route::view( 'admin/slides', 'admin.slides' )->name( 'slides' )->middleware( 'can:manage slides' );
+  Route::view( 'admin/gallery', 'admin.gallery' )->name( 'gallery' )->middleware( 'can:manage gallery' );
+  Route::view( 'admin/students', 'admin.students' )->name( 'students' )->middleware( 'can:manage students' );
+  Route::view( 'admin/events', 'admin.events' )->name( 'events' )->middleware( 'can:manage events' );
+  Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
+  Route::view( 'admin/applications',
+    'admin.applications' )->name( 'applications' )->middleware( 'can:manage projects' );
+  Route::view( 'admin/applications',
+    'admin.applications' )->name( 'applications' )->middleware( 'can:manage projects' );
+  Route::view( 'profile', 'student.profile' )->name( 'profile' );
+  Route::view( 'education', 'student.education' )->name( 'education' );
+  Route::view( 'apply', 'student.apply' )->name( 'apply' );
+  Route::view( 'apply', 'student.apply' )->name( 'apply' );
   Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
   Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );

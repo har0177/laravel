@@ -108,7 +108,7 @@
 						@if(empty($project->applications[0]->challan_number))
 							<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- in any NBP Bank by printing the challan
 								form and then submit bank computerized challan number here.</p>
-							<div class="flex justify-between items-center bg-gray-100 p-3">
+							<div class="items-center bg-gray-100 p-3">
 
 								<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
 									<input wire:model="challan_number" name="challan_number" type="text" placeholder="Enter Challan Number"
@@ -120,6 +120,7 @@
 									</button>
 
 								</form>
+
 								@error('challan_number')
 								<span class="text-red-600 text-sm">{{ $message }}</span>
 								@enderror

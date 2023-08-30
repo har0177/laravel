@@ -26,91 +26,23 @@ class HomeController extends Controller
     return redirect( $redirect );
   }
   
-  public function index()
-  {
-    return view( 'welcome' );
-  }
-  
-  public function about()
-  {
-    return view( 'about' );
-  }
-  
-  public function contact()
-  {
-    return view( 'contact' );
-  }
-  
   public function frontGallery()
   {
     $images = Gallery::where( 'status', 'Show' )->paginate( 10 );
     return view( 'frontGallery', compact( 'images' ) );
   }
   
-  public function veterinaryScience()
-  {
-    return view( 'veterinary-science' );
-  }
-  
-  public function agricultureScience()
-  {
-    return view( 'agriculture-science' );
-  } public function feeStructure()
-  {
-    return view( 'fee-structure' );
-  }
-  
   public function dashboard()
   {
-    $students = User::where('role_id', User::ROLE_STUDENT)->count();
+    $students = User::where( 'role_id', User::ROLE_STUDENT )->count();
     $applications = Application::count();
     
-    return view( 'dashboard', compact('students', 'applications') );
+    return view( 'dashboard', compact( 'students', 'applications' ) );
   }
   
   public function studentDashboard()
   {
     return view( 'student-dashboard' );
-  }
-  
-  public function roles()
-  {
-    return view( 'admin.roles' );
-  }
-  
-  public function users()
-  {
-    return view( 'admin.users' );
-  }
-  
-  public function slides()
-  {
-    return view( 'admin.slides' );
-  }
-  
-  public function gallery()
-  {
-    return view( 'admin.gallery' );
-  }
-  
-  public function students()
-  {
-    return view( 'admin.students' );
-  }
-  
-  public function profile()
-  {
-    return view( 'student.profile' );
-  }
-  
-  public function education()
-  {
-    return view( 'student.education' );
-  }
-  
-  public function apply()
-  {
-    return view( 'student.apply' );
   }
   
   public function showEvent( NewsEvents $event )
@@ -137,21 +69,6 @@ class HomeController extends Controller
     // Process the form data and send emails, save to database, etc.
     
     return response()->json( [ 'message' => 'Message Send successfully. We will inform you through your email.' ] );
-  }
-  
-  public function events()
-  {
-    return view( 'admin.events' );
-  }
-  
-  public function projects()
-  {
-    return view( 'admin.projects' );
-  }
-  
-  public function applications()
-  {
-    return view( 'admin.applications' );
   }
   
   public function printForm( Application $application )
