@@ -7,27 +7,18 @@
 
 	<div class="py-12">
 		<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-			<div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-				<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-					<div class="block rounded-lg bg-white shadow-md p-6">
-						<h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-							Total Students
-						</h5>
-						<p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-							{{$students}}
-						</p>
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+					<div class="bg-white p-4 shadow-md rounded-md">
+						<h3 class="text-lg font-semibold mb-2">Total Students</h3>
+						<p class="text-gray-600">{{$students}}</p>
 					</div>
 
-					<div class="block rounded-lg bg-white shadow-md p-6">
-						<h5 class="mb-2 text-xl font-medium leading-tight text-neutral-800 dark:text-neutral-50">
-							Total Applications
-						</h5>
-						<p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
-							{{$applications}}
-						</p>
+					<div class="bg-white p-4 shadow-md rounded-md">
+						<h3 class="text-lg font-semibold mb-2">Total Applications</h3>
+						<p class="text-gray-600">{{$applications}}</p>
 					</div>
 
-				</div>
+
 
 			</div>
 		</div>

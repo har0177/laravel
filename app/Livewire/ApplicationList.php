@@ -30,6 +30,7 @@ class ApplicationList extends Component
   public $quotaList          = '';
   public $user               = '';
   public $status             = 'Pending';
+  public $changeStatusId     = '';
   
   protected $queryString = [
     'paid',
@@ -62,8 +63,14 @@ class ApplicationList extends Component
     $this->expiryDateValidation( $this->expiry_date );
   }
   
-  public function paymentStatus( Application $application )
+  public function changeStatus( Application $application )
   {
+    $this->changeStatusId = $application->id;
+  }
+  
+  public function paymentStatus()
+  {
+    $application = Application::find( $this->changeStatusId );
     $application->status = 'Paid';
     $application->save();
     session()->flash( 'success', 'Payment status changed to Paid Successfully.' );
