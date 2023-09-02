@@ -62,6 +62,10 @@
 						            href="{{ route('applications') }}">
 							Applications
 						</x-nav-link>
+							<x-nav-link wire:navigate :active="request()->routeIs('merit-lists')"
+							            href="{{ route('merit-lists') }}">
+								Merit List
+							</x-nav-link>
 					@endif
 				</div>
 			</div>

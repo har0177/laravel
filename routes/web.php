@@ -33,6 +33,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/students', 'admin.students' )->name( 'students' )->middleware( 'can:manage students' );
   Route::view( 'admin/events', 'admin.events' )->name( 'events' )->middleware( 'can:manage events' );
   Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
+  Route::view( 'admin/merit-lists', 'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:manage projects' );
   Route::view( 'admin/applications',
     'admin.applications' )->name( 'applications' )->middleware( 'can:manage projects' );
   Route::view( 'admin/applications',
