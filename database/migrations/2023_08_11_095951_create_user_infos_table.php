@@ -30,7 +30,6 @@ return new class extends Migration {
       $table->unsignedBigInteger( 'session_id' )->nullable();
       $table->boolean( 'hostel' )->default( 0 );
       $table->boolean( 'hafiz_quran' )->default( 0 );
-  
       $table->enum( 'status', [ 'Active', 'DeActive', 'Pending' ] )->default( 'Pending' );
       $table->text( 'religion' )->nullable();
       $table->boolean( 'card_status' )->default( 0 );

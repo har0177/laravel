@@ -12,11 +12,12 @@ return new class extends Migration {
   {
     Schema::create( 'merit_lists', function( Blueprint $table ) {
       $table->id();
-      $table->bigInteger( 'merit_number' );
+      $table->bigInteger( 'merit_number' )->nullable();
+      $table->unsignedBigInteger( 'project_id' );
       $table->unsignedBigInteger( 'user_id' );
       $table->unsignedBigInteger( 'quota_id' )->nullable();
+      $table->bigInteger( 'district_number' )->nullable();
       $table->unsignedBigInteger( 'district_id' )->nullable();
-      $table->string( 'status' )->default( 'Not Admitted' );
       $table->timestamps();
     } );
   }

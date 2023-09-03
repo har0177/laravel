@@ -28,4 +28,9 @@ class MeritList extends Model
     return $this->belongsTo( Taxonomy::class )->whereType( TaxonomyTypeEnum::QUOTA );
   }
   
+  public function project() : BelongsTo
+  {
+    return $this->belongsTo( Project::class );
+  }
+  
 }

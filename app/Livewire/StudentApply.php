@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\TaxonomyTypeEnum;
 use App\Models\Application;
+use App\Models\MeritList;
 use App\Models\Project;
 use App\Models\Taxonomy;
 use Livewire\Attributes\Rule;
@@ -26,7 +27,8 @@ class StudentApply extends Component
   
   public function mount()
   {
-    $education = auth()->user()->education->count();
+    $user = auth()->user();
+    $education = $user->education->count();
     if( $education < 1 ) {
       session()->flash( 'error', 'Please add at least one education.' );
       
@@ -111,11 +113,11 @@ class StudentApply extends Component
         $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
         return;
       }
-      if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2) {
+      if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
         return;
       }
-      if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2) {
+      if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
         return;
       }
@@ -127,7 +129,7 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
         return;
       }
-      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2) {
+      if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'Disabled can only apply to disabled quota & Open Merit' );
         return;
       }
@@ -168,12 +170,12 @@ class StudentApply extends Component
           $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
           return;
         }
-  
-        if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2) {
+        
+        if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2 ) {
           $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
           return;
         }
-        if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2) {
+        if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2 ) {
           $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
           return;
         }
