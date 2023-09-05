@@ -37,8 +37,6 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
     'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );
   Route::view( 'admin/applications',
     'admin.applications' )->name( 'applications' )->middleware( 'can:manage applications' );
-  Route::view( 'admin/applications',
-    'admin.applications' )->name( 'applications' )->middleware( 'can:manage projects' );
   Route::view( 'profile', 'student.profile' )->name( 'profile' );
   Route::view( 'education', 'student.education' )->name( 'education' );
   Route::view( 'apply', 'student.apply' )->name( 'apply' );

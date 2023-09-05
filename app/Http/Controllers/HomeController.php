@@ -74,7 +74,7 @@ class HomeController extends Controller
   public function printForm( Application $application )
   {
     $user = auth()->user();
-    if( $user->role_id === User::ROLE_ADMIN ) {
+    if( $user->role_id !== User::ROLE_STUDENT ) {
       $user = User::find( $application->user_id );
     }
     

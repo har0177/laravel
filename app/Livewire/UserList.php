@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -96,6 +97,7 @@ class UserList extends Component
     }
     
     $validate = $this->validate();
+    $validate[ 'password' ] = Hash::make( $this->password );
     User::create( $validate );
     $this->toggleSection();
     session()->flash( 'success', 'User added successfully.' );
