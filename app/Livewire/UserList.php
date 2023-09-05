@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Role;
 use App\Models\User;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -40,10 +41,14 @@ class UserList extends Component
   public $username   = '';
   #[Rule( 'required|min:5' )]
   public $password   = '';
+  #[Rule( 'required' )]
+  public $role_id    = '';
+  public $rolesList  = '';
   
   public function render()
   {
     $query = User::query()->where( 'role_id', '!=', User::ROLE_STUDENT );
+    $this->rolesList = Role::query()->where( 'id', '!=', User::ROLE_STUDENT )->get();
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
         $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
@@ -106,6 +111,7 @@ class UserList extends Component
     $this->email = $user->email;
     $this->username = $user->username;
     $this->phone = $user->phone;
+    $this->role_id = $user->role_id;
     $this->create = true;
   }
   
@@ -120,10 +126,10 @@ class UserList extends Component
   public function resetForm()
   {
     $this->reset( [
-      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic', 'role_id'
     ] );
     $this->resetErrorBag( [
-      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic', 'role_id'
     ] );
   }
   

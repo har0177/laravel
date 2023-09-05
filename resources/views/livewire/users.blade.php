@@ -88,7 +88,24 @@
 						@enderror
 					</div>
 				@endif
+
+				<div>
+					<label for="role_id" class="block text-sm font-medium text-gray-700 mb-1">Assign Role</label>
+					<select name="role_id" id="role_id" wire:model="role_id"
+					        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+						<option value="">Select Role</option>
+						@foreach($rolesList as $role)
+							<option
+								value="{{$role->id}}" {{$this->role_id === $role->id? 'selected' : ''}}>{{$role->name}}</option>
+						@endforeach
+					</select>
+
+					@error('role_id')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 			</div>
+
 			<button type="submit"
 			        wire:loading.attr="disabled"
 			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
