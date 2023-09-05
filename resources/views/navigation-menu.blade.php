@@ -45,27 +45,39 @@
 							            href="{{ route('students') }}"> Students
 							</x-nav-link>
 						@endcan
-						<x-nav-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
-							Events
-						</x-nav-link>
-						<x-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
-							Slides
-						</x-nav-link>
-						<x-nav-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
-							Gallery
-						</x-nav-link>
-						<x-nav-link wire:navigate :active="request()->routeIs('projects')"
-						            href="{{ route('projects') }}">
-							Projects
-						</x-nav-link>
-						<x-nav-link wire:navigate :active="request()->routeIs('applications')"
-						            href="{{ route('applications') }}">
-							Applications
-						</x-nav-link>
+						@can('manage events')
+							<x-nav-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
+								Events
+							</x-nav-link>
+						@endcan
+						@can('manage slides')
+							<x-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
+								Slides
+							</x-nav-link>
+						@endcan
+						@can('manage gallery')
+							<x-nav-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
+								Gallery
+							</x-nav-link>
+						@endcan
+						@can('manage projects')
+							<x-nav-link wire:navigate :active="request()->routeIs('projects')"
+							            href="{{ route('projects') }}">
+								Projects
+							</x-nav-link>
+						@endcan
+						@can('manage applications')
+							<x-nav-link wire:navigate :active="request()->routeIs('applications')"
+							            href="{{ route('applications') }}">
+								Applications
+							</x-nav-link>
+						@endcan
+						@can('generate merit-list')
 							<x-nav-link wire:navigate :active="request()->routeIs('merit-lists')"
 							            href="{{ route('merit-lists') }}">
 								Merit List
 							</x-nav-link>
+						@endcan
 					@endif
 				</div>
 			</div>
@@ -154,7 +166,7 @@
 			</div>
 			<div class="pt-2 pb-3 space-y-1">
 				<x-responsive-nav-link wire:navigate :active="request()->routeIs('education')"
-				            href="{{ route('education') }}">Education
+				                       href="{{ route('education') }}">Education
 				</x-responsive-nav-link>
 			</div>
 			<div class="pt-2 pb-3 space-y-1">

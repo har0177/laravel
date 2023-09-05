@@ -114,6 +114,10 @@ return [
         'title' => 'Edit Project',
       ],
       
+      'generate merit-list' => [
+        'title' => 'Generate Merit List for Project',
+      ],
+      
       'delete project' => [
         'title' => 'Delete Project',
       ],
@@ -121,71 +125,89 @@ return [
     ],
   ],
   
-  
+  'Applications'  => [
+    'title'       => 'Applications',
+    'description' => 'Manage Applications Permissions',
+    'abilities'   => [
+      
+      'manage applications' => [
+        'title' => 'Manage Applications Listing',
+      ],
+      
+      'edit application' => [
+        'title' => 'Edit Application',
+      ],
+      
+      'payment application' => [
+        'title' => 'Change Payment Status of an Application',
+      ],
+    
+    ],
+  ],
   
   /*----------------------------------------
  *   Slides Permissions
  * ----------------------------------------
  */
-  'Slides' => [
-  'title'       => 'Slides',
-  'description' => 'Manage Slides Permissions',
-  'abilities'   => [
+  'Slides'        => [
+    'title'       => 'Slides',
+    'description' => 'Manage Slides Permissions',
+    'abilities'   => [
+      
+      'manage slides' => [
+        'title' => 'Manage Slide Listing',
+      ],
+      
+      'add slide' => [
+        'title' => 'Add Slide',
+      ],
+      
+      'view slide' => [
+        'title' => 'View Slide',
+      ],
+      
+      'edit slide' => [
+        'title' => 'Edit Slide',
+      ],
+      
+      'delete slide' => [
+        'title' => 'Delete Slide',
+      ],
     
-    'manage slides' => [
-      'title' => 'Manage Slide Listing',
     ],
-    
-    'add slide' => [
-      'title' => 'Add Slide',
-    ],
-    
-    'view slide' => [
-      'title' => 'View Slide',
-    ],
-    
-    'edit slide' => [
-      'title' => 'Edit Slide',
-    ],
-    
-    'delete slide' => [
-      'title' => 'Delete Slide',
-    ],
-  
   ],
-],
   /*----------------------------------------
 *   Gallery Permissions
 * ----------------------------------------
 */
-  'Gallery' => [
+  'Gallery'       => [
     'title'       => 'Gallery',
     'description' => 'Manage Gallery Permissions',
     'abilities'   => [
-    
+      
       'manage gallery' => [
         'title' => 'Manage Gallery Listing',
       ],
-    
+      
       'add gallery' => [
         'title' => 'Add Gallery',
       ],
-    
+      
       'view gallery' => [
         'title' => 'View Gallery',
       ],
-    
+      
       'edit gallery' => [
         'title' => 'Edit Gallery',
       ],
-    
+      
       'delete gallery' => [
         'title' => 'Delete Gallery',
       ],
-  
+    
     ],
-],
-
+  ],
+  
   /*----------------------------------------
 *   Gallery Permissions
 * ----------------------------------------
@@ -194,27 +216,27 @@ return [
     'title'       => 'News & Events',
     'description' => 'Manage News & Events Permissions',
     'abilities'   => [
-    
+      
       'manage events' => [
         'title' => 'Manage News & Events Listing',
       ],
-    
+      
       'add events' => [
         'title' => 'Add News & Events',
       ],
-    
+      
       'view events' => [
         'title' => 'View News & Events',
       ],
-    
+      
       'edit events' => [
         'title' => 'Edit News & Events',
       ],
-    
+      
       'delete events' => [
         'title' => 'Delete News & Events',
       ],
-  
+    
     ],
   ],
 
