@@ -95,9 +95,12 @@ class StudentApply extends Component
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
         return;
       }
-      if( !str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Female' ) {
-        $this->addError( 'quota', 'Female can only apply to Female Quota.' );
-        return;
+      if( $user->gender->name === 'Female' && !in_array( $user->district_id,
+          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+        if( !str_contains( $quotaName, 'Female' ) ) {
+          $this->addError( 'quota', 'Female can only apply to Female Quota.' );
+          return;
+        }
       }
       if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
@@ -152,9 +155,12 @@ class StudentApply extends Component
           $this->addError( 'quota', 'You cannot apply for Female Quota' );
           return;
         }
-        if( !str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Female' ) {
-          $this->addError( 'quota', 'Female can only apply to Female Quota.' );
-          return;
+        if( $user->gender->name === 'Female' && !in_array( $user->district_id,
+            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          if( !str_contains( $quotaName, 'Female' ) ) {
+            $this->addError( 'quota', 'Female can only apply to Female Quota.' );
+            return;
+          }
         }
         if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
             [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
