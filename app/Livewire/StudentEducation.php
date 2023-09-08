@@ -80,7 +80,7 @@ class StudentEducation extends Component
   public function store()
   {
     
-    if( auth()->user()->has( 'applications' ) ) {
+    if( auth()->user()->applications->count() > 0) {
       session()->flash( 'error', 'You cannot add/update your education due to active applications.' );
       return true;
     }

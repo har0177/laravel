@@ -124,7 +124,7 @@ class StudentProfile extends Component
   
   public function updateProfile()
   {
-    if( auth()->user()->has( 'applications' ) ) {
+    if( auth()->user()->applications->count() > 0) {
       session()->flash( 'error', 'You cannot update your profile due to active applications.' );
       return true;
     }
