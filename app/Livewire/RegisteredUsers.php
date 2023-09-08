@@ -13,22 +13,22 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
-class StudentList extends Component
+class RegisteredUsers extends Component
 {
   use WithPagination;
   use WithFileUploads;
   
   public $search;
-  public $sortBy      = 'id';
-  public $sortAsc     = true;
-  public $create      = false;
-  public $editStudent = null;
+  public $sortBy   = 'id';
+  public $sortAsc  = true;
+  public $create   = false;
+  public $editUser = null;
   
   protected $queryString = [
     'search',
     'sortBy' => [ 'except' => 'id' ],
     'sortAsc',
-    'editStudent'
+    'editUser'
   ];
   
   public $first_name        = '';
@@ -60,14 +60,6 @@ class StudentList extends Component
   public $religion          = '';
   public $religionList      = [];
   public $hostel            = 0;
-  public $diplomaList       = [];
-  public $sessionList       = [];
-  
-  public $class_no       = null;
-  public $reg_no         = null;
-  public $diploma_id     = null;
-  public $session_id     = null;
-  public $admission_date = null;
   
   public $errorMessage;
   
@@ -83,6 +75,11 @@ class StudentList extends Component
     ];
   }
   
+  public function mount()
+  {
+    $this->loadTaxonomies();
+  }
+  
   private function loadTaxonomies()
   {
     $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
@@ -91,9 +88,6 @@ class StudentList extends Component
     $this->districtList = Taxonomy::where( 'parent_id',
       $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
     $this->religionList = ReligionEnum::cases();
-    $this->diplomaList = Taxonomy::whereType( TaxonomyTypeEnum::DIPLOMA )->get();
-    $this->sessionList = Taxonomy::whereType( TaxonomyTypeEnum::SESSION )->orderByDesc( 'id' )->get();
-    
   }
   
   public function render()
@@ -108,17 +102,13 @@ class StudentList extends Component
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->whereHas( 'student', function( $qq ) {
-      $qq->where( 'status', 'Active' );
-    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $students = $query->paginate( 10 );
-    return view( 'livewire.students', [
-      'students' => $students
+      $qq->whereNull( 'reg_no' );
+    } )
+          ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+    $users = $query->paginate( 10 );
+    return view( 'livewire.registeredUsers', [
+      'users' => $users
     ] );
-  }
-  
-  public function updatingActive()
-  {
-    return $this->resetPage();
   }
   
   public function add()
@@ -147,9 +137,9 @@ class StudentList extends Component
     $validateRules = [
       'first_name'        => 'required|min:2|max:50',
       'last_name'         => 'required|min:2|max:50',
-      'username'          => 'required|max:8|unique:users,username,' . $this->editStudent,
-      'phone'             => 'required|numeric|digits:11|unique:users,phone,' . $this->editStudent,
-      'cnic'              => 'required|numeric|digits:13|unique:users,cnic,' . $this->editStudent,
+      'username'          => 'required|max:8|unique:users,username,' . $this->editUser,
+      'phone'             => 'required|numeric|digits:11|unique:users,phone,' . $this->editUser,
+      'cnic'              => 'required|numeric|digits:13|unique:users,cnic,' . $this->editUser,
       'address'           => 'required',
       'father_name'       => 'required',
       'father_contact'    => 'required',
@@ -162,16 +152,16 @@ class StudentList extends Component
     
     ];
     
-    if( !$this->editStudent ) {
+    if( !$this->editUser ) {
       $validateRules[ 'password' ] = 'required|min:5';
     }
     $validate = $this->validate( $validateRules );
     try {
       DB::beginTransaction();
       $this->birthValidation( $this->dob );
-      $user = User::findOrNew( $this->editStudent );
+      $user = User::findOrNew( $this->editUser );
       $user->fill( $validate );
-      if( !$this->editStudent ) {
+      if( !$this->editUser ) {
         $user->email = $this->email;
         $user->role_id = User::ROLE_STUDENT;
       }
@@ -193,9 +183,6 @@ class StudentList extends Component
         'religion'          => $this->religion,
         'hostel'            => $this->hostel,
         'hafiz_quran'       => $this->hafiz_quran,
-        'reg_no'            => $this->reg_no,
-        'class_no'          => $this->class_no,
-        'admission_date'    => $this->admission_date,
         'profile_status'    => 1,
       ];
       $user->student()->updateOrCreate( [], $studentData );
@@ -218,46 +205,43 @@ class StudentList extends Component
   
   public function edit( $id )
   {
-    $this->loadTaxonomies();
-    $user = User::with( 'student' )->findOrFail( $id );
-    $this->editStudent = $id;
-    $this->userId = $user->id;
-    $this->first_name = $user->first_name;
-    $this->last_name = $user->last_name;
-    $this->email = $user->email;
-    $this->phone = $user->phone;
-    $this->username = $user->username;
-    $this->cnic = $user->cnic;
-    $this->avatar = $user->avatar;
+    $student = User::with( 'student' )->findOrFail( $id );
+    $this->editUser = $id;
+    $this->userId = $student->id;
+    $this->first_name = $student->first_name;
+    $this->last_name = $student->last_name;
+    $this->email = $student->email;
+    $this->phone = $student->phone;
+    $this->username = $student->username;
+    $this->cnic = $student->cnic;
+    $this->avatar = $student->avatar;
     
-    if( $user->student ) {
-      $this->gender_id = $user->student->gender_id;
-      $this->district_id = $user->student->district_id;
-      $this->blood_group_id = $user->student->blood_group_id;
-      $this->dob = $user->student->dob;
-      $this->father_contact = $user->student->father_contact;
-      $this->father_name = $user->student->father_name;
-      $this->address = $user->student->address;
-      $this->postal_address = $user->student->postal_address;
-      $this->emergency_contact = $user->student->emergency_contact;
-      $this->religion = $user->student->religion;
-      $this->province_id = $user->student->province_id;
-      $this->hostel = $user->student->hostel;
-      $this->hafiz_quran = $user->student->hafiz_quran;
-      $this->class_no = $user->student->class_no;
-      $this->reg_no = $user->student->reg_no;
-      $this->admission_date = $user->student->admission_date;
-      $this->diploma_id = $user->student->diploma_id;
-      $this->session_id = $user->student->session_id;
+    if( $student->student ) {
+      $this->gender_id = $student->student->gender_id;
+      $this->district_id = $student->student->district_id;
+      $this->blood_group_id = $student->student->blood_group_id;
+      $this->dob = $student->student->dob;
+      $this->father_contact = $student->student->father_contact;
+      $this->father_name = $student->student->father_name;
+      $this->address = $student->student->address;
+      $this->postal_address = $student->student->postal_address;
+      $this->emergency_contact = $student->student->emergency_contact;
+      $this->religion = $student->student->religion;
+      $this->province_id = $student->student->province_id;
+      $this->hostel = $student->student->hostel;
+      $this->hafiz_quran = $student->student->hafiz_quran;
     }
     
+    $this->loadTaxonomies();
     $this->create = true;
   }
+  
+  
   
   public function toggleSection()
   {
     $this->create = false;
-    $this->editStudent = null;
+    $this->editUser = null;
     $this->resetForm();
     $this->resetPage();
   }
@@ -272,10 +256,10 @@ class StudentList extends Component
     ] );
   }
   
-  public function deleteStudent( User $user )
+  public function deleteUser( User $user )
   {
     $user->delete();
-    session()->flash( 'success', 'Student Deleted Successfully.' );
+    session()->flash( 'success', 'User Deleted Successfully.' );
   }
   
   public function sortField( $field )

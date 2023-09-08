@@ -6,11 +6,12 @@
 		<x-flash-error-message message="{{ session('error') }}"/>
 	@endif
 
+
 	@if($create)
 
 	<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-			<h1 class="text-xl text-white font-semibold">{{$editStudent ? 'Update Student' : 'Add Student'}}</h1>
+			<h1 class="text-xl text-white font-semibold">{{$editUser ? 'Update User' : 'Add User'}}</h1>
 
 		</div>
 
@@ -48,76 +49,7 @@
 					@enderror
 				</div>
 
-				<div>
-					<label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Admitted In Diploma</label>
-					<div class="relative">
-						<select name="type" disabled id="diploma_id" wire:model.live="diploma_id"
-						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-							<option>Select Diploma</option>
-							@foreach($diplomaList as $diploma)
-								<option value="{{$diploma->id}}" @selected($diploma->id === $diploma_id)>{{$diploma->name}}</option>
-							@endforeach
-						</select>
-
-					</div>
-					@error('diploma_id')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
-
-
-				<div>
-					<label for="session_id" class="block text-sm font-medium text-gray-700 mb-1">Session</label>
-					<div class="relative">
-						<select name="type" id="session_id" wire:model.live="session_id"
-						        disabled
-						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-							<option>Select Session</option>
-							@foreach($sessionList as $session)
-								<option value="{{$session->id}}" @selected($session_id === $session->id)>{{$session->name}}</option>
-							@endforeach
-						</select>
-
-					</div>
-					@error('session_id')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
-
-
-				<div>
-					<label for="reg_no" class="block text-sm font-medium text-gray-700 mb-1">Assign Registration #</label>
-					<input id="reg_no" name="reg_no" type="text" wire:model="reg_no"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="ASA001">
-					@error('reg_no')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
-
-				<div>
-					<label for="class_no" class="block text-sm font-medium text-gray-700 mb-1">Assign Class #</label>
-					<input id="class_no" name="class_no" type="text" wire:model="class_no"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="001">
-					@error('class_no')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
-
-
-				<div>
-					<label for="admission_date" class="block text-sm font-medium text-gray-700 mb-1">Admission Date</label>
-					<input id="admission_date" name="admission_date" type="date" wire:model="admission_date"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-					@error('admission_date')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-				</div>
+				<!-- Password field -->
 
 				<div>
 					<label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
@@ -397,10 +329,10 @@
 
 
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-			<h1 class="text-xl text-white font-semibold">Student Management</h1>
+			<h1 class="text-xl text-white font-semibold">User Management</h1>
 			<div>
 				<x-button wire:click="add">
-					Create Student
+					Create User
 				</x-button>
 			</div>
 		</div>
@@ -438,7 +370,7 @@
 					</th>
 					{{--<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
-							Studentname
+							Username
 							<x-sorting name="studentname"/>
 						</div>
 					</th>--}}
@@ -470,26 +402,19 @@
 				</tr>
 				</thead>
 				<tbody>
-				@forelse($students as $student)
+				@forelse($users as $user)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $student->first_name }}</td>
-						<td class="border px-4 py-2">{{ $student->last_name }}</td>
-						<td class="border px-4 py-2">{{ $student->phone }}</td>
-						<td class="border px-4 py-2">{{ $student->cnic }}</td>
-						<td class="border px-4 py-2">{{ $student->email }}</td>
-						<td class="border px-4 py-2">
-							@if ( $student->student?->status === 'Active')
-								<x-badge text="{{$student->student?->status}}" color="green"/>
-							@else
-								<x-badge text="{{$student->student?->status}}" color="indigo"/>
-							@endif
-						</td>
-						<td class=" px-4 py-2 inline-flex w-full">
-							<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
+						<td class="border px-4 py-2">{{ $user->first_name }}</td>
+						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+						<td class="border px-4 py-2">{{ $user->phone }}</td>
+						<td class="border px-4 py-2">{{ $user->cnic }}</td>
+						<td class="border px-4 py-2">{{ $user->email }}</td>
+						<td class="border px-4 py-2">{{ $user->student?->status }}</td>
+						<td class="border px-4 py-2 inline-flex w-full">
+							<x-button class="ml-3" wire:click="edit({{$user->id}})" title="Edit User Form" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>
-
 						</td>
 					</tr>
 				@empty
@@ -503,7 +428,7 @@
 		</div>
 		<!-- Card Footer -->
 		<div class="py-4 px-8">
-			{{ $students->links() }}
+			{{ $users->links() }}
 		</div>
 
 	@endif

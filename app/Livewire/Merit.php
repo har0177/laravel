@@ -59,7 +59,7 @@ class Merit extends Component
     
     // Fetch users and their percentages.
     $usersList = User::whereIn( 'id', $userIds )
-                     ->whereHas( 'userInfo', function( $query ) {
+                     ->whereHas( 'student', function( $query ) {
                        $query->where( 'status', 'Pending' );
                      } )
                      ->with( [
@@ -96,7 +96,7 @@ class Merit extends Component
     
     foreach( $districts as $district ) {
       // Get the list of user IDs based on the specified district_id.
-      $userIds = User::whereHas( 'userInfo', function( $query ) use ( $district ) {
+      $userIds = User::whereHas( 'student', function( $query ) use ( $district ) {
         $query->where( 'district_id', $district->id )->where( 'status', 'Pending' );
       } )->pluck( 'id' )->toArray();
       

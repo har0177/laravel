@@ -18,6 +18,10 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+
+    'root_users' => [
+      'superadmin@asap.edu.pk',
+    ],
     /*
     |--------------------------------------------------------------------------
     | Application Environment

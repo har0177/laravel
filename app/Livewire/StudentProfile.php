@@ -68,19 +68,19 @@ class StudentProfile extends Component
     $this->username = $user->username;
     $this->cnic = $user->cnic;
     $this->avatar = $user->avatar;
-    $this->gender_id = $user->userInfo?->gender_id;
-    $this->district_id = $user->userInfo?->district_id;
-    $this->blood_group_id = $user->userInfo?->blood_group_id;
-    $this->dob = $user->userInfo?->dob;
-    $this->father_contact = $user->userInfo?->father_contact;
-    $this->father_name = $user->userInfo?->father_name;
-    $this->address = $user->userInfo?->address;
-    $this->postal_address = $user->userInfo?->postal_address;
-    $this->emergency_contact = $user->userInfo?->emergency_contact;
-    $this->religion = $user->userInfo?->religion;
-    $this->province_id = $user->userInfo?->province_id;
-    $this->hostel = $user->userInfo?->hostel;
-    $this->hafiz_quran = $user->userInfo?->hafiz_quran;
+    $this->gender_id = $user->student?->gender_id;
+    $this->district_id = $user->student?->district_id;
+    $this->blood_group_id = $user->student?->blood_group_id;
+    $this->dob = $user->student?->dob;
+    $this->father_contact = $user->student?->father_contact;
+    $this->father_name = $user->student?->father_name;
+    $this->address = $user->student?->address;
+    $this->postal_address = $user->student?->postal_address;
+    $this->emergency_contact = $user->student?->emergency_contact;
+    $this->religion = $user->student?->religion;
+    $this->province_id = $user->student?->province_id;
+    $this->hostel = $user->student?->hostel;
+    $this->hafiz_quran = $user->student?->hafiz_quran;
     $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
     $this->provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
     $this->districtList = Taxonomy::where( 'parent_id',
@@ -124,6 +124,10 @@ class StudentProfile extends Component
   
   public function updateProfile()
   {
+    if( auth()->user()->has( 'applications' ) ) {
+      session()->flash( 'error', 'You cannot update your profile due to active applications.' );
+      return true;
+    }
     $validate = $this->validate();
     $dob = Carbon::parse( $this->dob );
     $minAge = 15;
@@ -143,7 +147,7 @@ class StudentProfile extends Component
         $user->addMedia( $this->image )->toMediaCollection( 'avatars' );
       }
       $user->update( $validate );
-      $user->userInfo->update( [
+      $user->student->update( [
         'gender_id'         => $this->gender_id,
         'father_name'       => $this->father_name,
         'father_contact'    => $this->father_contact,

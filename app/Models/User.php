@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\App;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
@@ -87,16 +86,15 @@ class User extends Authenticatable implements HasMedia
     return $this->role->name;
   }
   
-  public function userInfo()
+  public function student()
   {
-    return $this->hasOne( UserInfo::class );
+    return $this->hasOne( Student::class );
   }
   
   public function education()
   {
     return $this->hasMany( Education::class );
   }
-  
   
   public function applications()
   {
@@ -111,5 +109,12 @@ class User extends Authenticatable implements HasMedia
   public function getFullNameAttribute()
   {
     return $this->first_name . ' ' . $this->last_name;
+  }
+  
+  public function isRootUser() : bool
+  {
+    $rootUsers = config( 'app.root_users' );
+    
+    return in_array( $this->email, $rootUsers, true );
   }
 }

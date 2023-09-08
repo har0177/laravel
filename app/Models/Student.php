@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
-class UserInfo extends Model
+class Student extends Model
 {
   use Notifiable, SoftDeletes;
   

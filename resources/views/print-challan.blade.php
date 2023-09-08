@@ -84,7 +84,7 @@
 								Father Name
 							</td>
 							<td>
-								{{$application->user->userInfo?->father_name}}
+								{{$application->user->student?->father_name}}
 							</td>
 						</tr>
 						<tr>
@@ -229,7 +229,7 @@
 								Father Name
 							</td>
 							<td>
-								{{$application->user->userInfo?->father_name}}
+								{{$application->user->student?->father_name}}
 							</td>
 						</tr>
 						<tr>
@@ -374,7 +374,7 @@
 								Father Name
 							</td>
 							<td>
-								{{$application->user->userInfo?->father_name}}
+								{{$application->user->student?->father_name}}
 							</td>
 						</tr>
 						<tr>

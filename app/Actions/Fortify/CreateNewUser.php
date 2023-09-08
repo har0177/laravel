@@ -2,8 +2,8 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Student;
 use App\Models\User;
-use App\Models\UserInfo;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
@@ -45,7 +45,7 @@ class CreateNewUser implements CreatesNewUsers
       'role_id'    => User::ROLE_STUDENT
     ] );
     
-    UserInfo::create( [
+    Student::create( [
       'user_id'     => $user->id,
       'father_name' => ucfirst( $input[ 'father_name' ] )
     ] );

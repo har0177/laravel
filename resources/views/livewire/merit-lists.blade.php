@@ -102,7 +102,7 @@
 								<tr>
 									<td class="py-1 px-3">{{$merit->merit_number}}</td>
 									<td class="py-1 px-3">{{$merit->user->full_name}}</td>
-									<td class="py-1 px-3">{{$merit->user->userInfo->father_name}}</td>
+									<td class="py-1 px-3">{{$merit->user->student->father_name}}</td>
 									<td class="py-1 px-3">{{$district->name}}</td>
 									<td class="py-1 px-3">{{\Carbon\Carbon::parse($merit->user->dob)->format('d-m-Y')}}</td>
 									<td class="py-1 px-3"></td>
@@ -142,16 +142,16 @@
 								</thead>
 								<tbody class="text-gray-700">
 								@php
-									$filteredMeritData = $meritData->where('user.userInfo.district_id', $district->id)->sortBy('district_number');
+									$filteredMeritData = $meritData->where('user.student.district_id', $district->id)->sortBy('district_number');
 								@endphp
 
 								@foreach($filteredMeritData as $merit)
-									@if($merit->user->userInfo->district_id === $district->id)
+									@if($merit->user->student->district_id === $district->id)
 										<tr>
 											<td class="py-1 px-3">{{$merit->district_number}}</td>
 											<td class="py-1 px-3">{{$merit->quota_id === 33 ? $merit->merit_number : ''}}</td>
 											<td class="py-1 px-3">{{$merit->user->full_name}}</td>
-											<td class="py-1 px-3">{{$merit->user->userInfo->father_name}}</td>
+											<td class="py-1 px-3">{{$merit->user->student->father_name}}</td>
 											<td class="py-1 px-3">{{$district->name}}</td>
 											<td class="py-1 px-3">{{\Carbon\Carbon::parse($merit->user->dob)->format('d-m-Y')}}</td>
 											<td class="py-1 px-3"></td>

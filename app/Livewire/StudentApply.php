@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Enums\TaxonomyTypeEnum;
 use App\Models\Application;
-use App\Models\MeritList;
 use App\Models\Project;
 use App\Models\Taxonomy;
 use Livewire\Attributes\Rule;
@@ -87,54 +86,54 @@ class StudentApply extends Component
   
   public function checkQuota()
   {
-    $user = auth()->user()->userInfo;
+    $user = auth()->user()->student;
     
     foreach( $this->quota as $selectedQuota ) {
       $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
       if( str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Male' ) {
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
-        return;
+        return true;
       }
       if( $user->gender->name === 'Female' && !in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
         if( !str_contains( $quotaName, 'Female' ) ) {
           $this->addError( 'quota', 'Female can only apply to Female Quota.' );
-          return;
+          return true;
         }
       }
       if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
         $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'FATA' ) && !in_array( $user->district_id,
           [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
         $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'FATA' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
         $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
-        return;
+        return true;
       }
       if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
         $this->addError( 'quota', 'Disabled can only apply to disabled quota & Open Merit' );
-        return;
+        return true;
       }
     }
   }
@@ -147,70 +146,19 @@ class StudentApply extends Component
       $validate[ 'project_id' ] = $this->project_id;
       $validate[ 'status' ] = $this->status;
       $validate[ 'application_number' ] = $this->application_number;
-      $selectedQuotas = $validate[ 'quota' ];
-      $user = auth()->user()->userInfo;
-      foreach( $selectedQuotas as $selectedQuota ) {
-        $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
-        if( str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Male' ) {
-          $this->addError( 'quota', 'You cannot apply for Female Quota' );
-          return;
+      if( !$this->checkQuota() ) {
+        if( $this->editApplication ) {
+          $application = Application::findOrFail( $this->editApplication );
+          $application->update( $validate );
+          session()->flash( 'success', 'Application for ' . $this->diplomaName . ' has been updated.' );
+        } else {
+          Application::create( $validate );
+          session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
         }
-        if( $user->gender->name === 'Female' && !in_array( $user->district_id,
-            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
-          if( !str_contains( $quotaName, 'Female' ) ) {
-            $this->addError( 'quota', 'Female can only apply to Female Quota.' );
-            return;
-          }
-        }
-        if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
-            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
-          $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
-          return;
-        }
-        if( str_contains( $quotaName, 'FATA' ) && !in_array( $user->district_id,
-            [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
-          $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
-          return;
-        }
-        if( str_contains( $quotaName, 'Open' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
-          $this->addError( 'quota', 'Gilgit Baltistan Candidates only apply to Gilgit Baltistan Quota.' );
-          return;
-        }
-        
-        if( str_contains( $quotaName, 'Agriculture' ) && count( $this->quota ) > 2 ) {
-          $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
-          return;
-        }
-        if( str_contains( $quotaName, 'ASA' ) && count( $this->quota ) > 2 ) {
-          $this->addError( 'quota', 'You can only apply to Agriculture & Livestock OR ASA Employees Son & Open Merit' );
-          return;
-        }
-        
-        if( str_contains( $quotaName, 'Gilgit' ) && !str_contains( $user->province->name, 'Gilgit' ) ) {
-          $this->addError( 'quota', 'You cannot apply for Gilgit Baltistan Quota' );
-          return;
-        }
-        if( str_contains( $quotaName, 'FATA' ) && str_contains( $user->province->name, 'Gilgit' ) ) {
-          $this->addError( 'quota', 'You cannot apply for Newly Merged Districts (FATA) Quota' );
-          return;
-        }
-        if( str_contains( $quotaName, 'Disabled' ) && count( $this->quota ) > 2 ) {
-          $this->addError( 'quota', 'Disabled can only apply to disabled quota & Open Merit' );
-          return;
-        }
-        
+        $this->applyPanel = false;
+        $this->toggleSection();
+        return true;
       }
-      if( $this->editApplication ) {
-        $application = Application::findOrFail( $this->editApplication );
-        $application->update( $validate );
-        session()->flash( 'success', 'Application for ' . $this->diplomaName . ' has been updated.' );
-      } else {
-        Application::create( $validate );
-        session()->flash( 'success', 'You have successfully applied for ' . $this->diplomaName );
-      }
-      $this->applyPanel = false;
-      $this->toggleSection();
-      return;
     } catch ( \Exception $e ) {
       session()->flash( 'error',
         'An error occurred while saving the application. Please try again.' );

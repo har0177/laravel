@@ -53,9 +53,9 @@
 		<h3 class="heading">Domicile</h3>
 		<div class="grid-container">
 			<div class="grid-item">District/Domicile:</div>
-			<div class="grid-item underline">{{strtoupper($user->userInfo->district->name)}}</div>
+			<div class="grid-item underline">{{strtoupper($user->student->district->name)}}</div>
 			<div class="grid-item">Province:</div>
-			<div class="grid-item underline">{{strtoupper($user->userInfo->province->name)}}</div>
+			<div class="grid-item underline">{{strtoupper($user->student->province->name)}}</div>
 			<div class="grid-item"></div>
 			<div class="grid-item"></div>
 			<div class="grid-item">Nationality:</div>
@@ -68,23 +68,23 @@
 			<div class="grid-item">Name:</div>
 			<div class="grid-item underline">{{strtoupper($user->full_name)}}</div>
 			<div class="grid-item">Gender:</div>
-			<div class="grid-item underline">{{strtoupper($user->userInfo->gender->name)}}</div>
+			<div class="grid-item underline">{{strtoupper($user->student->gender->name)}}</div>
 			<div class="grid-item">CNIC:</div>
 			<div class="grid-item underline">{{$user->cnic}}</div>
 			<div class="grid-item">Date Of Birth:</div>
-			<div class="grid-item underline inline-date">{{\Carbon\Carbon::parse($user->userInfo->dob)->format('d-m-Y')}}</div>
+			<div class="grid-item underline inline-date">{{\Carbon\Carbon::parse($user->student->dob)->format('d-m-Y')}}</div>
 			<div class="grid-item">Email:</div>
 			<div class="grid-item underline">{{strtoupper($user->email)}}</div>
 			<div class="grid-item">Contact No:</div>
 			<div class="grid-item underline">{{$user->phone}}</div>
 			<div class="grid-item">Religion:</div>
-			<div class="grid-item underline">{{$user->userInfo->religion}}</div>
+			<div class="grid-item underline">{{$user->student->religion}}</div>
 			<div class="grid-item">Hostel Required:</div>
-			<div class="grid-item underline">{{$user->userInfo->hostel?'YES':'NO'}}</div>
+			<div class="grid-item underline">{{$user->student->hostel?'YES':'NO'}}</div>
 			<div class="grid-item">Hafiz Quran:</div>
-			<div class="grid-item underline">{{$user->userInfo->hafiz_quran?'YES':'NO'}}</div>
+			<div class="grid-item underline">{{$user->student->hafiz_quran?'YES':'NO'}}</div>
 			<div class="grid-item">Emergency #:</div>
-			<div class="grid-item underline">{{$user->userInfo->emegency_contact}}</div>
+			<div class="grid-item underline">{{$user->student->emegency_contact}}</div>
 		</div>
 	</div>
 
@@ -92,9 +92,9 @@
 		<h3 class="heading">Father</h3>
 		<div class="grid-container">
 			<div class="grid-item" style="font-size: 12px">Father's / Guardian Name:</div>
-			<div class="grid-item underline">{{strtoupper($user->userInfo->father_name)}}</div>
+			<div class="grid-item underline">{{strtoupper($user->student->father_name)}}</div>
 			<div class="grid-item" style="font-size: 12px">Father's / Guardian Phone:</div>
-			<div class="grid-item underline">{{$user->userInfo->father_contact}}</div>
+			<div class="grid-item underline">{{$user->student->father_contact}}</div>
 		</div>
 	</div>
 
@@ -103,10 +103,10 @@
 		<div class="grid-container">
 			<div class="grid-item">Address:</div>
 			<div class="grid-item underline item-1"
-			     style="width: 100% !important;">{{strtoupper($user->userInfo->address)}}</div>
+			     style="width: 100% !important;">{{strtoupper($user->student->address)}}</div>
 			<div class="grid-item">Postal Address:</div>
 			<div class="grid-item underline item-1"
-			     style="width: 100% !important;">{{strtoupper($user->userInfo->postal_address ?? $user->userInfo->address)}}</div>
+			     style="width: 100% !important;">{{strtoupper($user->student->postal_address ?? $user->student->address)}}</div>
 		</div>
 	</div>
 

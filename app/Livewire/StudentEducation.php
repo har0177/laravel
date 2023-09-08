@@ -41,7 +41,7 @@ class StudentEducation extends Component
   
   public function mount()
   {
-    $profileStatus = auth()->user()->userInfo?->profile_status;
+    $profileStatus = auth()->user()->student?->profile_status;
     if( !$profileStatus ) {
       session()->flash( 'error', 'Please Update Profile First.' );
       
@@ -79,6 +79,12 @@ class StudentEducation extends Component
   
   public function store()
   {
+    
+    if( auth()->user()->has( 'applications' ) ) {
+      session()->flash( 'error', 'You cannot add/update your education due to active applications.' );
+      return true;
+    }
+    
     $validate = $this->validate();
     $resultDate = Carbon::parse( $this->result_declaration_date );
     if( $resultDate->isAfter( Carbon::now() ) ) {

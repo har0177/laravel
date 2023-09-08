@@ -28,6 +28,7 @@ Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'conta
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
   Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );
+  Route::view( 'admin/registered-users', 'admin.registeredUsers' )->name( 'registeredUsers' )->middleware( 'can:manage users' );
   Route::view( 'admin/slides', 'admin.slides' )->name( 'slides' )->middleware( 'can:manage slides' );
   Route::view( 'admin/gallery', 'admin.gallery' )->name( 'gallery' )->middleware( 'can:manage gallery' );
   Route::view( 'admin/students', 'admin.students' )->name( 'students' )->middleware( 'can:manage students' );

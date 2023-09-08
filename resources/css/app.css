@@ -6,7 +6,7 @@
     display: none;
 }
 
-.select2-container .select2-selection--single{
+.select2-container .select2-selection--single {
     height: 35px !important;
 }
 
@@ -19,4 +19,9 @@
 .tick-mark::before {
     content: "\2713"; /* Unicode checkmark character */
     padding: 10px;
+}
+
+.space-x-8 > :not([hidden]) ~ :not([hidden]) {
+    margin-left: calc(1rem * (1 - var(--tw-space-x-reverse))) !important;
+    margin-right: calc(1rem * var(--tw-space-x-reverse)) !important;
 }
