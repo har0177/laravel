@@ -95,19 +95,19 @@ class StudentApply extends Component
         return true;
       }
       if( $user->gender->name === 'Female' && !in_array( $user->district_id,
-          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          [ 70, 71, 72, 73, 74, 75, 76, 93, 94, 95, 96, 97, 98 ] ) ) {
         if( !str_contains( $quotaName, 'Female' ) ) {
           $this->addError( 'quota', 'Female can only apply to Female Quota.' );
           return true;
         }
       }
       if( !str_contains( $quotaName, 'FATA' ) && in_array( $user->district_id,
-          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          [ 70, 71, 72, 73, 74, 75, 76, 93, 94, 95, 96, 97, 98 ] ) ) {
         $this->addError( 'quota', 'FATA Candidates can only apply for Newly Merged Districts (FATA) Quota.' );
         return true;
       }
       if( str_contains( $quotaName, 'FATA' ) && !in_array( $user->district_id,
-          [ 70, 71, 72, 73, 74, 75, 76 ] ) ) {
+          [ 70, 71, 72, 73, 74, 75, 76, 93, 94, 95, 96, 97, 98 ] ) ) {
         $this->addError( 'quota', 'You cannot apply for  Newly Merged Districts (FATA) Quota' );
         return true;
       }

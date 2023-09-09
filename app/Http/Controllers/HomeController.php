@@ -32,6 +32,7 @@ class HomeController extends Controller
     return view( 'frontGallery', compact( 'images' ) );
   }
   
+  
   public function dashboard()
   {
     $students = User::where( 'role_id', User::ROLE_STUDENT )->count();
