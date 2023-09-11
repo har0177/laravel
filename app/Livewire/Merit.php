@@ -19,7 +19,6 @@ class Merit extends Component
   public $quotaList    = '';
   public $districtList = '';
   public $meritData    = '';
-  public $view         = false;
   
   public function render()
   {
@@ -49,6 +48,9 @@ class Merit extends Component
     
     $districts = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )
                          ->get();
+    
+    $quotas = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
+                      ->get();
     
     // Get the list of user IDs based on the specified quota.
     $userIds = Application::whereJsonContains( 'quota', $quota )
@@ -137,13 +139,56 @@ class Merit extends Component
       }
       
     }
-    $this->meritData = MeritList::with( 'user', 'project', 'district', 'quota' )->where( 'project_id',
-      $this->project )->get();
-    $this->districtList = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )->get();
-    $this->view = true;
+    
+    foreach( $quotas as $quota ) {
+      // Get the list of user IDs based on the specified quota.
+      $userIds = Application::whereJsonContains( 'quota', (string) $quota->id )
+                            ->where( 'project_id', $this->project )
+                            ->where( 'status', 'Paid' )
+                            ->pluck( 'user_id' )
+                            ->toArray();
+      
+      // Fetch users and their percentages.
+      $usersList = User::whereIn( 'id', $userIds )
+                       ->whereHas( 'student', function( $query ) {
+                         $query->where( 'status', 'Pending' );
+                       } )
+                       ->with( [
+                         'education' => function( $query ) {
+                           $query->orderBy( 'percentage', 'desc' )->first();
+                         }
+                       ] )
+                       ->get()
+                       ->map( function( $user ) {
+                         return [
+                           'user_id'    => $user->id,
+                           'percentage' => optional( $user->education->first() )->percentage,
+                         ];
+                       } )
+                       ->sortByDesc( 'percentage' )
+                       ->values()
+                       ->all();
+      
+      // MeritList::where( 'quota_id', $quota->id )->delete();
+      foreach( $usersList as $key => $user ) {
+        
+        MeritList::updateOrCreate(
+          [
+            'user_id'    => $user[ 'user_id' ],
+            'project_id' => $this->project,
+            'quota_id'   => $quota->id
+          ],
+          [
+            'merit_number' => $key + 1 // Set the status from $user
+          ]
+        );
+        
+      }
+      
+    }
     
     session()->flash( 'success', 'Merit List created Successfully.' );
-    
+    return $this->redirect( route( 'merit-list', [ 'project' => $this->project ] ) );
   }
   
 }

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TaxonomyTypeEnum;
 use App\Mail\ContactFormMail;
 use App\Models\Application;
 use App\Models\Gallery;
+use App\Models\MeritList;
 use App\Models\NewsEvents;
+use App\Models\Project;
+use App\Models\Taxonomy;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -32,7 +36,6 @@ class HomeController extends Controller
     return view( 'frontGallery', compact( 'images' ) );
   }
   
-  
   public function dashboard()
   {
     $students = User::where( 'role_id', User::ROLE_STUDENT )->count();
@@ -44,6 +47,22 @@ class HomeController extends Controller
   public function studentDashboard()
   {
     return view( 'student-dashboard' );
+  }
+  
+  public function MeritList( Request $request )
+  {
+    $project = Project::findOrFail( $request->project );
+
+      $meritData = MeritList::with( 'user', 'project', 'district', 'quota' )
+                            ->where( 'project_id', $project->id
+                            )->get();
+      $districtList = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )
+                              ->get();
+      $quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
+                           ->get();
+      
+      return view( 'merit-list-show', compact( 'meritData', 'districtList', 'quotaList', 'project' ) );
+ 
   }
   
   public function showEvent( NewsEvents $event )

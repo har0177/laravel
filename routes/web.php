@@ -25,6 +25,7 @@ Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name(
 Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
+Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'merit-list' );
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
   Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );
