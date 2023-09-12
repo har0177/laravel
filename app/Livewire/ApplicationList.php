@@ -42,15 +42,11 @@ class ApplicationList extends Component
   public $last_name      = '';
   public $avatar         = '';
   public $admitPanel     = false;
-  #[Rule( 'required' )]
+
   public $class_no       = 1;
-  #[Rule( 'required' )]
   public $reg_no         = 'ASA-001';
-  #[Rule( 'required' )]
   public $diploma_id     = null;
-  #[Rule( 'required' )]
   public $session_id     = null;
-  #[Rule( 'required' )]
   public $admission_date = null;
   
   protected $queryString = [
