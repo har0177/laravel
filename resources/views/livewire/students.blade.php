@@ -388,7 +388,9 @@
 				<span wire:loading wire:target="updateProfile">Saving...</span>
 				<span wire:loading.remove wire:target="updateProfile">Submit</span>
 			</button>
-
+			<x-button type="button" wire:click="toggleSection">
+				Reset
+			</x-button>
 		</form>
 
 
@@ -485,10 +487,15 @@
 								<x-badge text="{{$student->student?->status}}" color="indigo"/>
 							@endif
 						</td>
-						<td class=" px-4 py-2 inline-flex w-full">
+						<td class="px-4 py-2">
 							<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>
+							<a target="_blank" href="{{ route('student-card', ['user' => $student->id]) }}"
+							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+								<i class="fas fa-credit-card"></i>
+							</a>
+
 
 						</td>
 					</tr>

@@ -52,17 +52,17 @@ class HomeController extends Controller
   public function MeritList( Request $request )
   {
     $project = Project::findOrFail( $request->project );
-
-      $meritData = MeritList::with( 'user', 'project', 'district', 'quota' )
-                            ->where( 'project_id', $project->id
-                            )->get();
-      $districtList = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )
-                              ->get();
-      $quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
-                           ->get();
-      
-      return view( 'merit-list-show', compact( 'meritData', 'districtList', 'quotaList', 'project' ) );
- 
+    
+    $meritData = MeritList::with( 'user', 'project', 'district', 'quota' )
+                          ->where( 'project_id', $project->id
+                          )->get();
+    $districtList = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )
+                            ->get();
+    $quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
+                         ->get();
+    
+    return view( 'merit-list-show', compact( 'meritData', 'districtList', 'quotaList', 'project' ) );
+    
   }
   
   public function showEvent( NewsEvents $event )
@@ -89,6 +89,12 @@ class HomeController extends Controller
     // Process the form data and send emails, save to database, etc.
     
     return response()->json( [ 'message' => 'Message Send successfully. We will inform you through your email.' ] );
+  }
+  
+  public function studentCard( User $user )
+  {
+    $user->load( 'student' );
+    return view( 'student-card', compact( 'user' ) );
   }
   
   public function printForm( Application $application )

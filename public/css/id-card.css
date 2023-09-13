@@ -1,0 +1,127 @@
+
+div {
+    height: auto;
+}
+
+div img {
+    width: 98%;
+}
+
+
+.image {
+    position: absolute;
+    margin-top: 10%;
+    left: 5%;
+    border-radius: 10px;
+    height: 160px;
+    width: 120px;
+}
+
+
+.name {
+    position: absolute;
+    margin-top: -16.4%;
+    left: 17%;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.designation {
+    position: absolute;
+    margin-top: -14%;
+    left: 17%;
+    color: darkblue;
+    font-size: 14px;
+    font-weight: 900;
+
+}
+
+.section {
+
+    position: absolute;
+    margin-top: -12%;
+    left: 21%;
+    color: darkblue;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+
+.fname {
+    position: absolute;
+    margin-top: -26.7%;
+    left: 66%;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.nic {
+    position: absolute;
+    margin-top: -24.5%;
+    left: 66%;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+
+.dob {
+    position: absolute;
+    margin-top: -22%;
+    left: 66%;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+
+.section2 {
+    position: absolute;
+    margin-top: -19.9%;
+    left: 66%;
+    font-size: 12px;
+    font-weight: bolder;
+}
+
+.mobile {
+    position: absolute;
+    margin-top: -17.3%;
+    left: 66%;
+    font-size: 12px;
+    font-weight: bolder
+}
+
+.address {
+    position: absolute;
+    margin-top: -10.2%;
+    left: 66%;
+    line-height: 17.5px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.emergency {
+    position: absolute;
+    margin-top: -15.1%;
+    left: 66%;
+    line-height: 14.5px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+.bgroup {
+    position: absolute;
+    margin-top: -12.7%;
+    left: 66%;
+    line-height: 14.5px;
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+
+.image2 {
+
+    position: absolute;
+    margin-top: 20%;
+    left: 7%;
+    height: 60px;
+    width: 65px;
+}

@@ -31,6 +31,10 @@ class Student extends Model
   {
     return $this->belongsTo( Taxonomy::class )->whereType( TaxonomyTypeEnum::DIPLOMA );
   }
+  public function section() : BelongsTo
+  {
+    return $this->belongsTo( Taxonomy::class )->whereType( TaxonomyTypeEnum::SECTION );
+  }
   
   public function bloodGroup() : BelongsTo
   {

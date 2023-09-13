@@ -46,6 +46,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'education', 'student.education' )->name( 'education' );
   Route::view( 'apply', 'student.apply' )->name( 'apply' );
   Route::view( 'apply', 'student.apply' )->name( 'apply' );
+  Route::get( 'student-card/{user}', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
   Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
   Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );
