@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Livewire\Features\SupportFileUploads\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,8 +37,8 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/students', 'admin.students' )->name( 'students' )->middleware( 'can:manage students' );
   Route::view( 'admin/events', 'admin.events' )->name( 'events' )->middleware( 'can:manage events' );
   Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
-  Route::view('admin/taxonomies', 'admin.taxonomies')->name('taxonomies')->middleware('can:manage taxonomies');
-
+  Route::view( 'admin/taxonomies', 'admin.taxonomies' )->name( 'taxonomies' )->middleware( 'can:manage taxonomies' );
+  
   Route::view( 'admin/merit-lists',
     'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );
   Route::view( 'admin/applications',
@@ -60,3 +61,4 @@ Route::middleware( [
   Route::get( '/student-dashboard', [ HomeController::class, 'studentDashboard' ] )->name( 'student-dashboard' );
   
 } );
+
