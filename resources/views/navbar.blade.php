@@ -4,7 +4,7 @@
 			<img src="{{asset('images/logo-sm.png')}}" alt="logo-sm" height="40px">
 		</a>
 		<div class="d-lg-none">
-			<img src="{{asset('images/100-years.png')}}" alt="100-years" height="40px">
+			<img src="{{asset('images/100-years.png')}}" style="width: 100%" alt="100-years" height="40px">
 		</div>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
 		        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

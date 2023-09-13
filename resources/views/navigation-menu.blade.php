@@ -7,7 +7,7 @@
 				<!-- Logo -->
 				<div class="shrink-0 flex items-center">
 					<a href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard') : route('student-dashboard') }}">
-						<img src="{{asset('images/100-years.png')}}" alt="100-years" class="float-end">
+						<img src="{{asset('images/100-years.png')}}" alt="100-years" class="float-end" style="width: 120px;">
 					</a>
 				</div>
 				<!-- Navigation Links -->

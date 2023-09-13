@@ -26,7 +26,7 @@
 			<h1>Agriculture Services Academy, Peshawar</h1>
 		</div>
 		<div class="col-lg-2">
-			<img src="{{asset('images/100-years.png')}}" alt="100-years" class="float-end">
+			<img src="{{asset('images/100-years.png')}}" style="width: 100%" alt="100-years" class="float-end w-full">
 		</div>
 	</div>
 </div>
