@@ -14,7 +14,7 @@ class HomePage extends Component
   
   public function mount()
   {
-    $this->events = NewsEvents::where('expiry_date', '<', now()->setHour(17)->setMinute(0)->setSecond(0))->limit(10)->get();
+    $this->events = NewsEvents::where('expiry_date', '>', now()->setHour(17)->setMinute(0)->setSecond(0))->limit(10)->get();
     
     $carouselItemsData = Slide::whereStatus( 'show' )->get();
     
