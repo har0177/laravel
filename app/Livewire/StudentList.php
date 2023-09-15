@@ -105,7 +105,8 @@ class StudentList extends Component
            ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
+           ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' )
+           ->orWhere( 'cnic', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->whereHas( 'student', function( $qq ) {
       $qq->where( 'status', 'Active' );
