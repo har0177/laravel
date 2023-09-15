@@ -83,7 +83,7 @@
 						</div>
 						<div class="flex justify-between items-center bg-gray-100 p-3">
 							<small
-								class="text-red-600">{{ \Carbon\Carbon::make( $project->expiry_date )->format( 'd-m-Y' ) }} 05:00 PM</small>
+								class="text-red-600">{{ \Carbon\Carbon::make( $project->expiry_date )->format( 'd-m-Y H:i:s A' ) }}</small>
 							<div>
 								@if(count($project->applications) > 0)
 									@if(empty($project->applications[0]->challan_number))
