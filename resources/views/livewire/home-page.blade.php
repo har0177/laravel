@@ -35,39 +35,39 @@
 				</div>
 				<div class="card-body">
 
-			<marquee onmouseover="this.stop();"
-			         style="BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #fff 1px solid; HEIGHT: 290px;"
-			         onmouseout="this.start();" scrollamount="1" scrolldelay="60" direction="up">
+					<marquee onmouseover="this.stop();"
+					         style="BORDER-RIGHT: #fff 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #fff 1px solid; PADDING-LEFT: 3px; PADDING-BOTTOM: 3px; MARGIN: 0px; BORDER-LEFT: #fff 1px solid; PADDING-TOP: 3px; BORDER-BOTTOM: #fff 1px solid; HEIGHT: 290px;"
+					         onmouseout="this.start();" scrollamount="1" scrolldelay="60" direction="up">
 
-					@forelse($events as $event)
-						<div class="flex items-center mb-2">
-							<div style="display: flex">
-								<img src="{{ asset('images/newicon.gif') }}" alt="Event Icon" style="width: 10%">
-								@php( $extension = \Illuminate\Support\Str::lower(pathinfo($event->getFirstMediaUrl('events'), PATHINFO_EXTENSION)))
-								@if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) || $event->type === 'Text')
-									<a href="{{ route('event.show', ['event' => $event->slug]) }}" class="text-blue-500 hover:underline">
-										{{ $event->title }}
-									</a>
-								@else
-									<a href="{{$event->getFirstMediaUrl('events')}}" class="text-blue-500 hover:underline">
-										{{ $event->title }}
-									</a>
-								@endif
-								<div style="text-align: right; color: red; font-size: 12px; padding: 3px">
-									({{ $event->expiry_date }})
+						@forelse($events as $event)
+								<div class="flex items-center mb-2">
+									<div style="display: flex">
+										<img src="{{ asset('images/newicon.gif') }}" alt="Event Icon" style="width: 10%">
+										@php( $extension = \Illuminate\Support\Str::lower(pathinfo($event->getFirstMediaUrl('events'), PATHINFO_EXTENSION)))
+										@if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) || $event->type === 'Text')
+											<a href="{{ route('event.show', ['event' => $event->slug]) }}" class="text-blue-500 hover:underline">
+												{{ $event->title }}
+											</a>
+										@else
+											<a href="{{$event->getFirstMediaUrl('events')}}" class="text-blue-500 hover:underline">
+												{{ $event->title }}
+											</a>
+										@endif
+										<div style="text-align: right; color: red; font-size: 12px; padding: 3px">
+											({{  \Carbon\Carbon::make( $event->expiry_date )->format( 'd-m-Y') }} 05:00 PM)
+										</div>
+									</div>
+
 								</div>
-							</div>
 
-						</div>
-					@empty
-						<p>No events available</p>
-					@endforelse
+						@empty
+							<p>No events available</p>
+						@endforelse
 
 
-
-			</marquee>
-		</div>
-	</div>
+					</marquee>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="container-fluid">

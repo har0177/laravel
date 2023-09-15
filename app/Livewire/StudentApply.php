@@ -47,7 +47,7 @@ class StudentApply extends Component
         $query->where( 'user_id', $userId );
       }
     ] )
-                       ->where( 'expiry_date', '>', now() )
+                       ->where( 'expiry_date', '<', now()->setHour(17)->setMinute(0)->setSecond(0)  )
                        ->get();
     return view( 'livewire.student.apply', [ 'projects' => $projects ] );
   }
