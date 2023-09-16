@@ -34,6 +34,7 @@
 	@endphp
 
 
+
 	<div class="mb-4">
 		<h3 class="text-xl mb-5 text-center font-semibold">Open Merit: {{$project->diploma->name}}</h3>
 		<div class="overflow-x-auto">
