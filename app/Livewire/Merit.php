@@ -55,7 +55,7 @@ class Merit extends Component
     // Get the list of user IDs based on the specified quota.
     $userIds = Application::whereJsonContains( 'quota', $quota )
                           ->where( 'project_id', $this->project )
-                          ->where( 'status', 'Paid' )
+      //->where( 'status', 'Paid' )
                           ->pluck( 'user_id' )
                           ->toArray();
     
@@ -64,16 +64,17 @@ class Merit extends Component
                      ->whereHas( 'student', function( $query ) {
                        $query->where( 'status', 'Pending' );
                      } )
-                     ->with( [
-                       'education' => function( $query ) {
-                         $query->orderBy( 'percentage', 'desc' )->first();
-                       }
-                     ] )
+                     ->whereHas( 'education', function( $query ) {
+                       $query->where( 'percentage', '>', 0 )->orderBy( 'percentage', 'desc' );
+                     } )
                      ->get()
+                     ->filter( function( $user ) {
+                       return $user->education->isNotEmpty();
+                     } )
                      ->map( function( $user ) {
                        return [
                          'user_id'    => $user->id,
-                         'percentage' => optional( $user->education->first() )->percentage,
+                         'percentage' => $user->education->first()->percentage,
                        ];
                      } )
                      ->sortByDesc( 'percentage' )
@@ -97,26 +98,26 @@ class Merit extends Component
     }
     
     foreach( $districts as $district ) {
-      // Get the list of user IDs based on the specified district_id.
-      $userIds = User::whereHas( 'student', function( $query ) use ( $district ) {
-        $query->where( 'district_id', $district->id )->where( 'status', 'Pending' );
-      } )->pluck( 'id' )->toArray();
       
       // Fetch users and their percentages.
-      $usersList = User::whereIn( 'id', $userIds )
+      $usersList = User::whereHas( 'student', function( $query ) use ( $district ) {
+        $query->where( 'district_id', $district->id )->where( 'status', 'Pending' );
+      } )
                        ->whereHas( 'applications', function( $query ) {
-                         $query->where( 'status', 'Paid' )->where( 'project_id', $this->project );
+                         //->where( 'status', 'Paid' )
+                         $query->where( 'project_id', $this->project );
                        } )
-                       ->with( [
-                         'education' => function( $query ) {
-                           $query->orderBy( 'percentage', 'desc' )->first();
-                         },
-                       ] )
+                       ->whereHas( 'education', function( $query ) {
+                         $query->where( 'percentage', '>', 0 )->orderBy( 'percentage', 'desc' );
+                       } )
                        ->get()
+                       ->filter( function( $user ) {
+                         return $user->education->isNotEmpty();
+                       } )
                        ->map( function( $user ) {
                          return [
                            'user_id'    => $user->id,
-                           'percentage' => optional( $user->education->first() )->percentage,
+                           'percentage' => $user->education->first()->percentage,
                          ];
                        } )
                        ->sortByDesc( 'percentage' )
@@ -153,16 +154,17 @@ class Merit extends Component
                        ->whereHas( 'student', function( $query ) {
                          $query->where( 'status', 'Pending' );
                        } )
-                       ->with( [
-                         'education' => function( $query ) {
-                           $query->orderBy( 'percentage', 'desc' )->first();
-                         }
-                       ] )
+                       ->whereHas( 'education', function( $query ) {
+                         $query->where( 'percentage', '>', 0 )->orderBy( 'percentage', 'desc' );
+                       } )
                        ->get()
+                       ->filter( function( $user ) {
+                         return $user->education->isNotEmpty();
+                       } )
                        ->map( function( $user ) {
                          return [
                            'user_id'    => $user->id,
-                           'percentage' => optional( $user->education->first() )->percentage,
+                           'percentage' => $user->education->first()->percentage,
                          ];
                        } )
                        ->sortByDesc( 'percentage' )

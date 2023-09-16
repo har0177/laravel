@@ -59,7 +59,7 @@
 							<td class=" border">{{$merit->merit_number}}</td>
 							<td class=" border">{{$merit->user->full_name}}</td>
 							<td class=" border">{{$merit->user->student->father_name}}</td>
-							<td class=" border">{{$district->name}}</td>
+							<td class=" border">{{$merit->user->student->district->name}}</td>
 							<td class=" border">{{\Carbon\Carbon::parse($merit->user->dob)->format('d-m-Y')}}</td>
 							<td class=" border"></td>
 							<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
@@ -109,7 +109,7 @@
 									<td class=" border">{{$merit->quota_id === 33 ? $merit->merit_number : ''}}</td>
 									<td class=" border">{{$merit->user->full_name}}</td>
 									<td class=" border">{{$merit->user->student->father_name}}</td>
-									<td class=" border">{{$district->name}}</td>
+									<td class=" border">{{$merit->user->student->district->name}}</td>
 									<td class=" border">{{\Carbon\Carbon::parse($merit->user->dob)->format('d-m-Y')}}</td>
 									<td class=" border"></td>
 									<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
@@ -157,7 +157,7 @@
 							<td class=" border">{{$merit->merit_number}}</td>
 							<td class=" border">{{$merit->user->full_name}}</td>
 							<td class=" border">{{$merit->user->student->father_name}}</td>
-							<td class=" border">{{$district->name}}</td>
+							<td class=" border">{{$merit->user->student->district->name}}</td>
 							<td class=" border">{{\Carbon\Carbon::parse($merit->user->dob)->format('d-m-Y')}}</td>
 							<td class=" border"></td>
 							<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
