@@ -49,7 +49,7 @@ class Merit extends Component
     $districts = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )
                          ->get();
     
-    $quotas = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
+    $quotas = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', 33 )
                       ->get();
     
     // Get the list of user IDs based on the specified quota.
@@ -145,7 +145,7 @@ class Merit extends Component
       // Get the list of user IDs based on the specified quota.
       $userIds = Application::whereJsonContains( 'quota', (string) $quota->id )
                             ->where( 'project_id', $this->project )
-                            ->where( 'status', 'Paid' )
+                            //->where( 'status', 'Paid' )
                             ->pluck( 'user_id' )
                             ->toArray();
       
