@@ -278,7 +278,7 @@
 										</a>
 
 										@can('payment application')
-											@if($application->status !== 'Paid' && $application->challan_number)
+											@if($application->status !== 'Paid')
 												<div x-data="{ showModal: false }">
 													<!-- Trigger button -->
 													<x-button wire:click="changeStatus({{ $application->id }})" class="ml-3" @click="showModal = true">

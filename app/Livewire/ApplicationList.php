@@ -109,6 +109,9 @@ class ApplicationList extends Component
   public function paymentStatus()
   {
     $application = Application::find( $this->changeStatusId );
+    if( empty( $application->challan_number ) ) {
+      $application->challan_number = $application->application_number;
+    }
     $application->status = 'Paid';
     $application->save();
     session()->flash( 'success', 'Payment status changed to Paid Successfully.' );
