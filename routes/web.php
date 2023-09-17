@@ -27,6 +27,9 @@ Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'r
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
 Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'merit-list' );
+Route::get( '/admission-challan', function(){
+  return view('admission-challan');
+} );
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
   Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );

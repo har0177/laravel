@@ -36,13 +36,13 @@ class ApplicationList extends Component
   public $diplomaList = [];
   public $sessionList = [];
   
-  public $admitStudent   = null;
-  public $userId         = '';
-  public $first_name     = '';
-  public $last_name      = '';
-  public $avatar         = '';
-  public $admitPanel     = false;
-
+  public $admitStudent = null;
+  public $userId       = '';
+  public $first_name   = '';
+  public $last_name    = '';
+  public $avatar       = '';
+  public $admitPanel   = false;
+  
   public $class_no       = 1;
   public $reg_no         = 'ASA-001';
   public $diploma_id     = null;
@@ -64,21 +64,23 @@ class ApplicationList extends Component
   
   public function render()
   {
+    $applications = Application::query()
+                               ->when( $this->search, function( $query ) {
+                                 $query->where( function( $subQuery ) {
+                                   $subQuery->where( 'challan_number', 'LIKE', '%' . $this->search . '%' )
+                                            ->orWhere( 'application_number', 'LIKE', '%' . $this->search . '%' );
+                                 } )->orWhereHas( 'user', function( $q ) {
+                                   $q->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
+                                     [ '%' . $this->search . '%' ] );
+                                 } );
+                               } )
+                               ->when( $this->paid, function( $query ) {
+                                 $query->where( 'status', 'Paid' );
+                               } )
+                               ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+                               ->paginate( 10 );
     
-    $query = Application::query();
-    $query->when( $this->search, function( $q ) {
-      return $q->where( function( $qq ) {
-        $qq->where( 'challan_number', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'application_number', 'LIKE', '%' . $this->search . '%' );
-      } );
-    } )->when( $this->paid, function( $q ) {
-      return $q->where( 'status', 'Paid' );
-    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $applications = $query->paginate( 10 );
-    
-    return view( 'livewire.applications', [
-      'applications' => $applications
-    ] );
+    return view( 'livewire.applications', compact( 'applications' ) );
   }
   
   public function admitAsStudent( Application $application )
