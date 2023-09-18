@@ -72,9 +72,11 @@ class Merit extends Component
                        return $user->education->isNotEmpty();
                      } )
                      ->map( function( $user ) {
+                       $education = $user->education->first();
+                       $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
                        return [
                          'user_id'    => $user->id,
-                         'percentage' => $user->education->first()->percentage,
+                         'percentage' => $percentage,
                        ];
                      } )
                      ->sortByDesc( 'percentage' )
@@ -115,10 +117,12 @@ class Merit extends Component
                          return $user->education->isNotEmpty();
                        } )
                        ->map( function( $user ) {
-                         return [
-                           'user_id'    => $user->id,
-                           'percentage' => $user->education->first()->percentage,
-                         ];
+                         $education = $user->education->first();
+                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
+                       return [
+                         'user_id'    => $user->id,
+                         'percentage' => $percentage,
+                       ];
                        } )
                        ->sortByDesc( 'percentage' )
                        ->values()
@@ -145,7 +149,7 @@ class Merit extends Component
       // Get the list of user IDs based on the specified quota.
       $userIds = Application::whereJsonContains( 'quota', (string) $quota->id )
                             ->where( 'project_id', $this->project )
-                            //->where( 'status', 'Paid' )
+        //->where( 'status', 'Paid' )
                             ->pluck( 'user_id' )
                             ->toArray();
       
@@ -162,10 +166,12 @@ class Merit extends Component
                          return $user->education->isNotEmpty();
                        } )
                        ->map( function( $user ) {
-                         return [
-                           'user_id'    => $user->id,
-                           'percentage' => $user->education->first()->percentage,
-                         ];
+                         $education = $user->education->first();
+                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
+                       return [
+                         'user_id'    => $user->id,
+                         'percentage' => $percentage,
+                       ];
                        } )
                        ->sortByDesc( 'percentage' )
                        ->values()

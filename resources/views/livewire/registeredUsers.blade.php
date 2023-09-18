@@ -311,7 +311,14 @@
 					@enderror
 				</div>
 				<!-- Email field -->
-
+				<div>
+					<label for="hifz_marks" class="block text-sm font-medium text-gray-700 mb-1">Hifz Marks</label>
+					<input id="hifz_marks" name="hifz_marks" type="number" min="0" max="20" wire:model="hifz_marks"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+					@error('hifz_marks')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
 
 			</div>
 			<button type="submit"

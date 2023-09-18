@@ -101,14 +101,14 @@ class StudentList extends Component
     $query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
-        $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
+        $qq->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
+          [ '%' . $this->search . '%' ] )
            ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'cnic', 'LIKE', '%' . $this->search . '%' );
       } );
-    } )->whereHas( 'student', function( $qq ) {
+    } )->orWhereHas( 'student', function( $qq ) {
       $qq->where( 'status', 'Active' );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $students = $query->paginate( 10 );

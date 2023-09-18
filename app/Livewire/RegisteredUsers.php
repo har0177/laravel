@@ -60,6 +60,7 @@ class RegisteredUsers extends Component
   public $religion          = '';
   public $religionList      = [];
   public $hostel            = 0;
+  public $hifz_marks        = 0;
   
   public $errorMessage;
   
@@ -95,8 +96,8 @@ class RegisteredUsers extends Component
     $query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
     $query->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
-        $qq->where( 'first_name', 'LIKE', '%' . $this->search . '%' )
-           ->orWhere( 'last_name', 'LIKE', '%' . $this->search . '%' )
+        $qq->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
+          [ '%' . $this->search . '%' ] )
            ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
@@ -183,6 +184,7 @@ class RegisteredUsers extends Component
         'religion'          => $this->religion,
         'hostel'            => $this->hostel,
         'hafiz_quran'       => $this->hafiz_quran,
+        'hifz_marks'        => $this->hifz_marks,
         'profile_status'    => 1,
       ];
       $user->student()->updateOrCreate( [], $studentData );
@@ -230,13 +232,12 @@ class RegisteredUsers extends Component
       $this->province_id = $student->student->province_id;
       $this->hostel = $student->student->hostel;
       $this->hafiz_quran = $student->student->hafiz_quran;
+      $this->hafiz_quran = $student->student->hafiz_quran;
     }
     
     $this->loadTaxonomies();
     $this->create = true;
   }
-  
-  
   
   public function toggleSection()
   {
