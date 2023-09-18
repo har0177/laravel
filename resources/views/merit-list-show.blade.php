@@ -1,15 +1,15 @@
 <x-guest-layout>
 	<style>
-     @media print {
-         table {
-             font-size: 12px !important;
-         }
+		@media print {
+			table {
+				font-size: 12px !important;
+			}
 
-         @page {
-             size: A4 landscape;
-             page-break-before: always;
-         }
-     }
+			@page {
+				size: A4 landscape;
+				page-break-before: always;
+			}
+		}
 	</style>
 	@php
 		// Create an associative array where the keys are district IDs and the values are flags indicating data presence
@@ -32,7 +32,6 @@
 						return !empty($merit->quota_id);
 		})->sortBy('merit_number');
 	@endphp
-
 
 
 	<div class="mb-4">
@@ -62,10 +61,11 @@
 							<td class=" border">{{$merit->user->student->father_name}}</td>
 							<td class=" border">{{$merit->user->student->district->name}}</td>
 							<td class=" border">{{\Carbon\Carbon::parse($merit->user->student->dob)->format('d-m-Y')}}</td>
-							<td class=" border"></td>
-							<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
+							<td class=" border">{{$merit->user->student->hifz_marks > 0 ? $merit->user->student->hifz_marks : '' }}</td>
+							<td class=" border">{{$merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks}}</td>
 							<td class=" border">{{$merit->user->education[0]->total_marks}}</td>
-							<td class=" border">{{$merit->user->education[0]->percentage}}</td>
+							<td class=" border">{{round((($merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks)/$merit->user->education[0]->total_marks)*100, 2)}}</td>
+
 							<td class=" border"></td>
 						</tr>
 					@endif
@@ -112,10 +112,11 @@
 									<td class=" border">{{$merit->user->student->father_name}}</td>
 									<td class=" border">{{$merit->user->student->district->name}}</td>
 									<td class=" border">{{\Carbon\Carbon::parse($merit->user->student->dob)->format('d-m-Y')}}</td>
-									<td class=" border"></td>
-									<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
+									<td class=" border">{{$merit->user->student->hifz_marks > 0 ? $merit->user->student->hifz_marks : '' }}</td>
+									<td class=" border">{{$merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks}}</td>
 									<td class=" border">{{$merit->user->education[0]->total_marks}}</td>
-									<td class=" border">{{$merit->user->education[0]->percentage}}</td>
+									<td class=" border">{{round((($merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks)/$merit->user->education[0]->total_marks)*100, 2)}}</td>
+
 									<td class=" border"></td>
 								</tr>
 							@endif
@@ -160,10 +161,10 @@
 							<td class=" border">{{$merit->user->student->father_name}}</td>
 							<td class=" border">{{$merit->user->student->district->name}}</td>
 							<td class=" border">{{\Carbon\Carbon::parse($merit->user->student->dob)->format('d-m-Y')}}</td>
-							<td class=" border"></td>
-							<td class=" border">{{$merit->user->education[0]->obtained_marks}}</td>
+							<td class=" border">{{$merit->user->student->hifz_marks > 0 ? $merit->user->student->hifz_marks : '' }}</td>
+							<td class=" border">{{$merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks}}</td>
 							<td class=" border">{{$merit->user->education[0]->total_marks}}</td>
-							<td class=" border">{{$merit->user->education[0]->percentage}}</td>
+							<td class=" border">{{round((($merit->user->education[0]->obtained_marks + $merit->user->student->hifz_marks)/$merit->user->education[0]->total_marks)*100, 2)}}</td>
 							<td class=" border"></td>
 						</tr>
 					@endforeach

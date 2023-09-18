@@ -103,7 +103,8 @@ class RegisteredUsers extends Component
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' );
       } );
     } )->whereHas( 'student', function( $qq ) {
-      $qq->whereNull( 'reg_no' );
+      $qq->whereNull( 'reg_no' )
+         ->orWhere( 'father_name', 'LIKE', '%' . $this->search . '%' );
     } )
           ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $users = $query->paginate( 10 );
@@ -194,11 +195,11 @@ class RegisteredUsers extends Component
       }
       $this->image = '';
       $this->avatar = $user->getFirstMediaUrl( 'avatars' );
-      $this->toggleSection();
       
       DB::commit();
       
       session()->flash( 'success', 'User updated successfully.' );
+      $this->toggleSection();
     } catch ( \Exception $e ) {
       DB::rollback();
       session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
@@ -232,7 +233,7 @@ class RegisteredUsers extends Component
       $this->province_id = $student->student->province_id;
       $this->hostel = $student->student->hostel;
       $this->hafiz_quran = $student->student->hafiz_quran;
-      $this->hafiz_quran = $student->student->hafiz_quran;
+      $this->hifz_marks = $student->student->hifz_marks;
     }
     
     $this->loadTaxonomies();
@@ -250,10 +251,32 @@ class RegisteredUsers extends Component
   public function resetForm()
   {
     $this->reset( [
-      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic',
+      'gender_id',
+      'father_name',
+      'father_contact',
+      'dob', 'blood_group_id',
+      'address', 'postal_address',
+      'district_id',
+      'province_id', 'emergency_contact',
+      'religion',
+      'hostel', 'hafiz_quran',
+      'hifz_marks',
+      'profile_status'
     ] );
     $this->resetErrorBag( [
-      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic'
+      'first_name', 'last_name', 'email', 'password', 'username', 'password', 'cnic',
+      'gender_id',
+      'father_name',
+      'father_contact',
+      'dob', 'blood_group_id',
+      'address', 'postal_address',
+      'district_id',
+      'province_id', 'emergency_contact',
+      'religion',
+      'hostel', 'hafiz_quran',
+      'hifz_marks',
+      'profile_status'
     ] );
   }
   

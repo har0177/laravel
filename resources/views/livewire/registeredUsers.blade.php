@@ -375,7 +375,13 @@
 							<x-sorting name="last_name"/>
 						</div>
 					</th>
-					{{--<th scope="col" class="border px-6 py-3">
+					<th scope="col" class="border px-6 py-3">
+						<div class="flex items-center">
+							Father Name
+						</div>
+					</th>
+					{{--<th sc
+					ope="col" class="border px-6 py-3">
 						<div class="flex items-center">
 							Username
 							<x-sorting name="studentname"/>
@@ -414,6 +420,7 @@
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $user->first_name }}</td>
 						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+						<td class="border px-4 py-2">{{ $user->student->father_name }}</td>
 						<td class="border px-4 py-2">{{ $user->phone }}</td>
 						<td class="border px-4 py-2">{{ $user->cnic }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>

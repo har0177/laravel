@@ -73,7 +73,7 @@ class Merit extends Component
                      } )
                      ->map( function( $user ) {
                        $education = $user->education->first();
-                       $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
+                       $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks ) * 100;
                        return [
                          'user_id'    => $user->id,
                          'percentage' => $percentage,
@@ -118,11 +118,11 @@ class Merit extends Component
                        } )
                        ->map( function( $user ) {
                          $education = $user->education->first();
-                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
-                       return [
-                         'user_id'    => $user->id,
-                         'percentage' => $percentage,
-                       ];
+                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks ) * 100;
+                         return [
+                           'user_id'    => $user->id,
+                           'percentage' => $percentage,
+                         ];
                        } )
                        ->sortByDesc( 'percentage' )
                        ->values()
@@ -167,11 +167,11 @@ class Merit extends Component
                        } )
                        ->map( function( $user ) {
                          $education = $user->education->first();
-                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks * 100 )
-                       return [
-                         'user_id'    => $user->id,
-                         'percentage' => $percentage,
-                       ];
+                         $percentage = ( ( $education->obtained_marks + $user->student->hifz_marks ) / $education->total_marks ) * 100;
+                         return [
+                           'user_id'    => $user->id,
+                           'percentage' => $percentage,
+                         ];
                        } )
                        ->sortByDesc( 'percentage' )
                        ->values()
