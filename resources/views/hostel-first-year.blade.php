@@ -8,11 +8,11 @@
 	<style>
 
 
-     table {
-         font-size: 12px;
-         line-height: 10px;
+		table {
+			font-size: 12px;
+			line-height: 10px;
 
-     }
+		}
 
 	</style>
 </head>
@@ -57,14 +57,14 @@
 					<td colspan="2">
 						<table border="1" class="table">
 							<tr>
-								<td colspan="2" class="text-center" >
-										<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
+								<td colspan="2" class="text-center">
+									<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center" style="font-size: 12px; line-height: 15px">
 									Remote Branch: University Campus Branch, Peshawar <br>
-									Principal Agriculture Training Institute  <br>
+									Principal Agriculture Training Institute <br>
 									PK59NBPA0388003048617735
 
 								</td>
@@ -89,6 +89,9 @@
 								<td>Contact: ____________________</td>
 								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
 							</tr>
 						</table>
 						<table border="1" class="table">
@@ -125,10 +128,13 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>7000</td>
+							</tr>
 
 							</tbody>
 						</table>
-						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -181,14 +187,14 @@
 					<td colspan="2">
 						<table border="1" class="table">
 							<tr>
-								<td colspan="2" class="text-center" >
+								<td colspan="2" class="text-center">
 									<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center" style="font-size: 12px; line-height: 15px">
 									Remote Branch: University Campus Branch, Peshawar <br>
-									Principal Agriculture Training Institute  <br>
+									Principal Agriculture Training Institute <br>
 									PK59NBPA0388003048617735
 
 								</td>
@@ -213,6 +219,9 @@
 								<td>Contact: ____________________</td>
 								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
 							</tr>
 						</table>
 						<table border="1" class="table">
@@ -249,10 +258,13 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>7000</td>
+							</tr>
 
 							</tbody>
 						</table>
-						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -305,14 +317,14 @@
 					<td colspan="2">
 						<table border="1" class="table">
 							<tr>
-								<td colspan="2" class="text-center" >
+								<td colspan="2" class="text-center">
 									<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" class="text-center" style="font-size: 12px; line-height: 15px">
 									Remote Branch: University Campus Branch, Peshawar <br>
-									Principal Agriculture Training Institute  <br>
+									Principal Agriculture Training Institute <br>
 									PK59NBPA0388003048617735
 
 								</td>
@@ -337,6 +349,9 @@
 								<td>Contact: ____________________</td>
 								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
 							</tr>
 						</table>
 						<table border="1" class="table">
@@ -373,10 +388,12 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
-
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>7000</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -392,7 +409,6 @@
 				</tr>
 			</table>
 		</div>
-
 
 
 	</div>

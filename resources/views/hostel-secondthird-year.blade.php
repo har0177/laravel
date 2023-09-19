@@ -8,11 +8,11 @@
 	<style>
 
 
-     table {
-         font-size: 12px;
-         line-height: 10px;
+		table {
+			font-size: 12px;
+			line-height: 10px;
 
-     }
+		}
 
 	</style>
 </head>
@@ -90,6 +90,9 @@
 								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -125,10 +128,13 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>0</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>7000</td>
+							</tr>
 
 							</tbody>
 						</table>
-						<p>Total Amount: 6000</p>
 
 						<table>
 							<tr>
@@ -214,6 +220,9 @@
 								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -249,10 +258,13 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>0</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>6000</td>
+							</tr>
 
 							</tbody>
 						</table>
-						<p>Total Amount: 6000</p>
 
 						<table>
 							<tr>
@@ -338,6 +350,9 @@
 								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA HOSTEL FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -373,10 +388,12 @@
 								<td>Hostel Security (Refundable)</td>
 								<td>0</td>
 							</tr>
-
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>6000</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 6000</p>
 
 						<table>
 							<tr>

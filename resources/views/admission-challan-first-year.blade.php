@@ -90,6 +90,9 @@
 								<td>On Account Of: <em>Admission 1st Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -170,9 +173,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>2000</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>20900</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
 
 						<table>
 							<tr>
@@ -226,7 +232,7 @@
 						<table border="1" class="table">
 							<tr>
 								<td colspan="2" class="text-center" >
-										<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
+									<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
 								</td>
 							</tr>
 							<tr>
@@ -257,6 +263,9 @@
 								<td>Contact: ____________________</td>
 								<td>On Account Of: <em>Admission 1st Year
 									</em></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
 							</tr>
 						</table>
 						<table border="1" class="table">
@@ -338,9 +347,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>2000</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>20900</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
 
 						<table>
 							<tr>
@@ -394,7 +406,7 @@
 						<table border="1" class="table">
 							<tr>
 								<td colspan="2" class="text-center" >
-										<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
+									<img src="{{ asset('nbp.png') }}" style="height: 50px" alt="NBP">
 								</td>
 							</tr>
 							<tr>
@@ -425,6 +437,9 @@
 								<td>Contact: ____________________</td>
 								<td>On Account Of: <em>Admission 1st Year
 									</em></td>
+							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
 							</tr>
 						</table>
 						<table border="1" class="table">
@@ -506,9 +521,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>2000</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>20900</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
 
 						<table>
 							<tr>
@@ -524,6 +542,7 @@
 				</tr>
 			</table>
 		</div>
+
 
 	</div>
 </div>
