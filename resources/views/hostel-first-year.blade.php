@@ -162,7 +162,7 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>BANK COPY</strong></span>
+					<span class="bg-styling"><strong>ASA ACCOUNT COPY</strong></span>
 				</div>
 			</div>
 			<table style="line-height: 10px !important;">
@@ -286,7 +286,7 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>BANK COPY</strong></span>
+					<span class="bg-styling"><strong>STUDENT COPY</strong></span>
 				</div>
 			</div>
 			<table style="line-height: 10px !important;">

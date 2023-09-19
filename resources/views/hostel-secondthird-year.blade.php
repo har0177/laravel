@@ -87,7 +87,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em> ASA Hostel Fee 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
 						</table>
@@ -162,7 +162,7 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>BANK COPY</strong></span>
+					<span class="bg-styling"><strong>ASA ACCOUNT COPY</strong></span>
 				</div>
 			</div>
 			<table style="line-height: 10px !important;">
@@ -211,7 +211,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em> ASA Hostel Fee 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
 						</table>
@@ -286,7 +286,7 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>BANK COPY</strong></span>
+					<span class="bg-styling"><strong>STUDENT COPY</strong></span>
 				</div>
 			</div>
 			<table style="line-height: 10px !important;">
@@ -335,7 +335,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em> ASA Hostel Fee 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 2nd/3rd Year
 									</em></td>
 							</tr>
 						</table>
