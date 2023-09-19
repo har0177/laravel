@@ -15,7 +15,7 @@ return new class extends Migration {
       $table->enum( 'type', [ 'Text', 'File' ] );
       $table->text( 'title' );
       $table->string( 'slug' )->unique();
-      $table->date( 'expiry_date' );
+      $table->timestamp( 'expiry_date' );
       $table->longText( 'description' )->nullable();
       $table->timestamps();
     } );

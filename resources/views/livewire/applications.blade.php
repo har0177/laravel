@@ -266,17 +266,10 @@
 										</x-button>
 
 									@else
-										@can('edit application')
-											<x-button class="ml-3" wire:click="edit({{ $application->id}})" wire:loading.attr="disabled">
-												<i class="fas fa-pencil"></i>
-											</x-button>
-										@endcan
-
 										<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
 										   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 											<i class="fas fa-eye"></i>
 										</a>
-
 										@can('payment application')
 											@if($application->status !== 'Paid')
 												<div x-data="{ showModal: false }">
@@ -318,9 +311,13 @@
 										@endcan
 
 									@endif
+									@can('edit application')
+										<x-button class="ml-3" wire:click="edit({{ $application->id}})" wire:loading.attr="disabled">
+											<i class="fas fa-pencil"></i>
+										</x-button>
+									@endcan
 								@else
 									<x-badge text="Admitted" color="indigo"/>
-
 								@endif
 							</div>
 						</td>
