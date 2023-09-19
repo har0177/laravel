@@ -53,9 +53,7 @@
 												{{ $event->title }}
 											</a>
 										@endif
-										<div style="text-align: right; color: red; font-size: 12px; padding: 3px">
-											({{  \Carbon\Carbon::make( $event->expiry_date )->format( 'd-m-Y') }})
-										</div>
+
 									</div>
 
 								</div>

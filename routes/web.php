@@ -27,9 +27,9 @@ Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'r
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
 Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'merit-list' );
-Route::get( '/admission-challan', function(){
+/*Route::get( '/admission-challan', function(){
   return view('hostel-first-year');
-} );
+} );*/
 Route::get( '/download', function(){
   return view('download');
 } )->name('download');
