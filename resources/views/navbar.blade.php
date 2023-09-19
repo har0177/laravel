@@ -56,6 +56,9 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('contact')}}">Contact Us</a>
 				</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{{route('download')}}">Download</a>
+					</li>
 			</ul>
 			<div class="d-none d-lg-block">
 

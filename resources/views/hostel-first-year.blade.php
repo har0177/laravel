@@ -10,7 +10,7 @@
 
      table {
          font-size: 12px;
-         line-height: 2px;
+         line-height: 10px;
 
      }
 
@@ -41,7 +41,7 @@
 					<span class="bg-styling"><strong>BANK COPY</strong></span>
 				</div>
 			</div>
-			<table>
+			<table style="line-height: 10px !important;">
 				<tr>
 					<td>Branch Code: ____________________</td>
 					<td>Branch Name: ____________________</td>
@@ -74,10 +74,12 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<table >
+						<table style="line-height: 10px !important;">
 							<tr>
-								<td>Student Name: ____________________</td>
-								<td>Father Name: ____________________</td>
+								<td colspan="2">Student Name: ________________________________________</td>
+							</tr>
+							<tr>
+								<td colspan="2">Father Name: ________________________________________</td>
 							</tr>
 							<tr>
 								<td>Diploma: ____________________</td>
@@ -85,7 +87,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em>Admission 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
 							</tr>
 						</table>
@@ -100,77 +102,33 @@
 							<tbody>
 							<tr>
 								<td>1</td>
-								<td>Annual admission fee for Govt. Treasury (A)</td>
-								<td>1000</td>
+								<td>Annual Hostel Fee (Non Refundable)</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>2</td>
-								<td>Registration fee (Ist year) (B)</td>
-								<td>9000</td>
+								<td> Furniture Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>3</td>
-								<td>Annual Promotion Fee (C)</td>
-								<td>0</td>
+								<td>Karakary Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>4</td>
-								<td>Documents verification fee (D)</td>
-								<td>700</td>
+								<td>Annual Electricity and Gas Charges</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>5</td>
-								<td>Annual Affiliation Fee (E)</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>I) Annual/ Semester Examination Fee</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>II) Sports Fund</td>
+								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
-							<tr>
-								<td>8</td>
-								<td>III) Study Tour</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>IV) Miscellinous fund</td>
-								<td>1000</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>V) Library fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>VI) Masjid Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>12</td>
-								<td>VII) Student Card (Ist year)</td>
-								<td>200</td>
-							</tr>
-							<tr>
-								<td>13</td>
-								<td>VIII) Furniture Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>14</td>
-								<td>IX) Security (Refundable Ist year)</td>
-								<td>2000</td>
-							</tr>
+
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
+						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -204,10 +162,10 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>ASA ACCOUNT COPY</strong></span>
+					<span class="bg-styling"><strong>BANK COPY</strong></span>
 				</div>
 			</div>
-			<table>
+			<table style="line-height: 10px !important;">
 				<tr>
 					<td>Branch Code: ____________________</td>
 					<td>Branch Name: ____________________</td>
@@ -240,10 +198,12 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<table >
+						<table style="line-height: 10px !important;">
 							<tr>
-								<td>Student Name: ____________________</td>
-								<td>Father Name: ____________________</td>
+								<td colspan="2">Student Name: ________________________________________</td>
+							</tr>
+							<tr>
+								<td colspan="2">Father Name: ________________________________________</td>
 							</tr>
 							<tr>
 								<td>Diploma: ____________________</td>
@@ -251,7 +211,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em>Admission 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
 							</tr>
 						</table>
@@ -266,77 +226,33 @@
 							<tbody>
 							<tr>
 								<td>1</td>
-								<td>Annual admission fee for Govt. Treasury (A)</td>
-								<td>1000</td>
+								<td>Annual Hostel Fee (Non Refundable)</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>2</td>
-								<td>Registration fee (Ist year) (B)</td>
-								<td>9000</td>
+								<td> Furniture Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>3</td>
-								<td>Annual Promotion Fee (C)</td>
-								<td>0</td>
+								<td>Karakary Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>4</td>
-								<td>Documents verification fee (D)</td>
-								<td>700</td>
+								<td>Annual Electricity and Gas Charges</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>5</td>
-								<td>Annual Affiliation Fee (E)</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>I) Annual/ Semester Examination Fee</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>II) Sports Fund</td>
+								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
-							<tr>
-								<td>8</td>
-								<td>III) Study Tour</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>IV) Miscellinous fund</td>
-								<td>1000</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>V) Library fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>VI) Masjid Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>12</td>
-								<td>VII) Student Card (Ist year)</td>
-								<td>200</td>
-							</tr>
-							<tr>
-								<td>13</td>
-								<td>VIII) Furniture Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>14</td>
-								<td>IX) Security (Refundable Ist year)</td>
-								<td>2000</td>
-							</tr>
+
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
+						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -370,10 +286,10 @@
 					</strong>
 					<br>
 					<br>
-					<span class="bg-styling"><strong>STUDENT COPY</strong></span>
+					<span class="bg-styling"><strong>BANK COPY</strong></span>
 				</div>
 			</div>
-			<table>
+			<table style="line-height: 10px !important;">
 				<tr>
 					<td>Branch Code: ____________________</td>
 					<td>Branch Name: ____________________</td>
@@ -406,10 +322,12 @@
 				</tr>
 				<tr>
 					<td colspan="2">
-						<table >
+						<table style="line-height: 10px !important;">
 							<tr>
-								<td>Student Name: ____________________</td>
-								<td>Father Name: ____________________</td>
+								<td colspan="2">Student Name: ________________________________________</td>
+							</tr>
+							<tr>
+								<td colspan="2">Father Name: ________________________________________</td>
 							</tr>
 							<tr>
 								<td>Diploma: ____________________</td>
@@ -417,7 +335,7 @@
 							</tr>
 							<tr>
 								<td>Contact: ____________________</td>
-								<td>On Account Of: <em>Admission 1st Year
+								<td>On Account Of: <em> ASA Hostel Fee 1st Year
 									</em></td>
 							</tr>
 						</table>
@@ -432,77 +350,33 @@
 							<tbody>
 							<tr>
 								<td>1</td>
-								<td>Annual admission fee for Govt. Treasury (A)</td>
-								<td>1000</td>
+								<td>Annual Hostel Fee (Non Refundable)</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>2</td>
-								<td>Registration fee (Ist year) (B)</td>
-								<td>9000</td>
+								<td> Furniture Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>3</td>
-								<td>Annual Promotion Fee (C)</td>
-								<td>0</td>
+								<td>Karakary Fund</td>
+								<td>1000</td>
 							</tr>
 							<tr>
 								<td>4</td>
-								<td>Documents verification fee (D)</td>
-								<td>700</td>
+								<td>Annual Electricity and Gas Charges</td>
+								<td>2000</td>
 							</tr>
 							<tr>
 								<td>5</td>
-								<td>Annual Affiliation Fee (E)</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>I) Annual/ Semester Examination Fee</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>II) Sports Fund</td>
+								<td>Hostel Security (Refundable)</td>
 								<td>1000</td>
 							</tr>
-							<tr>
-								<td>8</td>
-								<td>III) Study Tour</td>
-								<td>1500</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>IV) Miscellinous fund</td>
-								<td>1000</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>V) Library fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>11</td>
-								<td>VI) Masjid Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>12</td>
-								<td>VII) Student Card (Ist year)</td>
-								<td>200</td>
-							</tr>
-							<tr>
-								<td>13</td>
-								<td>VIII) Furniture Fund</td>
-								<td>500</td>
-							</tr>
-							<tr>
-								<td>14</td>
-								<td>IX) Security (Refundable Ist year)</td>
-								<td>2000</td>
-							</tr>
+
 							</tbody>
 						</table>
-						<p>Total Amount: 20900</p>
+						<p>Total Amount: 7000</p>
 
 						<table>
 							<tr>
@@ -518,6 +392,9 @@
 				</tr>
 			</table>
 		</div>
+
+
+
 	</div>
 </div>
 
