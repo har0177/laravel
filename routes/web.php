@@ -30,9 +30,9 @@ Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'meri
 /*Route::get( '/admission-challan', function(){
   return view('hostel-first-year');
 } );*/
-Route::get( '/download', function(){
+/*Route::get( '/download', function(){
   return view('download');
-} )->name('download');
+} )->name('download');*/
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
   Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );

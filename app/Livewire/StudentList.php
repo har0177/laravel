@@ -108,7 +108,7 @@ class StudentList extends Component
            ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' )
            ->orWhere( 'cnic', 'LIKE', '%' . $this->search . '%' );
       } );
-    } )->orWhereHas( 'student', function( $qq ) {
+    } )->whereHas( 'student', function( $qq ) {
       $qq->where( 'status', 'Active' );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $students = $query->paginate( 10 );

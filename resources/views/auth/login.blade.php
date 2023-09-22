@@ -56,13 +56,13 @@
         </form>
 
 
-	    <div class="mt-4">
+	   {{-- <div class="mt-4">
 		    <p class="text-sm text-gray-600">
 			    {{ __("Don't have an account?") }}
 			    <a href="{{ route('register') }}" class="text-indigo-600 hover:underline">
 				    {{ __('Register now') }}
 			    </a>
-		    </p>
+		    </p>--}}
 	    </div>
     </x-authentication-card>
 </x-guest-layout>
