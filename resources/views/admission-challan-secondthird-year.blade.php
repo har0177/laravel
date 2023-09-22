@@ -91,6 +91,9 @@
 								<td>On Account Of: <em>Admission 2nd / 3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -171,9 +174,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>0</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>16200</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 16200</p>
 
 						<table>
 							<tr>
@@ -259,6 +265,9 @@
 								<td>On Account Of: <em>Admission 2nd / 3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -339,9 +348,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>0</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>16200</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 16200</p>
 
 						<table>
 							<tr>
@@ -357,6 +369,7 @@
 				</tr>
 			</table>
 		</div>
+
 		<div class="table-container">
 			<div style="
         display: flex;
@@ -427,6 +440,9 @@
 								<td>On Account Of: <em>Admission 2nd / 3rd Year
 									</em></td>
 							</tr>
+							<tr>
+								<td colspan="2" class="text-center"><strong>ASA ADMISSION FEE</strong></td>
+							</tr>
 						</table>
 						<table border="1" class="table">
 							<thead>
@@ -507,9 +523,12 @@
 								<td>IX) Security (Refundable Ist year)</td>
 								<td>0</td>
 							</tr>
+							<tr style="font-size: 14px; font-weight: bolder">
+								<td colspan="2">Total Amount</td>
+								<td>16200</td>
+							</tr>
 							</tbody>
 						</table>
-						<p>Total Amount: 16200</p>
 
 						<table>
 							<tr>
@@ -525,7 +544,6 @@
 				</tr>
 			</table>
 		</div>
-
 
 	</div>
 </div>
