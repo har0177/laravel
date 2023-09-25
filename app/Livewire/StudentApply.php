@@ -19,7 +19,7 @@ class StudentApply extends Component
   public $challan_number     = '';
   public $diplomaName        = '';
   #[Rule( 'required|array|min:1' )]
-  public $quota              = [ '33' ];
+  public $quota              = [];
   public $quotaList          = '';
   public $user               = '';
   public $status             = 'Pending';
@@ -92,6 +92,15 @@ class StudentApply extends Component
       $quotaName = Taxonomy::where( 'id', $selectedQuota )->first()->name;
       if( str_contains( $quotaName, 'Female' ) && $user->gender->name === 'Male' ) {
         $this->addError( 'quota', 'You cannot apply for Female Quota' );
+        return true;
+      }
+      
+      if( str_contains( $quotaName, 'Minority' ) && $user->religion->name === 'Islam' ) {
+        $this->addError( 'quota', 'You cannot apply for Minority Quota' );
+        return true;
+      }
+      if( str_contains( $quotaName, 'Minority' ) && count( $this->quota ) > 1 ) {
+        $this->addError( 'quota', 'Minority can only apply to Minority quota' );
         return true;
       }
       if( $user->gender->name === 'Female' && !in_array( $user->district_id,

@@ -35,7 +35,7 @@ class ProjectList extends Component
   #[Rule( 'required' )]
   public $fee         = '';
   #[Rule( 'required|array' )]
-  public $quota       = ['33'];
+  public $quota       = [];
   public $quotaList   = '';
   #[Rule( 'required' )]
   public $expiry_date = '';
@@ -45,7 +45,7 @@ class ProjectList extends Component
   public function mount()
   {
     $this->diplomaList = Taxonomy::whereType( TaxonomyTypeEnum::DIPLOMA )->get();
-    $this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where('id', '!=', 33)->get();
+    $this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->get();
   }
   
   public function render()
