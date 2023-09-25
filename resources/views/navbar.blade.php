@@ -23,7 +23,7 @@
 						<li class="nav-item">
 							<a class="nav-link d-lg-none" href="{{ route('login') }}">Login</a>
 						</li>
-						@if (Route::has('register'))
+						@if (Route::has('register') && $projects)
 							<li class="nav-item">
 								<a class="nav-link d-lg-none" href="{{ route('register') }}">Online Admission</a>
 							</li>
@@ -64,7 +64,7 @@
 						<a class="btn btn-sm btn-dark btn-style" href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard')  : route('student-dashboard')}}">Dashboard</a>
 					@else
 						<a class="btn btn-sm btn-dark btn-style" href="{{ route('login') }}">Login</a>
-						@if (Route::has('register'))
+						@if (Route::has('register') && $projects)
 							<a class="btn btn-sm btn-dark btn-style" href="{{ route('register') }}">Online Admission</a>
 						@endif
 					@endauth

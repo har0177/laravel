@@ -21,7 +21,7 @@
 				<div>
 					<label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Admit In Diploma</label>
 					<div class="relative">
-						<select name="type" disabled id="diploma_id" wire:model.live="diploma_id"
+						<select name="type" disabled id="diploma_id" wire:model="diploma_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Diploma</option>
 							@foreach($diplomaList as $diploma)
@@ -36,6 +36,24 @@
 
 				</div>
 
+
+				<div>
+					<label for="section_id" class="block text-sm font-medium text-gray-700 mb-1">Section</label>
+					<div class="relative">
+						<select name="type" id="section_id" wire:model="section_id"
+						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+							<option>Select Session</option>
+							@foreach($sectionList as $sec)
+								<option value="{{$sec->id}}">{{$sec->name}}</option>
+							@endforeach
+						</select>
+
+					</div>
+					@error('session_id')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+
+				</div>
 
 				<div>
 					<label for="session_id" class="block text-sm font-medium text-gray-700 mb-1">Session</label>

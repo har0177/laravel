@@ -428,6 +428,11 @@
 					</th>
 					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
+							Reg #
+						</div>
+					</th>
+					<th scope="col" class="border px-6 py-3">
+						<div class="flex items-center">
 							First Name
 							<x-sorting name="first_name"/>
 						</div>
@@ -475,6 +480,7 @@
 				@forelse($students as $student)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
+						<td class="border px-4 py-2">{{ $student->student->reg_no }}</td>
 						<td class="border px-4 py-2">{{ $student->first_name }}</td>
 						<td class="border px-4 py-2">{{ $student->last_name }}</td>
 						<td class="border px-4 py-2">{{ $student->phone }}</td>

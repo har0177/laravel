@@ -49,7 +49,8 @@
 								information.
 							</li>
 						</ol>
-			{{--			<br>
+						@if($projects)
+				<br>
 
 						For Any kind of query: WhatsApp on
 						<div style="display: inline-flex; text-decoration: underline">
@@ -70,8 +71,9 @@
 								      clip-rule="evenodd"/>
 							</svg>
 							<a target="_blank" href="http://wa.me/923339327742">923339327742</a></div>
+						@endif
+					</div>
 
-					</div>--}}
 				</div>
 
 				<div class="w-full sm:w-1/2 md:w-1/2 lg:w-1/2 xl:w-1/2 bg-gray-200 bg-opacity-25 p-6 lg:p-8">

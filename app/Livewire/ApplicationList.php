@@ -35,6 +35,7 @@ class ApplicationList extends Component
   
   public $diplomaList = [];
   public $sessionList = [];
+  public $sectionList = [];
   
   public $admitStudent = null;
   public $userId       = '';
@@ -44,9 +45,10 @@ class ApplicationList extends Component
   public $admitPanel   = false;
   
   public $class_no       = 1;
-  public $reg_no         = 'ASA-001';
+  public $reg_no         = 'ASA001';
   public $diploma_id     = null;
   public $session_id     = null;
+  public $section_id     = null;
   public $admission_date = null;
   
   protected $queryString = [
@@ -93,6 +95,8 @@ class ApplicationList extends Component
     $this->last_name = $student->last_name;
     $this->avatar = $student->avatar;
     $this->admission_date = Carbon::parse( now() )->format( 'Y-m-d' );
+    $this->sectionList = Taxonomy::whereType( TaxonomyTypeEnum::SECTION )->where('parent_id', $application->project->diploma_id)->get();
+  
     $this->admitPanel = true;
   }
   
@@ -128,9 +132,11 @@ class ApplicationList extends Component
   
   public function getClassNumber()
   {
-    if( $this->diploma_id && $this->session_id ) {
-      $classNo = Student::where( 'diploma_id', $this->diploma_id )->where( 'session_id',
-        $this->session_id )->latest()->first();
+    if( $this->diploma_id && $this->session_id && $this->section_id ) {
+      $classNo = Student::where( 'diploma_id', $this->diploma_id )
+                        ->where( 'session_id', $this->session_id )
+                        ->where( 'section_id', $this->section_id )
+                        ->latest()->first();
       if( $classNo ) {
         $this->class_no = $classNo->class_no + 1;
       }
@@ -144,7 +150,8 @@ class ApplicationList extends Component
       'class_no'       => 'required',
       'admission_date' => 'required',
       'diploma_id'     => 'required',
-      'session_id'     => 'required'
+      'session_id'     => 'required',
+      'section_id'     => 'required'
     ];
     
     $validate = $this->validate( $validateRules );

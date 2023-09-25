@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\NewsEvents;
+use App\Models\Project;
 use App\Models\Slide;
 use Livewire\Component;
 
@@ -14,8 +15,7 @@ class HomePage extends Component
   
   public function mount()
   {
-    $this->events = NewsEvents::where('expiry_date', '>', now())->limit(10)->get();
-    
+    $this->events = NewsEvents::where( 'expiry_date', '>', now() )->limit( 10 )->get();
     $carouselItemsData = Slide::whereStatus( 'show' )->get();
     
     $this->carouselItems = $carouselItemsData->map( function( $item ) {
