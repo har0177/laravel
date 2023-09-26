@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Features\SupportFileUploads\FileUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +43,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/events', 'admin.events' )->name( 'events' )->middleware( 'can:manage events' );
   Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
   Route::view( 'admin/taxonomies', 'admin.taxonomies' )->name( 'taxonomies' )->middleware( 'can:manage taxonomies' );
+  Route::view( 'admin/employees', 'admin.employees' )->name( 'employees' )->middleware( 'can:manage employees' );
   
   Route::view( 'admin/merit-lists',
     'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );
@@ -54,6 +54,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'apply', 'student.apply' )->name( 'apply' );
   Route::view( 'apply', 'student.apply' )->name( 'apply' );
   Route::get( 'student-card/{user}', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
+  Route::get( 'employee-card/{employee}', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
   Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
   Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );

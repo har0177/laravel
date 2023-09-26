@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\TaxonomyTypeEnum;
 use App\Mail\ContactFormMail;
 use App\Models\Application;
+use App\Models\Employee;
 use App\Models\Gallery;
 use App\Models\MeritList;
 use App\Models\NewsEvents;
@@ -95,6 +96,11 @@ class HomeController extends Controller
   {
     $user->load( 'student' );
     return view( 'student-card', compact( 'user' ) );
+  }
+  
+  public function employeeCard( Employee $employee )
+  {
+    return view( 'employee-card', compact( 'employee' ) );
   }
   
   public function printForm( Application $application )

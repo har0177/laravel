@@ -77,6 +77,11 @@
 							            href="{{ route('students') }}"> Students
 							</x-nav-link>
 						@endcan
+						@can('manage employees')
+							<x-nav-link wire:navigate :active="request()->routeIs('employees')"
+							            href="{{ route('employees') }}"> Employees
+							</x-nav-link>
+						@endcan
 						<x-dropdown>
 							<x-slot name="trigger">
 								<div class="mt-4">
