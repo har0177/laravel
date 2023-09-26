@@ -160,30 +160,25 @@
 
 <div class="card" id="section-overview" style="border: none">
 
-				<img src="{{asset('employee-card.jpg')}}" class="idcard"/>
+	<img src="{{asset('employee-card.jpg')}}" class="idcard"/>
 
-				@if($employee->image !== null)
-					<img class="image img-rounded" alt="{{$employee->full_name}}"
-					     src="{{asset('assets/employee').'/'. $employee->image}}">
-				@else
-					<img class="image img-rounded" alt="{{$employee->full_name}}"
-					     src="{{asset('assets/employee/profile.png')}}">
-				@endif
-				<img class="image2" src="{{asset('assets/sign.png')}}">
-				<p class="name">{{ucwords(strtoupper($employee->full_name))}}</p>
-				<p class="designation">{{ucwords(strtoupper($employee->designation))}}</p>
-				<p class="personal">{{$employee->personal_number}}</p>
-				<p class="phone">{{$employee->contact_number}}</p>
-				<p class="fname">{{ucfirst($employee->father_name)}}</p>
-				<p class="nic">{{$employee->nic}}</p>
-				<p class="dob">{{$employee->dob}}</p>
-				<p class="designation2">{{$employee->designation}}</p>
-				<p class="bps">{{$employee->bps}}</p>
-				<p class="address">{!! wordwrap(ucfirst($employee->address),36,"<br>\n") !!}</p>
-				<p class="emergency">{{$employee->emergency_number}}</p>
-				<p class="bgroup">{{$employee->blood_group}}</p>
+	<img class="image img-rounded" alt="{{$employee->full_name}}"
+	     src="{{$employee->getFirstMediaUrl( 'avatars' )}}">
+	<img class="image2" src="{{asset('sign.png')}}">
+	<p class="name">{{ucwords(strtoupper($employee->full_name))}}</p>
+	<p class="designation">{{ucwords(strtoupper($employee->designation))}}</p>
+	<p class="personal">{{$employee->personal_number}}</p>
+	<p class="phone">{{$employee->contact_number}}</p>
+	<p class="fname">{{ucfirst($employee->father_name)}}</p>
+	<p class="nic">{{$employee->nic}}</p>
+	<p class="dob">{{$employee->dob}}</p>
+	<p class="designation2">{{$employee->designation}}</p>
+	<p class="bps">{{$employee->bps}}</p>
+	<p class="address">{!! wordwrap(ucfirst($employee->address),36,"<br>\n") !!}</p>
+	<p class="emergency">{{$employee->emergency_number}}</p>
+	<p class="bgroup">{{$employee->bloodGroup->name}}</p>
 
 
-	</div>
+</div>
 </body>
 </html>
