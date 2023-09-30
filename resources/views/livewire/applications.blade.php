@@ -223,8 +223,7 @@
 					</th>
 					<th scope="col" class="px-6 py-3">
 						<div class="flex items-center">
-							Hostel Required
-							<x-sorting name="hostel"/>
+							Documents
 						</div>
 					</th>
 					<th scope="col" class="px-6 py-3">
@@ -252,10 +251,18 @@
 						<td class="border px-4 py-2">{{ $application->application_number }}</td>
 						<td class="border px-4 py-2">{{ $application->user->full_name }}</td>
 						<td class="border px-4 py-2">{{ $application->project->diploma->name}}</td>
-						<td class="border px-4 py-2">  @if ($application->hostel)
-								<x-badge text="Yes" color="green"/>
-							@else
-								<x-badge text="No" color="indigo"/>
+						<td class="border px-4 py-2">
+							@if ($application->user->hasMedia('dmc'))
+								<a href="{{ $application->user->getFirstMediaUrl('dmc') }}" target="_blank"
+								   class="text-blue-500 hover:underline">DMC (Matric)</a>
+							@endif
+							@if ($application->user->hasMedia('domicile'))
+								<a href="{{ $application->user->getFirstMediaUrl('domicile') }}" target="_blank"
+								   class="text-blue-500 hover:underline">Domicile</a>
+							@endif
+							@if ($application->user->hasMedia('cnic'))
+								<a href="{{ $application->user->getFirstMediaUrl('cnic') }}" target="_blank"
+								   class="text-blue-500 hover:underline">CNIC/FormB</a>
 							@endif</td>
 						<td class="border px-4 py-2">
 							<ul class="list-disc list-inside">

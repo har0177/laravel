@@ -105,6 +105,8 @@ class User extends Authenticatable implements HasMedia
   {
     return $query->whereNotNull( 'email_verified_at' );
   }
+	
+		
   
   public function getFullNameAttribute()
   {

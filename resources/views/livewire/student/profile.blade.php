@@ -5,7 +5,7 @@
 	@endif
 	@if (session()->has('error'))
 		<x-flash-error-message message="{{ session('error') }}"/>
-@endif
+	@endif
 <!-- Card Header -->
 	<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 		<h1 class="text-xl text-white font-semibold">Update Profile</h1>
@@ -320,6 +320,52 @@
 		</button>
 
 	</form>
+	<br>
+	<br>
+	@if(!empty($cnicPdf) && !empty($domicilePdf) && !empty($dmcPdf))
+		<div class="bg-white shadow-md rounded-lg overflow-hidden">
+			<div class="bg-indigo-600 px-4 py-2">
+				<h3 class="text-xl text-white font-semibold">Documents</h3>
+			</div>
+			<div class="p-4">
+				<table class="w-full border-collapse">
+					<thead>
+					<tr>
+						<th class="py-2 px-4 bg-gray-600  text-white">Serial #</th>
+						<th class="py-2 px-4 bg-gray-600  text-white">Document Name</th>
+						<th class="py-2 px-4 bg-gray-600  text-white">Download</th>
+					</tr>
+					</thead>
+					<tbody>
+					<!-- Add table rows with document information here -->
+					<tr>
+						<td class="py-2 px-4 border">1</td>
+						<td class="py-2 px-4 border ">Domicile</td>
+						<td class="py-2 px-4 border">
+							<a href="{{ $domicilePdf }}" target="_blank" class="text-blue-500 hover:underline">Download</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-4 border">2</td>
+						<td class="py-2 px-4 border">CNIC/FormB</td>
+						<td class="py-2 px-4 border">
+							<a href="{{ $cnicPdf }}" target="_blank" class="text-blue-500 hover:underline">Download</a>
+						</td>
+					</tr>
+					<tr>
+						<td class="py-2 px-4 border">3</td>
+						<td class="py-2 px-4 border">DMC (Matric)</td>
+						<td class="py-2 px-4 border">
+							<a href="{{ $dmcPdf }}" target="_blank" class="text-blue-500 hover:underline">Download</a>
+						</td>
+					</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	@endif
 
 
 </div>

@@ -1,3 +1,9 @@
+@php
+
+	$user = auth()->user();
+
+@endphp
+
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
 	<!-- Primary Navigation Menu -->
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,43 +41,45 @@
 
 					@else
 
-						<x-dropdown>
-							<x-slot name="trigger">
-								<div class="mt-4">
-									<button type="button"
-									        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-										Roles & Users
+						@if($user->can('manage roles') || $user->can('manage users'))
+							<x-dropdown>
+								<x-slot name="trigger">
+									<div class="mt-4">
+										<button type="button"
+										        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+											Roles & Users
 
-										<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-										     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round"
-											      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-										</svg>
-									</button>
-								</div>
-
-
-							</x-slot>
-
-							<x-slot name="content">
-
-								@can('manage roles')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('roles')"
-									                 href="{{ route('roles') }}"> Roles
-									</x-dropdown-link>
-								@endcan
-								@can('manage users')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users') }}">
-										Administrative Users
-									</x-dropdown-link>
-									<x-dropdown-link wire:navigate :active="request()->routeIs('registeredUsers')"
-									                 href="{{ route('registeredUsers') }}"> Registered Users
-									</x-dropdown-link>
-								@endcan
+											<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+											     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round"
+												      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+											</svg>
+										</button>
+									</div>
 
 
-							</x-slot>
-						</x-dropdown>
+								</x-slot>
+
+								<x-slot name="content">
+
+									@can('manage roles')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('roles')"
+										                 href="{{ route('roles') }}"> Roles
+										</x-dropdown-link>
+									@endcan
+									@can('manage users')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users') }}">
+											Administrative Users
+										</x-dropdown-link>
+										<x-dropdown-link wire:navigate :active="request()->routeIs('registeredUsers')"
+										                 href="{{ route('registeredUsers') }}"> Registered Users
+										</x-dropdown-link>
+									@endcan
+
+
+								</x-slot>
+							</x-dropdown>
+						@endcan
 						@can('manage students')
 							<x-nav-link wire:navigate :active="request()->routeIs('students')"
 							            href="{{ route('students') }}"> Students
@@ -82,47 +90,49 @@
 							            href="{{ route('employees') }}"> Employees
 							</x-nav-link>
 						@endcan
-						<x-dropdown>
-							<x-slot name="trigger">
-								<div class="mt-4">
-									<button type="button"
-									        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-										Projects
+						@if($user->can('manage projects') || $user->can('manage applications') || $user->can('generate merit-list'))
+							<x-dropdown>
+								<x-slot name="trigger">
+									<div class="mt-4">
+										<button type="button"
+										        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+											Projects
 
-										<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-										     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round"
-											      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-										</svg>
-									</button>
-								</div>
+											<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+											     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round"
+												      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+											</svg>
+										</button>
+									</div>
 
 
-							</x-slot>
+								</x-slot>
 
-							<x-slot name="content">
+								<x-slot name="content">
 
-								@can('manage projects')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('projects')"
-									                 href="{{ route('projects') }}">
-										Projects
-									</x-dropdown-link>
-								@endcan
-								@can('manage applications')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('applications')"
-									                 href="{{ route('applications') }}">
-										Applications
-									</x-dropdown-link>
-								@endcan
-								@can('generate merit-list')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('merit-lists')"
-									                 href="{{ route('merit-lists') }}">
-										Merit List
-									</x-dropdown-link>
-								@endcan
+									@can('manage projects')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('projects')"
+										                 href="{{ route('projects') }}">
+											Projects
+										</x-dropdown-link>
+									@endcan
+									@can('manage applications')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('applications')"
+										                 href="{{ route('applications') }}">
+											Applications
+										</x-dropdown-link>
+									@endcan
+									@can('generate merit-list')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('merit-lists')"
+										                 href="{{ route('merit-lists') }}">
+											Merit List
+										</x-dropdown-link>
+									@endcan
 
-							</x-slot>
-						</x-dropdown>
+								</x-slot>
+							</x-dropdown>
+						@endcan
 						@can('manage taxonomies')
 							<x-dropdown>
 								<x-slot name="trigger">
@@ -160,46 +170,47 @@
 								</x-slot>
 							</x-dropdown>
 						@endcan
-						<x-dropdown>
-							<x-slot name="trigger">
-								<div class="mt-4">
-									<button type="button"
-									        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
-										Front Pages
+						@if($user->can('manage events') || $user->can('manage slides')|| $user->can('manage gallery'))
+							<x-dropdown>
+								<x-slot name="trigger">
+									<div class="mt-4">
+										<button type="button"
+										        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+											Front Pages
 
-										<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
-										     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-											<path stroke-linecap="round" stroke-linejoin="round"
-											      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
-										</svg>
-									</button>
-								</div>
-
-
-							</x-slot>
-
-							<x-slot name="content">
-
-								@can('manage events')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
-										Events
-									</x-dropdown-link>
-								@endcan
-								@can('manage slides')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
-										Slides
-									</x-dropdown-link>
-								@endcan
-								@can('manage gallery')
-									<x-dropdown-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
-										Gallery
-									</x-dropdown-link>
-								@endcan
+											<svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+											     viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+												<path stroke-linecap="round" stroke-linejoin="round"
+												      d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
+											</svg>
+										</button>
+									</div>
 
 
-							</x-slot>
-						</x-dropdown>
+								</x-slot>
 
+								<x-slot name="content">
+
+									@can('manage events')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
+											Events
+										</x-dropdown-link>
+									@endcan
+									@can('manage slides')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
+											Slides
+										</x-dropdown-link>
+									@endcan
+									@can('manage gallery')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
+											Gallery
+										</x-dropdown-link>
+									@endcan
+
+
+								</x-slot>
+							</x-dropdown>
+						@endif
 					@endif
 				</div>
 			</div>

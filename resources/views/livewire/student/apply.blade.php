@@ -73,6 +73,58 @@
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between rounded-t-lg">
 			<h1 class="text-xl text-white font-semibold">Online Project Applications</h1>
 		</div>
+		@if(!$documentStatus)
+		<form class="py-6 px-4 sm:px-6" wire:submit.prevent="uploadDocuments">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+					<div>
+
+
+						<label for="domicile" class="block text-sm font-medium text-gray-700 mb-1">Domicile</label>
+						<input wire:model="domicile" accept="pdf" type="file" id="domicile"
+						       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
+						<div wire:loading wire:target="domicile">
+							<span class="text-green-500"> Uploading ... </span>
+						</div>
+						@error('domicile')
+						<span class="text-red-600 text-sm">{{ $message }}</span>
+						@enderror
+					</div>
+
+					<div>
+						<label for="cnic" class="block text-sm font-medium text-gray-700 mb-1">CNIC/FormB</label>
+						<input wire:model="cnic" accept="pdf" type="file" id="cnic"
+						       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
+						<div wire:loading wire:target="cnic">
+							<span class="text-green-500"> Uploading ... </span>
+						</div>
+						@error('cnic')
+						<span class="text-red-600 text-sm">{{ $message }}</span>
+						@enderror
+					</div>
+
+					<div>
+						<label for="dmc" class="block text-sm font-medium text-gray-700 mb-1">DMC (Matric)</label>
+						<input wire:model="dmc" accept="image/png, image/jpg, image/jpeg" type="file" id="dmc"
+						       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
+						<div wire:loading wire:target="dmc">
+							<span class="text-green-500"> Uploading ... </span>
+						</div>
+						@error('dmc')
+						<span class="text-red-600 text-sm">{{ $message }}</span>
+						@enderror
+					</div>
+
+			</div>
+			<button type="submit"
+			        wire:loading.attr="disabled"
+			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
+				<span wire:loading wire:target="uploadDocuments">Saving...</span>
+				<span wire:loading.remove wire:target="uploadDocuments">Submit</span>
+			</button>
+
+		</form>
+			@endif
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 p-6">
 			@forelse($projects as $project)
 				<div
