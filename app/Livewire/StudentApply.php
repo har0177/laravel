@@ -14,7 +14,7 @@
 				public $editApplication    = null;
 				public $project_id         = '';
 				public $application_number = '';
-				public $challan_number     = '';
+				public $challan     = '';
 				public $diplomaName        = '';
 				#[Rule( 'required|array|min:1' )]
 				public $quota              = [];
@@ -57,7 +57,6 @@
 						$this->editApplication = $application->id;
 						$this->quota = $application->quota;
 						$this->application_number = $application->application_number;
-						$this->challan_number = $application->challan_number;
 						$this->status = $application->status;
 						$this->project_id = $application->project_id;
 						$this->quotaList = $this->quotaList
@@ -231,12 +230,14 @@
 				}
 				public function saveChallan( Application $application )
 				{
-						$this->validate( [
-								'challan_number' => 'required',
-						] );
-						$application->challan_number = $this->challan_number;
-						$application->save();
+						if(empty($this->challan)){
+								$this->addError( 'challan', 'Please Select Challan' );
+								return true;
+						}
+						$application->clearMediaCollection( 'challan' );
+						$application->addMedia( $this->challan )->toMediaCollection( 'challan' );
 						// Add any success message if needed
-						session()->flash( 'success', 'Challan Number submitted successfully.' );
+						$this->challan = '';
+						session()->flash( 'success', 'Challan submitted successfully.' );
 				}
 		}

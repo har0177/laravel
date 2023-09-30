@@ -74,8 +74,8 @@
 			<h1 class="text-xl text-white font-semibold">Online Project Applications</h1>
 		</div>
 		@if(!$documentStatus)
-		<form class="py-6 px-4 sm:px-6" wire:submit.prevent="uploadDocuments">
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+			<form class="py-6 px-4 sm:px-6" wire:submit.prevent="uploadDocuments">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
 					<div>
 
@@ -115,16 +115,16 @@
 						@enderror
 					</div>
 
-			</div>
-			<button type="submit"
-			        wire:loading.attr="disabled"
-			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
-				<span wire:loading wire:target="uploadDocuments">Saving...</span>
-				<span wire:loading.remove wire:target="uploadDocuments">Submit</span>
-			</button>
+				</div>
+				<button type="submit"
+				        wire:loading.attr="disabled"
+				        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
+					<span wire:loading wire:target="uploadDocuments">Saving...</span>
+					<span wire:loading.remove wire:target="uploadDocuments">Submit</span>
+				</button>
 
-		</form>
-			@endif
+			</form>
+		@endif
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 p-6">
 			@forelse($projects as $project)
 				<div
@@ -140,7 +140,7 @@
 							class="text-red-600">{{ \Carbon\Carbon::make( $project->expiry_date )->format( 'd-m-Y H:i:s A' ) }}</small>
 						<div>
 							@if(count($project->applications) > 0)
-								@if(empty($project->applications[0]->challan_number))
+								@if(!$project->applications[0]->hasMedia('challan'))
 									<x-button class="ml-3 mb-3" wire:click="edit({{ $project->applications[0]->id}})"
 									          wire:loading.attr="disabled">
 										Edit Application
@@ -160,16 +160,24 @@
 					</div>
 
 					@if(count($project->applications) > 0)
-						@if(empty($project->applications[0]->challan_number))
+						@if($project->applications[0]->hasMedia('challan'))
+							<div class="py-2 px-4 text-center text-white rounded-t-lg">
+										<span
+											class="px-2 py-1 text-sm font-semibold rounded-lg text-{{$project->applications[0]->status === 'Pending' ? 'red' : 'green'}}-600">Payment Status: {{$project->applications[0]->status}}</span>
+
+							</div>
+						@else
 							<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- in any NBP Bank by printing
 								the challan
 								form and then submit bank computerized challan number here.</p>
 							<div class="items-center bg-gray-100 p-3">
 
 								<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
-									<input wire:model="challan_number" name="challan_number" type="text" placeholder="Enter Challan Number"
-									       class="px-2 py-1 border rounded-md focus:outline-none focus:border-blue-500">
-
+									<input wire:model="challan" accept="application/pdf" type="file" id="challan"
+									       class="ring-1 ring-inset ring-gray-300 bg-gray-100 text-gray-900 text-sm rounded block w-full">
+									<div wire:loading wire:target="challan">
+										<span class="text-green-500"> Uploading ... </span>
+									</div>
 									<button type="submit"
 									        class="ml-2 px-3 py-1 bg-indigo-500 text-white rounded-md hover:bg-indigo-700 transition duration-300">
 										Submit
@@ -177,19 +185,12 @@
 
 								</form>
 
-								@error('challan_number')
+								@error('challan')
 								<span class="text-red-600 text-sm">{{ $message }}</span>
 								@enderror
 							</div>
-						@else
-							<div class="py-2 px-4 text-center text-white rounded-t-lg">
-										<span
-											class="px-2 py-1 text-sm font-semibold rounded-lg text-{{$project->applications[0]->status === 'Pending' ? 'red' : 'green'}}-600">Payment Status: {{$project->applications[0]->status}}</span>
-								<a target="_blank" href="{{ route('print-form', ['application' => $project->applications[0]]) }}"
-								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-									Download Form
-								</a>
-							</div>
+
+
 						@endif
 					@endif
 				</div>

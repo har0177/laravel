@@ -263,7 +263,12 @@
 							@if ($application->user->hasMedia('cnic'))
 								<a href="{{ $application->user->getFirstMediaUrl('cnic') }}" target="_blank"
 								   class="text-blue-500 hover:underline">CNIC/FormB</a>
-							@endif</td>
+							@endif
+								@if ($application->hasMedia('challan'))
+									<a href="{{ $application->getFirstMediaUrl('challan') }}" target="_blank"
+									   class="text-blue-500 hover:underline">Challan</a>
+								@endif
+						</td>
 						<td class="border px-4 py-2">
 							<ul class="list-disc list-inside">
 
