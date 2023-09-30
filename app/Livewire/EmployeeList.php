@@ -87,7 +87,7 @@ class EmployeeList extends Component
       } );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
     $employees = $query->paginate( 10 );
-    return view( 'livewire.Employees', [
+    return view( 'livewire.employees', [
       'employees' => $employees
     ] );
   }

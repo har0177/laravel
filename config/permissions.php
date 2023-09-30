@@ -240,4 +240,37 @@ return [
     ],
   ],
 
+
+  /*----------------------------------------
+*   Employees Permissions
+* ----------------------------------------
+*/
+  'Employees'    => [
+		  'title'       => 'Employees',
+		  'description' => 'Manage Employees Permissions',
+		  'abilities'   => [
+				
+				  'manage employees' => [
+						  'title' => 'Manage Employees Listing',
+				  ],
+				
+				  'add employee' => [
+						  'title' => 'Add Employee',
+				  ],
+				
+				  'view employee' => [
+						  'title' => 'View Employee',
+				  ],
+				
+				  'edit employee' => [
+						  'title' => 'Edit Employee',
+				  ],
+				
+				  'delete employee' => [
+						  'title' => 'Delete Employee',
+				  ],
+		
+		  ],
+  ],
+
 ];
