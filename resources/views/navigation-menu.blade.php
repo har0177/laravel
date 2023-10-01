@@ -206,6 +206,11 @@
 											Gallery
 										</x-dropdown-link>
 									@endcan
+									@can('manage contents')
+										<x-dropdown-link wire:navigate :active="request()->routeIs('contents')" href="{{ route('contents') }}">
+											Course Content
+										</x-dropdown-link>
+									@endcan
 
 
 								</x-slot>
@@ -317,12 +322,21 @@
 					</x-responsive-nav-link>
 				</div>
 			@endcan
+
 			@can('manage users')
 				<div class="pt-2 pb-3 space-y-1">
-					<x-responsive-nav-link wire:navigate :active="request()->routeIs('users')" href="{{ route('users') }}">
-						Users
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('users')"
+					                       href="{{ route('users') }}">
+						Administrative Users
 					</x-responsive-nav-link>
 				</div>
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('registeredUsers')"
+					                       href="{{ route('registeredUsers') }}">
+						Registered Users
+					</x-responsive-nav-link>
+				</div>
+
 			@endcan
 			@can('manage students')
 				<div class="pt-2 pb-3 space-y-1">
@@ -331,33 +345,61 @@
 					</x-responsive-nav-link>
 				</div>
 			@endcan
-			<div class="pt-2 pb-3 space-y-1">
-				<x-responsive-nav-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
-					Events
-				</x-responsive-nav-link>
-			</div>
-			<div class="pt-2 pb-3 space-y-1">
-				<x-responsive-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
-					Slides
-				</x-responsive-nav-link>
-			</div>
-			<div class="pt-2 pb-3 space-y-1">
-				<x-responsive-nav-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
-					Gallery
-				</x-responsive-nav-link>
-			</div>
-			<div class="pt-2 pb-3 space-y-1">
-				<x-responsive-nav-link wire:navigate :active="request()->routeIs('projects')"
-				                       href="{{ route('projects') }}">
-					Projects
-				</x-responsive-nav-link>
-			</div>
-			<div class="pt-2 pb-3 space-y-1">
-				<x-responsive-nav-link wire:navigate :active="request()->routeIs('applications')"
-				                       href="{{ route('applications') }}">
-					Applications
-				</x-responsive-nav-link>
-			</div>
+			@can('manage employees')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('employees')"
+					                       href="{{ route('employees') }}"> Employees
+					</x-responsive-nav-link>
+				</div>
+			@endcan
+			@can('manage events')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('events')" href="{{ route('events') }}">
+						Events
+					</x-responsive-nav-link>
+				</div>
+			@endcan
+			@can('manage slides')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('slides')" href="{{ route('slides') }}">
+						Slides
+					</x-responsive-nav-link>
+				</div>
+			@endcan
+			@can('manage gallery')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('gallery')" href="{{ route('gallery') }}">
+						Gallery
+					</x-responsive-nav-link>
+				</div>
+			@endcan
+			@can('manage projects')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('projects')"
+					                       href="{{ route('projects') }}">
+						Projects
+					</x-responsive-nav-link>
+				</div>
+			@endcan
+			@can('manage applications')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('applications')"
+					                       href="{{ route('applications') }}">
+						Applications
+					</x-responsive-nav-link>
+
+				</div>
+			@endcan
+			@can('generate merit-list')
+				<div class="pt-2 pb-3 space-y-1">
+					<x-responsive-nav-link wire:navigate :active="request()->routeIs('merit-lists')"
+					                       href="{{ route('merit-lists') }}">
+						Merit List
+					</x-responsive-nav-link>
+				</div>
+		@endcan
+
+
 	@endif
 
 	<!-- Responsive Settings Options -->

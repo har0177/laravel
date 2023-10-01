@@ -44,6 +44,7 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
   Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
   Route::view( 'admin/taxonomies', 'admin.taxonomies' )->name( 'taxonomies' )->middleware( 'can:manage taxonomies' );
   Route::view( 'admin/employees', 'admin.employees' )->name( 'employees' )->middleware( 'can:manage employees' );
+  Route::view( 'admin/contents', 'admin.contents' )->name( 'contents' )->middleware( 'can:manage contents' );
   
   Route::view( 'admin/merit-lists',
     'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );

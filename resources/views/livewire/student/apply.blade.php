@@ -169,7 +169,7 @@
 						@else
 							<p style="color: red" class="px-2">Please Submit the fee of Rs. {{$project->fee}}/- in any NBP Bank by printing
 								the challan
-								form and then submit bank computerized challan number here.</p>
+								form and then submit bank computerized challan scan copy here.</p>
 							<div class="items-center bg-gray-100 p-3">
 
 								<form wire:submit.prevent="saveChallan({{$project->applications[0]->id}})" class="flex items-center">
