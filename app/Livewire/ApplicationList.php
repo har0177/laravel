@@ -12,38 +12,38 @@
 		class ApplicationList extends Component
 		{
 				use WithPagination;
-				public $paid;
-				public $search;
-				public $sortBy             = 'id';
-				public $sortAsc            = true;
-				public $applyPanel         = false;
-				public $editApplication    = null;
-				public $project_id         = '';
-				public $application_number = '';
-				public $challan_number     = '';
-				public $diplomaName        = '';
+				public    $paid;
+				public    $search;
+				public    $sortBy             = 'id';
+				public    $sortAsc            = true;
+				public    $applyPanel         = false;
+				public    $editApplication    = null;
+				public    $project_id         = '';
+				public    $application_number = '';
+				public    $challan_number     = '';
+				public    $diplomaName        = '';
 				#[Rule( 'required|array|min:1' )]
-				public $quota              = [ '33' ];
-				public $quotaList          = '';
-				public $user               = '';
-				public $status             = 'Pending';
-				public $changeStatusId     = '';
-				public $diplomaList = [];
-				public $sessionList = [];
-				public $sectionList = [];
-				public $admitStudent = null;
-				public $userId       = '';
-				public $first_name   = '';
-				public $last_name    = '';
-				public $avatar       = '';
-				public $admitPanel   = false;
-				public $class_no       = 1;
-				public $reg_no         = 'ASA001';
-				public $diploma_id     = null;
-				public $session_id     = null;
-				public $section_id     = null;
-				public $admission_date = null;
-				protected $queryString = [
+				public    $quota              = [ '33' ];
+				public    $quotaList          = '';
+				public    $user               = '';
+				public    $status             = 'Pending';
+				public    $changeStatusId     = '';
+				public    $diplomaList        = [];
+				public    $sessionList        = [];
+				public    $sectionList        = [];
+				public    $admitStudent       = null;
+				public    $userId             = '';
+				public    $first_name         = '';
+				public    $last_name          = '';
+				public    $avatar             = '';
+				public    $admitPanel         = false;
+				public    $class_no           = 1;
+				public    $reg_no             = 'ASA001';
+				public    $diploma_id         = null;
+				public    $session_id         = null;
+				public    $section_id         = null;
+				public    $admission_date     = null;
+				protected $queryString        = [
 						'paid',
 						'search',
 						'sortBy' => [ 'except' => 'id' ],
@@ -70,7 +70,9 @@
 								                           $query->where( 'status', 'Paid' );
 						                           } )
 						                           ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-						                           ->limit( 10 )->paginate( 10 );
+						                           ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
+						                           ->take( 100 ) // Limit to the latest 100 records
+						                           ->paginate( 20 );
 						return view( 'livewire.applications', compact( 'applications' ) );
 				}
 				public function admitAsStudent( Application $application )

@@ -98,8 +98,8 @@ class StudentList extends Component
   
   public function render()
   {
-    $query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
-    $query->when( $this->search, function( $q ) {
+		  $students = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
+		  $students->when( $this->search, function( $q ) {
       return $q->where( function( $qq ) {
         $qq->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
           [ '%' . $this->search . '%' ] )
@@ -110,8 +110,10 @@ class StudentList extends Component
       } );
     } )->whereHas( 'student', function( $qq ) {
       $qq->where( 'status', 'Active' );
-    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $students = $query->paginate( 10 );
+    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+       ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
+       ->take( 100 ) // Limit to the latest 100 records
+       ->paginate( 20 );
     return view( 'livewire.students', [
       'students' => $students
     ] );

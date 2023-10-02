@@ -29,9 +29,11 @@ class GalleryList extends Component
   
   public function render()
   {
-    $query = Gallery::query();
-    $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $gallery = $query->paginate( 10 );
+    $gallery = Gallery::query();
+    $gallery->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+          ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
+          ->take( 100 ) // Limit to the latest 100 records
+          ->paginate( 20 );
     
     return view( 'livewire.gallery', [
       'gallery' => $gallery

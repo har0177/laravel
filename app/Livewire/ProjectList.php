@@ -42,8 +42,8 @@
 				}
 				public function render()
 				{
-						$query = Project::query();
-						$query->when( $this->search, function( $q ) {
+						$projects = Project::query();
+						$projects->when( $this->search, function( $q ) {
 								return $q->where( function( $qq ) {
 										$qq->whereHas( 'diploma', function( $qqq ) {
 												$qqq->where( 'name', 'LIKE', '%' . $this->search . '%' );
@@ -51,8 +51,10 @@
 								} );
 						} )->when( $this->active, function( $q ) {
 								return $q->where( 'expiry_date', '>=', now() );
-						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$projects = $query->paginate( 10 );
+						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
+						         ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
+						         ->take( 100 ) // Limit to the latest 100 records
+						         ->paginate( 20 );
 						return view( 'livewire.projects', [
 								'projects' => $projects
 						] );
