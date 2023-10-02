@@ -10,31 +10,31 @@
 		{
 				use WithPagination;
 				use WithFileUploads;
-				public $search;
-				public $sortBy       = 'id';
-				public $sortAsc      = true;
-				public $create       = false;
-				public $editEmployee = null;
-				public $full_name        = '';
-				public $father_name      = '';
-				public $designation      = '';
-				public $bps              = '';
-				public $personal_number  = '';
-				public $contact_number   = '';
-				public $emergency_number = '';
-				public $nic              = '';
-				public $dob              = '';
-				public $address          = '';
-				public $avatar           = '';
-				public $image            = '';
-				public $status           = 1;
-				public $gender_id        = null;
-				public $blood_group_id   = null;
-				public $genderList       = [];
-				public $bloodGroupList   = [];
-				public $changeStatusId = '';
-				public $errorMessage;
-				protected $queryString = [
+				public    $search;
+				public    $sortBy           = 'id';
+				public    $sortAsc          = true;
+				public    $create           = false;
+				public    $editEmployee     = null;
+				public    $full_name        = '';
+				public    $father_name      = '';
+				public    $designation      = '';
+				public    $bps              = '';
+				public    $personal_number  = '';
+				public    $contact_number   = '';
+				public    $emergency_number = '';
+				public    $nic              = '';
+				public    $dob              = '';
+				public    $address          = '';
+				public    $avatar           = '';
+				public    $image            = '';
+				public    $status           = 1;
+				public    $gender_id        = null;
+				public    $blood_group_id   = null;
+				public    $genderList       = [];
+				public    $bloodGroupList   = [];
+				public    $changeStatusId   = '';
+				public    $errorMessage;
+				protected $queryString      = [
 						'search',
 						'sortBy' => [ 'except' => 'id' ],
 						'sortAsc',
@@ -86,7 +86,7 @@
 								'emergency_number' => $this->emergency_number,
 								'nic'              => $this->nic,
 								'status'           => $this->status,
-								'bps'              => $this->bps,
+								'bps'              => $this->bps
 						];
 						if( !$this->editEmployee ) {
 								$employee = Employee::create( $data );

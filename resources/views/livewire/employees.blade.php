@@ -271,6 +271,11 @@
 					</th>
 					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
+							Card Status
+						</div>
+					</th>
+					<th scope="col" class="border px-6 py-3">
+						<div class="flex items-center">
 							Status
 						</div>
 					</th>
@@ -286,6 +291,13 @@
 						<td class="border px-4 py-2">{{ $employee->designation }}</td>
 						<td class="border px-4 py-2">{{ $employee->contact_number }}</td>
 						<td class="border px-4 py-2">{{ $employee->nic }}</td>
+						<td class="border px-4 py-2">
+							@if ($employee->card_status)
+								<x-badge text="Printed" color="green"/>
+							@else
+								<x-badge text="Not Yet" color="indigo"/>
+							@endif
+						</td>
 						<td class="border px-4 py-2">
 							@if ($employee->status)
 								<x-badge text="Active" color="green"/>
