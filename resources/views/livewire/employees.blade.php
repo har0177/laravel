@@ -204,7 +204,9 @@
 				<span wire:loading wire:target="updateProfile">Saving...</span>
 				<span wire:loading.remove wire:target="updateProfile">Submit</span>
 			</button>
-
+			<x-button type="button" wire:click="toggleSection">
+				Reset
+			</x-button>
 		</form>
 
 

@@ -47,21 +47,25 @@
 						<li><a class="dropdown-item" href="{{route('veterinary-science')}}">Diploma in Veterinary Science</a></li>
 					</ul>
 				</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{route('fee-structure')}}">Fee Structure</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{route('front-gallery')}}">Gallery</a>
-					</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('fee-structure')}}">Fee Structure</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{route('front-gallery')}}">Gallery</a>
+				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('contact')}}">Contact Us</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{asset('Prospectus.pdf')}}">Prospectus</a>
 				</li>
 			</ul>
 			<div class="d-none d-lg-block">
 
 				@if (Route::has('login'))
 					@auth
-						<a class="btn btn-sm btn-dark btn-style" href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard')  : route('student-dashboard')}}">Dashboard</a>
+						<a class="btn btn-sm btn-dark btn-style"
+						   href="{{ auth()->user()->role_name === 'Admin' ? route('dashboard')  : route('student-dashboard')}}">Dashboard</a>
 					@else
 						<a class="btn btn-sm btn-dark btn-style" href="{{ route('login') }}">Login</a>
 						@if (Route::has('register') && $projects)

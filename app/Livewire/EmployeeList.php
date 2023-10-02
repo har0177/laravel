@@ -158,6 +158,7 @@
 						$this->gender_id = $employee->gender_id;
 						$this->blood_group_id = $employee->blood_group_id;
 						$this->address = $employee->address;
+						$this->avatar = $employee->avatar;
 						$this->create = true;
 				}
 				public function changeStatus( Employee $employee )
