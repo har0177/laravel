@@ -23,15 +23,13 @@
 				public function render()
 				{
 						
-						$taxonomies = Taxonomy::where( 'type', $this->type );
-						$taxonomies->when( $this->search, function( $q ) {
+						$query = Taxonomy::where( 'type', $this->type );
+						$query->when( $this->search, function( $q ) {
 								return $q->where( function( $qq ) {
 										$qq->where( 'name', 'LIKE', '%' . $this->search . '%' );
 								} );
-						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-						      ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
-						      ->take( 100 ) // Limit to the latest 100 records
-						      ->paginate( 20 );
+						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+						$taxonomies = $query->paginate( 10 );
 						return view( 'livewire.taxonomies', [
 								'taxonomies' => $taxonomies
 						] );

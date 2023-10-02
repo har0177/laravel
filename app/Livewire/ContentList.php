@@ -23,13 +23,11 @@
 				];
 				public function render()
 				{
-						$contents = Content::query();
-						$contents->when( $this->search, function( $q ) {
+						$query = Content::query();
+						$query->when( $this->search, function( $q ) {
 								return $q->where( "title LIKE ?", [ '%' . $this->search . '%' ] );
-						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-						         ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
-						         ->take( 100 ) // Limit to the latest 100 records
-						         ->paginate( 20 );
+						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+						$contents = $query->paginate( 10 );
 						return view( 'livewire.contents', [
 								'contents' => $contents
 						] );

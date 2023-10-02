@@ -34,11 +34,9 @@ class NewsEventsList extends Component
   
   public function render()
   {
-		  $slides = NewsEvents::query();
-		  $slides->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-          ->latest() // Order by the default timestamp column in descending order (usually 'created_at')
-          ->take( 100 ) // Limit to the latest 100 records
-          ->paginate( 20 );
+    $query = NewsEvents::query();
+    $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+    $slides = $query->paginate( 10 );
     
     return view( 'livewire.events', [
       'events' => $slides
