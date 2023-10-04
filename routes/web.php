@@ -1,31 +1,29 @@
 <?php
-
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
-Route::view( '/', 'welcome' )->name( 'home' );
-Route::view( '/about', 'about' )->name( 'about' );
-Route::view( '/contact', 'contact' )->name( 'contact' );
-Route::view( '/veterinary-science', 'veterinary-science' )->name( 'veterinary-science' );
-Route::view( '/agriculture-science', 'agriculture-science' )->name( 'agriculture-science' );
-Route::view( '/fee-structure', 'fee-structure' )->name( 'fee-structure' );
-
-Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
-Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
+		
+		use App\Http\Controllers\HomeController;
+		use Illuminate\Support\Facades\Route;
+		/*
+		|--------------------------------------------------------------------------
+		| Web Routes
+		|--------------------------------------------------------------------------
+		|
+		| Here is where you can register web routes for your application. These
+		| routes are loaded by the RouteServiceProvider and all of them will
+		| be assigned to the "web" middleware group. Make something great!
+		|
+		*/
+		Route::view( '/', 'welcome' )->name( 'home' );
+		Route::view( '/about', 'about' )->name( 'about' );
+		Route::view( '/contact', 'contact' )->name( 'contact' );
+		Route::view( '/veterinary-science', 'veterinary-science' )->name( 'veterinary-science' );
+		Route::view( '/agriculture-science', 'agriculture-science' )->name( 'agriculture-science' );
+		Route::view( '/fee-structure', 'fee-structure' )->name( 'fee-structure' );
+		Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
+		Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
-Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'merit-list' );
+		Route::get( '/merit-list', [ HomeController::class, 'MeritList' ] )->name( 'merit-list' );
+		Route::get( '/course-content/{content:slug}', [ HomeController::class, 'courseContent' ] )->name( 'course-content' );
 /*Route::get( '/admission-challan', function(){
   return view('hostel-first-year');
 } );*/

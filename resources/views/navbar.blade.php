@@ -56,6 +56,20 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{route('contact')}}">Contact Us</a>
 				</li>
+				@if(count($contents) > 0)
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
+						   data-bs-toggle="dropdown" aria-expanded="false">
+							Course Contents
+						</a>
+						<ul class="dropdown-menu bg-color" aria-labelledby="navbarScrollingDropdown">
+							@foreach($contents as $content)
+								<li><a class="dropdown-item"
+								       href="{{route('course-content',['content' =>  $content->slug])}}">{{$content->title}}</a></li>
+							@endforeach
+						</ul>
+					</li>
+				@endif
 				<li class="nav-item">
 					<a class="nav-link" href="{{asset('Prospectus.pdf')}}">Prospectus</a>
 				</li>

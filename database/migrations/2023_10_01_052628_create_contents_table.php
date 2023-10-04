@@ -1,4 +1,5 @@
 <?php
+		
 		use Illuminate\Database\Migrations\Migration;
 		use Illuminate\Database\Schema\Blueprint;
 		use Illuminate\Support\Facades\Schema;
@@ -12,7 +13,8 @@
 								$table->id();
 								$table->string( 'title' );
 								$table->longText( 'description' );
-								$table->enum( 'status', [ 'Active', 'De-Active' ] );
+								$table->string( 'slug' )->nullable();
+								$table->enum( 'status', [ 'Active', 'De-Active' ] )->default( 'Active' );
 								$table->timestamps();
 						} );
 				}

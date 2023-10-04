@@ -125,20 +125,19 @@
 						</td>
 						<td class="border px-4 py-2">
 							<div class="flex items-center justify-between">
-								<h4 class="text-lg font-bold">{{ $gal->status}}</h4>
+								<h4 class="text-lg font-bold">{{ $gal->status }}</h4>
 								<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
 									<input
 										type="checkbox"
-										id="{{ $gal->index + 1 }}"
+										id="toggle-{{ $gal->id }}"
 										name="status"
 										{{ $gal->status === 'Show' ? 'checked' : '' }}
-										value="{{ $gal->status}}"
-										wire:model="status"
-										wire:click="updateStatus({{$gal->id}})"
+										value="{{ $gal->status }}"
+										wire:click="updateStatus({{ $gal->id }})"
 										class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
 									>
 									<label
-										for="{{ $gal->index + 1 }}"
+										for="toggle-{{ $gal->id }}"
 										class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
 									></label>
 								</div>

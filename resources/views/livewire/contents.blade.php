@@ -7,7 +7,7 @@
 	@endif
 
 
-	@if($create)
+@if($create)
 
 	<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
@@ -17,38 +17,53 @@
 
 		<!-- Card Body -->
 		<form class="py-6 px-4 sm:px-6" wire:submit.prevent="store">
-			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-				<!-- Name field -->
-				<div>
-					<label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-					<input id="title" name="title" type="text" wire:model="title"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					       placeholder="John Doe">
-					@error('title')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-
-				</div>
-				<!-- Last Name field -->
-				<div>
-					<label for="description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-					<textarea id="description" name="description" wire:model="description"
-					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-					></textarea>
-					@error('description')
-					<span class="text-red-600 text-sm">{{ $message }}</span>
-					@enderror
-				</div>
-
-
+			<!-- Name field -->
+			<div>
+				<label for="title" class="block text-sm font-medium text-gray-700 mb-1">Title</label>
+				<input id="title" name="title" type="text" wire:model="title"
+				       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+				       placeholder="John Doe">
+				@error('title')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
 
 			</div>
+			<!-- Last Name field -->
+			<div>
+				<label for="editor" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+				<div wire:ignore>
+					<div x-data x-ref="description">
+						<div x-init="
+            if (!$refs.description.quill) {
+                const quill = new Quill($refs.description, {
+                    theme: 'snow'
+                });
+                quill.on('text-change', () => {
+                    $wire.set('description', quill.root.innerHTML);
+                });
+                $refs.description.quill = quill; // Store the Quill instance in the element
+            }">
+							{!! $description !!}
+						</div>
+					</div>
+				</div>
+
+
+				@error('description')
+				<span class="text-red-600 text-sm">{{ $message }}</span>
+				@enderror
+			</div>
+
+
 			<button type="submit"
 			        wire:loading.attr="disabled"
 			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
 				<span wire:loading wire:target="updateProfile">Saving...</span>
 				<span wire:loading.remove wire:target="updateProfile">Submit</span>
 			</button>
+			<x-button type="button" wire:click="toggleSection">
+				Reset
+			</x-button>
 
 		</form>
 
@@ -96,7 +111,11 @@
 				Description
 						</div>
 					</th>
-
+					<th scope="col" class="px-6 py-3">
+						<div class="flex items-center">
+							Status
+						</div>
+					</th>
 					<th class="border px-4 py-2" width="150px">Action</th>
 				</tr>
 				</thead>
@@ -105,8 +124,27 @@
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
 						<td class="border px-4 py-2">{{ $content->title }}</td>
-						<td class="border px-4 py-2">{{ $content->description }}</td>
-
+						<td class="border px-4 py-2">{!! mb_strimwidth($content->description, 0, 350, '...'); !!}</td>
+						<td class="border px-4 py-2">
+							<div class="flex items-center justify-between">
+								<h4 class="text-lg font-bold">{{ $content->status }}</h4>
+								<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
+									<input
+										type="checkbox"
+										id="toggle-{{ $content->id }}"
+										name="status"
+										{{ $content->status === 'Active' ? 'checked' : '' }}
+										value="{{ $content->status }}"
+										wire:click="updateStatus({{ $content->id }})"
+										class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+									>
+									<label
+										for="toggle-{{ $content->id }}"
+										class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+									></label>
+								</div>
+							</div>
+						</td>
 						<td class="border px-4 py-2">
 							<div class="flex h-full items-center">
 

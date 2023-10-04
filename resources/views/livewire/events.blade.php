@@ -163,6 +163,11 @@
 							@endif
 						</td>
 						<td class="border px-4 py-2">
+							<x-button class="ml-3" wire:click="edit({{$event->id}})" title="Edit Event Form"
+							          wire:loading.attr="disabled">
+								<i class="fas fa-edit"></i>
+							</x-button>
+
 							<x-danger-button wire:click="deleteEvent({{$event->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-trash-alt"></i>
 							</x-danger-button>

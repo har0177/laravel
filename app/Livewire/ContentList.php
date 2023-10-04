@@ -55,6 +55,13 @@
 						$this->toggleSection();
 						
 				}
+				public function updateStatus( Content $content )
+				{
+						$status = $content->status === 'Active' ? 'De-Active' : 'Active';
+						$content->status = $status;
+						$content->save();
+						session()->flash( 'success', 'Content Status changed Successfully.' );
+				}
 				public function toggleSection()
 				{
 						$this->create = false;

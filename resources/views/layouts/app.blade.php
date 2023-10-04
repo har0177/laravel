@@ -6,20 +6,23 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 
 	<title>{{ config('app.name', 'Laravel') }}</title>
+	<link href="{{asset('css/app.css')}}" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link rel="preconnect" href="https://fonts.bunny.net">
 	<link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
 	<link href="{{asset('css/app.css')}}" rel="stylesheet">
 
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
-	<!-- Scripts -->
 
-	<!-- Styles -->
-	@livewireStyles
 	@stack('styles')
+	<style>
+     .ql-editor {
+         height: 300px;
+     }
+	</style>
 </head>
 <body class="font-sans antialiased">
 <x-banner/>
@@ -47,8 +50,8 @@
 	</main>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
 
-@livewireScripts
 
 @stack('scripts')
 

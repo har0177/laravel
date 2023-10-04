@@ -3,6 +3,7 @@
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Mail\ContactFormMail;
 		use App\Models\Application;
+		use App\Models\Content;
 		use App\Models\Employee;
 		use App\Models\Gallery;
 		use App\Models\MeritList;
@@ -24,12 +25,18 @@
 						if( auth()->user()->role->id === User::ROLE_STUDENT ) {
 								$redirect = route( 'student-dashboard' );
 						}
+						
 						return redirect( $redirect );
 				}
 				public function frontGallery()
 				{
 						$images = Gallery::where( 'status', 'Show' )->paginate( 10 );
+						
 						return view( 'frontGallery', compact( 'images' ) );
+				}
+				public function courseContent( Content $content )
+				{
+						return view( 'course-content', compact( 'content' ) );
 				}
 				public function dashboard()
 				{

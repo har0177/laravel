@@ -148,25 +148,25 @@
 						</td>
 						<td class="border px-4 py-2">
 							<div class="flex items-center justify-between">
-								<h4 class="text-lg font-bold">{{ $slide->status}}</h4>
+								<h4 class="text-lg font-bold">{{ $slide->status }}</h4>
 								<div class="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
 									<input
 										type="checkbox"
-										id="{{ $loop->index + 1 }}"
+										id="toggle-{{ $slide->id }}"
 										name="status"
 										{{ $slide->status === 'Show' ? 'checked' : '' }}
-										value="{{ $slide->status}}"
-										wire:model="status"
-										wire:click="updateStatus({{$slide->id}})"
+										value="{{ $slide->status }}"
+										wire:click="updateStatus({{ $slide->id }})"
 										class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
 									>
 									<label
-										id="{{ $loop->index + 1 }}"
+										for="toggle-{{ $slide->id }}"
 										class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
 									></label>
 								</div>
 							</div>
 						</td>
+
 						<td class="border px-4 py-2">
 							<x-danger-button wire:click="deleteSlide({{$slide->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-trash-alt"></i>
