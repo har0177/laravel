@@ -1,5 +1,6 @@
 <?php
 		namespace App\Livewire;
+		use App\Helper\Common;
 		use App\Models\Role;
 		use Livewire\Attributes\Rule;
 		use Livewire\Component;
@@ -43,7 +44,9 @@
 										$qq->where( 'name', 'LIKE', '%' . $this->search . '%' );
 								} );
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$roles = $query->paginate( 10 );
+						$roles = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						               ->get(); // Retrieve all 50 records
+						$roles = Common::showPerPage( 10, $roles );
 						return view( 'livewire.roles', [
 								'roles' => $roles
 						] );

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\ReligionEnum;
 use App\Enums\TaxonomyTypeEnum;
+use App\Helper\Common;
 use App\Models\Taxonomy;
 use App\Models\User;
 use Carbon\Carbon;
@@ -107,7 +108,9 @@ class RegisteredUsers extends Component
          ->orWhere( 'father_name', 'LIKE', '%' . $this->search . '%' );
     } )
           ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $users = $query->paginate( 10 );
+    $users = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+                   ->get(); // Retrieve all 50 records
+		  $users = Common::showPerPage( 10, $users );
     return view( 'livewire.registeredUsers', [
       'users' => $users
     ] );

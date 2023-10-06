@@ -1,6 +1,7 @@
 <?php
 		namespace App\Livewire;
 		use App\Enums\TaxonomyTypeEnum;
+		use App\Helper\Common;
 		use App\Models\Project;
 		use App\Models\Taxonomy;
 		use Carbon\Carbon;
@@ -52,7 +53,9 @@
 						} )->when( $this->active, function( $q ) {
 								return $q->where( 'expiry_date', '>=', now() );
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$projects = $query->paginate( 10 );
+						$projects = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                  ->get(); // Retrieve all 50 records
+						$projects = Common::showPerPage( 10, $projects );
 						return view( 'livewire.projects', [
 								'projects' => $projects
 						] );

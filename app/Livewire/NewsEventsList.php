@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helper\Common;
 use App\Models\NewsEvents;
 use Carbon\Carbon;
 use Livewire\Attributes\Rule;
@@ -35,7 +36,9 @@ class NewsEventsList extends Component
 		{
 				$query = NewsEvents::query();
 				$query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-				$slides = $query->paginate( 10 );
+				$slides = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+				                ->get(); // Retrieve all 50 records
+				$slides = Common::showPerPage( 10, $slides );
 				
 				return view( 'livewire.events', [
 						'events' => $slides

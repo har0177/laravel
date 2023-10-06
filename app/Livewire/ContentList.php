@@ -1,5 +1,6 @@
 <?php
 		namespace App\Livewire;
+		use App\Helper\Common;
 		use App\Models\Content;
 		use Livewire\Component;
 		use Livewire\WithPagination;
@@ -27,7 +28,10 @@
 						$query->when( $this->search, function( $q ) {
 								return $q->where( "title LIKE ?", [ '%' . $this->search . '%' ] );
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$contents = $query->paginate( 10 );
+						$contents = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                  ->get(); // Retrieve all 50 records
+						$contents = Common::showPerPage( 10, $contents );
+						
 						return view( 'livewire.contents', [
 								'contents' => $contents
 						] );

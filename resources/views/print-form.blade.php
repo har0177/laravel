@@ -45,7 +45,6 @@
 			     alt="{{$user->full_name}}"/>
 			<br>
 			<span style="font-size: 12px">	Application # {{{strtoupper($application->application_number)}}}<br>
-			Challan # {{{strtoupper($application->challan_number)}}}</span>
 		</div>
 	</div>
 	<hr/>

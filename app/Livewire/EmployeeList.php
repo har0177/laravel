@@ -1,6 +1,7 @@
 <?php
 		namespace App\Livewire;
 		use App\Enums\TaxonomyTypeEnum;
+		use App\Helper\Common;
 		use App\Models\Employee;
 		use App\Models\Taxonomy;
 		use Livewire\Component;
@@ -53,7 +54,9 @@
 										   ->orWhere( 'contact_number', 'LIKE', '%' . $this->search . '%' );
 								} );
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$employees = $query->paginate( 10 );
+						$employees = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                   ->get(); // Retrieve all 50 records
+						$employees = Common::showPerPage( 10, $employees );
 						return view( 'livewire.employees', [
 								'employees' => $employees
 						] );

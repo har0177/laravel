@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helper\Common;
 use App\Models\Gallery;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -31,7 +32,9 @@ class GalleryList extends Component
   {
     $query = Gallery::query();
     $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $gallery = $query->paginate( 10 );
+    $gallery = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+                     ->get(); // Retrieve all 50 records
+		  $gallery = Common::showPerPage( 10, $gallery );
     
     return view( 'livewire.gallery', [
       'gallery' => $gallery

@@ -1,5 +1,6 @@
 <?php
 		namespace App\Livewire;
+		use App\Helper\Common;
 		use App\Models\Taxonomy;
 		use Livewire\Component;
 		use Livewire\WithPagination;
@@ -29,7 +30,9 @@
 										$qq->where( 'name', 'LIKE', '%' . $this->search . '%' );
 								} );
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$taxonomies = $query->paginate( 10 );
+						$taxonomies = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                    ->get(); // Retrieve all 50 records
+						$taxonomies = Common::showPerPage( 10, $taxonomies );
 						return view( 'livewire.taxonomies', [
 								'taxonomies' => $taxonomies
 						] );

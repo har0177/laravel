@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Enums\ReligionEnum;
 use App\Enums\TaxonomyTypeEnum;
+use App\Helper\Common;
 use App\Models\Taxonomy;
 use App\Models\User;
 use Carbon\Carbon;
@@ -112,7 +113,9 @@ class StudentList extends Component
     } )->whereHas( 'student', function( $qq ) {
       $qq->where( 'status', 'Active' );
     } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $students = $query->paginate( 10 );
+    $students = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+                      ->get(); // Retrieve all 50 records
+		  $students = Common::showPerPage( 10, $students );
     return view( 'livewire.students', [
       'students' => $students
     ] );

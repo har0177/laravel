@@ -1,5 +1,6 @@
 <?php
 		namespace App\Livewire;
+		use App\Helper\Common;
 		use App\Models\Role;
 		use App\Models\User;
 		use Illuminate\Support\Facades\Hash;
@@ -54,7 +55,9 @@
 						} )->when( $this->active, function( $q ) {
 								return $q->active();
 						} )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-						$users = $query->paginate( 10 );
+						$users = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						               ->get(); // Retrieve all 50 records
+						$users = Common::showPerPage( 10, $users );
 						return view( 'livewire.users', [
 								'users' => $users
 						] );

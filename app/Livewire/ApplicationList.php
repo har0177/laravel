@@ -1,6 +1,7 @@
 <?php
 		namespace App\Livewire;
 		use App\Enums\TaxonomyTypeEnum;
+		use App\Helper\Common;
 		use App\Models\Application;
 		use App\Models\Student;
 		use App\Models\Taxonomy;
@@ -14,13 +15,13 @@
 				use WithPagination;
 				public    $paid;
 				public    $search;
+				public    $quota_search;
 				public    $sortBy             = 'id';
 				public    $sortAsc            = true;
 				public    $applyPanel         = false;
 				public    $editApplication    = null;
 				public    $project_id         = '';
 				public    $application_number = '';
-				public    $challan_number     = '';
 				public    $diplomaName        = '';
 				#[Rule( 'required|array|min:1' )]
 				public    $quota              = [ '33' ];
@@ -31,6 +32,7 @@
 				public    $diplomaList        = [];
 				public    $sessionList        = [];
 				public    $sectionList        = [];
+				public    $quotaSearchList        = [];
 				public    $admitStudent       = null;
 				public    $userId             = '';
 				public    $first_name         = '';
@@ -46,6 +48,7 @@
 				protected $queryString        = [
 						'paid',
 						'search',
+						'quota_search',
 						'sortBy' => [ 'except' => 'id' ],
 						'sortAsc',
 				];
@@ -56,11 +59,13 @@
 				}
 				public function render()
 				{
+						
+						$this->quotaSearchList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )
+						                                ->get();
 						$applications = Application::query()
 						                           ->when( $this->search, function( $query ) {
 								                           $query->where( function( $subQuery ) {
-										                           $subQuery->where( 'challan_number', 'LIKE', '%' . $this->search . '%' )
-										                                    ->orWhere( 'application_number', 'LIKE', '%' . $this->search . '%' );
+										                           $subQuery->where( 'application_number', 'LIKE', '%' . $this->search . '%' );
 								                           } )->orWhereHas( 'user', function( $q ) {
 										                           $q->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
 												                           [ '%' . $this->search . '%' ] );
@@ -69,8 +74,14 @@
 						                           ->when( $this->paid, function( $query ) {
 								                           $query->where( 'status', 'Paid' );
 						                           } )
+						                           ->when( $this->quota_search, function( $query ) {
+								                           $query->whereJsonContains( 'quota', $this->quota_search );
+						                           } )
 						                           ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-						                           ->paginate( 10 );
+						                           ->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                           ->get(); // Retrieve all 50 records
+						$applications = Common::showPerPage( 10, $applications );
+						
 						return view( 'livewire.applications', compact( 'applications' ) );
 				}
 				public function admitAsStudent( Application $application )
@@ -105,9 +116,6 @@
 				public function paymentStatus()
 				{
 						$application = Application::find( $this->changeStatusId );
-						if( empty( $application->challan_number ) ) {
-								$application->challan_number = $application->application_number;
-						}
 						$application->status = 'Paid';
 						$application->save();
 						session()->flash( 'success', 'Payment status changed to Paid Successfully.' );
@@ -167,7 +175,6 @@
 						                           ->get();
 						$this->quota = $application->quota;
 						$this->application_number = $application->application_number;
-						$this->challan_number = $application->challan_number;
 						$this->status = $application->status;
 						$this->project_id = $application->project_id;
 						$this->quotaList = $this->quotaList

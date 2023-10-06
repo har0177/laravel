@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Helper\Common;
 use App\Models\Slide;
 use Livewire\Attributes\Rule;
 use Livewire\Component;
@@ -31,7 +32,9 @@ class SlideList extends Component
   {
     $query = Slide::query();
     $query->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
-    $slides = $query->paginate( 10 );
+    $slides = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
+                    ->get(); // Retrieve all 50 records
+		  $slides = Common::showPerPage( 10, $slides );
     
     return view( 'livewire.slides', [
       'slides' => $slides
