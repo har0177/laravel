@@ -8,9 +8,9 @@ use App\Models\MeritList;
 use App\Models\Project;
 use App\Models\Taxonomy;
 use App\Models\User;
+use Carbon\Carbon;
 use Livewire\Component;
 use PDF;
-
 class Merit extends Component
 {
   
@@ -22,9 +22,10 @@ class Merit extends Component
   
   public function render()
   {
-    $this->projectList = Project::orderByDesc( 'id' )->get();
-    
-    return view( 'livewire.merit-lists' );
+		  $subDays = Carbon::parse( now() )->subDays( 2 );
+		  $this->projectList = Project::where( 'expiry_date', '>', $subDays )->orderByDesc( 'id' )->get();
+		
+		  return view( 'livewire.merit-lists' );
   }
   
   public function toggleSection()

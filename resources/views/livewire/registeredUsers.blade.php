@@ -40,6 +40,15 @@
 					@enderror
 				</div>
 				<div>
+					<label for="father_name" class="block text-sm font-medium text-gray-700 mb-1">Father Name</label>
+					<input id="father_name" name="father_name" type="text" wire:model="father_name"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="Doe">
+					@error('father_name')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
+				<div>
 					<label for="username" class="block text-sm font-medium text-gray-700 mb-1">UserName</label>
 					<input id="username" name="username" type="text" wire:model="username"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -365,14 +374,8 @@
 					</th>
 					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
-							First Name
+							Full Name
 							<x-sorting name="first_name"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Last Name
-							<x-sorting name="last_name"/>
 						</div>
 					</th>
 					<th scope="col" class="border px-6 py-3">
@@ -418,14 +421,13 @@
 				@forelse($users as $user)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $user->first_name }}</td>
-						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+						<td class="border px-4 py-2">{{ $user->full_name }}</td>
 						<td class="border px-4 py-2">{{ $user->student->father_name }}</td>
 						<td class="border px-4 py-2">{{ $user->phone }}</td>
 						<td class="border px-4 py-2">{{ $user->cnic }}</td>
 						<td class="border px-4 py-2">{{ $user->email }}</td>
 						<td class="border px-4 py-2">{{ $user->student?->status }}</td>
-						<td class="border px-4 py-2 inline-flex w-full">
+						<td class="border px-4 py-2 ">
 							<x-button class="ml-3" wire:click="edit({{$user->id}})" title="Edit User Form" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>

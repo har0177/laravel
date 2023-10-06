@@ -152,14 +152,8 @@
 					</th>
 					<th scope="col" class="border px-6 py-3">
 						<div class="flex items-center">
-							First Name
+							Full Name
 							<x-sorting name="first_name"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Last Name
-							<x-sorting name="last_name"/>
 						</div>
 					</th>
 					{{--<th scope="col" class="border px-6 py-3">
@@ -199,8 +193,7 @@
 				@forelse($users as $user)
 					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
 						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $user->first_name }}</td>
-						<td class="border px-4 py-2">{{ $user->last_name }}</td>
+						<td class="border px-4 py-2">{{ $user->full_name }}</td>
 						{{--
 												<td class="border px-4 py-2">{{ $user->username }}</td>
 						--}}

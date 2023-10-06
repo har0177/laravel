@@ -1,6 +1,19 @@
 <?php
 		
 		use App\Http\Controllers\HomeController;
+		use App\Livewire\ApplicationList;
+		use App\Livewire\ContentList;
+		use App\Livewire\EmployeeList;
+		use App\Livewire\GalleryList;
+		use App\Livewire\Merit;
+		use App\Livewire\NewsEventsList;
+		use App\Livewire\ProjectList;
+		use App\Livewire\RegisteredUsers;
+		use App\Livewire\RoleList;
+		use App\Livewire\SlideList;
+		use App\Livewire\StudentList;
+		use App\Livewire\TaxonomyList;
+		use App\Livewire\UserList;
 		use Illuminate\Support\Facades\Route;
 		/*
 		|--------------------------------------------------------------------------
@@ -31,31 +44,28 @@ Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'conta
   return view('download');
 } )->name('download');*/
 Route::group( [ 'middleware' => [ 'auth' ] ], function() {
-  Route::view( 'admin/roles', 'admin.roles' )->name( 'roles' )->middleware( 'can:manage roles' );
-  Route::view( 'admin/users', 'admin.users' )->name( 'users' )->middleware( 'can:manage users' );
-  Route::view( 'admin/registered-users',
-    'admin.registeredUsers' )->name( 'registeredUsers' )->middleware( 'can:manage users' );
-  Route::view( 'admin/slides', 'admin.slides' )->name( 'slides' )->middleware( 'can:manage slides' );
-  Route::view( 'admin/gallery', 'admin.gallery' )->name( 'gallery' )->middleware( 'can:manage gallery' );
-  Route::view( 'admin/students', 'admin.students' )->name( 'students' )->middleware( 'can:manage students' );
-  Route::view( 'admin/events', 'admin.events' )->name( 'events' )->middleware( 'can:manage events' );
-  Route::view( 'admin/projects', 'admin.projects' )->name( 'projects' )->middleware( 'can:manage projects' );
-  Route::view( 'admin/taxonomies', 'admin.taxonomies' )->name( 'taxonomies' )->middleware( 'can:manage taxonomies' );
-  Route::view( 'admin/employees', 'admin.employees' )->name( 'employees' )->middleware( 'can:manage employees' );
-  Route::view( 'admin/contents', 'admin.contents' )->name( 'contents' )->middleware( 'can:manage contents' );
-  
-  Route::view( 'admin/merit-lists',
-    'admin.merit-lists' )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );
-  Route::view( 'admin/applications',
-    'admin.applications' )->name( 'applications' )->middleware( 'can:manage applications' );
-  Route::view( 'profile', 'student.profile' )->name( 'profile' );
-  Route::view( 'education', 'student.education' )->name( 'education' );
-  Route::view( 'apply', 'student.apply' )->name( 'apply' );
-  Route::view( 'apply', 'student.apply' )->name( 'apply' );
-  Route::get( 'student-card/{user}', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
-  Route::get( 'employee-card/{employee}', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
-  Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
-  Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
+		Route::get( 'admin/roles', RoleList::class )->name( 'roles' )->middleware( 'can:manage roles' );
+		Route::get( 'admin/users', UserList::class )->name( 'users' )->middleware( 'can:manage users' );
+		Route::get( 'admin/registered-users',
+				RegisteredUsers::class )->name( 'registeredUsers' )->middleware( 'can:manage users' );
+		Route::get( 'admin/slides', SlideList::class )->name( 'slides' )->middleware( 'can:manage slides' );
+		Route::get( 'admin/gallery', GalleryList::class )->name( 'gallery' )->middleware( 'can:manage gallery' );
+		Route::get( 'admin/students', StudentList::class )->name( 'students' )->middleware( 'can:manage students' );
+		Route::get( 'admin/events', NewsEventsList::class )->name( 'events' )->middleware( 'can:manage events' );
+		Route::get( 'admin/projects', ProjectList::class )->name( 'projects' )->middleware( 'can:manage projects' );
+		Route::get( 'admin/taxonomies', TaxonomyList::class )->name( 'taxonomies' )->middleware( 'can:manage taxonomies' );
+		Route::get( 'admin/employees', EmployeeList::class )->name( 'employees' )->middleware( 'can:manage employees' );
+		Route::get( 'admin/contents', ContentList::class )->name( 'contents' )->middleware( 'can:manage contents' );
+		Route::get( 'admin/merit-lists', Merit::class )->name( 'merit-lists' )->middleware( 'can:generate merit-list' );
+		Route::get( 'admin/applications',
+				ApplicationList::class )->name( 'applications' )->middleware( 'can:manage applications' );
+		Route::get( 'profile', \App\Livewire\StudentProfile::class )->name( 'profile' );
+		Route::get( 'education', \App\Livewire\StudentEducation::class )->name( 'education' );
+		Route::get( 'apply', \App\Livewire\StudentApply::class )->name( 'apply' );
+		Route::get( 'student-card/{user}', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
+		Route::get( 'employee-card/{employee}', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
+		Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
+		Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );
 
 Route::middleware( [

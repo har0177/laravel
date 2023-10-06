@@ -139,6 +139,7 @@ class RegisteredUsers extends Component
     $validateRules = [
       'first_name'        => 'required|min:2|max:50',
       'last_name'         => 'required|min:2|max:50',
+      'father_name'         => 'required|min:2|max:50',
       'username'          => 'required|max:8|unique:users,username,' . $this->editUser,
       'phone'             => 'required|numeric|digits:11|unique:users,phone,' . $this->editUser,
       'cnic'              => 'required|numeric|digits:13|unique:users,cnic,' . $this->editUser,
