@@ -18,7 +18,6 @@ class Student extends Model
   protected $casts = [
     'created_at'     => 'datetime:m-d-Y H:i:s',
     'updated_at'     => 'datetime:m-d-Y H:i:s',
-    'admission_date' => 'datetime:Y-m-d\TH:i',
     'religion'       => ReligionEnum::class
   ];
   

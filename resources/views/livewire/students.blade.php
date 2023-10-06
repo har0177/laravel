@@ -39,6 +39,16 @@
 					@enderror
 				</div>
 				<div>
+					<label for="father_name" class="block text-sm font-medium text-gray-700 mb-1">Father Name</label>
+					<input id="father_name" name="father_name" type="text" wire:model="father_name"
+					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					       placeholder="Doe">
+					@error('father_name')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+				</div>
+
+				<div>
 					<label for="username" class="block text-sm font-medium text-gray-700 mb-1">UserName</label>
 					<input id="username" name="username" type="text" wire:model="username"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -51,7 +61,8 @@
 				<div>
 					<label for="diploma_id" class="block text-sm font-medium text-gray-700 mb-1">Admitted In Diploma</label>
 					<div class="relative">
-						<select name="type" disabled id="diploma_id" wire:model.live="diploma_id"
+						<select name="type" id="diploma_id" wire:model="diploma_id"
+						        wire:change="loadSections"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Diploma</option>
 							@foreach($diplomaList as $diploma)
@@ -70,15 +81,16 @@
 					<label for="section_id" class="block text-sm font-medium text-gray-700 mb-1">Section</label>
 					<div class="relative">
 						<select name="type" id="section_id" wire:model="section_id"
+
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Section</option>
 							@foreach($sectionList as $sec)
-								<option value="{{$sec->id}}">{{$sec->name}}</option>
+								<option value="{{$sec->id}}" @selected($diploma->id === $diploma_id)>{{$sec->name}}</option>
 							@endforeach
 						</select>
 
 					</div>
-					@error('session_id')
+					@error('section_id')
 					<span class="text-red-600 text-sm">{{ $message }}</span>
 					@enderror
 
@@ -88,7 +100,7 @@
 					<label for="session_id" class="block text-sm font-medium text-gray-700 mb-1">Session</label>
 					<div class="relative">
 						<select name="type" id="session_id" wire:model.live="session_id"
-						        disabled
+
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option>Select Session</option>
 							@foreach($sessionList as $session)
@@ -117,7 +129,7 @@
 
 				<div>
 					<label for="class_no" class="block text-sm font-medium text-gray-700 mb-1">Assign Class #</label>
-					<input id="class_no" name="class_no" type="text" wire:model="class_no"
+					<input id="class_no" name="class_no" type="number" wire:model="class_no"
 					       class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
 					       placeholder="001">
 					@error('class_no')
@@ -254,8 +266,8 @@
 						<select name="district_id" id="district_id" wire:model="district_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select District</option>
-							@foreach($districtList as $list)
-								<option value="{{$list->id}}" {{$this->district_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
+							@foreach($districtList as $dis)
+								<option value="{{$dis->id}}" {{$this->district_id === $dis->id? 'selected' : ''}}>{{$dis->name}}</option>
 							@endforeach
 						</select>
 
@@ -272,8 +284,8 @@
 						<select name="blood_group_id" id="blood_group_id" wire:model="blood_group_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Blood Group</option>
-							@foreach($bloodGroupList as $list)
-								<option value="{{$list->id}}" {{$this->blood_group_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
+							@foreach($bloodGroupList as $bg)
+								<option value="{{$bg->id}}" {{$this->blood_group_id === $bg->id? 'selected' : ''}}>{{$bg->name}}</option>
 							@endforeach
 						</select>
 
@@ -291,8 +303,8 @@
 						<select name="gender" id="gender" wire:model="gender_id"
 						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 							<option value="">Select Gender</option>
-							@foreach($genderList as $list)
-								<option value="{{$list->id}}" {{$this->gender_id === $list->id? 'selected' : ''}}>{{$list->name}}</option>
+							@foreach($genderList as $gen)
+								<option value="{{$gen->id}}" {{$this->gender_id === $gen->id? 'selected' : ''}}>{{$gen->name}}</option>
 							@endforeach
 						</select>
 
