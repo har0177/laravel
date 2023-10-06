@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
-
 class StudentList extends Component
 {
   use WithPagination;
@@ -42,48 +41,50 @@ class StudentList extends Component
   public $image             = '';
   public $user              = '';
   public $avatar            = '';
-  public $address           = '';
-  public $hafiz_quran       = 0;
-  public $father_contact    = '';
-  public $dob               = '';
-  public $gender_id         = null;
-  public $genderList        = '';
-  public $father_name       = '';
-  public $district_id       = null;
-  public $districtList      = '';
-  public $blood_group_id    = null;
-  public $bloodGroupList    = '';
-  public $postal_address    = '';
-  public $province_id       = '';
-  public $provinceList      = [];
-  public $emergency_contact = '';
-  public $religion          = '';
-  public $religionList      = [];
-  public $hostel            = 0;
-  public $diplomaList       = [];
-  public $sessionList       = [];
-  
-  public $class_no       = null;
-  public $reg_no         = null;
-  public $diploma_id     = null;
-  public $session_id     = null;
-  public $admission_date = null;
-  
-  public $errorMessage;
-  
-  protected function rules()
-  {
-    return [
-      'first_name' => 'required|min:2|max:50',
-      'last_name'  => 'required|min:2|max:50',
-      'username'   => 'required|max:8|unique:users,username,' . $this->userId,
-      'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
-      //'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
-      'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
-    ];
-  }
-  
-  private function loadTaxonomies()
+		public $address           = '';
+		public $hafiz_quran       = 0;
+		public $father_contact    = '';
+		public $dob               = '';
+		public $gender_id         = null;
+		public $genderList        = '';
+		public $father_name       = '';
+		public $district_id       = null;
+		public $districtList      = '';
+		public $blood_group_id    = null;
+		public $bloodGroupList    = '';
+		public $postal_address    = '';
+		public $province_id       = '';
+		public $provinceList      = [];
+		public $emergency_contact = '';
+		public $religion          = '';
+		public $religionList      = [];
+		public $hostel            = 0;
+		public $diplomaList       = [];
+		public $sessionList       = [];
+		public $sectionList       = [];
+		
+		public $class_no       = null;
+		public $reg_no         = null;
+		public $diploma_id     = null;
+		public $session_id     = null;
+		public $section_id     = null;
+		public $admission_date = null;
+		
+		public $errorMessage;
+		
+		protected function rules()
+		{
+				return [
+						'first_name' => 'required|min:2|max:50',
+						'last_name'  => 'required|min:2|max:50',
+						'username'   => 'required|max:8|unique:users,username,' . $this->userId,
+						'phone'      => 'required|numeric|digits:11|unique:users,phone,' . $this->userId,
+						//'email'      => 'required|email|max:255|unique:users,email,' . $this->userId,
+						'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
+				];
+		}
+		
+		private function loadTaxonomies()
   {
     $this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
     $this->provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
@@ -196,6 +197,7 @@ class StudentList extends Component
         'hafiz_quran'       => $this->hafiz_quran,
         'reg_no'            => $this->reg_no,
         'class_no'          => $this->class_no,
+        'section_id'          => $this->section_id,
         'admission_date'    => $this->admission_date,
         'profile_status'    => 1,
       ];
@@ -232,27 +234,29 @@ class StudentList extends Component
     $this->avatar = $user->avatar;
     
     if( $user->student ) {
-      $this->gender_id = $user->student->gender_id;
-      $this->district_id = $user->student->district_id;
-      $this->blood_group_id = $user->student->blood_group_id;
-      $this->dob = $user->student->dob;
-      $this->father_contact = $user->student->father_contact;
-      $this->father_name = $user->student->father_name;
-      $this->address = $user->student->address;
-      $this->postal_address = $user->student->postal_address;
-      $this->emergency_contact = $user->student->emergency_contact;
-      $this->religion = $user->student->religion;
-      $this->province_id = $user->student->province_id;
-      $this->hostel = $user->student->hostel;
-      $this->hafiz_quran = $user->student->hafiz_quran;
-      $this->class_no = $user->student->class_no;
-      $this->reg_no = $user->student->reg_no;
-      $this->admission_date = $user->student->admission_date;
-      $this->diploma_id = $user->student->diploma_id;
-      $this->session_id = $user->student->session_id;
+		    $this->gender_id = $user->student->gender_id;
+		    $this->district_id = $user->student->district_id;
+		    $this->blood_group_id = $user->student->blood_group_id;
+		    $this->dob = $user->student->dob;
+		    $this->father_contact = $user->student->father_contact;
+		    $this->father_name = $user->student->father_name;
+		    $this->address = $user->student->address;
+		    $this->postal_address = $user->student->postal_address;
+		    $this->emergency_contact = $user->student->emergency_contact;
+		    $this->religion = $user->student->religion;
+		    $this->province_id = $user->student->province_id;
+		    $this->hostel = $user->student->hostel;
+		    $this->hafiz_quran = $user->student->hafiz_quran;
+		    $this->class_no = $user->student->class_no;
+		    $this->reg_no = $user->student->reg_no;
+		    $this->admission_date = $user->student->admission_date;
+		    $this->diploma_id = $user->student->diploma_id;
+		    $this->session_id = $user->student->session_id;
+		    $this->section_id = $user->student->section_id;
+		    $this->sectionList = Taxonomy::whereType( TaxonomyTypeEnum::SECTION )->where( 'parent_id',
+				    $this->diploma_id )->get();
     }
-    
-    $this->create = true;
+		  $this->create = true;
   }
   
   public function toggleSection()

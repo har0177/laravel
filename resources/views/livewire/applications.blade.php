@@ -42,7 +42,7 @@
 					<div class="relative">
 						<select name="type" id="section_id" wire:model="section_id"
 						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-							<option>Select Session</option>
+							<option>Select Section</option>
 							@foreach($sectionList as $sec)
 								<option value="{{$sec->id}}">{{$sec->name}}</option>
 							@endforeach

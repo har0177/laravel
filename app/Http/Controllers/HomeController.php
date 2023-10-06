@@ -87,17 +87,32 @@
 								$request->email,
 								$request->subject,
 								$request->name ) );
+						
 						// Process the form data and send emails, save to database, etc.
 						return response()->json( [ 'message' => 'Message Send successfully. We will inform you through your email.' ] );
 				}
-				public function studentCard( User $user )
+				public function studentCard( Request $request )
 				{
-						$user->load( 'student' );
-						return view( 'student-card', compact( 'user' ) );
+						
+						$students = User::with( 'student' )->whereHas( 'student', function( $q ) {
+								$q->whereNotNull( 'diploma_id' )->where( 'status', 'Active' )->where( 'card_status', 0 );
+						} );
+						if( $request->id ) {
+								$students->where( 'id', $request->id );
+						}
+						$students = $students->get();
+						
+						return view( 'student-card', compact( 'students' ) );
 				}
-				public function employeeCard( Employee $employee )
+				public function employeeCard( Request $request )
 				{
-						return view( 'employee-card', compact( 'employee' ) );
+						$employees = Employee::query();
+						if( $request->id ) {
+								$employees->where( 'id', $request->id );
+						}
+						$employees = $employees->get();
+						
+						return view( 'employee-card', compact( 'employees' ) );
 				}
 				public function printForm( Application $application )
 				{

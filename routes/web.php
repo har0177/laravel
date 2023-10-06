@@ -62,8 +62,8 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
 		Route::get( 'profile', \App\Livewire\StudentProfile::class )->name( 'profile' );
 		Route::get( 'education', \App\Livewire\StudentEducation::class )->name( 'education' );
 		Route::get( 'apply', \App\Livewire\StudentApply::class )->name( 'apply' );
-		Route::get( 'student-card/{user}', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
-		Route::get( 'employee-card/{employee}', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
+		Route::get( 'student-card', [ HomeController::class, 'studentCard' ] )->name( 'student-card' );
+		Route::get( 'employee-card', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
 		Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
 		Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
 } );

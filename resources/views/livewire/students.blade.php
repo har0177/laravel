@@ -66,6 +66,23 @@
 
 				</div>
 
+				<div>
+					<label for="section_id" class="block text-sm font-medium text-gray-700 mb-1">Section</label>
+					<div class="relative">
+						<select name="type" id="section_id" wire:model="section_id"
+						        class="select2 block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+							<option>Select Section</option>
+							@foreach($sectionList as $sec)
+								<option value="{{$sec->id}}">{{$sec->name}}</option>
+							@endforeach
+						</select>
+
+					</div>
+					@error('session_id')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+
+				</div>
 
 				<div>
 					<label for="session_id" class="block text-sm font-medium text-gray-700 mb-1">Session</label>
@@ -395,25 +412,29 @@
 
 
 
-	@else
+		@else
 
 
-		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-			<h1 class="text-xl text-white font-semibold">Student Management</h1>
-			<div>
-				<x-button wire:click="add">
-					Create Student
-				</x-button>
+			<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+				<h1 class="text-xl text-white font-semibold">Student Management</h1>
+				<div>
+					<x-button wire:click="add">
+						Create Student
+					</x-button>
+					<a target="_blank" href="{{ route('student-card') }}"
+					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+						Student Id Cards
+					</a>
+				</div>
 			</div>
-		</div>
 
 
-		<!-- Card Body -->
-		<div class="mt-5 px-8">
-			<div class="flex justify-between">
-				<div class="p-4">
-					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
-					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+			<!-- Card Body -->
+			<div class="mt-5 px-8">
+				<div class="flex justify-between">
+					<div class="p-4">
+						<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+						       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
 
 			</div>
@@ -494,15 +515,16 @@
 							@endif
 						</td>
 						<td class="px-4 py-2">
+							<div class="flex h-full items-center">
 							<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
 								<i class="fas fa-edit"></i>
 							</x-button>
-							<a target="_blank" href="{{ route('student-card', ['user' => $student->id]) }}"
+							<a target="_blank" href="{{ route('student-card', ['id' => $student->id]) }}"
 							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 								<i class="fas fa-credit-card"></i>
 							</a>
 
-
+							</div>
 						</td>
 					</tr>
 				@empty
