@@ -437,6 +437,10 @@
 					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
 						Student Id Cards
 					</a>
+					<a target="_blank" href="{{ route('attendance') }}"
+					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+						Attendance Sheet
+					</a>
 				</div>
 			</div>
 
@@ -445,29 +449,43 @@
 			<div class="mt-5 px-8">
 				<div class="flex justify-between">
 					<div class="p-4">
+						<label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
 						<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
 						       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-				</div>
+					</div>
+					<div class="p-4">
 
-			</div>
-			<table class="table-auto w-full border mt-5">
-				<thead class="bg-gray-200">
-				<tr>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							No
-							<x-sorting name="id"/>
+						<label for="diploma_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Diploma</label>
+						<div class="diploma_search">
+							<select name="diploma_search" id="diploma_search" wire:model.live="diploma_search"
+							        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+								<option value="">Select Diploma</option>
+								@foreach($diplomaList as $list)
+									<option value="{{$list->id}}">{{$list->name}}</option>
+								@endforeach
+							</select>
 						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Reg #
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							First Name
-							<x-sorting name="first_name"/>
+					</div>
+
+				</div>
+				<table class="table-auto w-full border mt-5">
+					<thead class="bg-gray-200">
+					<tr>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								No
+								<x-sorting name="id"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Reg #
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								First Name
+								<x-sorting name="first_name"/>
 						</div>
 					</th>
 					<th scope="col" class="border px-6 py-3">

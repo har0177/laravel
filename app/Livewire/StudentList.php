@@ -15,33 +15,36 @@ use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 class StudentList extends Component
 {
-  use WithPagination;
-  use WithFileUploads;
-  
-  public $search;
-  public $sortBy      = 'id';
-  public $sortAsc     = true;
-  public $create      = false;
-  public $editStudent = null;
-  
-  protected $queryString = [
-    'search',
-    'sortBy' => [ 'except' => 'id' ],
-    'sortAsc',
-    'editStudent'
-  ];
-  
-  public $first_name        = '';
-  public $last_name         = '';
-  public $email             = '';
-  public $phone             = '';
-  public $cnic              = '';
-  public $username          = '';
-  public $password          = '';
-  public $userId            = '';
-  public $image             = '';
-  public $user              = '';
-  public $avatar            = '';
+		
+		use WithPagination;
+		use WithFileUploads;
+		public $search;
+		public $sortBy      = 'id';
+		public $sortAsc     = true;
+		public $create      = false;
+		public $editStudent = null;
+		public $diploma_search;
+		
+		
+		protected $queryString = [
+				'search',
+				'sortBy' => [ 'except' => 'id' ],
+				'sortAsc',
+				'diploma_search',
+				'editStudent'
+		];
+		
+		public $first_name        = '';
+		public $last_name         = '';
+		public $email             = '';
+		public $phone             = '';
+		public $cnic              = '';
+		public $username          = '';
+		public $password          = '';
+		public $userId            = '';
+		public $image             = '';
+		public $user              = '';
+		public $avatar            = '';
 		public $address           = '';
 		public $hafiz_quran       = 0;
 		public $father_contact    = '';
@@ -93,29 +96,36 @@ class StudentList extends Component
     $this->districtList = Taxonomy::where( 'parent_id',
       $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
     $this->religionList = ReligionEnum::cases();
-    $this->diplomaList = Taxonomy::whereType( TaxonomyTypeEnum::DIPLOMA )->get();
     $this->sessionList = Taxonomy::whereType( TaxonomyTypeEnum::SESSION )->orderByDesc( 'id' )->get();
-    
+		
   }
   
   public function render()
   {
-    $query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
-    $query->when( $this->search, function( $q ) {
-      return $q->where( function( $qq ) {
-		      $qq->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
-				      [ '%' . $this->search . '%' ] )
-		         ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
-		         ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
-		         ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' )
-		         ->orWhere( 'cnic', 'LIKE', '%' . $this->search . '%' );
-      } );
-    } )->whereHas( 'student', function( $qq ) {
-		    $qq->where( 'status', 'Active' );
-    } )->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
+		  $query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
+		  $query->when( $this->search, function( $q ) {
+				  return $q->where( function( $qq ) {
+						  $qq->whereRaw( "CONCAT(first_name, ' ',last_name) LIKE ?",
+								  [ '%' . $this->search . '%' ] )
+						     ->orWhere( 'username', 'LIKE', '%' . $this->search . '%' )
+						     ->orWhere( 'phone', 'LIKE', '%' . $this->search . '%' )
+						     ->orWhere( 'email', 'LIKE', '%' . $this->search . '%' )
+						     ->orWhere( 'cnic', 'LIKE', '%' . $this->search . '%' );
+				  } )->orWhereHas( 'student', function( $qq ) {
+						  $qq->where( 'reg_no', 'LIKE', '%' . $this->search . '%' )
+								  ->where( 'status', 'Active' );
+				  } );
+		  } )->whereHas( 'student', function( $qq ) {
+				  $qq->where( 'status', 'Active' )
+				     ->when( $this->diploma_search, function( $query ) {
+						     $query->where( 'diploma_id', $this->diploma_search );
+				     } );
+		  } )
+		        ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' );
 		  $students = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
 		                    ->get(); // Retrieve all 50 records
 		  $students = Common::showPerPage( 10, $students );
+		  $this->diplomaList = Taxonomy::whereType( TaxonomyTypeEnum::DIPLOMA )->get();
 		
 		  return view( 'livewire.students', [
 				  'students' => $students
@@ -221,7 +231,7 @@ class StudentList extends Component
 						$this->avatar = $user->getFirstMediaUrl( 'avatars' );
 						$this->toggleSection();
 						DB::commit();
-						session()->flash( 'success', 'Student added successfully.' );
+						session()->flash( 'success', 'UserInfo added successfully.' );
 				} catch ( \Exception $e ) {
 						DB::rollback();
 						session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
@@ -289,8 +299,8 @@ class StudentList extends Component
   
   public function deleteStudent( User $user )
   {
-    $user->delete();
-    session()->flash( 'success', 'Student Deleted Successfully.' );
+		  $user->delete();
+		  session()->flash( 'success', 'UserInfo Deleted Successfully.' );
   }
   
   public function sortField( $field )

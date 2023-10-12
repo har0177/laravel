@@ -66,6 +66,9 @@ Route::group( [ 'middleware' => [ 'auth' ] ], function() {
 		Route::get( 'employee-card', [ HomeController::class, 'employeeCard' ] )->name( 'employee-card' );
 		Route::get( 'print-form/{application}', [ HomeController::class, 'printForm' ] )->name( 'print-form' );
 		Route::get( 'print-challan/{application}', [ HomeController::class, 'printChallan' ] )->name( 'print-challan' );
+		Route::get( '/attendance', [ HomeController::class, 'attendance' ] )
+		     ->name( 'attendance' );
+		
 } );
 
 Route::middleware( [

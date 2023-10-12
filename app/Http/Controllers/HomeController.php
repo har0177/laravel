@@ -38,6 +38,16 @@
 				{
 						return view( 'course-content', compact( 'content' ) );
 				}
+				
+				public function attendance()
+				{
+						$sections = Taxonomy::whereType( TaxonomyTypeEnum::SECTION )->get();
+						
+						return view( 'attendance', compact( 'sections' ) );
+						//return view( 'admin.infos.result-sheet', compact( 'classes' ) );
+						// return view( 'admin.infos.vaccine', compact( 'classes' ) );
+				}
+				
 				public function dashboard()
 				{
 						$students = User::where( 'role_id', User::ROLE_STUDENT )->whereHas( 'student', function( $q ) {
