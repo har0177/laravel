@@ -1,5 +1,7 @@
 <?php
+		
 		namespace App\Http\Controllers;
+		
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Mail\ContactFormMail;
 		use App\Models\Application;
@@ -15,6 +17,7 @@
 		use Illuminate\Support\Facades\Mail;
 		class HomeController extends Controller
 		{
+				
 				public function redirects()
 				{
 						$redirect = route( 'dashboard' );
@@ -50,6 +53,9 @@
 				
 				public function dashboard()
 				{
+						if( auth()->user()->role_name === 'Student' ) {
+								return redirect( route( 'student-dashboard' ) );
+						}
 						$students = User::where( 'role_id', User::ROLE_STUDENT )->whereHas( 'student', function( $q ) {
 								$q->where( 'status', 'Active' );
 						} )->count();
@@ -60,6 +66,7 @@
 								$q->where( 'expiry_date', '>', now() );
 						} )->count();
 						$projects = Project::where( 'expiry_date', '>', now() )->count();
+						
 						return view( 'dashboard', compact( 'students', 'applications', 'users', 'projects' ) );
 				}
 				public function studentDashboard()
@@ -76,6 +83,7 @@
 						                        ->get();
 						$quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )->where( 'id', '!=', '33' )
 						                     ->get();
+						
 						return view( 'merit-list-show', compact( 'meritData', 'districtList', 'quotaList', 'project' ) );
 						
 				}
@@ -133,11 +141,14 @@
 						if( $application->user_id !== $user->id ) {
 								return redirect()->back();
 						}
+						
 						return view( 'print-form', compact( 'user', 'application' ) );
 				}
 				public function printChallan( Application $application )
 				{
 						$user = User::find( $application->user_id );
+						
 						return view( 'print-challan', compact( 'user', 'application' ) );
 				}
+				
 		}

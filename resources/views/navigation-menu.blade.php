@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="border-b-2">
-		<x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+		<x-responsive-nav-link href="{{ auth()->user()->role_name === 'Student' ? route('student-dashboard')  : route('dashboard') }}" :active="request()->routeIs('dashboard')">
 			{{ __('Dashboard') }}
 		</x-responsive-nav-link>
 	</div>
