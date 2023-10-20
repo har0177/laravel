@@ -143,7 +143,7 @@
 								@if(!$project->applications[0]->hasMedia('challan'))
 									<x-button class="ml-3 mb-3" wire:click="edit({{ $project->applications[0]->id}})"
 									          wire:loading.attr="disabled">
-										Edit Application
+										Edit Form
 									</x-button>
 									<br>
 									<a target="_blank" href="{{ route('print-challan', ['application' => $project->applications[0]]) }}"
@@ -189,7 +189,6 @@
 								<span class="text-red-600 text-sm">{{ $message }}</span>
 								@enderror
 							</div>
-
 
 						@endif
 					@endif

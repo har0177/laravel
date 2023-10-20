@@ -17,6 +17,33 @@
 
 	@stack('styles')
 	<style>
+     body {
+
+         font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica Neue, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji !important;
+
+     }
+
+     table thead .sorting:before, table thead .sorting_asc:before, table thead .sorting_desc:before {
+         background-image: none !important;
+     }
+
+     table thead .sorting:after, table thead .sorting_asc:after, table thead .sorting_desc:after {
+         background-image: none !important;
+     }
+
+
+     table td, table th {
+         padding: 0.2rem 1rem;
+         text-wrap: none;
+         border: 1px solid #f3f2f7;
+     }
+
+     .border-b-8 {
+         border-bottom-width: 8px
+     }
+
+
+
      .ql-editor {
          height: 300px;
      }
@@ -26,26 +53,28 @@
 <x-banner/>
 
 <div class="min-h-screen bg-gray-100">
+	<div class="flex">
+		<div class="w-1/4 p-2 bg-gray-200"> <!-- Left Sidebar (Menu) -->
 
-	@livewire('navigation-menu')
+			@livewire('navigation-menu')
+		</div>
+		<div class="p-4" style="width: 80%"> <!-- Right Content -->
+			<!-- Page Heading -->
+			@if (isset($header))
+				<header class="bg-white shadow">
+					<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+						{{ $header }}
+					</div>
+				</header>
 
+			@endif
 
-	<!-- Page Heading -->
-	@if (isset($header))
-		<header class="bg-white shadow">
-			<div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-				{{ $header }}
-			</div>
-		</header>
-
-
-@endif
-
-
-<!-- Page Content -->
-	<main>
-		{{ $slot }}
-	</main>
+			<!-- Page Content -->
+			<main>
+				{{ $slot }}
+			</main>
+		</div>
+	</div>
 </div>
 <script src="{{asset('js/app.js')}}"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>

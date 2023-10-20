@@ -8,7 +8,7 @@
 
 	@if($create)
 
-	<!-- Card Header -->
+		<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 			<h1 class="text-xl text-white font-semibold">{{$editStudent ? 'Update Student' : 'Add Student'}}</h1>
 
@@ -422,53 +422,51 @@
 			</x-button>
 		</form>
 
+	@else
 
-
-		@else
-
-
-			<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-				<h1 class="text-xl text-white font-semibold">Student Management</h1>
-				<div>
-					<x-button wire:click="add">
-						Create Student
-					</x-button>
-					<a target="_blank" href="{{ route('student-card') }}"
-					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-						Student Id Cards
-					</a>
-					<a target="_blank" href="{{ route('attendance') }}"
-					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-						Attendance Sheet
-					</a>
-				</div>
+		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+			<h1 class="text-xl text-white font-semibold">Student Management</h1>
+			<div>
+				<x-button wire:click="add">
+					Create Student
+				</x-button>
+				<a target="_blank" href="{{ route('student-card') }}"
+				   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+					Student Id Cards
+				</a>
+				<a target="_blank" href="{{ route('attendance') }}"
+				   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+					Attendance Sheet
+				</a>
 			</div>
+		</div>
 
 
-			<!-- Card Body -->
-			<div class="mt-5 px-8">
-				<div class="flex justify-between">
-					<div class="p-4">
-						<label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
-						<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
-						       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-					</div>
-					<div class="p-4">
-
-						<label for="diploma_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Diploma</label>
-						<div class="diploma_search">
-							<select name="diploma_search" id="diploma_search" wire:model.live="diploma_search"
-							        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-								<option value="">Select Diploma</option>
-								@foreach($diplomaList as $list)
-									<option value="{{$list->id}}">{{$list->name}}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-
+		<!-- Card Body -->
+		<div class="mt-5 px-8">
+			<div class="flex justify-between">
+				<div class="p-4">
+					<label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
-				<table class="table-auto w-full border mt-5">
+				<div class="p-4">
+
+					<label for="diploma_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Diploma</label>
+					<div class="diploma_search">
+						<select name="diploma_search" id="diploma_search" wire:model.live="diploma_search"
+						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+							<option value="">Select Diploma</option>
+							@foreach($diplomaList as $list)
+								<option value="{{$list->id}}">{{$list->name}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+
+			</div>
+			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 					<thead class="bg-gray-200">
 					<tr>
 						<th scope="col" class="border px-6 py-3">
@@ -486,85 +484,85 @@
 							<div class="flex items-center">
 								First Name
 								<x-sorting name="first_name"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Last Name
-							<x-sorting name="last_name"/>
-						</div>
-					</th>
-					{{--<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Studentname
-							<x-sorting name="studentname"/>
-						</div>
-					</th>--}}
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Phone
-							<x-sorting name="phone"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							CNIC
-							<x-sorting name="cnic"/>
-						</div>
-					</th>
-
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Email
-							<x-sorting name="email"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Status
-						</div>
-					</th>
-					<th class="border px-4 py-2" width="150px">Action</th>
-				</tr>
-				</thead>
-				<tbody>
-				@forelse($students as $student)
-					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $student->student->reg_no }}</td>
-						<td class="border px-4 py-2">{{ $student->first_name }}</td>
-						<td class="border px-4 py-2">{{ $student->last_name }}</td>
-						<td class="border px-4 py-2">{{ $student->phone }}</td>
-						<td class="border px-4 py-2">{{ $student->cnic }}</td>
-						<td class="border px-4 py-2">{{ $student->email }}</td>
-						<td class="border px-4 py-2">
-							@if ( $student->student?->status === 'Active')
-								<x-badge text="{{$student->student?->status}}" color="green"/>
-							@else
-								<x-badge text="{{$student->student?->status}}" color="indigo"/>
-							@endif
-						</td>
-						<td class="px-4 py-2">
-							<div class="flex h-full items-center">
-							<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
-								<i class="fas fa-edit"></i>
-							</x-button>
-							<a target="_blank" href="{{ route('student-card', ['id' => $student->id]) }}"
-							   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-								<i class="fas fa-credit-card"></i>
-							</a>
-
 							</div>
-						</td>
-					</tr>
-				@empty
-					<tr>
-						<td class="border px-4 py-2" colspan="7">No Record Found.</td>
-					</tr>
-				@endforelse
-				</tbody>
-			</table>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Last Name
+								<x-sorting name="last_name"/>
+							</div>
+						</th>
+						{{--<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Studentname
+								<x-sorting name="studentname"/>
+							</div>
+						</th>--}}
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Phone
+								<x-sorting name="phone"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								CNIC
+								<x-sorting name="cnic"/>
+							</div>
+						</th>
 
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Email
+								<x-sorting name="email"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Status
+							</div>
+						</th>
+						<th width="150px">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					@forelse($students as $student)
+						<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+							<td>{{ $loop->index + 1  }}</td>
+							<td>{{ $student->student->reg_no }}</td>
+							<td>{{ $student->first_name }}</td>
+							<td>{{ $student->last_name }}</td>
+							<td>{{ $student->phone }}</td>
+							<td>{{ $student->cnic }}</td>
+							<td>{{ $student->email }}</td>
+							<td>
+								@if ( $student->student?->status === 'Active')
+									<x-badge text="{{$student->student?->status}}" color="green"/>
+								@else
+									<x-badge text="{{$student->student?->status}}" color="indigo"/>
+								@endif
+							</td>
+							<td class="px-4 py-2">
+								<div class="flex h-full items-center">
+									<x-button class="ml-3" wire:click="edit({{$student->id}})" wire:loading.attr="disabled">
+										<i class="fas fa-edit"></i>
+									</x-button>
+									<a target="_blank" href="{{ route('student-card', ['id' => $student->id]) }}"
+									   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+										<i class="fas fa-credit-card"></i>
+									</a>
+
+								</div>
+							</td>
+						</tr>
+					@empty
+						<tr>
+							<td colspan="7">No Record Found.</td>
+						</tr>
+					@endforelse
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!-- Card Footer -->
 		<div class="py-4 px-8">

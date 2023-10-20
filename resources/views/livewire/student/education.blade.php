@@ -149,8 +149,8 @@
 
 		<!-- Card Body -->
 		<div class="mt-5 px-8">
-			<div class="overflow-x-auto">
-				<table class="table-auto w-full border mt-5">
+			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 					<thead class="bg-gray-200">
 					<tr>
 						<th scope="col" class="border px-6 py-3">No</th>
@@ -162,23 +162,23 @@
 						<th scope="col" class="border px-6 py-3">Grade</th>
 						<th scope="col" class="border px-6 py-3">Roll #</th>
 						<th scope="col" class="border px-6 py-3">Result Date</th>
-						<th class="border px-4 py-2" width="150px">Action</th>
+						<th class="" width="150px">Action</th>
 					</tr>
 					</thead>
 					<tbody>
 					@forelse($educations as $education)
 						<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-							<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-							<td class="border px-4 py-2">{{ $education->degree->name }}</td>
-							<td class="border px-4 py-2">{{ $education->board }}</td>
-							<td class="border px-4 py-2">{{ $education->obtained_marks }}</td>
-							<td class="border px-4 py-2">{{ $education->total_marks }}</td>
-							<td class="border px-4 py-2">{{ $education->percentage }}%</td>
-							<td class="border px-4 py-2">{{ $education->grade }}</td>
-							<td class="border px-4 py-2">{{ $education->roll_number }}</td>
+							<td class="">{{ $loop->index + 1  }}</td>
+							<td class="">{{ $education->degree->name }}</td>
+							<td class="">{{ $education->board }}</td>
+							<td class="">{{ $education->obtained_marks }}</td>
+							<td class="">{{ $education->total_marks }}</td>
+							<td class="">{{ $education->percentage }}%</td>
+							<td class="">{{ $education->grade }}</td>
+							<td class="">{{ $education->roll_number }}</td>
 							<td
-								class="border px-4 py-2">{{ \Carbon\Carbon::parse($education->result_declaration_date)->format('d-m-Y') }}</td>
-							<td class="border px-4 py-2">
+								class="">{{ \Carbon\Carbon::parse($education->result_declaration_date)->format('d-m-Y') }}</td>
+							<td class="">
 								<x-button class="ml-3" wire:click="edit({{ $education->id }})" wire:loading.attr="disabled">
 									<i class="fas fa-edit"></i>
 								</x-button>
@@ -186,7 +186,7 @@
 						</tr>
 					@empty
 						<tr>
-							<td class="border px-4 py-2" colspan="7">No Record Found.</td>
+							<td class="" colspan="7">No Record Found.</td>
 						</tr>
 					@endforelse
 					</tbody>

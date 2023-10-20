@@ -12,6 +12,11 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>	<!-- Custom Stylesheet -->
 	<link rel="stylesheet" href="{{asset('style.css')}}">
+	<style>
+     ol, ul {
+         padding-left: 10rem !important;
+     }
+	</style>
 </head>
 
 

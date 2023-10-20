@@ -6,14 +6,16 @@
 			<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-inner">
 					@foreach ($carouselItems as $index => $item)
-						<div class="carousel-item{{ $index === 0 ? ' active' : '' }}">
-							@if ($item['type'] === 'video')
-								<iframe width="100%" height="365" src="{{ $item['url'] }}"
-								        title="YouTube video player" frameborder="0" allowfullscreen=""></iframe>
-							@elseif ($item['type'] === 'image')
-								<img src="{{ $item['url'] }}" width="100%" height="365" alt="...">
-							@endif
-						</div>
+						@if(isset($item))
+							<div class="carousel-item{{ $index === 0 ? ' active' : '' }}">
+								@if ($item['type'] === 'video')
+									<iframe width="100%" height="365" src="{{ $item['url'] }}"
+									        title="YouTube video player" frameborder="0" allowfullscreen=""></iframe>
+								@elseif ($item['type'] === 'image')
+									<img src="{{ $item['url'] }}" width="100%" height="365" alt="...">
+								@endif
+							</div>
+						@endif
 					@endforeach
 				</div>
 				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
@@ -40,23 +42,23 @@
 					         onmouseout="this.start();" scrollamount="1" scrolldelay="60" direction="up">
 
 						@forelse($events as $event)
-								<div class="flex items-center mb-2">
-									<div style="display: flex">
-										<img src="{{ asset('images/newicon.gif') }}" alt="Event Icon" style="width: 10%">
-										@php( $extension = \Illuminate\Support\Str::lower(pathinfo($event->getFirstMediaUrl('events'), PATHINFO_EXTENSION)))
-										@if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) || $event->type === 'Text')
-											<a href="{{ route('event.show', ['event' => $event->slug]) }}" class="text-blue-500 hover:underline">
-												{{ $event->title }}
-											</a>
-										@else
-											<a href="{{$event->getFirstMediaUrl('events')}}" class="text-blue-500 hover:underline">
-												{{ $event->title }}
-											</a>
-										@endif
-
-									</div>
+							<div class="flex items-center mb-2">
+								<div style="display: flex">
+									<img src="{{ asset('images/newicon.gif') }}" alt="Event Icon" style="width: 10%">
+									@php( $extension = \Illuminate\Support\Str::lower(pathinfo($event->getFirstMediaUrl('events'), PATHINFO_EXTENSION)))
+									@if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']) || $event->type === 'Text')
+										<a href="{{ route('event.show', ['event' => $event->slug]) }}" class="text-blue-500 hover:underline">
+											{{ $event->title }}
+										</a>
+									@else
+										<a href="{{$event->getFirstMediaUrl('events')}}" class="text-blue-500 hover:underline">
+											{{ $event->title }}
+										</a>
+									@endif
 
 								</div>
+
+							</div>
 
 						@empty
 							<p>No events available</p>
