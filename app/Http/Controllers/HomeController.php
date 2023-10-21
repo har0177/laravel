@@ -31,9 +31,15 @@
 						
 						return redirect( $redirect );
 				}
+				public function staff()
+				{
+						$staff = Employee::where( 'status', 1 )->paginate( 9 );
+						
+						return view( 'staff', compact( 'staff' ) );
+				}
 				public function frontGallery()
 				{
-						$images = Gallery::where( 'status', 'Show' )->paginate( 10 );
+						$images = Gallery::where( 'status', 'Show' )->paginate( 12 );
 						
 						return view( 'frontGallery', compact( 'images' ) );
 				}

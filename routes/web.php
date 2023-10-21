@@ -32,6 +32,7 @@
 		Route::view( '/agriculture-science', 'agriculture-science' )->name( 'agriculture-science' );
 		Route::view( '/fee-structure', 'fee-structure' )->name( 'fee-structure' );
 		Route::get( '/front-gallery', [ HomeController::class, 'frontGallery' ] )->name( 'front-gallery' );
+		Route::get( '/staff', [ HomeController::class, 'staff' ] )->name( 'staff' );
 		Route::get( '/auth-redirect', [ HomeController::class, 'redirects' ] )->name( 'redirects' );
 Route::get( '/showEvent/{event:slug}', [ HomeController::class, 'showEvent' ] )->name( 'event.show' );
 Route::post( '/contact', [ HomeController::class, 'submitForm' ] )->name( 'contact.submit' );
