@@ -116,7 +116,6 @@
 
 		</form>
 
-
 	@elseif($applyPanel)
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between rounded-t-lg">
 			<h1 class="text-xl text-white font-semibold">Apply for {{$diplomaName}}</h1>
@@ -174,203 +173,206 @@
 
 		</form>
 
+	@else
 
-		@else
+		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+			<h1 class="text-xl text-white font-semibold">Applications Management</h1>
+		</div>
+		<!-- Card Body -->
+		<div class="mt-5 px-8">
+			<div class="flex justify-between">
+				<div class="p-4">
+					<label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search By Application # / Name</label>
+					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
+				</div>
+				<div class="p-4">
 
-			<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-				<h1 class="text-xl text-white font-semibold">Applications Management</h1>
+					<label for="quota_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Quota</label>
+					<div class="quota_search">
+						<select name="gender" id="quota_search" wire:model.live="quota_search"
+						        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+							<option value="">Select Quota</option>
+							@foreach($quotaSearchList as $list)
+								<option value="{{$list->id}}">{{$list->name}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+				<div class="mr-2 mt-8">
+					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="paid"/> Payment Paid Only ?
+				</div>
 			</div>
-			<!-- Card Body -->
-			<div class="mt-5 px-8">
-				<div class="flex justify-between">
-					<div class="p-4">
-						<label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search By Application # / Name</label>
-						<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
-						       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-					</div>
-					<div class="p-4">
+			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+					<thead class="bg-gray-200">
+					<tr>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								No
+								<x-sorting name="id"/>
+							</div>
+						</th>
 
-						<label for="quota_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Quota</label>
-						<div class="quota_search">
-							<select name="gender" id="quota_search" wire:model.live="quota_search"
-							        class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-								<option value="">Select Quota</option>
-								@foreach($quotaSearchList as $list)
-									<option value="{{$list->id}}" >{{$list->name}}</option>
-								@endforeach
-							</select>
-						</div>
-					</div>
-						<div class="mr-2 mt-8">
-							<input type="checkbox" class="mr-2 leading-tight" wire:model.live="paid"/> Payment Paid Only ?
-						</div>
-					</div>
-				<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-						<thead class="bg-gray-200">
-						<tr>
-							<th scope="col" class="px-6 py-3">
-								<div class="flex items-center">
-									No
-									<x-sorting name="id"/>
-								</div>
-							</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Application #
+							</div>
+						</th>
 
-							<th scope="col" class="px-6 py-3">
-								<div class="flex items-center">
-									Application #
-								</div>
-							</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Full Name
+							</div>
+						</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Applied For
+							</div>
+						</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Documents
+							</div>
+						</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Quota Applied
+							</div>
+						</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Payment Status
+							</div>
+						</th>
+						<th scope="col" class="px-6 py-3">
+							<div class="flex items-center">
+								Action
+							</div>
+						</th>
+					</tr>
+					</thead>
+					<tbody>
+					@forelse($applications as $application)
+						<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+							<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
+							<td class="border px-4 py-2">{{ $application->application_number }}</td>
+							<td class="border px-4 py-2">{{ $application->user->full_name }}</td>
+							<td class="border px-4 py-2">{{ $application->project->diploma->name}}</td>
+							<td class="border px-4 py-2">
+								<a href="{{ route('print-challan', ['application' => $application->id]) }}" target="_blank"
+								   class="text-blue-500 hover:underline">Fee Challan</a>
 
-							<th scope="col" class="px-6 py-3">
-								<div class="flex items-center">
-									Full Name
-								</div>
-							</th>
-							<th scope="col" class="px-6 py-3">
-								<div class="flex items-center">
-									Applied For
-								</div>
-							</th>
-							<th scope="col" class="px-6 py-3">
-								<div class="flex items-center">
-									Documents
-								</div>
-							</th>
-					<th scope="col" class="px-6 py-3">
-						<div class="flex items-center">
-							Quota Applied
-						</div>
-					</th>
-					<th scope="col" class="px-6 py-3">
-						<div class="flex items-center">
-							Payment Status
-						</div>
-					</th>
-					<th scope="col" class="px-6 py-3">
-						<div class="flex items-center">
-							Action
-						</div>
-					</th>
-				</tr>
-				</thead>
-				<tbody>
-				@forelse($applications as $application)
-					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $application->application_number }}</td>
-						<td class="border px-4 py-2">{{ $application->user->full_name }}</td>
-						<td class="border px-4 py-2">{{ $application->project->diploma->name}}</td>
-						<td class="border px-4 py-2">
-							@if ($application->user->hasMedia('dmc'))
-								<a href="{{ $application->user->getFirstMediaUrl('dmc') }}" target="_blank"
-								   class="text-blue-500 hover:underline">DMC (Matric)</a>
-							@endif
-							@if ($application->user->hasMedia('domicile'))
-								<a href="{{ $application->user->getFirstMediaUrl('domicile') }}" target="_blank"
-								   class="text-blue-500 hover:underline">Domicile</a>
-							@endif
-							@if ($application->user->hasMedia('cnic'))
-								<a href="{{ $application->user->getFirstMediaUrl('cnic') }}" target="_blank"
-								   class="text-blue-500 hover:underline">CNIC/FormB</a>
-							@endif
+								@if ($application->user->hasMedia('dmc'))
+									<a href="{{ $application->user->getFirstMediaUrl('dmc') }}" target="_blank"
+									   class="text-blue-500 hover:underline">DMC (Matric)</a>
+								@endif
+								@if ($application->user->hasMedia('domicile'))
+									<a href="{{ $application->user->getFirstMediaUrl('domicile') }}" target="_blank"
+									   class="text-blue-500 hover:underline">Domicile</a>
+								@endif
+								@if ($application->user->hasMedia('cnic'))
+									<a href="{{ $application->user->getFirstMediaUrl('cnic') }}" target="_blank"
+									   class="text-blue-500 hover:underline">CNIC/FormB</a>
+								@endif
 								@if ($application->hasMedia('challan'))
 									<a href="{{ $application->getFirstMediaUrl('challan') }}" target="_blank"
 									   class="text-blue-500 hover:underline">Challan</a>
 								@endif
-						</td>
-						<td class="border px-4 py-2">
-							<ul class="list-disc list-inside">
+							</td>
+							<td class="border px-4 py-2">
+								<ul class="list-disc list-inside">
 
-								@foreach ($application->quotaName as $quotaName)
-									<li>{{ $quotaName }}</li>
-								@endforeach
-							</ul>
-						</td>
-						<td class="border px-4 py-2">
-							@if ($application->status === 'Paid')
-								<x-badge text="{{$application->status}}" color="green"/>
-							@else
-								<x-badge text="{{$application->status}}" color="indigo"/>
-							@endif
-						</td>
-						<td class="border px-4 py-2">
-							<div class="flex h-full items-center">
+									@foreach ($application->quotaName as $quotaName)
+										<li>{{ $quotaName }}</li>
+									@endforeach
+								</ul>
+							</td>
+							<td class="border px-4 py-2">
+								@if ($application->status === 'Paid')
+									<x-badge text="{{$application->status}}" color="green"/>
+								@else
+									<x-badge text="{{$application->status}}" color="indigo"/>
+								@endif
+							</td>
+							<td class="border px-4 py-2">
+								<div class="flex h-full items-center">
 
-								@if($application->user->student->status === 'Pending')
-									@if($application->status === 'Paid')
-										<x-button class="ml-3 bg-indigo-500" title="Admit As a Student"
-										          wire:click="admitAsStudent({{$application->id}})"
-										          wire:loading.attr="disabled">
-											<i class="fas fa-id-card"></i>
-										</x-button>
+									@if($application->user->student->status === 'Pending')
+										@if($application->status === 'Paid')
+											<x-button class="ml-3 bg-indigo-500" title="Admit As a Student"
+											          wire:click="admitAsStudent({{$application->id}})"
+											          wire:loading.attr="disabled">
+												<i class="fas fa-id-card"></i>
+											</x-button>
 
-									@else
-										<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
-										   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-											<i class="fas fa-eye"></i>
-										</a>
-										@can('payment application')
-											@if($application->status !== 'Paid')
-												<div x-data="{ showModal: false }">
-													<!-- Trigger button -->
-													<x-button wire:click="changeStatus({{ $application->id }})" class="ml-3" @click="showModal = true">
-														<i class="fa-solid fa-dollar-sign"></i>
-													</x-button>
+										@else
+											<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
+											   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+												<i class="fas fa-eye"></i>
+											</a>
+											@can('payment application')
+												@if($application->status !== 'Paid')
+													<div x-data="{ showModal: false }">
+														<!-- Trigger button -->
+														<x-button wire:click="changeStatus({{ $application->id }})" class="ml-3" @click="showModal = true">
+															<i class="fa-solid fa-dollar-sign"></i>
+														</x-button>
 
-													<!-- Modal -->
-													<div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-														<div class="bg-white rounded shadow-lg w-80">
-															<div class="modal-header bg-indigo-600 text-white rounded-t">
-																<div class="flex items-center justify-between p-3">
-																	<h5 class="text-lg font-semibold">Payment Status</h5>
-																	<button @click="showModal = false" class="text-white hover:text-gray-200">
-																		<span>&times;</span>
+														<!-- Modal -->
+														<div x-show="showModal"
+														     class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+															<div class="bg-white rounded shadow-lg w-80">
+																<div class="modal-header bg-indigo-600 text-white rounded-t">
+																	<div class="flex items-center justify-between p-3">
+																		<h5 class="text-lg font-semibold">Payment Status</h5>
+																		<button @click="showModal = false" class="text-white hover:text-gray-200">
+																			<span>&times;</span>
+																		</button>
+																	</div>
+																</div>
+
+																<div class="modal-body p-4">
+																	<p class="text-gray-700">Are you sure you want to change the payment status to paid?</p>
+																</div>
+
+																<div class="modal-footer flex justify-end p-4 bg-gray-100 rounded-b">
+																	<button @click="showModal = false"
+																	        class="px-4 py-2 text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none">
+																		Close
+																	</button>
+																	<button wire:click.prevent="paymentStatus()" @click="showModal = false"
+																	        class="ml-2 px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 focus:outline-none">
+																		Yes, Proceed
 																	</button>
 																</div>
 															</div>
-
-															<div class="modal-body p-4">
-																<p class="text-gray-700">Are you sure you want to change the payment status to paid?</p>
-															</div>
-
-															<div class="modal-footer flex justify-end p-4 bg-gray-100 rounded-b">
-																<button @click="showModal = false"
-																        class="px-4 py-2 text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none">
-																	Close
-																</button>
-																<button wire:click.prevent="paymentStatus()" @click="showModal = false"
-																        class="ml-2 px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 focus:outline-none">
-																	Yes, Proceed
-																</button>
-															</div>
 														</div>
 													</div>
-												</div>
-											@endif
+												@endif
+											@endcan
+
+										@endif
+										@can('edit application')
+											<x-button class="ml-3" wire:click="edit({{ $application->id}})" wire:loading.attr="disabled">
+												<i class="fas fa-pencil"></i>
+											</x-button>
 										@endcan
-
+									@else
+										<x-badge text="Admitted" color="indigo"/>
 									@endif
-									@can('edit application')
-										<x-button class="ml-3" wire:click="edit({{ $application->id}})" wire:loading.attr="disabled">
-											<i class="fas fa-pencil"></i>
-										</x-button>
-									@endcan
-								@else
-									<x-badge text="Admitted" color="indigo"/>
-								@endif
-							</div>
-						</td>
+								</div>
+							</td>
 
-					</tr>
-				@empty
-					<tr>
-						<td class="border px-4 py-2" colspan="7">No Record Found.</td>
-					</tr>
-				@endforelse
-				</tbody>
-			</table>
-				</div>
+						</tr>
+					@empty
+						<tr>
+							<td class="border px-4 py-2" colspan="7">No Record Found.</td>
+						</tr>
+					@endforelse
+					</tbody>
+				</table>
+			</div>
 
 		</div>
 		<!-- Card Footer -->

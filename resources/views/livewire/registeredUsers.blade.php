@@ -9,7 +9,7 @@
 
 	@if($create)
 
-	<!-- Card Header -->
+		<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 			<h1 class="text-xl text-white font-semibold">{{$editUser ? 'Update User' : 'Add User'}}</h1>
 
@@ -339,10 +339,7 @@
 
 		</form>
 
-
-
 	@else
-
 
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 			<h1 class="text-xl text-white font-semibold">User Management</h1>
@@ -365,82 +362,86 @@
 			</div>
 			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-				<thead class="bg-gray-200">
-				<tr>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							No
-							<x-sorting name="id"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Full Name
-							<x-sorting name="first_name"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Father Name
-						</div>
-					</th>
-					{{--<th sc
-					ope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Username
-							<x-sorting name="studentname"/>
-						</div>
-					</th>--}}
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Phone
-							<x-sorting name="phone"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							CNIC
-							<x-sorting name="cnic"/>
-						</div>
-					</th>
-
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Email
-							<x-sorting name="email"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Status
-						</div>
-					</th>
-					<th class="border px-4 py-2" width="150px">Action</th>
-				</tr>
-				</thead>
-				<tbody>
-				@forelse($users as $user)
-					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $user->full_name }}</td>
-						<td class="border px-4 py-2">{{ $user->student->father_name }}</td>
-						<td class="border px-4 py-2">{{ $user->phone }}</td>
-						<td class="border px-4 py-2">{{ $user->cnic }}</td>
-						<td class="border px-4 py-2">{{ $user->email }}</td>
-						<td class="border px-4 py-2">{{ $user->student?->status }}</td>
-						<td class="border px-4 py-2 ">
-							<x-button class="ml-3" wire:click="edit({{$user->id}})" title="Edit User Form" wire:loading.attr="disabled">
-								<i class="fas fa-edit"></i>
-							</x-button>
-						</td>
-					</tr>
-				@empty
+					<thead class="bg-gray-200">
 					<tr>
-						<td class="border px-4 py-2" colspan="7">No Record Found.</td>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								No
+								<x-sorting name="id"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Full Name
+								<x-sorting name="first_name"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Father Name
+							</div>
+						</th>
+						{{--<th sc
+						ope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Username
+								<x-sorting name="studentname"/>
+							</div>
+						</th>--}}
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Phone
+								<x-sorting name="phone"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								CNIC
+								<x-sorting name="cnic"/>
+							</div>
+						</th>
+
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Email
+								<x-sorting name="email"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Status
+							</div>
+						</th>
+						<th class="border px-4 py-2" width="150px">Action</th>
 					</tr>
-				@endforelse
-				</tbody>
-			</table>
+					</thead>
+					<tbody>
+					@forelse($users as $user)
+						<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+							<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
+							<td class="border px-4 py-2">{{ $user->full_name }}</td>
+							<td class="border px-4 py-2">{{ $user->student->father_name }}</td>
+							<td class="border px-4 py-2">{{ $user->phone }}</td>
+							<td class="border px-4 py-2">{{ $user->cnic }}</td>
+							<td class="border px-4 py-2">{{ $user->email }}</td>
+							<td class="border px-4 py-2">{{ $user->student?->status }}</td>
+							<td class="border px-4 py-2 inline-flex w-full">
+								<x-button class="ml-3" wire:click="edit({{$user->id}})" title="Edit User Form" wire:loading.attr="disabled">
+									<i class="fas fa-edit"></i>
+								</x-button>
+				{{--				<x-button class="ml-3" wire:navigate :active="request()->routeIs('apply')" href="{{ route('apply') }}"
+								          title="Apply Now" wire:loading.attr="disabled">
+									Apply
+								</x-button>--}}
+							</td>
+						</tr>
+					@empty
+						<tr>
+							<td class="border px-4 py-2" colspan="7">No Record Found.</td>
+						</tr>
+					@endforelse
+					</tbody>
+				</table>
 			</div>
 		</div>
 		<!-- Card Footer -->
