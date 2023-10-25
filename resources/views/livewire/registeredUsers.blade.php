@@ -429,10 +429,11 @@
 								<x-button class="ml-3" wire:click="edit({{$user->id}})" title="Edit User Form" wire:loading.attr="disabled">
 									<i class="fas fa-edit"></i>
 								</x-button>
-				{{--				<x-button class="ml-3" wire:navigate :active="request()->routeIs('apply')" href="{{ route('apply') }}"
+								<x-button class="ml-3" wire:navigate :active="request()->routeIs('apply')"
+								          href="{{ route('apply', ['user_id' => $user->id]) }}"
 								          title="Apply Now" wire:loading.attr="disabled">
 									Apply
-								</x-button>--}}
+								</x-button>
 							</td>
 						</tr>
 					@empty

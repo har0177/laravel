@@ -297,7 +297,10 @@
 							</td>
 							<td class="border px-4 py-2">
 								<div class="flex h-full items-center">
-
+									<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
+									   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+										<i class="fas fa-eye"></i>
+									</a>
 									@if($application->user->student->status === 'Pending')
 										@if($application->status === 'Paid')
 											<x-button class="ml-3 bg-indigo-500" title="Admit As a Student"
@@ -307,10 +310,6 @@
 											</x-button>
 
 										@else
-											<a target="_blank" href="{{ route('print-form', ['application' => $application]) }}"
-											   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-												<i class="fas fa-eye"></i>
-											</a>
 											@can('payment application')
 												@if($application->status !== 'Paid')
 													<div x-data="{ showModal: false }">
