@@ -1,14 +1,18 @@
 <?php
+		
 		namespace App\Livewire;
+		
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Helper\Common;
 		use App\Models\Employee;
 		use App\Models\Taxonomy;
+		use App\Services\SmsService;
 		use Livewire\Component;
 		use Livewire\WithFileUploads;
 		use Livewire\WithPagination;
 		class EmployeeList extends Component
 		{
+				
 				use WithPagination;
 				use WithFileUploads;
 				public    $search;
@@ -34,12 +38,15 @@
 				public    $genderList       = [];
 				public    $bloodGroupList   = [];
 				public    $changeStatusId   = '';
+				public    $employeeContact  = null;
+				public    $sms              = null;
 				public    $errorMessage;
 				protected $queryString      = [
 						'search',
 						'sortBy' => [ 'except' => 'id' ],
 						'sortAsc',
-						'editEmployee'
+						'editEmployee',
+						'employeeContact'
 				];
 				public function render()
 				{
@@ -57,6 +64,7 @@
 						$employees = $query->take( 50 ) // Limit the query to retrieve only the latest 50 records
 						                   ->get(); // Retrieve all 50 records
 						$employees = Common::showPerPage( 10, $employees );
+						
 						return view( 'livewire.employees', [
 								'employees' => $employees
 						] );
@@ -113,6 +121,8 @@
 				{
 						$this->create = false;
 						$this->editEmployee = null;
+						$this->employeeContact = null;
+						$this->sms = null;
 						$this->resetForm();
 						$this->resetPage();
 				}
@@ -168,6 +178,19 @@
 				{
 						$this->changeStatusId = $employee->id;
 				}
+				public function sendingSMS( Employee $employee )
+				{
+						$this->employeeContact = '03339471086'; //$employee->contact_number;
+				}
+				
+				public function sendSMS()
+				{
+						$sms = new SmsService();
+						$sms->send( $this->employeeContact, $this->sms );
+						$this->toggleSection();
+						session()->flash( 'success', 'SMS Send Successfully.' );
+						
+				}
 				public function deleteEmployee()
 				{
 						$employee = Employee::find( $this->changeStatusId );
@@ -198,4 +221,5 @@
 								'blood_group_id'  => 'required',
 						];
 				}
+				
 		}

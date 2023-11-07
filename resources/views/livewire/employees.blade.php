@@ -7,9 +7,45 @@
 	@endif
 
 
+	@if(!empty($employeeContact))
+
+		<!-- Card Header -->
+		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+			<h1 class="text-xl text-white font-semibold">Send SMS to {{$employeeContact}}</h1>
+
+		</div>
+
+		<!-- Card Body -->
+		<form class="py-6 px-4 sm:px-6" wire:submit.prevent="sendSMS">
+
+				<!-- Name field -->
+				<div>
+					<label for="sms" class="block text-sm font-medium text-gray-700 mb-1">Message</label>
+					<textarea id="sms" name="sms" wire:model="sms"
+					          class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+					          placeholder="John Doe">
+					</textarea>
+					@error('sms')
+					<span class="text-red-600 text-sm">{{ $message }}</span>
+					@enderror
+
+				</div>
+
+			<button type="submit"
+			        wire:loading.attr="disabled"
+			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
+				<span wire:loading wire:target="sendSMS">Sending...</span>
+				<span wire:loading.remove wire:target="sendSMS">Send SMS</span>
+			</button>
+			<x-button type="button" wire:click="toggleSection">
+				Reset
+			</x-button>
+		</form>
+
+	@endif
 	@if($create)
 
-	<!-- Card Header -->
+		<!-- Card Header -->
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 			<h1 class="text-xl text-white font-semibold">{{$editEmployee ? 'Update Employee' : 'Add Employee'}}</h1>
 
@@ -201,44 +237,41 @@
 			<button type="submit"
 			        wire:loading.attr="disabled"
 			        class="mt-6 max-w-md bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 text-white">
-				<span wire:loading wire:target="updateProfile">Saving...</span>
-				<span wire:loading.remove wire:target="updateProfile">Submit</span>
+				<span wire:loading wire:target="store">Saving...</span>
+				<span wire:loading.remove wire:target="store">Submit</span>
 			</button>
 			<x-button type="button" wire:click="toggleSection">
 				Reset
 			</x-button>
 		</form>
 
+	@else
 
-
-		@else
-
-
-			<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
-				<h1 class="text-xl text-white font-semibold">Employee Management</h1>
-				<div>
-					<x-button wire:click="add">
-						Create Employee
-					</x-button>
-					<a href="{{ route('employee-card') }}" target="_blank"
-					   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-						Employee ID Cards
-					</a>
-				</div>
+		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
+			<h1 class="text-xl text-white font-semibold">Employee Management</h1>
+			<div>
+				<x-button wire:click="add">
+					Create Employee
+				</x-button>
+				<a href="{{ route('employee-card') }}" target="_blank"
+				   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+					Employee ID Cards
+				</a>
 			</div>
+		</div>
 
 
-			<!-- Card Body -->
-			<div class="mt-5 px-8">
-				<div class="flex justify-between">
-					<div class="p-4">
-						<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
-						       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
-					</div>
-
+		<!-- Card Body -->
+		<div class="mt-5 px-8">
+			<div class="flex justify-between">
+				<div class="p-4">
+					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
+					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
-				<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-					<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+
+			</div>
+			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 					<thead class="bg-gray-200">
 					<tr>
 						<th scope="col" class="border px-6 py-3">
@@ -255,123 +288,129 @@
 						</th>
 						<th scope="col" class="border px-6 py-3">
 							<div class="flex items-center">
-							Father Name
-							<x-sorting name="father_name"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Designation
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Contact #
-							<x-sorting name="contact_number"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							CNIC
-							<x-sorting name="nic"/>
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Card Status
-						</div>
-					</th>
-					<th scope="col" class="border px-6 py-3">
-						<div class="flex items-center">
-							Status
-						</div>
-					</th>
-					<th class="border px-4 py-2" width="150px">Action</th>
-				</tr>
-				</thead>
-				<tbody>
-				@forelse($employees as $employee)
-					<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
-						<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
-						<td class="border px-4 py-2">{{ $employee->full_name }}</td>
-						<td class="border px-4 py-2">{{ $employee->father_name }}</td>
-						<td class="border px-4 py-2">{{ $employee->designation }}</td>
-						<td class="border px-4 py-2">{{ $employee->contact_number }}</td>
-						<td class="border px-4 py-2">{{ $employee->nic }}</td>
-						<td class="border px-4 py-2">
-							@if ($employee->card_status)
-								<x-badge text="Printed" color="green"/>
-							@else
-								<x-badge text="Not Yet" color="indigo"/>
-							@endif
-						</td>
-						<td class="border px-4 py-2">
-							@if ($employee->status)
-								<x-badge text="Active" color="green"/>
-							@else
-								<x-badge text="De-Active" color="indigo"/>
-							@endif
-						</td>
-						<td class="border px-4 py-2">
-							<div class="flex h-full items-center">
-								<a target="_blank" href="{{ route('employee-card', ['id' => $employee->id]) }}"
-								   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
-									<i class="fas fa-credit-card"></i>
-								</a>
-
-								<x-button class="ml-3" wire:click="edit({{$employee->id}})" title="Edit Employee Form"
-								          wire:loading.attr="disabled">
-									<i class="fas fa-edit"></i>
-								</x-button>
+								Father Name
+								<x-sorting name="father_name"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Designation
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Contact #
+								<x-sorting name="contact_number"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								CNIC
+								<x-sorting name="nic"/>
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Card Status
+							</div>
+						</th>
+						<th scope="col" class="border px-6 py-3">
+							<div class="flex items-center">
+								Status
+							</div>
+						</th>
+						<th class="border px-4 py-2" width="150px">Action</th>
+					</tr>
+					</thead>
+					<tbody>
+					@forelse($employees as $employee)
+						<tr class="{{ $loop->even ? 'bg-gray-100' : 'bg-white' }}">
+							<td class="border px-4 py-2">{{ $loop->index + 1  }}</td>
+							<td class="border px-4 py-2">{{ $employee->full_name }}</td>
+							<td class="border px-4 py-2">{{ $employee->father_name }}</td>
+							<td class="border px-4 py-2">{{ $employee->designation }}</td>
+							<td class="border px-4 py-2">{{ $employee->contact_number }}</td>
+							<td class="border px-4 py-2">{{ $employee->nic }}</td>
+							<td class="border px-4 py-2">
+								@if ($employee->card_status)
+									<x-badge text="Printed" color="green"/>
+								@else
+									<x-badge text="Not Yet" color="indigo"/>
+								@endif
+							</td>
+							<td class="border px-4 py-2">
+								@if ($employee->status)
+									<x-badge text="Active" color="green"/>
+								@else
+									<x-badge text="De-Active" color="indigo"/>
+								@endif
+							</td>
+							<td class="border px-4 py-2">
+								<div class="flex h-full items-center">
+									<a target="_blank" href="{{ route('employee-card', ['id' => $employee->id]) }}"
+									   class="inline-block ml-2 px-3 text-white py-1 bg-indigo-500 rounded-lg hover:bg-indigo-700 transition duration-300">
+										<i class="fas fa-credit-card"></i>
+									</a>
 
 
-								<div x-data="{ showModal: false }">
+									<x-button class="ml-3" wire:click="sendingSMS({{$employee->id}})" title="Send SMS"
+									          wire:loading.attr="disabled">
+										<i class="fas fa-envelope"></i>
+									</x-button>
+
+									<x-button class="ml-3" wire:click="edit({{$employee->id}})" title="Edit Employee Form"
+									          wire:loading.attr="disabled">
+										<i class="fas fa-edit"></i>
+									</x-button>
 
 
-									<x-danger-button wire:click="changeStatus({{$employee->id}})" class="ml-3" @click="showModal = true">
-										<i class="fas fa-trash-alt"></i>
-									</x-danger-button>
+									<div x-data="{ showModal: false }">
 
-									<!-- Modal -->
-									<div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-										<div class="bg-white rounded shadow-lg w-80">
-											<div class="modal-header bg-indigo-600 text-white rounded-t">
-												<div class="flex items-center justify-between p-3">
-													<h5 class="text-lg font-semibold">Delete Employee</h5>
-													<button @click="showModal = false" class="text-white hover:text-gray-200">
-														<span>&times;</span>
+
+										<x-danger-button wire:click="changeStatus({{$employee->id}})" class="ml-3" @click="showModal = true">
+											<i class="fas fa-trash-alt"></i>
+										</x-danger-button>
+
+										<!-- Modal -->
+										<div x-show="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+											<div class="bg-white rounded shadow-lg w-80">
+												<div class="modal-header bg-indigo-600 text-white rounded-t">
+													<div class="flex items-center justify-between p-3">
+														<h5 class="text-lg font-semibold">Delete Employee</h5>
+														<button @click="showModal = false" class="text-white hover:text-gray-200">
+															<span>&times;</span>
+														</button>
+													</div>
+												</div>
+
+												<div class="modal-body p-4">
+													<p class="text-gray-700">Are you sure you want to delete this employee?</p>
+												</div>
+
+												<div class="modal-footer flex justify-end p-4 bg-gray-100 rounded-b">
+													<button @click="showModal = false"
+													        class="px-4 py-2 text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none">
+														Close
+													</button>
+													<button wire:click.prevent="deleteEmployee()" @click="showModal = false"
+													        class="ml-2 px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 focus:outline-none">
+														Yes, Proceed
 													</button>
 												</div>
-											</div>
-
-											<div class="modal-body p-4">
-												<p class="text-gray-700">Are you sure you want to delete this employee?</p>
-											</div>
-
-											<div class="modal-footer flex justify-end p-4 bg-gray-100 rounded-b">
-												<button @click="showModal = false"
-												        class="px-4 py-2 text-gray-600 bg-gray-200 rounded hover:bg-gray-300 focus:outline-none">
-													Close
-												</button>
-												<button wire:click.prevent="deleteEmployee()" @click="showModal = false"
-												        class="ml-2 px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600 focus:outline-none">
-													Yes, Proceed
-												</button>
 											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						</td>
-					</tr>
-				@empty
-					<tr>
-						<td class="border px-4 py-2" colspan="7">No Record Found.</td>
-					</tr>
-				@endforelse
-				</tbody>
-			</table>
-				</div>
+							</td>
+						</tr>
+					@empty
+						<tr>
+							<td class="border px-4 py-2" colspan="7">No Record Found.</td>
+						</tr>
+					@endforelse
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<!-- Card Footer -->
 		<div class="py-4 px-8">

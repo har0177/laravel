@@ -34,9 +34,9 @@
 						$phone = str_replace( '-', '', $phone );
 						$url = 'sendsms/url';
 						$params = [
-								'id'   => 'rchexpertxdev',
-								'pass' => 'BrandedSMS2',
-								'mask' => 'Xpertz-Dev',
+								'id'   => env( 'SMSID' ),
+								'pass' => env( 'SMSPASS' ),
+								'mask' => env( 'SMSMASK' ),
 								'to'   => $phone,
 								'lang' => 'English',
 								'msg'  => $message,
@@ -54,9 +54,9 @@
 				{
 						$url = 'sendsms/url';
 						$params = [
-								'id'   => 'rchexpertxdev',
-								'pass' => 'BrandedSMS2',
-								'mask' => 'Xpertz-Dev',
+								'id'   => env( 'SMSID' ),
+								'pass' => env( 'SMSPASS' ),
+								'mask' => env( 'SMSMASK' ),
 								'to'   => $to,//'92300xxxxxxx',
 								'lang' => 'English',
 								'msg'  => $message,
@@ -74,8 +74,8 @@
 				{
 						$url = 'balance/status';
 						$params = [
-								'id'   => 'rchexpertxdev',
-								'pass' => 'BrandedSMS2'
+								'id'   => env( 'SMSID' ),
+								'pass' => env( 'SMSPASS' ),
 						];
 						$response = $this->client->get( $url, $params );
 						if( $response->successful() ) {
@@ -89,8 +89,8 @@
 				{
 						$url = 'delivery/status';
 						$params = [
-								'id'   => 'rchexpertxdev',
-								'pass' => 'BrandedSMS2'
+								'id'   => env( 'SMSID' ),
+								'pass' => env( 'SMSPASS' ),
 						];
 						$response = $this->client->get( $url, $params );
 						if( $response->successful() ) {
