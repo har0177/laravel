@@ -1,5 +1,7 @@
 <?php
+		
 		namespace App\Livewire;
+		
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Helper\Common;
 		use App\Models\Application;
@@ -12,6 +14,7 @@
 		use Livewire\WithPagination;
 		class ApplicationList extends Component
 		{
+				
 				use WithPagination;
 				public    $paid;
 				public    $search;
@@ -32,7 +35,7 @@
 				public    $diplomaList        = [];
 				public    $sessionList        = [];
 				public    $sectionList        = [];
-				public    $quotaSearchList        = [];
+				public    $quotaSearchList    = [];
 				public    $admitStudent       = null;
 				public    $userId             = '';
 				public    $first_name         = '';
@@ -61,7 +64,7 @@
 				{
 						
 						$this->quotaSearchList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )
-						                                ->get();
+						                                 ->get();
 						$applications = Application::query()
 						                           ->when( $this->search, function( $query ) {
 								                           $query->where( function( $subQuery ) {
@@ -161,7 +164,14 @@
 				}
 				public function resetForm()
 				{
-						$this->reset( [ 'fee', 'description', 'quota', 'diploma_id', 'expiry_date' ] );
+						$this->reset( [
+								'reg_no',
+								'class_no',
+								'admission_date',
+								'diploma_id',
+								'session_id',
+								'section_id'
+						] );
 				}
 				public function add()
 				{
@@ -207,6 +217,7 @@
 								}
 								$this->applyPanel = false;
 								$this->toggleSection();
+								
 								return true;
 								
 						} catch ( \Exception $e ) {
@@ -219,6 +230,7 @@
 				{
 						if( $application->applications->count() > 0 ) {
 								session()->flash( 'error', 'Application has applications submitted, so can not be deleted.' );
+								
 								return true;
 						}
 						$application->delete();
@@ -231,4 +243,5 @@
 						}
 						$this->sortBy = $field;
 				}
+				
 		}

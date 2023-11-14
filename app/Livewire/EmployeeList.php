@@ -180,7 +180,7 @@
 				}
 				public function sendingSMS( Employee $employee )
 				{
-						$this->employeeContact = '03339471086'; //$employee->contact_number;
+						$this->employeeContact = $employee->contact_number;
 				}
 				
 				public function sendSMS()
