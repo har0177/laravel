@@ -53,9 +53,8 @@
 						$query = Employee::query();
 						$query->when( $this->search, function( $q ) {
 								return $q->where( function( $qq ) {
-										$qq->where( "full_name LIKE ?",
-												[ '%' . $this->search . '%' ] )
-										   ->orWhere( 'father_name', 'LIKE', '%' . $this->search . '%' )
+										$qq->where( "full_name",  'LIKE',  [ '%' . $this->search . '%' ] )
+										   ->orWhere( 'father_name',  'LIKE', '%' . $this->search . '%' )
 										   ->orWhere( 'nic', 'LIKE', '%' . $this->search . '%' )
 										   ->orWhere( 'personal_number', 'LIKE', '%' . $this->search . '%' )
 										   ->orWhere( 'contact_number', 'LIKE', '%' . $this->search . '%' );
