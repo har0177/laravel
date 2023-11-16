@@ -148,7 +148,6 @@
 								'phone'             => 'required|numeric|digits:11|unique:users,phone,' . $this->editUser,
 								'cnic'              => 'required|numeric|digits:13|unique:users,cnic,' . $this->editUser,
 								'address'           => 'required',
-								'father_name'       => 'required',
 								'father_contact'    => 'required',
 								'gender_id'         => 'required',
 								'district_id'       => 'required',

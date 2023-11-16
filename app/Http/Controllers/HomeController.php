@@ -2,6 +2,7 @@
 		
 		namespace App\Http\Controllers;
 		
+		use App\Enums\ReligionEnum;
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Mail\ContactFormMail;
 		use App\Models\Application;
@@ -13,10 +14,115 @@
 		use App\Models\Project;
 		use App\Models\Taxonomy;
 		use App\Models\User;
+		use Carbon\Carbon;
 		use Illuminate\Http\Request;
+		use Illuminate\Support\Facades\DB;
+		use Illuminate\Support\Facades\Hash;
 		use Illuminate\Support\Facades\Mail;
+		use Illuminate\Support\Facades\Session;
 		class HomeController extends Controller
 		{
+				
+				public function addStudentInfo()
+				{
+						$diplomaList = Taxonomy::whereType( TaxonomyTypeEnum::DIPLOMA )->get();
+						$genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
+						$provinceList = Taxonomy::whereType( TaxonomyTypeEnum::PROVINCE )->get();
+						$bloodGroupList = Taxonomy::whereType( TaxonomyTypeEnum::BLOODGROUP )->get();
+						$districtList = Taxonomy::whereType( TaxonomyTypeEnum::DISTRICT )->get();
+						$religionList = ReligionEnum::cases();
+						$sessionList = Taxonomy::whereType( TaxonomyTypeEnum::SESSION )->orderByDesc( 'id' )->get();
+						$sectionList = Taxonomy::whereType( TaxonomyTypeEnum::SECTION )->get();
+						
+						return view( 'add-student-info', compact(
+								'diplomaList',
+								'genderList',
+								'provinceList',
+								'bloodGroupList',
+								'districtList',
+								'religionList',
+								'sessionList',
+								'sectionList' ) );
+				}
+				
+				public function saveStudentInfo( Request $request )
+				{
+						
+						$request->validate( [
+								'first_name'        => 'required|min:2|max:50',
+								'last_name'         => 'required|min:2|max:50',
+								'email'             => 'email|unique:users',
+								'username'          => 'required|max:8|unique:users',
+								'phone'             => 'required|numeric|digits:11|unique:users',
+								'cnic'              => 'required|numeric|digits:13|unique:users',
+								'address'           => 'required',
+								'father_name'       => 'required',
+								'father_contact'    => 'required',
+								'gender_id'         => 'required',
+								'district_id'       => 'required',
+								'province_id'       => 'required',
+								'blood_group_id'    => 'required',
+								'religion'          => 'required',
+								'emergency_contact' => 'required',
+								'password'          => 'required|min:5',
+								'image'             => 'required',
+								'class_no'          => 'required',
+								'dob'               => 'required',
+								'reg_no'            => 'required|unique:students',
+								'diploma_id'        => 'required',
+								'section_id'        => 'required',
+								'session_id'        => 'required',
+						] );
+						try {
+								DB::beginTransaction();
+								$user = User::create( [
+										'username'   => $request->username,
+										'first_name' => $request->first_name,
+										'last_name'  => $request->last_name,
+										'email'      => $request->email,
+										'cnic'       => $request->cnic,
+										'phone'      => $request->phone,
+										'password'   => Hash::make( $request->password ),
+										'role_id'    => User::ROLE_STUDENT
+								] );
+								$studentData = [
+										'gender_id'         => $request->gender_id,
+										'father_name'       => $request->father_name,
+										'father_contact'    => $request->father_contact,
+										'dob'               => $request->dob,
+										'blood_group_id'    => $request->blood_group_id,
+										'address'           => $request->address,
+										'postal_address'    => $request->postal_address,
+										'district_id'       => $request->district_id,
+										'province_id'       => $request->province_id,
+										'emergency_contact' => $request->emergency_contact,
+										'religion'          => $request->religion,
+										'reg_no'            => $request->reg_no,
+										'class_no'          => $request->class_no,
+										'diploma_id'        => $request->diploma_id,
+										'session_id'        => $request->session_id,
+										'section_id'        => $request->section_id,
+										'admission_date'    => Carbon::make( '2023-10-01' ),
+										'status'            => 'Active',
+										'profile_status'    => 1,
+								];
+								$user->student()->updateOrCreate( [], $studentData );
+								if( $request->image ) {
+										$user->clearMediaCollection( 'avatars' );
+										$user->addMedia( $request->image )->toMediaCollection( 'avatars' );
+								}
+								DB::commit();
+								Session::put( 'user-host', gethostname() );
+								session()->flash( 'success', 'UserInfo added successfully.' );
+						} catch ( \Exception $e ) {
+								DB::rollback();
+								session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
+						}
+						
+						return redirect( route( 'add-student-info' ) );
+						
+				}
+				
 				
 				public function redirects()
 				{
