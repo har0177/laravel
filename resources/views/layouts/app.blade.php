@@ -132,6 +132,12 @@
 							                       href="{{ route('students') }}"> Students
 							</x-responsive-nav-link>
 						</li>
+                            <li class="border-b border-white">
+
+                                <x-responsive-nav-link style="white-space: nowrap;" wire:navigate :active="request()->routeIs('send-sms')"
+                                                       href="{{ route('send-sms') }}"> SMS Module
+                                </x-responsive-nav-link>
+                            </li>
 					@endcan
 
 					@can('manage employees')
