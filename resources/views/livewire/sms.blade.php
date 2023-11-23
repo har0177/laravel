@@ -9,7 +9,15 @@
 
     <div class="bg-indigo-500 py-4 px-6 flex items-center justify-between">
         <h1 class="text-xl text-white font-semibold">SMS Management</h1>
-
+        <div class="card-header border-bottom p-1">
+            <div class="head-label text-white" style="display: inline-flex">
+                @foreach(simplexml_load_string($balance) as $data)
+                    @if($data->response > 0)
+                        <p>(Balance: {{$data->response}} - Expiry: {{$data->expiry}})</p> &nbsp;
+                    @endif
+                @endforeach
+            </div>
+        </div>
     </div>
 
     <!-- Card Body -->

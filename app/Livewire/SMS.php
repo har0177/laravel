@@ -15,7 +15,10 @@ class SMS extends Component
 
     public function render()
     {
-        return view('livewire.sms');
+
+        $sms = new SmsService();
+        $balance = $sms->checkRemainingSMS()->body();
+        return view('livewire.sms', ['balance' => $balance]);
     }
 
     public function sendSMS()
