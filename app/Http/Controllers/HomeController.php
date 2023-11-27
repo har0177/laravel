@@ -230,17 +230,24 @@ class HomeController extends Controller
 
     public function studentCard(Request $request)
     {
-
-        $students = User::with('student')->whereHas('student', function ($q) {
-            $q->whereNotNull('diploma_id')->where('status', 'Active')->where('card_status', 0);
+        $students = User::with('student')->whereHas('student', function ($q) use ($request) {
+            $q->whereNotNull('diploma_id')
+                ->where('status', 'Active')
+                ->where('card_status', 0)
+                ->when($request->diploma_id, function ($qq) use ($request) {
+                    $qq->whereIn('diploma_id', $request->diploma_id);
+                });
         });
+
         if ($request->id) {
             $students->where('id', $request->id);
         }
+
         $students = $students->get();
 
         return view('student-card', compact('students'));
     }
+
 
     public function employeeCard(Request $request)
     {
