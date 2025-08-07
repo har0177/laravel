@@ -138,6 +138,7 @@
 						}
 				}
 
+                
 				public function updateProfile()
 				{
 						$validateRules = [
