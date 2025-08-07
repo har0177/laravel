@@ -46,12 +46,31 @@
          font-size: 18px;
          font-weight: bolder;
      }
+     
+     .expiry {
+            position: absolute;
+    margin-top: -20%;
+    left: 30%;
+    color: red;
+    font-size: 16px;
+    font-weight: bolder;
+     }
 
      .designation {
 
          position: absolute;
          margin-top: -12%;
          left: 18%;
+         color: darkblue;
+         font-size: 12px;
+         font-weight: bolder;
+     }
+     
+      .bps1 {
+
+         position: absolute;
+         margin-top: -11%;
+         left: 20%;
          color: darkblue;
          font-size: 12px;
          font-weight: bolder;
@@ -143,15 +162,15 @@
      }
 
 
-     .image2 {
 
-         position: absolute;
-         margin-top: 18.5%;
-         left: 7%;
-         height: 60px;
-         width: 65px;
-     }
+        .image2 {
 
+            position: absolute;
+            margin-top: 20%;
+            left: 8%;
+            width: 65px;
+            height: 20px;
+        }
 
 	</style>
 	<!-- Link to your CSS file -->
@@ -173,7 +192,10 @@
 				<img class="image2" src="{{asset('sign.png')}}">
 				<p class="name">{{ucwords(strtoupper($employee->full_name))}}</p>
 				<p class="designation">{{ucwords(strtoupper($employee->designation))}}</p>
-				<p class="personal">{{$employee->personal_number}}</p>
+				<p class="expiry">Valid Upto: 31-12-2024</p>
+
+		<p class="bps1">BS-{{$employee->bps}}</p>
+		<p class="personal">{{$employee->personal_number}}</p>
 				<p class="phone">{{$employee->contact_number}}</p>
 				<p class="fname">{{ucfirst($employee->father_name)}}</p>
 				<p class="nic">{{$employee->nic}}</p>

@@ -50,7 +50,7 @@
 								}
 						}
 						$this->quotaList = Taxonomy::whereType( TaxonomyTypeEnum::QUOTA )
-						                           ->where( 'id', '!=', 33 )
+						                           //->where( 'id', '!=', 33 )
 						                           ->get();
 				}
 				public function render()

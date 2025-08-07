@@ -56,7 +56,7 @@ class Merit extends Component
     // Get the list of user IDs based on the specified quota.
     $userIds = Application::whereJsonContains( 'quota', $quota )
                           ->where( 'project_id', $this->project )
-      //->where( 'status', 'Paid' )
+      ->where( 'status', 'Paid' )
                           ->pluck( 'user_id' )
                           ->toArray();
     
@@ -84,7 +84,7 @@ class Merit extends Component
                      ->values()
                      ->all();
     
-    // MeritList::where( 'quota_id', $quota->id )->delete();
+    //MeritList::where( 'quota_id', $quota )->where( 'project_id', $this->project )->delete();
     foreach( $usersList as $key => $user ) {
       
       MeritList::updateOrCreate(
@@ -129,7 +129,7 @@ class Merit extends Component
                        ->values()
                        ->all();
       
-      //MeritList::where( 'district_id', $district->id )->delete();
+      //MeritList::where( 'district_id', $district->id )->where( 'project_id', $this->project )->delete();
       foreach( $usersList as $key => $user ) {
         MeritList::updateOrCreate(
           [
@@ -150,7 +150,7 @@ class Merit extends Component
       // Get the list of user IDs based on the specified quota.
       $userIds = Application::whereJsonContains( 'quota', (string) $quota->id )
                             ->where( 'project_id', $this->project )
-        //->where( 'status', 'Paid' )
+        ->where( 'status', 'Paid' )
                             ->pluck( 'user_id' )
                             ->toArray();
       
@@ -178,7 +178,7 @@ class Merit extends Component
                        ->values()
                        ->all();
       
-      // MeritList::where( 'quota_id', $quota->id )->delete();
+       //MeritList::where( 'quota_id', $quota->id )->where( 'project_id', $this->project )->delete();
       foreach( $usersList as $key => $user ) {
         
         MeritList::updateOrCreate(

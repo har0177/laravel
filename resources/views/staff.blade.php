@@ -56,7 +56,6 @@
 
 @include('navbar')
 <div class="container-fluid pt-2">
-
 	<div class="row">
 		@foreach($staff as $st)
 			<div class="col-md-4">

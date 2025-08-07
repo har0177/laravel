@@ -79,7 +79,7 @@
 					</div>
 					<div class="card-body">
 						<div class="message-container">
-							<img src="{{asset('secretary.jpeg')}}" alt="Secretary" width="120px">
+							<img src="{{asset('secretary.jpg')}}" alt="Secretary" width="120px">
 							<p class="justify">
 								Indeed it is a great honor and privileged for me to share few words.
 								Agriculture employing above 40 percent of the labour force and contributing
@@ -114,7 +114,7 @@
 					</div>
 					<div class="card-body">
 						<div class="message-container">
-							<img src="{{asset('dg.jpg')}}" alt="Principal" width="120px">
+							<img src="{{asset('director.jpg')}}" alt="Director General" width="120px">
 							<p class=" justify">
 								It is not an exaggeration to say that agriculture is the oldest profession in the world.The human life
 								purely depends on Agriculture. Besides provision of food for human beings, our Agro-based industries
@@ -149,7 +149,7 @@
 
 			<div class="card">
 				<div class="card-header">
-					<h4 class="card-title">Principal's Message</h4>
+					<h4 class="card-title">Director General (ASA) Message</h4>
 				</div>
 				<div class="card-body">
 					<div class="message-container">
@@ -163,7 +163,7 @@
 							poverty which are mother of all evils.
 							Each Extension Worker have massive responsibility to adopt the four paradigms to cope with the
 							global challenge of food insecurity.
-						<ul>
+						<ul style="margin-right: 50px">
 							<li>Technology Transfer (persuasive + paternalistic).</li>
 							<li>Advisory work (persuasive + participatory).</li>
 							<li>Human resource development (educational + paternalistic).</li>

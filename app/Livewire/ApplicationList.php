@@ -80,10 +80,11 @@
 						                           ->when( $this->quota_search, function( $query ) {
 								                           $query->whereJsonContains( 'quota', $this->quota_search );
 						                           } )
+						                       ->whereYear('created_at', Carbon::now()->year)
 						                           ->orderBy( $this->sortBy, $this->sortAsc ? 'ASC' : 'DESC' )
-						                           ->take( 50 ) // Limit the query to retrieve only the latest 50 records
+						                           //->take( 50 ) // Limit the query to retrieve only the latest 50 records
 						                           ->get(); // Retrieve all 50 records
-						$applications = Common::showPerPage( 10, $applications );
+						$applications = Common::showPerPage( 20, $applications );
 						
 						return view( 'livewire.applications', compact( 'applications' ) );
 				}

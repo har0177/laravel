@@ -86,3 +86,9 @@ Route::middleware([
 
 });
 
+
+Route::get('/linkstorage', function () {
+    Artisan::call('storage:link');
+    dd('done');
+});
+

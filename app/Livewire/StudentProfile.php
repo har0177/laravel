@@ -102,7 +102,7 @@
 				public function birthValidation()
 				{
 						$dob = Carbon::parse( $this->dob );
-						$minAge = 14;
+						$minAge = 20;
 						if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
 								$this->addError( 'dob', "You must be at least $minAge years old." );
 						}
@@ -115,7 +115,7 @@
 						}
 						$validate = $this->validate();
 						$dob = Carbon::parse( $this->dob );
-						$minAge = 15;
+						$minAge = 20;
 						if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
 								$this->addError( 'dob', "You must be at least $minAge years old." );
 								return;
@@ -154,9 +154,9 @@
 								return $this->redirect( '/education', navigate: true );
 						} catch ( \Exception $e ) {
 								session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
-								
+
 						}
-						
+
 				}
 				protected function rules()
 				{

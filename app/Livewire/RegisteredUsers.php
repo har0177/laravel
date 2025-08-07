@@ -1,7 +1,7 @@
 <?php
-		
+
 		namespace App\Livewire;
-		
+
 		use App\Enums\ReligionEnum;
 		use App\Enums\TaxonomyTypeEnum;
 		use App\Helper\Common;
@@ -15,7 +15,7 @@
 		use Livewire\WithPagination;
 		class RegisteredUsers extends Component
 		{
-				
+
 				use WithPagination;
 				use WithFileUploads;
 				public $search;
@@ -23,14 +23,14 @@
 				public $sortAsc  = true;
 				public $create   = false;
 				public $editUser = null;
-				
+
 				protected $queryString = [
 						'search',
 						'sortBy' => [ 'except' => 'id' ],
 						'sortAsc',
 						'editUser'
 				];
-				
+
 				public $first_name        = '';
 				public $last_name         = '';
 				public $email             = '';
@@ -61,9 +61,9 @@
 				public $religionList      = [];
 				public $hostel            = 0;
 				public $hifz_marks        = 0;
-				
+
 				public $errorMessage;
-				
+
 				protected function rules()
 				{
 						return [
@@ -75,12 +75,12 @@
 								'cnic'       => 'required|numeric|digits:13|unique:users,cnic,' . $this->userId
 						];
 				}
-				
+
 				public function mount()
 				{
 						$this->loadTaxonomies();
 				}
-				
+
 				private function loadTaxonomies()
 				{
 						$this->genderList = Taxonomy::whereType( TaxonomyTypeEnum::GENDER )->get();
@@ -90,7 +90,7 @@
 								$this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
 						$this->religionList = ReligionEnum::cases();
 				}
-				
+
 				public function render()
 				{
 						$query = User::with( 'student' )->where( 'role_id', User::ROLE_STUDENT );
@@ -112,32 +112,32 @@
 						} )->take( 50 ) // Limit the query to retrieve only the latest 50 records
 						               ->get(); // Retrieve all 50 records
 						$users = Common::showPerPage( 10, $users );
-						
+
 						return view( 'livewire.registeredUsers', [
 								'users' => $users
 						] );
 				}
-				
+
 				public function add()
 				{
 						$this->create = true;
 				}
-				
+
 				public function updateDistrict()
 				{
 						$this->districtList = Taxonomy::where( 'parent_id',
 								$this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
 				}
-				
+
 				public function birthValidation()
 				{
 						$dob = Carbon::parse( $this->dob );
-						$minAge = 15;
+						$minAge = 20;
 						if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
 								$this->addError( 'dob', "You must be at least $minAge years old." );
 						}
 				}
-				
+
 				public function updateProfile()
 				{
 						$validateRules = [
@@ -205,7 +205,7 @@
 								session()->flash( 'error', 'An error occurred: ' . $e->getMessage() );
 						}
 				}
-				
+
 				public function edit( $id )
 				{
 						$student = User::with( 'student' )->findOrFail( $id );
@@ -237,7 +237,7 @@
 						$this->loadTaxonomies();
 						$this->create = true;
 				}
-				
+
 				public function toggleSection()
 				{
 						$this->create = false;
@@ -245,7 +245,7 @@
 						$this->resetForm();
 						$this->resetPage();
 				}
-				
+
 				public function resetForm()
 				{
 						$this->reset( [
@@ -277,13 +277,13 @@
 								'profile_status'
 						] );
 				}
-				
+
 				public function deleteUser( User $user )
 				{
 						$user->delete();
 						session()->flash( 'success', 'User Deleted Successfully.' );
 				}
-				
+
 				public function sortField( $field )
 				{
 						if( $field === $this->sortBy ) {
@@ -291,5 +291,5 @@
 						}
 						$this->sortBy = $field;
 				}
-				
+
 		}

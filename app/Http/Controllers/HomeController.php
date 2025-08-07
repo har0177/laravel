@@ -175,10 +175,10 @@ class HomeController extends Controller
         })->count();
         $users = User::where('role_id', User::ROLE_STUDENT)->whereHas('student', function ($q) {
             $q->where('status', 'Pending');
-        })->count();
-        $applications = Application::whereHas('project', function ($q) {
-            $q->where('expiry_date', '>', now());
-        })->count();
+        })->whereYear('created_at', Carbon::now()->year)->count();
+       $applications = Application::whereHas('project', function ($query) {
+    $query->where('expiry_date', '>', now());
+}) ->whereYear('created_at', Carbon::now()->year)->count();
         $projects = Project::where('expiry_date', '>', now())->count();
 
         return view('dashboard', compact('students', 'applications', 'users', 'projects'));
@@ -234,8 +234,8 @@ class HomeController extends Controller
             $q->whereNotNull('diploma_id')
                 ->where('status', 'Active')
                 ->where('card_status', 0)
-                ->when($request->diploma_id, function ($qq) use ($request) {
-                    $qq->whereIn('diploma_id', $request->diploma_id);
+                ->when($request->section, function ($qq) use ($request) {
+                    $qq->whereIn('section_id', $request->section);
                 });
         });
 
@@ -265,8 +265,7 @@ class HomeController extends Controller
         $user = auth()->user();
         if ($user->role_id !== User::ROLE_STUDENT) {
             $user = User::find($application->user_id);
-        }
-        if ($application->user_id !== $user->id) {
+        }elseif ($application->user_id !== $user->id) {
             return redirect()->back();
         }
 
