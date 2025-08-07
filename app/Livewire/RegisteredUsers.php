@@ -132,7 +132,7 @@
 				public function birthValidation()
 				{
 						$dob = Carbon::parse( $this->dob );
-						$minAge = 20;
+						$minAge = 15;
 						if( $dob->addYears( $minAge )->isAfter( Carbon::now() ) ) {
 								$this->addError( 'dob', "You must be at least $minAge years old." );
 						}
