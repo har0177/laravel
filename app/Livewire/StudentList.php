@@ -170,12 +170,17 @@ class StudentList extends Component
     public function birthValidation()
     {
         $dob = Carbon::parse($this->dob);
+        $minAge = 20;
+
+        // Calculate age
         $age = $dob->diffInYears(Carbon::now());
 
-        if ($age > 20) {
-            $this->addError('dob', "You must be 20 years old or younger to apply.");
+        // Reject if older than 20
+        if ($age > $minAge) {
+            $this->addError('dob', "You must be $minAge years old or younger.");
         }
     }
+
 
     public function updateProfile()
     {
