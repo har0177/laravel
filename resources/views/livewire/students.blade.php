@@ -286,7 +286,7 @@
 
                 <div>
                     <label for="dob" class="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
-                    <input id="dob" name="dob" type="date" wire:model.lazy="dob" wire:change="birthValidation"
+                    <input id="dob" name="dob" type="date" wire:model.lazy="dob"
                            class="appearance-none rounded-md block w-full px-3 py-2 border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @error('dob')
                     <span class="text-red-600 text-sm">{{ $message }}</span>

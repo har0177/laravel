@@ -100,20 +100,6 @@ class StudentProfile extends Component
             $this->province_id )->whereType( TaxonomyTypeEnum::DISTRICT )->get();
     }
 
-    public function birthValidation()
-    {
-        $dob = Carbon::parse($this->dob);
-        $minAge = 20;
-
-        // Calculate age
-        $age = $dob->diffInYears(Carbon::now());
-
-        // Reject if older than 20
-        if ($age > $minAge) {
-            $this->addError('dob', "You must be $minAge years old or younger.");
-        }
-    }
-
 
     public function updateProfile()
     {
@@ -124,7 +110,6 @@ class StudentProfile extends Component
 
         $validate = $this->validate();
 
-        $this->birthValidation( $this->dob );
 
         $validate['email'] = $this->email;
 
