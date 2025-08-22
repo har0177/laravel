@@ -177,6 +177,12 @@
 
 		<div class="bg-indigo-600 py-4 px-6 flex items-center justify-between">
 			<h1 class="text-xl text-white font-semibold">Applications Management</h1>
+            <div class="flex justify-end mb-4">
+                <button wire:click="export"
+                        class="bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg text-sm px-4 py-2">
+                    <i class="fas fa-file-excel"></i> Export Excel
+                </button>
+            </div>
 		</div>
 		<!-- Card Body -->
 		<div class="mt-5 px-8">
@@ -186,6 +192,22 @@
 					<input type="search" wire:model.live.debounce.500ms="search" placeholder="Search"
 					       class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"/>
 				</div>
+                <div class="p-4">
+
+                    <label for="diploma_search" class="block text-sm font-medium text-gray-700 mb-1">Search By
+                        Diploma</label>
+                    <div class="diploma_search">
+                        <select name="diploma_search" id="diploma_search"
+                                wire:change="loadSections"
+                                wire:model.live="diploma_search"
+                                class=" block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                            <option value="">Select Diploma</option>
+                            @foreach($diplomaList as $list)
+                                <option value="{{$list->id}}">{{$list->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
 				<div class="p-4">
 
 					<label for="quota_search" class="block text-sm font-medium text-gray-700 mb-1">Search By Quota</label>
@@ -202,7 +224,8 @@
 				<div class="mr-2 mt-8">
 					<input type="checkbox" class="mr-2 leading-tight" wire:model.live="paid"/> Payment Paid Only ?
 				</div>
-			</div>
+
+            </div>
 			<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 				<table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
 					<thead class="bg-gray-200">

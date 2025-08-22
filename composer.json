@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.8",
         "laravelcollective/html": "^6.4",
         "livewire/livewire": "^3.0@beta",
+        "maatwebsite/excel": "^3.1",
         "plank/laravel-metable": "^5.4",
         "spatie/laravel-medialibrary": "^10.0.0"
     },
