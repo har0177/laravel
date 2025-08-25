@@ -74,7 +74,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Karachi', // or your actual timezone
 
     /*
     |--------------------------------------------------------------------------
